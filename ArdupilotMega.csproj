@@ -132,6 +132,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="DirectShowLib-2005">
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\DirectShowLib-2005.dll</HintPath>
     </Reference>
     <Reference Include="Eto">
       <HintPath>..\..\..\..\..\Desktop\DIYDrones\Eto\BuildOutput\Debug\Eto.dll</HintPath>
@@ -149,9 +150,11 @@
       <HintPath>..\..\..\..\..\Desktop\DIYDrones\Eto\BuildOutput\Debug\Eto.Platform.Windows.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\SharpZipLib\net-20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="IronPython, Version=2.7.0.40, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\IronPython-2.7.3\IronPython.dll</HintPath>
     </Reference>
     <Reference Include="IronPython.Modules, Version=2.7.0.40, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -173,6 +176,7 @@
     </Reference>
     <Reference Include="Microsoft.Scripting, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\IronPython-2.7.3\Microsoft.Scripting.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Scripting.Core">
     </Reference>
