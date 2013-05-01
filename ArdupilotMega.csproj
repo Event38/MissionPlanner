@@ -206,7 +206,7 @@
     <Reference Include="px4uploader, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <ExecutableExtension>.exe</ExecutableExtension>
-      <HintPath>..\..\px4uploader\bin\Release\px4uploader.exe</HintPath>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\px4uploader.exe</HintPath>
     </Reference>
     <Reference Include="System">
       <Private>False</Private>
