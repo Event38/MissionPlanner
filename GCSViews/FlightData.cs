@@ -1765,10 +1765,10 @@ namespace ArdupilotMega.GCSViews
                     //  tabStatus.Controls.Remove(temp);
                 }
 
-                if (tabControl1.SelectedTab == tabQuick)
-                {
+                //if (tabControl1.SelectedTab == tabQuick)
+                //{
 
-                }
+                //}
             }
 
         }
@@ -2558,16 +2558,16 @@ print 'Roll complete'
             }
         }
 
-        private void tabQuick_Resize(object sender, EventArgs e)
-        {
-            int height = ((Control)sender).Height / 6;
-            quickView1.Size = new System.Drawing.Size(tabQuick.Width, height);
-            quickView2.Size = new System.Drawing.Size(tabQuick.Width, height);
-            quickView3.Size = new System.Drawing.Size(tabQuick.Width, height);
-            quickView4.Size = new System.Drawing.Size(tabQuick.Width, height);
-            quickView5.Size = new System.Drawing.Size(tabQuick.Width, height);
-            quickView6.Size = new System.Drawing.Size(tabQuick.Width, height);
-        }
+        //private void tabQuick_Resize(object sender, EventArgs e)
+        //{
+        //    int height = ((Control)sender).Height / 6;
+        //    quickView1.Size = new System.Drawing.Size(tabQuick.Width, height);
+        //    quickView2.Size = new System.Drawing.Size(tabQuick.Width, height);
+        //    quickView3.Size = new System.Drawing.Size(tabQuick.Width, height);
+        //    quickView4.Size = new System.Drawing.Size(tabQuick.Width, height);
+        //    quickView5.Size = new System.Drawing.Size(tabQuick.Width, height);
+        //    quickView6.Size = new System.Drawing.Size(tabQuick.Width, height);
+        //}
 
         private void hud1_Resize(object sender, EventArgs e)
         {

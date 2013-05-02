@@ -87,6 +87,12 @@
             this.splitter1 = new BSE.Windows.Forms.Splitter();
             this.BUT_Add = new ArdupilotMega.Controls.MyButton();
             this.panelAction = new BSE.Windows.Forms.Panel();
+            this.Panel_menu = new System.Windows.Forms.Panel();
+            this.bt_ActionClearPolygon = new ArdupilotMega.Controls.MyButton();
+            this.bt_ActionAddPolygon = new ArdupilotMega.Controls.MyButton();
+            this.bt_ActionReversWPs = new ArdupilotMega.Controls.MyButton();
+            this.bt_ActionGrid = new ArdupilotMega.Controls.MyButton();
+            this.bt_ActionCamera = new ArdupilotMega.Controls.MyButton();
             this.comboBoxMapType = new System.Windows.Forms.ComboBox();
             this.panelMap = new System.Windows.Forms.Panel();
             this.lbl_distance = new System.Windows.Forms.Label();
@@ -152,6 +158,7 @@
             this.panel2.SuspendLayout();
             this.panelWaypoints.SuspendLayout();
             this.panelAction.SuspendLayout();
+            this.Panel_menu.SuspendLayout();
             this.panelMap.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -528,10 +535,7 @@
             resources.ApplyResources(this.panelWaypoints, "panelWaypoints");
             this.panelWaypoints.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panelWaypoints.Image = null;
-            this.panelWaypoints.LinearGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            this.panelWaypoints.MinimumSize = new System.Drawing.Size(21, 21);
             this.panelWaypoints.Name = "panelWaypoints";
-            this.panelWaypoints.PanelStyle = BSE.Windows.Forms.PanelStyle.Default;
             this.panelWaypoints.ShowExpandIcon = true;
             this.panelWaypoints.ToolTipTextCloseIcon = null;
             this.panelWaypoints.ToolTipTextExpandIconPanelCollapsed = null;
@@ -559,6 +563,7 @@
             this.panelAction.CaptionFont = new System.Drawing.Font("Segoe UI", 11.75F, System.Drawing.FontStyle.Bold);
             this.panelAction.CaptionHeight = 21;
             this.panelAction.ColorScheme = BSE.Windows.Forms.ColorScheme.Custom;
+            this.panelAction.Controls.Add(this.Panel_menu);
             this.panelAction.Controls.Add(this.panel5);
             this.panelAction.Controls.Add(this.panel1);
             this.panelAction.Controls.Add(this.panel2);
@@ -580,15 +585,57 @@
             resources.ApplyResources(this.panelAction, "panelAction");
             this.panelAction.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panelAction.Image = null;
-            this.panelAction.LinearGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            this.panelAction.MinimumSize = new System.Drawing.Size(21, 21);
             this.panelAction.Name = "panelAction";
-            this.panelAction.PanelStyle = BSE.Windows.Forms.PanelStyle.Default;
             this.panelAction.ShowExpandIcon = true;
             this.panelAction.ToolTipTextCloseIcon = null;
             this.panelAction.ToolTipTextExpandIconPanelCollapsed = null;
             this.panelAction.ToolTipTextExpandIconPanelExpanded = null;
-          // 
+            // 
+            // Panel_menu
+            // 
+            this.Panel_menu.Controls.Add(this.bt_ActionClearPolygon);
+            this.Panel_menu.Controls.Add(this.bt_ActionAddPolygon);
+            this.Panel_menu.Controls.Add(this.bt_ActionReversWPs);
+            this.Panel_menu.Controls.Add(this.bt_ActionGrid);
+            this.Panel_menu.Controls.Add(this.bt_ActionCamera);
+            resources.ApplyResources(this.Panel_menu, "Panel_menu");
+            this.Panel_menu.Name = "Panel_menu";
+            // 
+            // bt_ActionClearPolygon
+            // 
+            resources.ApplyResources(this.bt_ActionClearPolygon, "bt_ActionClearPolygon");
+            this.bt_ActionClearPolygon.Name = "bt_ActionClearPolygon";
+            this.bt_ActionClearPolygon.UseVisualStyleBackColor = true;
+            this.bt_ActionClearPolygon.Click += new System.EventHandler(this.clearPolygonToolStripMenuItem_Click);
+            // 
+            // bt_ActionAddPolygon
+            // 
+            resources.ApplyResources(this.bt_ActionAddPolygon, "bt_ActionAddPolygon");
+            this.bt_ActionAddPolygon.Name = "bt_ActionAddPolygon";
+            this.bt_ActionAddPolygon.UseVisualStyleBackColor = true;
+            this.bt_ActionAddPolygon.Click += new System.EventHandler(this.bt_ActionAddPolygon_Click);
+            // 
+            // bt_ActionReversWPs
+            // 
+            resources.ApplyResources(this.bt_ActionReversWPs, "bt_ActionReversWPs");
+            this.bt_ActionReversWPs.Name = "bt_ActionReversWPs";
+            this.bt_ActionReversWPs.UseVisualStyleBackColor = true;
+            this.bt_ActionReversWPs.Click += new System.EventHandler(this.reverseWPsToolStripMenuItem_Click);
+            // 
+            // bt_ActionGrid
+            // 
+            resources.ApplyResources(this.bt_ActionGrid, "bt_ActionGrid");
+            this.bt_ActionGrid.Name = "bt_ActionGrid";
+            this.bt_ActionGrid.UseVisualStyleBackColor = true;
+            this.bt_ActionGrid.Click += new System.EventHandler(this.gridToolStripMenuItem_Click);
+            // 
+            // bt_ActionCamera
+            // 
+            resources.ApplyResources(this.bt_ActionCamera, "bt_ActionCamera");
+            this.bt_ActionCamera.Name = "bt_ActionCamera";
+            this.bt_ActionCamera.UseVisualStyleBackColor = true;
+            this.bt_ActionCamera.Click += new System.EventHandler(this.cameraToolStripMenuItem_Click);
+            // 
             // comboBoxMapType
             // 
             resources.ApplyResources(this.comboBoxMapType, "comboBoxMapType");
@@ -607,7 +654,6 @@
             this.panelMap.Controls.Add(this.label11);
             resources.ApplyResources(this.panelMap, "panelMap");
             this.panelMap.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.panelMap.MinimumSize = new System.Drawing.Size(27, 27);
             this.panelMap.Name = "panelMap";
             this.panelMap.Resize += new System.EventHandler(this.panelMap_Resize);
             // 
@@ -1034,6 +1080,7 @@
             this.panelWaypoints.PerformLayout();
             this.panelAction.ResumeLayout(false);
             this.panelAction.PerformLayout();
+            this.Panel_menu.ResumeLayout(false);
             this.panelMap.ResumeLayout(false);
             this.panelMap.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -1152,5 +1199,11 @@
         private System.Windows.Forms.DataGridViewImageColumn Up;
         private System.Windows.Forms.DataGridViewImageColumn Down;
         private System.Windows.Forms.ToolStripMenuItem areaToolStripMenuItem;
+        private System.Windows.Forms.Panel Panel_menu;
+        private Controls.MyButton bt_ActionCamera;
+        private Controls.MyButton bt_ActionReversWPs;
+        private Controls.MyButton bt_ActionGrid;
+        private Controls.MyButton bt_ActionClearPolygon;
+        private Controls.MyButton bt_ActionAddPolygon;
     }
 }

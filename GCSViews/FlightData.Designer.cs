@@ -27,7 +27,7 @@
             this.userItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabQuick = new System.Windows.Forms.TabPage();
+            //this.tabQuick = new System.Windows.Forms.TabPage();
             this.quickView6 = new ArdupilotMega.Controls.QuickView();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.quickView5 = new ArdupilotMega.Controls.QuickView();
@@ -110,7 +110,7 @@
             this.contextMenuStripHud.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.tabControl1.SuspendLayout();
-            this.tabQuick.SuspendLayout();
+            //this.tabQuick.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.tabActions.SuspendLayout();
             this.tabGauges.SuspendLayout();
@@ -313,7 +313,7 @@
             this.bindingSourceHud.DataSource = typeof(ArdupilotMega.CurrentState);
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabQuick);
+            //this.tabControl1.Controls.Add(this.tabQuick);
             this.tabControl1.Controls.Add(this.tabActions);
             this.tabControl1.Controls.Add(this.tabGauges);
             this.tabControl1.Controls.Add(this.tabStatus);
@@ -327,16 +327,16 @@
             // 
             // tabQuick
             // 
-            resources.ApplyResources(this.tabQuick, "tabQuick");
-            this.tabQuick.Controls.Add(this.quickView6);
-            this.tabQuick.Controls.Add(this.quickView5);
-            this.tabQuick.Controls.Add(this.quickView4);
-            this.tabQuick.Controls.Add(this.quickView3);
-            this.tabQuick.Controls.Add(this.quickView2);
-            this.tabQuick.Controls.Add(this.quickView1);
-            this.tabQuick.Name = "tabQuick";
-            this.tabQuick.UseVisualStyleBackColor = true;
-            this.tabQuick.Resize += new System.EventHandler(this.tabQuick_Resize);
+            //resources.ApplyResources(this.tabQuick, "tabQuick");
+            //this.tabQuick.Controls.Add(this.quickView6);
+            //this.tabQuick.Controls.Add(this.quickView5);
+            //this.tabQuick.Controls.Add(this.quickView4);
+            //this.tabQuick.Controls.Add(this.quickView3);
+            //this.tabQuick.Controls.Add(this.quickView2);
+            //this.tabQuick.Controls.Add(this.quickView1);
+            //this.tabQuick.Name = "tabQuick";
+            //this.tabQuick.UseVisualStyleBackColor = true;
+            //this.tabQuick.Resize += new System.EventHandler(this.tabQuick_Resize);
             // 
             // quickView6
             // 
@@ -1423,7 +1423,7 @@
             this.contextMenuStripHud.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            this.tabQuick.ResumeLayout(false);
+            //this.tabQuick.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.tabActions.ResumeLayout(false);
             this.tabGauges.ResumeLayout(false);
@@ -1510,7 +1510,7 @@
         private Controls.MyLabel lbl_playbackspeed;
         private System.Windows.Forms.ToolStripMenuItem setMJPEGSourceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setAspectRatioToolStripMenuItem;
-        private System.Windows.Forms.TabPage tabQuick;
+        //private System.Windows.Forms.TabPage tabQuick;
         private Controls.QuickView quickView3;
         private Controls.QuickView quickView2;
         private Controls.QuickView quickView1;

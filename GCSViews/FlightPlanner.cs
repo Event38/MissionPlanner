@@ -4456,5 +4456,13 @@ namespace ArdupilotMega.GCSViews
 
             CustomMessageBox.Show("Area: " + area + " m2");
         }
+        private void bt_ActionAddPolygon_Click(object sender, EventArgs e)
+        {
+            if (polygongridmode == false)
+            {
+                CustomMessageBox.Show("You will remain in polygon mode until you clear the polygon or create a grid/upload a fence");
+            }
+            polygongridmode = true;
+        }
     }
 }
