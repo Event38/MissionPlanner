@@ -4,8 +4,8 @@ using System.Collections;
 using System.Reflection;
 using System.IO;
 using System.Windows.Forms;
-//using com.drew.imaging.jpg;
-//using com.drew.metadata;
+using com.drew.imaging.jpg;
+using com.drew.metadata;
 using log4net;
 using SharpKml.Base;
 using SharpKml.Dom;
@@ -72,7 +72,7 @@ namespace ArdupilotMega
 
             try
             {
-                
+
                 Metadata lcMetadata = null;
                 try
                 {
