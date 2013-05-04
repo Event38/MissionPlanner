@@ -125,44 +125,49 @@
   <ItemGroup>
     <Reference Include="alglibnet2, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\alglibnet2.dll</HintPath>
     </Reference>
     <Reference Include="AWSSDK, Version=1.5.18.0, Culture=neutral, PublicKeyToken=9f476d3089b52be3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\Extensions\Amazon Web Services LLC\AWSToolkit.VS2010\AWSSDK.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DirectShowLib-2005">
-      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\DirectShowLib-2005.dll</HintPath>
+    <Reference Include="DirectShowLib-2005, Version=2.0.0.0, Culture=neutral, PublicKeyToken=67e7b740cdfc2d3f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\DirectShowLib-2005.dll</HintPath>
     </Reference>
     <Reference Include="Eto">
-      <HintPath>..\..\..\..\..\Desktop\DIYDrones\Eto\BuildOutput\Debug\Eto.dll</HintPath>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\Eto.dll</HintPath>
     </Reference>
     <Reference Include="Eto.Json">
-      <HintPath>..\..\..\..\..\Desktop\DIYDrones\Eto\BuildOutput\Debug\Eto.Json.dll</HintPath>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\Eto.Json.dll</HintPath>
     </Reference>
     <Reference Include="Eto.Platform.Gtk">
-      <HintPath>..\..\..\..\..\Desktop\DIYDrones\Eto\BuildOutput\Debug\Eto.Platform.Gtk.dll</HintPath>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\Eto.Platform.Gtk.dll</HintPath>
     </Reference>
     <Reference Include="Eto.Platform.Mac">
-      <HintPath>..\..\..\..\..\Desktop\DIYDrones\Eto\BuildOutput\Debug\Eto.Platform.Mac.dll</HintPath>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\Eto.Platform.Mac.dll</HintPath>
     </Reference>
     <Reference Include="Eto.Platform.Windows">
-      <HintPath>..\..\..\..\..\Desktop\DIYDrones\Eto\BuildOutput\Debug\Eto.Platform.Windows.dll</HintPath>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\Eto.Platform.Windows.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\SharpZipLib\net-20\ICSharpCode.SharpZipLib.dll</HintPath>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="IronPython, Version=2.7.0.40, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\IronPython-2.7.3\IronPython.dll</HintPath>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\IronPython.dll</HintPath>
     </Reference>
     <Reference Include="IronPython.Modules, Version=2.7.0.40, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\IronPython.Modules.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="MetaDataExtractor">
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\MetaDataExtractor.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.DirectX, Version=1.0.2902.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <SpecificVersion>False</SpecificVersion>
@@ -173,31 +178,35 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Dynamic">
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\Microsoft.Dynamic.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Scripting, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\IronPython-2.7.3\Microsoft.Scripting.dll</HintPath>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\Microsoft.Scripting.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Scripting.Core">
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\Microsoft.Scripting.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Scripting.Debugging">
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\Microsoft.Scripting.Debugging.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Scripting.ExtensionAttribute, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\Microsoft.Scripting.ExtensionAttribute.dll</HintPath>
     </Reference>
     <Reference Include="MonoMac">
-      <HintPath>..\..\..\..\..\Desktop\DIYDrones\Eto\BuildOutput\Debug\MonoMac.dll</HintPath>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\MonoMac.dll</HintPath>
     </Reference>
     <Reference Include="netDxf, Version=0.1.2.0, Culture=neutral, PublicKeyToken=1c75adeaa4c98f42, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\netDxf.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\Desktop\DIYDrones\Eto\BuildOutput\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Lib\OpenTK.dll</HintPath>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="ProjNet, Version=1.2.3432.30659, Culture=neutral, PublicKeyToken=a1f5bdcd9c6f5740, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -217,7 +226,9 @@
     <Reference Include="System.Data">
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Data.SQLite">
+    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -227,16 +238,15 @@
     </Reference>
     <Reference Include="System.Reactive.Core, Version=2.0.20823.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Reactive Extensions\v2.0\Binaries\.NETFramework\v4.0\System.Reactive.Core.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\System.Reactive.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Interfaces, Version=2.0.20823.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Reactive Extensions\v2.0\Binaries\.NETFramework\v4.0\System.Reactive.Interfaces.dll</HintPath>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\System.Reactive.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="System.Reactive.Linq, Version=2.0.20823.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Reactive Extensions\v2.0\Binaries\.NETFramework\v4.0\System.Reactive.Linq.dll</HintPath>
+      <HintPath>N:\Vertex Webwares Work\MissionPlannerSoftware.com\Dlls\System.Reactive.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Speech">
       <Private>True</Private>
