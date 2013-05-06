@@ -1838,9 +1838,14 @@
     <Content Include="Lib\Microsoft.Scripting.Debugging.dll" />
     <Content Include="Lib\Microsoft.Scripting.dll" />
     <Content Include="Lib\Microsoft.Scripting.ExtensionAttribute.dll" />
+    <Content Include="Lib\mono.data.sqlite.dll" />
+    <Content Include="Lib\Mono.Data.SqliteClient.dll" />
+    <Content Include="Lib\mono.security.dll" />
     <Content Include="Lib\MonoMac.dll" />
+    <Content Include="Lib\MySql.Data.dll" />
     <Content Include="Lib\netDxf.dll" />
     <Content Include="Lib\Newtonsoft.Json.dll" />
+    <Content Include="Lib\npgsql.dll" />
     <Content Include="Lib\OpenTK.Compatibility.dll" />
     <Content Include="Lib\OpenTK.dll" />
     <Content Include="Lib\OpenTK.GLControl.dll" />
