@@ -112,6 +112,11 @@ namespace ArdupilotMega.GCSViews
         {
             InitializeComponent();
 
+            //TabPage tabQuick = tabControl1.TabPages[0];
+            ////tabQuick.Enabled = false;
+
+            //tabQuick.Visible = false;
+
             instance = this;
             //    _serializer = new DockStateSerializer(dockContainer1);
             //    _serializer.SavePath = Application.StartupPath + Path.DirectorySeparatorChar + "FDscreen.xml";
@@ -217,7 +222,7 @@ namespace ArdupilotMega.GCSViews
 
             MainV2.comPort.ParamListChanged += FlightData_ParentChanged;
         }
-   
+
         void tabStatus_Resize(object sender, EventArgs e)
         {
             // localise it
@@ -358,11 +363,11 @@ namespace ArdupilotMega.GCSViews
                     // if no config, update description on predefined
                     try
                     {
-                          Control[] ctls = this.Controls.Find("quickView" + f, true);
-                          if (ctls.Length > 0)
-                          {
-                              ((QuickView)ctls[0]).desc = MainV2.comPort.MAV.cs.GetNameandUnit(((QuickView)ctls[0]).desc);
-                          }
+                        Control[] ctls = this.Controls.Find("quickView" + f, true);
+                        if (ctls.Length > 0)
+                        {
+                            ((QuickView)ctls[0]).desc = MainV2.comPort.MAV.cs.GetNameandUnit(((QuickView)ctls[0]).desc);
+                        }
                     }
                     catch { }
                 }
@@ -375,7 +380,7 @@ namespace ArdupilotMega.GCSViews
             }
             else
             {
-                hud1.batteryon = false;
+                //hud1.batteryon = false;
             }
 
             foreach (Control ctl in splitContainer1.Panel2.Controls)
@@ -665,7 +670,7 @@ namespace ArdupilotMega.GCSViews
 
                 try
                 {
-                     //Console.WriteLine(DateTime.Now.Millisecond);
+                    //Console.WriteLine(DateTime.Now.Millisecond);
                     //int fixme;
                     updateBindingSource();
                     // Console.WriteLine(DateTime.Now.Millisecond + " done ");
@@ -688,7 +693,7 @@ namespace ArdupilotMega.GCSViews
                     {
                         hud1.lowvoltagealert = false;
                     }
-                    
+
                     // update opengltest
                     if (ArdupilotMega.Controls.OpenGLtest.instance != null)
                     {
@@ -853,12 +858,12 @@ namespace ArdupilotMega.GCSViews
 
                                     PointLatLng portlocation = new PointLatLng(port.MAV.cs.lat, port.MAV.cs.lng);
 
-                                    while (routes.Markers.Count < (a+1))
+                                    while (routes.Markers.Count < (a + 1))
                                         routes.Markers.Add(new GMapMarkerCross(portlocation));
 
                                     if (port.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx)
                                     {
-                                        routes.Markers[a] = (new GMapMarkerPlane(portlocation, port.MAV.cs.yaw, port.MAV.cs.groundcourse, port.MAV.cs.nav_bearing, port.MAV.cs.target_bearing, gMapControl1) { ToolTipText = "MAV: " + a + " " +port.MAV.cs.alt.ToString("0"), ToolTipMode = MarkerTooltipMode.Always });
+                                        routes.Markers[a] = (new GMapMarkerPlane(portlocation, port.MAV.cs.yaw, port.MAV.cs.groundcourse, port.MAV.cs.nav_bearing, port.MAV.cs.target_bearing, gMapControl1) { ToolTipText = "MAV: " + a + " " + port.MAV.cs.alt.ToString("0"), ToolTipMode = MarkerTooltipMode.Always });
                                     }
                                     else if (port.MAV.cs.firmware == MainV2.Firmwares.ArduRover)
                                     {
@@ -1765,10 +1770,10 @@ namespace ArdupilotMega.GCSViews
                     //  tabStatus.Controls.Remove(temp);
                 }
 
-                if (tabControl1.SelectedTab == tabQuick)
-                {
+                //if (tabControl1.SelectedTab == tabQuick)
+                //{
 
-                }
+                //}
             }
 
         }
@@ -2561,12 +2566,12 @@ print 'Roll complete'
         private void tabQuick_Resize(object sender, EventArgs e)
         {
             int height = ((Control)sender).Height / 6;
-            quickView1.Size = new System.Drawing.Size(tabQuick.Width, height);
-            quickView2.Size = new System.Drawing.Size(tabQuick.Width, height);
-            quickView3.Size = new System.Drawing.Size(tabQuick.Width, height);
-            quickView4.Size = new System.Drawing.Size(tabQuick.Width, height);
-            quickView5.Size = new System.Drawing.Size(tabQuick.Width, height);
-            quickView6.Size = new System.Drawing.Size(tabQuick.Width, height);
+            //quickView1.Size = new System.Drawing.Size(tabQuick.Width, height);
+            //quickView2.Size = new System.Drawing.Size(tabQuick.Width, height);
+            //quickView3.Size = new System.Drawing.Size(tabQuick.Width, height);
+            //quickView4.Size = new System.Drawing.Size(tabQuick.Width, height);
+            //quickView5.Size = new System.Drawing.Size(tabQuick.Width, height);
+            //quickView6.Size = new System.Drawing.Size(tabQuick.Width, height);
         }
 
         private void hud1_Resize(object sender, EventArgs e)

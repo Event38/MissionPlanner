@@ -18,23 +18,7 @@
             this.flightPlannerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainH = new System.Windows.Forms.SplitContainer();
             this.SubMainLeft = new System.Windows.Forms.SplitContainer();
-            this.hud1 = new ArdupilotMega.Controls.HUD();
-            this.contextMenuStripHud = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.recordHudToAVIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopRecordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setMJPEGSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setAspectRatioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.userItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabQuick = new System.Windows.Forms.TabPage();
-            this.quickView6 = new ArdupilotMega.Controls.QuickView();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.quickView5 = new ArdupilotMega.Controls.QuickView();
-            this.quickView4 = new ArdupilotMega.Controls.QuickView();
-            this.quickView3 = new ArdupilotMega.Controls.QuickView();
-            this.quickView2 = new ArdupilotMega.Controls.QuickView();
-            this.quickView1 = new ArdupilotMega.Controls.QuickView();
             this.tabActions = new System.Windows.Forms.TabPage();
             this.modifyandSetSpeed = new ArdupilotMega.Controls.ModifyandSet();
             this.modifyandSetAlt = new ArdupilotMega.Controls.ModifyandSet();
@@ -56,6 +40,7 @@
             this.BUTactiondo = new ArdupilotMega.Controls.MyButton();
             this.tabGauges = new System.Windows.Forms.TabPage();
             this.Gvspeed = new AGaugeApp.AGauge();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.Gheading = new ArdupilotMega.Controls.HSI();
             this.Galt = new AGaugeApp.AGauge();
             this.Gspeed = new AGaugeApp.AGauge();
@@ -96,24 +81,29 @@
             this.TXT_alt = new ArdupilotMega.Controls.MyLabel();
             this.CHK_autopan = new System.Windows.Forms.CheckBox();
             this.CB_tuning = new System.Windows.Forms.CheckBox();
+            this.contextMenuStripHud = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.recordHudToAVIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopRecordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setMJPEGSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setAspectRatioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.userItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.ZedGraphTimer = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.contextMenuStripMap.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MainH)).BeginInit();
             this.MainH.Panel1.SuspendLayout();
             this.MainH.Panel2.SuspendLayout();
             this.MainH.SuspendLayout();
-            this.SubMainLeft.Panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SubMainLeft)).BeginInit();
             this.SubMainLeft.Panel2.SuspendLayout();
             this.SubMainLeft.SuspendLayout();
-            this.contextMenuStripHud.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.tabControl1.SuspendLayout();
-            this.tabQuick.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.tabActions.SuspendLayout();
             this.tabGauges.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.tabTLogs.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_playbackspeed)).BeginInit();
@@ -121,12 +111,15 @@
             this.tabServo.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.tableMap.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).BeginInit();
+            this.contextMenuStripHud.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStripMap
@@ -191,129 +184,12 @@
             resources.ApplyResources(this.SubMainLeft, "SubMainLeft");
             this.SubMainLeft.Name = "SubMainLeft";
             // 
-            // SubMainLeft.Panel1
-            // 
-            this.SubMainLeft.Panel1.Controls.Add(this.hud1);
-            // 
             // SubMainLeft.Panel2
             // 
             this.SubMainLeft.Panel2.Controls.Add(this.tabControl1);
             // 
-            // hud1
-            // 
-            this.hud1.airspeed = 0F;
-            this.hud1.alt = 0F;
-            this.hud1.BackColor = System.Drawing.Color.Transparent;
-            this.hud1.batterylevel = 0F;
-            this.hud1.batteryremaining = 0F;
-            this.hud1.ContextMenuStrip = this.contextMenuStripHud;
-            this.hud1.current = 0F;
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("airspeed", this.bindingSourceHud, "airspeed", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("alt", this.bindingSourceHud, "alt", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("batterylevel", this.bindingSourceHud, "battery_voltage", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("batteryremaining", this.bindingSourceHud, "battery_remaining", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("current", this.bindingSourceHud, "current", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("datetime", this.bindingSourceHud, "datetime", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("disttowp", this.bindingSourceHud, "wp_dist", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("failsafe", this.bindingSourceHud, "failsafe", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("gpsfix", this.bindingSourceHud, "gpsstatus", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("gpshdop", this.bindingSourceHud, "gpshdop", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("groundalt", this.bindingSourceHud, "HomeAlt", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("groundcourse", this.bindingSourceHud, "groundcourse", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("groundspeed", this.bindingSourceHud, "groundspeed", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("heading", this.bindingSourceHud, "yaw", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("linkqualitygcs", this.bindingSourceHud, "linkqualitygcs", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("mode", this.bindingSourceHud, "mode", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("navpitch", this.bindingSourceHud, "nav_pitch", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("navroll", this.bindingSourceHud, "nav_roll", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("pitch", this.bindingSourceHud, "pitch", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("roll", this.bindingSourceHud, "roll", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("status", this.bindingSourceHud, "armed", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("targetalt", this.bindingSourceHud, "targetalt", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("targetheading", this.bindingSourceHud, "nav_bearing", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("targetspeed", this.bindingSourceHud, "targetairspeed", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("turnrate", this.bindingSourceHud, "turnrate", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("verticalspeed", this.bindingSourceHud, "verticalspeed", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("wpno", this.bindingSourceHud, "wpno", true));
-            this.hud1.DataBindings.Add(new System.Windows.Forms.Binding("xtrack_error", this.bindingSourceHud, "xtrack_error", true));
-            this.hud1.datetime = new System.DateTime(((long)(0)));
-            this.hud1.disttowp = 0F;
-            resources.ApplyResources(this.hud1, "hud1");
-            this.hud1.failsafe = false;
-            this.hud1.gpsfix = 0F;
-            this.hud1.gpshdop = 0F;
-            this.hud1.groundalt = 0F;
-            this.hud1.groundcourse = 0F;
-            this.hud1.groundspeed = 0F;
-            this.hud1.heading = 0F;
-            this.hud1.hudcolor = System.Drawing.Color.White;
-            this.hud1.linkqualitygcs = 0F;
-            this.hud1.lowvoltagealert = false;
-            this.hud1.mode = "Manual";
-            this.hud1.Name = "hud1";
-            this.hud1.navpitch = 0F;
-            this.hud1.navroll = 0F;
-            this.hud1.opengl = true;
-            this.hud1.pitch = 0F;
-            this.hud1.roll = 0F;
-            this.hud1.status = false;
-            this.hud1.streamjpg = null;
-            this.hud1.targetalt = 0F;
-            this.hud1.targetheading = 0F;
-            this.hud1.targetspeed = 0F;
-            this.hud1.turnrate = 0F;
-            this.hud1.verticalspeed = 0F;
-            this.hud1.VSync = false;
-            this.hud1.wpno = 0;
-            this.hud1.xtrack_error = 0F;
-            this.hud1.DoubleClick += new System.EventHandler(this.hud1_DoubleClick);
-            this.hud1.Resize += new System.EventHandler(this.hud1_Resize);
-            // 
-            // contextMenuStripHud
-            // 
-            this.contextMenuStripHud.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.recordHudToAVIToolStripMenuItem,
-            this.stopRecordToolStripMenuItem,
-            this.setMJPEGSourceToolStripMenuItem,
-            this.setAspectRatioToolStripMenuItem,
-            this.userItemsToolStripMenuItem});
-            this.contextMenuStripHud.Name = "contextMenuStrip2";
-            resources.ApplyResources(this.contextMenuStripHud, "contextMenuStripHud");
-            // 
-            // recordHudToAVIToolStripMenuItem
-            // 
-            this.recordHudToAVIToolStripMenuItem.Name = "recordHudToAVIToolStripMenuItem";
-            resources.ApplyResources(this.recordHudToAVIToolStripMenuItem, "recordHudToAVIToolStripMenuItem");
-            this.recordHudToAVIToolStripMenuItem.Click += new System.EventHandler(this.recordHudToAVIToolStripMenuItem_Click);
-            // 
-            // stopRecordToolStripMenuItem
-            // 
-            this.stopRecordToolStripMenuItem.Name = "stopRecordToolStripMenuItem";
-            resources.ApplyResources(this.stopRecordToolStripMenuItem, "stopRecordToolStripMenuItem");
-            this.stopRecordToolStripMenuItem.Click += new System.EventHandler(this.stopRecordToolStripMenuItem_Click);
-            // 
-            // setMJPEGSourceToolStripMenuItem
-            // 
-            this.setMJPEGSourceToolStripMenuItem.Name = "setMJPEGSourceToolStripMenuItem";
-            resources.ApplyResources(this.setMJPEGSourceToolStripMenuItem, "setMJPEGSourceToolStripMenuItem");
-            this.setMJPEGSourceToolStripMenuItem.Click += new System.EventHandler(this.setMJPEGSourceToolStripMenuItem_Click);
-            // 
-            // setAspectRatioToolStripMenuItem
-            // 
-            this.setAspectRatioToolStripMenuItem.Name = "setAspectRatioToolStripMenuItem";
-            resources.ApplyResources(this.setAspectRatioToolStripMenuItem, "setAspectRatioToolStripMenuItem");
-            this.setAspectRatioToolStripMenuItem.Click += new System.EventHandler(this.setAspectRatioToolStripMenuItem_Click);
-            // 
-            // userItemsToolStripMenuItem
-            // 
-            this.userItemsToolStripMenuItem.Name = "userItemsToolStripMenuItem";
-            resources.ApplyResources(this.userItemsToolStripMenuItem, "userItemsToolStripMenuItem");
-            this.userItemsToolStripMenuItem.Click += new System.EventHandler(this.hud_UserItem);
-            // 
-            this.bindingSourceHud.DataSource = typeof(ArdupilotMega.CurrentState);
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabQuick);
             this.tabControl1.Controls.Add(this.tabActions);
             this.tabControl1.Controls.Add(this.tabGauges);
             this.tabControl1.Controls.Add(this.tabStatus);
@@ -324,81 +200,6 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
-            // 
-            // tabQuick
-            // 
-            resources.ApplyResources(this.tabQuick, "tabQuick");
-            this.tabQuick.Controls.Add(this.quickView6);
-            this.tabQuick.Controls.Add(this.quickView5);
-            this.tabQuick.Controls.Add(this.quickView4);
-            this.tabQuick.Controls.Add(this.quickView3);
-            this.tabQuick.Controls.Add(this.quickView2);
-            this.tabQuick.Controls.Add(this.quickView1);
-            this.tabQuick.Name = "tabQuick";
-            this.tabQuick.UseVisualStyleBackColor = true;
-            this.tabQuick.Resize += new System.EventHandler(this.tabQuick_Resize);
-            // 
-            // quickView6
-            // 
-            this.quickView6.DataBindings.Add(new System.Windows.Forms.Binding("number", this.bindingSource1, "DistToHome", true));
-            this.quickView6.desc = "DistToMAV";
-            resources.ApplyResources(this.quickView6, "quickView6");
-            this.quickView6.Name = "quickView6";
-            this.quickView6.number = 0D;
-            this.quickView6.numberColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(252)))));
-            this.quickView6.DoubleClick += new System.EventHandler(this.quickView_DoubleClick);
-            // 
-            this.bindingSource1.DataSource = typeof(ArdupilotMega.CurrentState);
-            // quickView5
-            // 
-            this.quickView5.DataBindings.Add(new System.Windows.Forms.Binding("number", this.bindingSource1, "verticalspeed", true));
-            this.quickView5.desc = "verticalspeed";
-            resources.ApplyResources(this.quickView5, "quickView5");
-            this.quickView5.Name = "quickView5";
-            this.quickView5.number = 0D;
-            this.quickView5.numberColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(254)))), ((int)(((byte)(86)))));
-            this.quickView5.DoubleClick += new System.EventHandler(this.quickView_DoubleClick);
-            // 
-            // quickView4
-            // 
-            this.quickView4.DataBindings.Add(new System.Windows.Forms.Binding("number", this.bindingSource1, "yaw", true));
-            this.quickView4.desc = "yaw";
-            resources.ApplyResources(this.quickView4, "quickView4");
-            this.quickView4.Name = "quickView4";
-            this.quickView4.number = 0D;
-            this.quickView4.numberColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(83)))));
-            this.quickView4.DoubleClick += new System.EventHandler(this.quickView_DoubleClick);
-            // 
-            // quickView3
-            // 
-            this.quickView3.DataBindings.Add(new System.Windows.Forms.Binding("number", this.bindingSource1, "wp_dist", true));
-            this.quickView3.desc = "wp_dist";
-            resources.ApplyResources(this.quickView3, "quickView3");
-            this.quickView3.Name = "quickView3";
-            this.quickView3.number = 0D;
-            this.quickView3.numberColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(96)))), ((int)(((byte)(91)))));
-            this.quickView3.DoubleClick += new System.EventHandler(this.quickView_DoubleClick);
-            // 
-            // quickView2
-            // 
-            this.quickView2.DataBindings.Add(new System.Windows.Forms.Binding("number", this.bindingSource1, "groundspeed", true));
-            this.quickView2.desc = "groundspeed";
-            resources.ApplyResources(this.quickView2, "quickView2");
-            this.quickView2.Name = "quickView2";
-            this.quickView2.number = 0D;
-            this.quickView2.numberColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(132)))), ((int)(((byte)(46)))));
-            this.quickView2.DoubleClick += new System.EventHandler(this.quickView_DoubleClick);
-            // 
-            // quickView1
-            // 
-            this.quickView1.DataBindings.Add(new System.Windows.Forms.Binding("number", this.bindingSource1, "alt", true));
-            this.quickView1.desc = "alt";
-            resources.ApplyResources(this.quickView1, "quickView1");
-            this.quickView1.Name = "quickView1";
-            this.quickView1.number = 0D;
-            this.quickView1.numberColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(151)))), ((int)(((byte)(248)))));
-            this.toolTip1.SetToolTip(this.quickView1, resources.GetString("quickView1.ToolTip"));
-            this.quickView1.DoubleClick += new System.EventHandler(this.quickView_DoubleClick);
             // 
             // tabActions
             // 
@@ -732,6 +533,10 @@
             this.Gvspeed.Value1 = 0F;
             this.Gvspeed.Value2 = 0F;
             this.Gvspeed.Value3 = 0F;
+            // 
+            // bindingSource1
+            // 
+            this.bindingSource1.DataSource = typeof(ArdupilotMega.CurrentState);
             // 
             // Gheading
             // 
@@ -1372,8 +1177,50 @@
             this.CB_tuning.UseVisualStyleBackColor = true;
             this.CB_tuning.CheckedChanged += new System.EventHandler(this.CB_tuning_CheckedChanged);
             // 
-            // bindingSource1
+            // contextMenuStripHud
             // 
+            this.contextMenuStripHud.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.recordHudToAVIToolStripMenuItem,
+            this.stopRecordToolStripMenuItem,
+            this.setMJPEGSourceToolStripMenuItem,
+            this.setAspectRatioToolStripMenuItem,
+            this.userItemsToolStripMenuItem});
+            this.contextMenuStripHud.Name = "contextMenuStrip2";
+            resources.ApplyResources(this.contextMenuStripHud, "contextMenuStripHud");
+            // 
+            // recordHudToAVIToolStripMenuItem
+            // 
+            this.recordHudToAVIToolStripMenuItem.Name = "recordHudToAVIToolStripMenuItem";
+            resources.ApplyResources(this.recordHudToAVIToolStripMenuItem, "recordHudToAVIToolStripMenuItem");
+            this.recordHudToAVIToolStripMenuItem.Click += new System.EventHandler(this.recordHudToAVIToolStripMenuItem_Click);
+            // 
+            // stopRecordToolStripMenuItem
+            // 
+            this.stopRecordToolStripMenuItem.Name = "stopRecordToolStripMenuItem";
+            resources.ApplyResources(this.stopRecordToolStripMenuItem, "stopRecordToolStripMenuItem");
+            this.stopRecordToolStripMenuItem.Click += new System.EventHandler(this.stopRecordToolStripMenuItem_Click);
+            // 
+            // setMJPEGSourceToolStripMenuItem
+            // 
+            this.setMJPEGSourceToolStripMenuItem.Name = "setMJPEGSourceToolStripMenuItem";
+            resources.ApplyResources(this.setMJPEGSourceToolStripMenuItem, "setMJPEGSourceToolStripMenuItem");
+            this.setMJPEGSourceToolStripMenuItem.Click += new System.EventHandler(this.setMJPEGSourceToolStripMenuItem_Click);
+            // 
+            // setAspectRatioToolStripMenuItem
+            // 
+            this.setAspectRatioToolStripMenuItem.Name = "setAspectRatioToolStripMenuItem";
+            resources.ApplyResources(this.setAspectRatioToolStripMenuItem, "setAspectRatioToolStripMenuItem");
+            this.setAspectRatioToolStripMenuItem.Click += new System.EventHandler(this.setAspectRatioToolStripMenuItem_Click);
+            // 
+            // userItemsToolStripMenuItem
+            // 
+            this.userItemsToolStripMenuItem.Name = "userItemsToolStripMenuItem";
+            resources.ApplyResources(this.userItemsToolStripMenuItem, "userItemsToolStripMenuItem");
+            this.userItemsToolStripMenuItem.Click += new System.EventHandler(this.hud_UserItem);
+            // 
+            // bindingSourceHud
+            // 
+            this.bindingSourceHud.DataSource = typeof(ArdupilotMega.CurrentState);
             // 
             // dataGridViewImageColumn1
             // 
@@ -1411,22 +1258,20 @@
             this.Name = "FlightData";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FlightData_FormClosing);
             this.Load += new System.EventHandler(this.FlightData_Load);
-            this.ParentChanged += new System.EventHandler(this.FlightData_ParentChanged);
             this.Resize += new System.EventHandler(this.FlightData_Resize);
+            this.ParentChanged += new System.EventHandler(this.FlightData_ParentChanged);
             this.contextMenuStripMap.ResumeLayout(false);
             this.MainH.Panel1.ResumeLayout(false);
             this.MainH.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.MainH)).EndInit();
             this.MainH.ResumeLayout(false);
-            this.SubMainLeft.Panel1.ResumeLayout(false);
             this.SubMainLeft.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.SubMainLeft)).EndInit();
             this.SubMainLeft.ResumeLayout(false);
-            this.contextMenuStripHud.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            this.tabQuick.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.tabActions.ResumeLayout(false);
             this.tabGauges.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.tabTLogs.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -1438,11 +1283,14 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).EndInit();
+            this.contextMenuStripHud.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1510,13 +1358,6 @@
         private Controls.MyLabel lbl_playbackspeed;
         private System.Windows.Forms.ToolStripMenuItem setMJPEGSourceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setAspectRatioToolStripMenuItem;
-        private System.Windows.Forms.TabPage tabQuick;
-        private Controls.QuickView quickView3;
-        private Controls.QuickView quickView2;
-        private Controls.QuickView quickView1;
-        private Controls.QuickView quickView4;
-        private Controls.QuickView quickView6;
-        private Controls.QuickView quickView5;
         private System.Windows.Forms.ToolStripMenuItem flyToHereAltToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem flightPlannerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem userItemsToolStripMenuItem;

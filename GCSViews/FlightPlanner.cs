@@ -2522,11 +2522,6 @@ namespace ArdupilotMega.GCSViews
         const float rad2deg = (float)(180 / Math.PI);
         const float deg2rad = (float)(1.0 / rad2deg);
 
-        private void BUT_grid_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void label4_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (MainV2.comPort.MAV.cs.lat != 0)
@@ -2799,7 +2794,9 @@ namespace ArdupilotMega.GCSViews
 
         private void BUT_Camera_Click(object sender, EventArgs e)
         {
-
+            Camera form = new Camera();
+            ThemeManager.ApplyThemeTo(form);
+            form.Show();
         }
 
         private void panelMap_Resize(object sender, EventArgs e)
@@ -3751,6 +3748,428 @@ namespace ArdupilotMega.GCSViews
 
         private void gridToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            
+
+        }
+
+        bool PointInPolygon(PointLatLng p, List<PointLatLng> poly)
+        {
+            PointLatLng p1, p2;
+            bool inside = false;
+
+            if (poly.Count < 3)
+            {
+                return inside;
+            }
+            PointLatLng oldPoint = new PointLatLng(
+
+            poly[poly.Count - 1].Lat, poly[poly.Count - 1].Lng);
+
+            for (int i = 0; i < poly.Count; i++)
+            {
+
+                PointLatLng newPoint = new PointLatLng(poly[i].Lat, poly[i].Lng);
+
+                if (newPoint.Lat > oldPoint.Lat)
+                {
+                    p1 = oldPoint;
+                    p2 = newPoint;
+                }
+                else
+                {
+                    p1 = newPoint;
+                    p2 = oldPoint;
+                }
+
+                if ((newPoint.Lat < p.Lat) == (p.Lat <= oldPoint.Lat)
+                    && ((double)p.Lng - (double)p1.Lng) * (double)(p2.Lat - p1.Lat)
+                    < ((double)p2.Lng - (double)p1.Lng) * (double)(p.Lat - p1.Lat))
+                {
+                    inside = !inside;
+                }
+                oldPoint = newPoint;
+            }
+            return inside;
+        }
+
+
+        void newpos(ref double lat, ref double lon, double bearing, double distance)
+        {
+            // '''extrapolate latitude/longitude given a heading and distance 
+            //   thanks to http://www.movable-type.co.uk/scripts/latlong.html
+            //  '''
+            // from math import sin, asin, cos, atan2, radians, degrees
+            double radius_of_earth = 6378100.0;//# in meters
+
+            double lat1 = radians(lat);
+            double lon1 = radians(lon);
+            double brng = radians(bearing);
+            double dr = distance / radius_of_earth;
+
+            double lat2 = Math.Asin(Math.Sin(lat1) * Math.Cos(dr) +
+                        Math.Cos(lat1) * Math.Sin(dr) * Math.Cos(brng));
+            double lon2 = lon1 + Math.Atan2(Math.Sin(brng) * Math.Sin(dr) * Math.Cos(lat1),
+                                Math.Cos(dr) - Math.Sin(lat1) * Math.Sin(lat2));
+
+            lat = degrees(lat2);
+            lon = degrees(lon2);
+            //return (degrees(lat2), degrees(lon2));
+        }
+
+        public static double radians(double val)
+        {
+            return val * deg2rad;
+        }
+        public static double degrees(double val)
+        {
+            return val * rad2deg;
+        }
+
+        private void zoomToToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string place = "Perth Airport, Australia";
+            if (DialogResult.OK == Common.InputBox("Location", "Enter your location", ref place))
+            {
+
+                GeoCoderStatusCode status = MainMap.SetCurrentPositionByKeywords(place);
+                if (status != GeoCoderStatusCode.G_GEO_SUCCESS)
+                {
+                    CustomMessageBox.Show("Google Maps Geocoder can't find: '" + place + "', reason: " + status.ToString(), "GMap.NET", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    MainMap.Zoom = 15;
+                }
+            }
+        }
+
+        private void prefetchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RectLatLng area = MainMap.SelectedArea;
+            if (area.IsEmpty)
+            {
+                DialogResult res = CustomMessageBox.Show("No ripp area defined, ripp displayed on screen?", "Rip", MessageBoxButtons.YesNo);
+                if (res == DialogResult.Yes)
+                {
+                    area = MainMap.CurrentViewArea;
+                }
+            }
+
+            if (!area.IsEmpty)
+            {
+                DialogResult res = CustomMessageBox.Show("Ready ripp at Zoom = " + (int)MainMap.Zoom + " ?", "GMap.NET", MessageBoxButtons.YesNo);
+
+                for (int i = 1; i <= MainMap.MaxZoom; i++)
+                {
+                    if (res == DialogResult.Yes)
+                    {
+                        TilePrefetcher obj = new TilePrefetcher();
+                        obj.ShowCompleteMessage = false;
+                        obj.Start(area, MainMap.Projection, i, MainMap.MapType, 100);
+                    }
+                    else if (res == DialogResult.No)
+                    {
+                        continue;
+                    }
+                    else if (res == DialogResult.Cancel)
+                    {
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                CustomMessageBox.Show("Select map area holding ALT", "GMap.NET", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void kMLOverlayToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            OpenFileDialog fd = new OpenFileDialog();
+            fd.Filter = "Google Earth KML (*.kml)|*.kml";
+            fd.DefaultExt = ".kml";
+            DialogResult result = fd.ShowDialog();
+            string file = fd.FileName;
+            if (file != "")
+            {
+                try
+                {
+                    kmlpolygons.Polygons.Clear();
+                    kmlpolygons.Routes.Clear();
+
+                    FlightData.kmlpolygons.Routes.Clear();
+                    FlightData.kmlpolygons.Polygons.Clear();
+
+                    string kml = new StreamReader(File.OpenRead(file)).ReadToEnd();
+
+                    kml = kml.Replace("<Snippet/>", "");
+
+                    var parser = new SharpKml.Base.Parser();
+
+                    parser.ElementAdded += parser_ElementAdded;
+                    parser.ParseString(kml, true);
+
+                    if (DialogResult.Yes == CustomMessageBox.Show("Do you want to load this into the flight data screen?", "Load data", MessageBoxButtons.YesNo))
+                    {
+                        foreach (var temp in kmlpolygons.Polygons)
+                        {
+                            FlightData.kmlpolygons.Polygons.Add(temp);
+                        }
+                        foreach (var temp in kmlpolygons.Routes)
+                        {
+                            FlightData.kmlpolygons.Routes.Add(temp);
+                        }
+                    }
+
+                }
+                catch (Exception ex) { CustomMessageBox.Show("Bad KML File :" + ex.ToString()); }
+            }
+        }
+
+        private void elevationGraphToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            writeKML();
+            double homealt;
+            double.TryParse(TXT_homealt.Text, out homealt);
+            Form temp = new ElevationProfile(pointlist, homealt);
+            ThemeManager.ApplyThemeTo(temp);
+            temp.ShowDialog();
+        }
+
+        //private void cameraToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    Camera form = new Camera();
+        //    ThemeManager.ApplyThemeTo(form);
+        //    form.Show();
+        //}
+
+        private void rTLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            selectedrow = Commands.Rows.Add();
+
+            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.RETURN_TO_LAUNCH.ToString();
+
+            //Commands.Rows[selectedrow].Cells[Param1.Index].Value = time;
+
+            ChangeColumnHeader(MAVLink.MAV_CMD.RETURN_TO_LAUNCH.ToString());
+
+            writeKML();
+        }
+
+        private void landToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            selectedrow = Commands.Rows.Add();
+
+            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
+
+            //Commands.Rows[selectedrow].Cells[Param1.Index].Value = time;
+
+            ChangeColumnHeader(MAVLink.MAV_CMD.LAND.ToString());
+
+            setfromGE(end.Lat, end.Lng, 1);
+
+            writeKML();
+        }
+
+        private void AddDigicamControlPhoto()
+        {
+            selectedrow = Commands.Rows.Add();
+
+            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_DIGICAM_CONTROL.ToString();
+
+            ChangeColumnHeader(MAVLink.MAV_CMD.DO_DIGICAM_CONTROL.ToString());
+
+            writeKML();
+        }
+
+        private void takeoffToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // altitude
+            string alt = "10";
+
+            Common.InputBox("Altitude", "Please enter your takeoff altitude", ref alt);
+
+            int alti = -1;
+
+            if (!int.TryParse(alt, out alti))
+            {
+                MessageBox.Show("Bad Alt");
+                return;
+            }
+
+            // take off pitch
+            int topi = 0;
+
+            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx)
+            {
+                string top = "15";
+
+                Common.InputBox("Takeoff Pitch", "Please enter your takeoff pitch", ref alt);
+
+                if (!int.TryParse(top, out topi))
+                {
+                    MessageBox.Show("Bad Takeoff pitch");
+                    return;
+                }
+            }
+
+            selectedrow = Commands.Rows.Add();
+
+            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
+
+            Commands.Rows[selectedrow].Cells[Param1.Index].Value = topi;
+
+            Commands.Rows[selectedrow].Cells[Alt.Index].Value = alti;
+
+            ChangeColumnHeader(MAVLink.MAV_CMD.TAKEOFF.ToString());
+
+            writeKML();
+        }
+
+        private void loadWPFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BUT_loadwpfile_Click(null, null);
+        }
+
+        private void saveWPFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFile_Click(null, null);
+        }
+
+        private void trackerHomeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MainV2.comPort.MAV.cs.TrackerLocation = new PointLatLngAlt(end) { Alt = MainV2.comPort.MAV.cs.HomeAlt };
+        }
+
+        private void gridV2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gridv2();
+        }
+
+        private void reverseWPsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void loadAndAppendToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fd = new OpenFileDialog();
+            fd.Filter = "Ardupilot Mission (*.txt)|*.*";
+            fd.DefaultExt = ".txt";
+            DialogResult result = fd.ShowDialog();
+            string file = fd.FileName;
+            if (file != "")
+            {
+                readQGC110wpfile(file, true);
+            }
+        }
+
+        private void savePolygonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (drawnpolygon.Points.Count == 0)
+            {
+                return;
+            }
+
+
+            SaveFileDialog sf = new SaveFileDialog();
+            sf.Filter = "Polygon (*.poly)|*.poly";
+            sf.ShowDialog();
+            if (sf.FileName != "")
+            {
+                try
+                {
+                    StreamWriter sw = new StreamWriter(sf.OpenFile());
+
+                    sw.WriteLine("#saved by APM Planner " + Application.ProductVersion);
+
+                    if (drawnpolygon.Points.Count > 0)
+                    {
+                        foreach (var pll in drawnpolygon.Points)
+                        {
+                            sw.WriteLine(pll.Lat + " " + pll.Lng);
+                        }
+
+                        PointLatLng pll2 = drawnpolygon.Points[0];
+
+                        sw.WriteLine(pll2.Lat + " " + pll2.Lng);
+                    }
+
+                    sw.Close();
+                }
+                catch { CustomMessageBox.Show("Failed to write fence file"); }
+            }
+        }
+
+        private void loadPolygonToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fd = new OpenFileDialog();
+            fd.Filter = "Polygon (*.poly)|*.poly";
+            fd.ShowDialog();
+            if (File.Exists(fd.FileName))
+            {
+                StreamReader sr = new StreamReader(fd.OpenFile());
+
+                drawnpolygons.Markers.Clear();
+                drawnpolygons.Polygons.Clear();
+                drawnpolygon.Points.Clear();
+
+                int a = 0;
+
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    if (line.StartsWith("#"))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        string[] items = line.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        drawnpolygon.Points.Add(new PointLatLng(double.Parse(items[0]), double.Parse(items[1])));
+                        addpolygonmarkergrid(drawnpolygon.Points.Count.ToString(), double.Parse(items[1]), double.Parse(items[0]), 0);
+
+                        a++;
+                    }
+                }
+
+                // remove loop close
+                if (drawnpolygon.Points.Count > 1 && drawnpolygon.Points[0] == drawnpolygon.Points[drawnpolygon.Points.Count - 1])
+                {
+                    drawnpolygon.Points.RemoveAt(drawnpolygon.Points.Count - 1);
+                }
+
+                drawnpolygons.Polygons.Add(drawnpolygon);
+
+                MainMap.UpdatePolygonLocalPosition(drawnpolygon);
+
+                MainMap.Invalidate();
+            }
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+            if (MainV2.comPort.MAV.cs.firmware != MainV2.Firmwares.ArduPlane)
+            {
+                geoFenceToolStripMenuItem.Enabled = false;
+            }
+            else
+            {
+                geoFenceToolStripMenuItem.Enabled = true;
+            }
+        }
+
+        private void areaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            double area = calcpolygonarea(drawnpolygon.Points);
+
+            CustomMessageBox.Show("Area: " + area + " m2");
+        }
+
+        private void BUT_Grid_Click(object sender, EventArgs e)
+        {
             polygongridmode = false;
 
             if (drawnpolygon == null || drawnpolygon.Points.Count == 0)
@@ -4022,305 +4441,9 @@ namespace ArdupilotMega.GCSViews
                 MainMap.Refresh();
 
             }
-
         }
 
-        bool PointInPolygon(PointLatLng p, List<PointLatLng> poly)
-        {
-            PointLatLng p1, p2;
-            bool inside = false;
-
-            if (poly.Count < 3)
-            {
-                return inside;
-            }
-            PointLatLng oldPoint = new PointLatLng(
-
-            poly[poly.Count - 1].Lat, poly[poly.Count - 1].Lng);
-
-            for (int i = 0; i < poly.Count; i++)
-            {
-
-                PointLatLng newPoint = new PointLatLng(poly[i].Lat, poly[i].Lng);
-
-                if (newPoint.Lat > oldPoint.Lat)
-                {
-                    p1 = oldPoint;
-                    p2 = newPoint;
-                }
-                else
-                {
-                    p1 = newPoint;
-                    p2 = oldPoint;
-                }
-
-                if ((newPoint.Lat < p.Lat) == (p.Lat <= oldPoint.Lat)
-                    && ((double)p.Lng - (double)p1.Lng) * (double)(p2.Lat - p1.Lat)
-                    < ((double)p2.Lng - (double)p1.Lng) * (double)(p.Lat - p1.Lat))
-                {
-                    inside = !inside;
-                }
-                oldPoint = newPoint;
-            }
-            return inside;
-        }
-
-
-        void newpos(ref double lat, ref double lon, double bearing, double distance)
-        {
-            // '''extrapolate latitude/longitude given a heading and distance 
-            //   thanks to http://www.movable-type.co.uk/scripts/latlong.html
-            //  '''
-            // from math import sin, asin, cos, atan2, radians, degrees
-            double radius_of_earth = 6378100.0;//# in meters
-
-            double lat1 = radians(lat);
-            double lon1 = radians(lon);
-            double brng = radians(bearing);
-            double dr = distance / radius_of_earth;
-
-            double lat2 = Math.Asin(Math.Sin(lat1) * Math.Cos(dr) +
-                        Math.Cos(lat1) * Math.Sin(dr) * Math.Cos(brng));
-            double lon2 = lon1 + Math.Atan2(Math.Sin(brng) * Math.Sin(dr) * Math.Cos(lat1),
-                                Math.Cos(dr) - Math.Sin(lat1) * Math.Sin(lat2));
-
-            lat = degrees(lat2);
-            lon = degrees(lon2);
-            //return (degrees(lat2), degrees(lon2));
-        }
-
-        public static double radians(double val)
-        {
-            return val * deg2rad;
-        }
-        public static double degrees(double val)
-        {
-            return val * rad2deg;
-        }
-
-        private void zoomToToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string place = "Perth Airport, Australia";
-            if (DialogResult.OK == Common.InputBox("Location", "Enter your location", ref place))
-            {
-
-                GeoCoderStatusCode status = MainMap.SetCurrentPositionByKeywords(place);
-                if (status != GeoCoderStatusCode.G_GEO_SUCCESS)
-                {
-                    CustomMessageBox.Show("Google Maps Geocoder can't find: '" + place + "', reason: " + status.ToString(), "GMap.NET", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                else
-                {
-                    MainMap.Zoom = 15;
-                }
-            }
-        }
-
-        private void prefetchToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RectLatLng area = MainMap.SelectedArea;
-            if (area.IsEmpty)
-            {
-                DialogResult res = CustomMessageBox.Show("No ripp area defined, ripp displayed on screen?", "Rip", MessageBoxButtons.YesNo);
-                if (res == DialogResult.Yes)
-                {
-                    area = MainMap.CurrentViewArea;
-                }
-            }
-
-            if (!area.IsEmpty)
-            {
-                DialogResult res = CustomMessageBox.Show("Ready ripp at Zoom = " + (int)MainMap.Zoom + " ?", "GMap.NET", MessageBoxButtons.YesNo);
-
-                for (int i = 1; i <= MainMap.MaxZoom; i++)
-                {
-                    if (res == DialogResult.Yes)
-                    {
-                        TilePrefetcher obj = new TilePrefetcher();
-                        obj.ShowCompleteMessage = false;
-                        obj.Start(area, MainMap.Projection, i, MainMap.MapType, 100);
-                    }
-                    else if (res == DialogResult.No)
-                    {
-                        continue;
-                    }
-                    else if (res == DialogResult.Cancel)
-                    {
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                CustomMessageBox.Show("Select map area holding ALT", "GMap.NET", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-        }
-
-        private void kMLOverlayToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            OpenFileDialog fd = new OpenFileDialog();
-            fd.Filter = "Google Earth KML (*.kml)|*.kml";
-            fd.DefaultExt = ".kml";
-            DialogResult result = fd.ShowDialog();
-            string file = fd.FileName;
-            if (file != "")
-            {
-                try
-                {
-                    kmlpolygons.Polygons.Clear();
-                    kmlpolygons.Routes.Clear();
-
-                    FlightData.kmlpolygons.Routes.Clear();
-                    FlightData.kmlpolygons.Polygons.Clear();
-
-                    string kml = new StreamReader(File.OpenRead(file)).ReadToEnd();
-
-                    kml = kml.Replace("<Snippet/>", "");
-
-                    var parser = new SharpKml.Base.Parser();
-
-                    parser.ElementAdded += parser_ElementAdded;
-                    parser.ParseString(kml, true);
-
-                    if (DialogResult.Yes == CustomMessageBox.Show("Do you want to load this into the flight data screen?", "Load data", MessageBoxButtons.YesNo))
-                    {
-                        foreach (var temp in kmlpolygons.Polygons)
-                        {
-                            FlightData.kmlpolygons.Polygons.Add(temp);
-                        }
-                        foreach (var temp in kmlpolygons.Routes)
-                        {
-                            FlightData.kmlpolygons.Routes.Add(temp);
-                        }
-                    }
-
-                }
-                catch (Exception ex) { CustomMessageBox.Show("Bad KML File :" + ex.ToString()); }
-            }
-        }
-
-        private void elevationGraphToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            writeKML();
-            double homealt;
-            double.TryParse(TXT_homealt.Text, out homealt);
-            Form temp = new ElevationProfile(pointlist, homealt);
-            ThemeManager.ApplyThemeTo(temp);
-            temp.ShowDialog();
-        }
-
-        private void cameraToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Camera form = new Camera();
-            ThemeManager.ApplyThemeTo(form);
-            form.Show();
-        }
-
-        private void rTLToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            selectedrow = Commands.Rows.Add();
-
-            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.RETURN_TO_LAUNCH.ToString();
-
-            //Commands.Rows[selectedrow].Cells[Param1.Index].Value = time;
-
-            ChangeColumnHeader(MAVLink.MAV_CMD.RETURN_TO_LAUNCH.ToString());
-
-            writeKML();
-        }
-
-        private void landToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            selectedrow = Commands.Rows.Add();
-
-            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
-
-            //Commands.Rows[selectedrow].Cells[Param1.Index].Value = time;
-
-            ChangeColumnHeader(MAVLink.MAV_CMD.LAND.ToString());
-
-            setfromGE(end.Lat, end.Lng, 1);
-
-            writeKML();
-        }
-
-        private void AddDigicamControlPhoto()
-        {
-            selectedrow = Commands.Rows.Add();
-
-            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_DIGICAM_CONTROL.ToString();
-
-            ChangeColumnHeader(MAVLink.MAV_CMD.DO_DIGICAM_CONTROL.ToString());
-
-            writeKML();
-        }
-
-        private void takeoffToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // altitude
-            string alt = "10";
-
-            Common.InputBox("Altitude", "Please enter your takeoff altitude", ref alt);
-
-            int alti = -1;
-
-            if (!int.TryParse(alt, out alti))
-            {
-                MessageBox.Show("Bad Alt");
-                return;
-            }
-
-            // take off pitch
-            int topi = 0;
-
-            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx)
-            {
-                string top = "15";
-
-                Common.InputBox("Takeoff Pitch", "Please enter your takeoff pitch", ref alt);
-
-                if (!int.TryParse(top, out topi))
-                {
-                    MessageBox.Show("Bad Takeoff pitch");
-                    return;
-                }
-            }
-
-            selectedrow = Commands.Rows.Add();
-
-            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
-
-            Commands.Rows[selectedrow].Cells[Param1.Index].Value = topi;
-
-            Commands.Rows[selectedrow].Cells[Alt.Index].Value = alti;
-
-            ChangeColumnHeader(MAVLink.MAV_CMD.TAKEOFF.ToString());
-
-            writeKML();
-        }
-
-        private void loadWPFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            BUT_loadwpfile_Click(null, null);
-        }
-
-        private void saveWPFileToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveFile_Click(null, null);
-        }
-
-        private void trackerHomeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MainV2.comPort.MAV.cs.TrackerLocation = new PointLatLngAlt(end) { Alt = MainV2.comPort.MAV.cs.HomeAlt };
-        }
-
-        private void gridV2ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            gridv2();
-        }
-
-        private void reverseWPsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BUT_Reverse_Waypoints_Click(object sender, EventArgs e)
         {
             DataGridViewRowCollection rows = Commands.Rows;
             //Commands.Rows.Clear();
@@ -4339,122 +4462,6 @@ namespace ArdupilotMega.GCSViews
             quickadd = false;
 
             writeKML();
-        }
-
-        private void loadAndAppendToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog fd = new OpenFileDialog();
-            fd.Filter = "Ardupilot Mission (*.txt)|*.*";
-            fd.DefaultExt = ".txt";
-            DialogResult result = fd.ShowDialog();
-            string file = fd.FileName;
-            if (file != "")
-            {
-                readQGC110wpfile(file, true);
-            }
-        }
-
-        private void savePolygonToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (drawnpolygon.Points.Count == 0)
-            {
-                return;
-            }
-
-
-            SaveFileDialog sf = new SaveFileDialog();
-            sf.Filter = "Polygon (*.poly)|*.poly";
-            sf.ShowDialog();
-            if (sf.FileName != "")
-            {
-                try
-                {
-                    StreamWriter sw = new StreamWriter(sf.OpenFile());
-
-                    sw.WriteLine("#saved by APM Planner " + Application.ProductVersion);
-
-                    if (drawnpolygon.Points.Count > 0)
-                    {
-                        foreach (var pll in drawnpolygon.Points)
-                        {
-                            sw.WriteLine(pll.Lat + " " + pll.Lng);
-                        }
-
-                        PointLatLng pll2 = drawnpolygon.Points[0];
-
-                        sw.WriteLine(pll2.Lat + " " + pll2.Lng);
-                    }
-
-                    sw.Close();
-                }
-                catch { CustomMessageBox.Show("Failed to write fence file"); }
-            }
-        }
-
-        private void loadPolygonToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog fd = new OpenFileDialog();
-            fd.Filter = "Polygon (*.poly)|*.poly";
-            fd.ShowDialog();
-            if (File.Exists(fd.FileName))
-            {
-                StreamReader sr = new StreamReader(fd.OpenFile());
-
-                drawnpolygons.Markers.Clear();
-                drawnpolygons.Polygons.Clear();
-                drawnpolygon.Points.Clear();
-
-                int a = 0;
-
-                while (!sr.EndOfStream)
-                {
-                    string line = sr.ReadLine();
-                    if (line.StartsWith("#"))
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        string[] items = line.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-
-                        drawnpolygon.Points.Add(new PointLatLng(double.Parse(items[0]), double.Parse(items[1])));
-                        addpolygonmarkergrid(drawnpolygon.Points.Count.ToString(), double.Parse(items[1]), double.Parse(items[0]), 0);
-
-                        a++;
-                    }
-                }
-
-                // remove loop close
-                if (drawnpolygon.Points.Count > 1 && drawnpolygon.Points[0] == drawnpolygon.Points[drawnpolygon.Points.Count - 1])
-                {
-                    drawnpolygon.Points.RemoveAt(drawnpolygon.Points.Count - 1);
-                }
-
-                drawnpolygons.Polygons.Add(drawnpolygon);
-
-                MainMap.UpdatePolygonLocalPosition(drawnpolygon);
-
-                MainMap.Invalidate();
-            }
-        }
-
-        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
-        {
-            if (MainV2.comPort.MAV.cs.firmware != MainV2.Firmwares.ArduPlane)
-            {
-                geoFenceToolStripMenuItem.Enabled = false;
-            }
-            else
-            {
-                geoFenceToolStripMenuItem.Enabled = true;
-            }
-        }
-
-        private void areaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            double area = calcpolygonarea(drawnpolygon.Points);
-
-            CustomMessageBox.Show("Area: " + area + " m2");
         }
     }
 }

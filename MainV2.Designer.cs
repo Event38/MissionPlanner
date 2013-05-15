@@ -225,7 +225,7 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(57, 76);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(54, 76);
             this.toolStripMenuItem1.Text = "Donate";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
@@ -234,7 +234,7 @@
             this.menu.Dock = System.Windows.Forms.DockStyle.Top;
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
-            this.menu.Size = new System.Drawing.Size(1008, 23);
+            this.menu.Size = new System.Drawing.Size(1016, 23);
             this.menu.TabIndex = 6;
             this.menu.Text = "Menu";
             this.menu.UseVisualStyleBackColor = true;
@@ -256,7 +256,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 537);
+            this.ClientSize = new System.Drawing.Size(1016, 548);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
