@@ -3748,8 +3748,278 @@ namespace ArdupilotMega.GCSViews
 
         private void gridToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
 
+            polygongridmode = false;
+
+            if (drawnpolygon == null || drawnpolygon.Points.Count == 0)
+            {
+                CustomMessageBox.Show("Right click the map to draw a polygon", "Area", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            // ensure points/latlong are current
+            MainMap.Zoom = (int)MainMap.Zoom;
+
+            MainMap.Refresh();
+
+            GMapPolygon area = drawnpolygon;
+            area.Points.Add(area.Points[0]); // make a full loop
+            RectLatLng arearect = getPolyMinMax(area);
+            if (area.Distance > 0)
+            {
+
+                PointLatLng topright = new PointLatLng(arearect.LocationTopLeft.Lat, arearect.LocationRightBottom.Lng);
+                PointLatLng bottomleft = new PointLatLng(arearect.LocationRightBottom.Lat, arearect.LocationTopLeft.Lng);
+
+                double diagdist = MainMap.Manager.GetDistance(arearect.LocationTopLeft, arearect.LocationRightBottom) * 1000;
+                double heightdist = MainMap.Manager.GetDistance(arearect.LocationTopLeft, bottomleft) * 1000;
+                double widthdist = MainMap.Manager.GetDistance(arearect.LocationTopLeft, topright) * 1000;
+
+
+
+                string alt = (100 * MainV2.comPort.MAV.cs.multiplierdist).ToString("0");
+                Common.InputBox("Altitude", "Relative Altitude", ref alt);
+
+
+                string distance = (50 * MainV2.comPort.MAV.cs.multiplierdist).ToString("0");
+                Common.InputBox("Distance", "Distance between lines", ref distance);
+
+                string wpevery = (40 * MainV2.comPort.MAV.cs.multiplierdist).ToString("0");
+                Common.InputBox("Every", "Put a WP every x distance (-1 for none)", ref wpevery);
+
+                string angle = (90).ToString("0");
+                Common.InputBox("Angle", "Enter the line direction (0-180)", ref angle);
+
+                double tryme = 0;
+
+                if (!double.TryParse(angle, out tryme))
+                {
+                    CustomMessageBox.Show("Invalid Angle");
+                    return;
+                }
+                if (!double.TryParse(alt, out tryme))
+                {
+                    CustomMessageBox.Show("Invalid Alt");
+                    return;
+                }
+                if (!double.TryParse(distance, out tryme))
+                {
+                    CustomMessageBox.Show("Invalid Distance");
+                    return;
+                }
+                if (!double.TryParse(wpevery, out tryme))
+                {
+                    CustomMessageBox.Show("Invalid Waypoint spacing");
+                    return;
+                }
+
+#if DEBUG
+                //Commands.Rows.Clear();
+#endif
+                // get x y components
+                double x1 = Math.Cos((double.Parse(angle)) * deg2rad); // needs to mod for long scale
+                double y1 = Math.Sin((double.Parse(angle)) * deg2rad);
+
+                // get x y step amount in lat lng from m
+                double latdiff = arearect.HeightLat / ((heightdist / (double.Parse(distance) * (y1) / MainV2.comPort.MAV.cs.multiplierdist)));
+                double lngdiff = arearect.WidthLng / ((widthdist / (double.Parse(distance) * (x1) / MainV2.comPort.MAV.cs.multiplierdist)));
+
+                double latlngdiff = Math.Sqrt(latdiff * latdiff + lngdiff * lngdiff);
+
+                double fulllatdiff = arearect.HeightLat * x1 * 2;
+                double fulllngdiff = arearect.WidthLng * y1 * 2;
+
+                // lat - up down
+                // lng - left right
+
+                int overshootdist = 0;// (int)(double.Parse(overshoot) / MainV2.comPort.MAV.cs.multiplierdist);
+
+                int altitude = (int)(double.Parse(alt));
+
+                double overshootdistlng = arearect.WidthLng / widthdist * overshootdist;
+
+                bool dir = false;
+
+                int count = 0;
+
+                double x = bottomleft.Lat - Math.Abs(fulllatdiff) - latlngdiff * 0.5;
+                double y = bottomleft.Lng - Math.Abs(fulllngdiff) - latlngdiff * 0.5;
+
+                //callMe(x, y, 0);
+
+                //callMe(topright.Lat + Math.Abs(latlngdiff),topright.Lng + Math.Abs(latlngdiff), 0);
+
+                //return;
+
+                log.InfoFormat("{0} < {1} {2} < {3}", x, (topright.Lat), y, (topright.Lng));
+
+                quickadd = true;
+
+                while (x < (topright.Lat + Math.Abs(latlngdiff)) && y < (topright.Lng + Math.Abs(latlngdiff)))
+                {
+                    if (double.Parse(angle) < 45)
+                    {
+                        x = bottomleft.Lat;
+                        y += latlngdiff;
+                    }
+                    else if (double.Parse(angle) > 135)
+                    {
+                        x = arearect.LocationTopLeft.Lat; //arearect.LocationTopLeft.Lat;
+                        y += latlngdiff;
+                    }
+                    else if (double.Parse(angle) > 90)
+                    {
+                        y = bottomleft.Lng; //arearect.LocationTopLeft.Lat;
+                        x += latlngdiff;
+                    }
+                    else
+                    {
+                        y = bottomleft.Lng;
+                        x += latlngdiff;
+                    }
+
+                    //callMe(x , y, 0);
+                    //callMe(x + (fulllatdiff), y + (fulllngdiff), 0);
+
+                    //continue;
+
+                    PointLatLng closestlatlong = PointLatLng.Zero;
+                    PointLatLng farestlatlong = PointLatLng.Zero;
+
+                    double noc = double.MaxValue;
+                    double nof = double.MinValue;
+
+                    if (dir)
+                    {
+                        double ax = x;
+                        double ay = y;
+
+                        double bx = x + fulllatdiff;
+                        double by = y + fulllngdiff;
+                        int a = -1;
+                        PointLatLng newlatlong = PointLatLng.Zero;
+                        foreach (PointLatLng pnt in area.Points)
+                        {
+                            a++;
+                            if (a == 0)
+                            {
+                                continue;
+                            }
+                            newlatlong = FindLineIntersection(area.Points[a - 1], area.Points[a], new PointLatLng(ax, ay), new PointLatLng(bx, by));
+                            if (!newlatlong.IsZero)
+                            {
+                                if (noc > MainMap.Manager.GetDistance(new PointLatLng(ax, ay), newlatlong))
+                                {
+                                    closestlatlong.Lat = newlatlong.Lat;
+                                    closestlatlong.Lng = newlatlong.Lng;
+                                    noc = MainMap.Manager.GetDistance(new PointLatLng(ax, ay), newlatlong);
+                                }
+                                if (nof < MainMap.Manager.GetDistance(new PointLatLng(ax, ay), newlatlong))
+                                {
+                                    farestlatlong.Lat = newlatlong.Lat;
+                                    farestlatlong.Lng = newlatlong.Lng;
+                                    nof = MainMap.Manager.GetDistance(new PointLatLng(ax, ay), newlatlong);
+                                }
+                            }
+                        }
+
+                        if (!farestlatlong.IsZero)
+                        {
+                            callMe(farestlatlong.Lat, farestlatlong.Lng, altitude);
+                        }
+                        if (!closestlatlong.IsZero && !farestlatlong.IsZero && double.Parse(wpevery) > 0)
+                        {
+                            for (int d = (int)double.Parse(wpevery); d < (MainMap.Manager.GetDistance(farestlatlong, closestlatlong) * 1000); d += (int)double.Parse(wpevery))
+                            {
+                                ax = farestlatlong.Lat;
+                                ay = farestlatlong.Lng;
+
+                                newpos(ref ax, ref ay, double.Parse(angle), -d);
+                                callMe(ax, ay, altitude);
+                            }
+                        }
+                        if (!closestlatlong.IsZero)
+                        {
+                            callMe(closestlatlong.Lat, closestlatlong.Lng - overshootdistlng, altitude);
+                        }
+
+                        //callMe(x, topright.Lng, altitude);
+                        //callMe(x, bottomleft.Lng - overshootdistlng, altitude);
+                    }
+                    else
+                    {
+                        double ax = x;
+                        double ay = y;
+
+                        double bx = x + fulllatdiff;
+                        double by = y + fulllngdiff;
+                        int a = -1;
+                        PointLatLng newlatlong = PointLatLng.Zero;
+                        foreach (PointLatLng pnt in area.Points)
+                        {
+                            a++;
+                            if (a == 0)
+                            {
+                                continue;
+                            }
+                            newlatlong = FindLineIntersection(area.Points[a - 1], area.Points[a], new PointLatLng(ax, ay), new PointLatLng(bx, by));
+                            if (!newlatlong.IsZero)
+                            {
+                                if (noc > MainMap.Manager.GetDistance(new PointLatLng(ax, ay), newlatlong))
+                                {
+                                    closestlatlong.Lat = newlatlong.Lat;
+                                    closestlatlong.Lng = newlatlong.Lng;
+                                    noc = MainMap.Manager.GetDistance(new PointLatLng(ax, ay), newlatlong);
+                                }
+                                if (nof < MainMap.Manager.GetDistance(new PointLatLng(ax, ay), newlatlong))
+                                {
+                                    farestlatlong.Lat = newlatlong.Lat;
+                                    farestlatlong.Lng = newlatlong.Lng;
+                                    nof = MainMap.Manager.GetDistance(new PointLatLng(ax, ay), newlatlong);
+                                }
+                            }
+                        }
+                        if (!closestlatlong.IsZero)
+                        {
+                            callMe(closestlatlong.Lat, closestlatlong.Lng, altitude);
+                        }
+                        if (!closestlatlong.IsZero && !farestlatlong.IsZero && double.Parse(wpevery) > 0)
+                        {
+                            for (int d = (int)double.Parse(wpevery); d < (MainMap.Manager.GetDistance(farestlatlong, closestlatlong) * 1000); d += (int)double.Parse(wpevery))
+                            {
+                                ax = closestlatlong.Lat;
+                                ay = closestlatlong.Lng;
+
+                                newpos(ref ax, ref ay, double.Parse(angle), d);
+                                callMe(ax, ay, altitude);
+                            }
+                        }
+                        if (!farestlatlong.IsZero)
+                        {
+                            callMe(farestlatlong.Lat, farestlatlong.Lng + overshootdistlng, altitude);
+                        }
+                        //callMe(x, bottomleft.Lng, altitude);
+                        //callMe(x, topright.Lng + overshootdistlng, altitude);
+                    }
+
+                    dir = !dir;
+
+                    count++;
+
+                    if (Commands.RowCount > 150)
+                    {
+                        CustomMessageBox.Show("Stopping at 150 WP's");
+                        break;
+                    }
+                }
+
+                //drawnpolygon.Points.Clear();
+                //drawnpolygons.Markers.Clear();
+                quickadd = false;
+                writeKML();
+                MainMap.Refresh();
+
+            }
         }
 
         bool PointInPolygon(PointLatLng p, List<PointLatLng> poly)
@@ -4460,6 +4730,47 @@ namespace ArdupilotMega.GCSViews
             }
 
             quickadd = false;
+
+            writeKML();
+        }
+
+        private void But_DrawPolygon_Click(object sender, EventArgs e)
+        {
+            if (polygongridmode == false)
+            {
+                CustomMessageBox.Show("You will remain in polygon mode until you clear the polygon or create a grid/upload a fence");
+            }
+
+            polygongridmode = true;
+
+            List<PointLatLng> polygonPoints = new List<PointLatLng>();
+            if (drawnpolygons.Polygons.Count == 0)
+            {
+                drawnpolygon.Points.Clear();
+                drawnpolygons.Polygons.Add(drawnpolygon);
+            }
+
+            // remove full loop is exists
+            if (drawnpolygon.Points.Count > 1 && drawnpolygon.Points[0] == drawnpolygon.Points[drawnpolygon.Points.Count - 1])
+                drawnpolygon.Points.RemoveAt(drawnpolygon.Points.Count - 1); // unmake a full loop
+
+            drawnpolygon.Points.Add(new PointLatLng(start.Lat, start.Lng));
+
+            addpolygonmarkergrid(drawnpolygon.Points.Count.ToString(), start.Lng, start.Lat, 0);
+
+            MainMap.UpdatePolygonLocalPosition(drawnpolygon);
+
+            MainMap.Invalidate();
+        }
+
+        private void BUT_ClearPolygon_Click(object sender, EventArgs e)
+        {
+            polygongridmode = false;
+            if (drawnpolygon == null)
+                return;
+            drawnpolygon.Points.Clear();
+            drawnpolygons.Markers.Clear();
+            MainMap.Invalidate();
 
             writeKML();
         }
