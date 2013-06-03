@@ -39,21 +39,21 @@
             this.modifyandSetSpeed = new ArdupilotMega.Controls.ModifyandSet();
             this.modifyandSetAlt = new ArdupilotMega.Controls.ModifyandSet();
             this.BUT_ARM = new ArdupilotMega.Controls.MyButton();
-            this.BUT_script = new ArdupilotMega.Controls.MyButton();
-            this.BUT_joystick = new ArdupilotMega.Controls.MyButton();
-            this.BUT_quickmanual = new ArdupilotMega.Controls.MyButton();
+            //this.BUT_script = new ArdupilotMega.Controls.MyButton();
+            //this.BUT_joystick = new ArdupilotMega.Controls.MyButton();
+            //this.BUT_quickmanual = new ArdupilotMega.Controls.MyButton();
             this.BUT_quickrtl = new ArdupilotMega.Controls.MyButton();
             this.BUT_quickauto = new ArdupilotMega.Controls.MyButton();
             this.CMB_setwp = new System.Windows.Forms.ComboBox();
             this.BUT_setwp = new ArdupilotMega.Controls.MyButton();
             this.CMB_modes = new System.Windows.Forms.ComboBox();
-            this.BUT_setmode = new ArdupilotMega.Controls.MyButton();
+            //this.BUT_setmode = new ArdupilotMega.Controls.MyButton();
             this.BUT_clear_track = new ArdupilotMega.Controls.MyButton();
             this.CMB_action = new System.Windows.Forms.ComboBox();
             this.BUT_Homealt = new ArdupilotMega.Controls.MyButton();
             this.BUT_RAWSensor = new ArdupilotMega.Controls.MyButton();
             this.BUTrestartmission = new ArdupilotMega.Controls.MyButton();
-            this.BUTactiondo = new ArdupilotMega.Controls.MyButton();
+            //this.BUTactiondo = new ArdupilotMega.Controls.MyButton();
             this.tabGauges = new System.Windows.Forms.TabPage();
             this.Gvspeed = new AGaugeApp.AGauge();
             this.Gheading = new ArdupilotMega.Controls.HSI();
@@ -405,21 +405,21 @@
             this.tabActions.Controls.Add(this.modifyandSetSpeed);
             this.tabActions.Controls.Add(this.modifyandSetAlt);
             this.tabActions.Controls.Add(this.BUT_ARM);
-            this.tabActions.Controls.Add(this.BUT_script);
-            this.tabActions.Controls.Add(this.BUT_joystick);
-            this.tabActions.Controls.Add(this.BUT_quickmanual);
+            //this.tabActions.Controls.Add(this.BUT_script);
+            //this.tabActions.Controls.Add(this.BUT_joystick);
+            //this.tabActions.Controls.Add(this.BUT_quickmanual);
             this.tabActions.Controls.Add(this.BUT_quickrtl);
             this.tabActions.Controls.Add(this.BUT_quickauto);
             this.tabActions.Controls.Add(this.CMB_setwp);
             this.tabActions.Controls.Add(this.BUT_setwp);
             this.tabActions.Controls.Add(this.CMB_modes);
-            this.tabActions.Controls.Add(this.BUT_setmode);
+            //this.tabActions.Controls.Add(this.BUT_setmode);
             this.tabActions.Controls.Add(this.BUT_clear_track);
             this.tabActions.Controls.Add(this.CMB_action);
             this.tabActions.Controls.Add(this.BUT_Homealt);
             this.tabActions.Controls.Add(this.BUT_RAWSensor);
             this.tabActions.Controls.Add(this.BUTrestartmission);
-            this.tabActions.Controls.Add(this.BUTactiondo);
+            //this.tabActions.Controls.Add(this.BUTactiondo);
             resources.ApplyResources(this.tabActions, "tabActions");
             this.tabActions.Name = "tabActions";
             this.tabActions.UseVisualStyleBackColor = true;
@@ -459,26 +459,26 @@
             // 
             // BUT_script
             // 
-            resources.ApplyResources(this.BUT_script, "BUT_script");
-            this.BUT_script.Name = "BUT_script";
-            this.BUT_script.UseVisualStyleBackColor = true;
-            this.BUT_script.Click += new System.EventHandler(this.BUT_script_Click);
+            //resources.ApplyResources(this.BUT_script, "BUT_script");
+            //this.BUT_script.Name = "BUT_script";
+            //this.BUT_script.UseVisualStyleBackColor = true;
+            //this.BUT_script.Click += new System.EventHandler(this.BUT_script_Click);
             // 
             // BUT_joystick
             // 
-            resources.ApplyResources(this.BUT_joystick, "BUT_joystick");
-            this.BUT_joystick.Name = "BUT_joystick";
-            this.toolTip1.SetToolTip(this.BUT_joystick, resources.GetString("BUT_joystick.ToolTip"));
-            this.BUT_joystick.UseVisualStyleBackColor = true;
-            this.BUT_joystick.Click += new System.EventHandler(this.BUT_joystick_Click);
+            //resources.ApplyResources(this.BUT_joystick, "BUT_joystick");
+            //this.BUT_joystick.Name = "BUT_joystick";
+            //this.toolTip1.SetToolTip(this.BUT_joystick, resources.GetString("BUT_joystick.ToolTip"));
+            //this.BUT_joystick.UseVisualStyleBackColor = true;
+            //this.BUT_joystick.Click += new System.EventHandler(this.BUT_joystick_Click);
             // 
             // BUT_quickmanual
             // 
-            resources.ApplyResources(this.BUT_quickmanual, "BUT_quickmanual");
-            this.BUT_quickmanual.Name = "BUT_quickmanual";
-            this.toolTip1.SetToolTip(this.BUT_quickmanual, resources.GetString("BUT_quickmanual.ToolTip"));
-            this.BUT_quickmanual.UseVisualStyleBackColor = true;
-            this.BUT_quickmanual.Click += new System.EventHandler(this.BUT_quickmanual_Click);
+            //resources.ApplyResources(this.BUT_quickmanual, "BUT_quickmanual");
+            //this.BUT_quickmanual.Name = "BUT_quickmanual";
+            //this.toolTip1.SetToolTip(this.BUT_quickmanual, resources.GetString("BUT_quickmanual.ToolTip"));
+            //this.BUT_quickmanual.UseVisualStyleBackColor = true;
+            //this.BUT_quickmanual.Click += new System.EventHandler(this.BUT_quickmanual_Click);
             // 
             // BUT_quickrtl
             // 
@@ -524,11 +524,12 @@
             // 
             // BUT_setmode
             // 
-            resources.ApplyResources(this.BUT_setmode, "BUT_setmode");
-            this.BUT_setmode.Name = "BUT_setmode";
-            this.toolTip1.SetToolTip(this.BUT_setmode, resources.GetString("BUT_setmode.ToolTip"));
-            this.BUT_setmode.UseVisualStyleBackColor = true;
-            this.BUT_setmode.Click += new System.EventHandler(this.BUT_setmode_Click);
+            //resources.ApplyResources(this.BUT_setmode, "BUT_setmode");
+            //this.BUT_setmode.Name = "BUT_setmode";
+            //this.toolTip1.SetToolTip(this.BUT_setmode, resources.GetString("BUT_setmode.ToolTip"));
+            //this.BUT_setmode.UseVisualStyleBackColor = true;
+            //this.BUT_setmode.Click += new System.EventHandler(this.BUT_setmode_Click);
+            
             // 
             // BUT_clear_track
             // 
@@ -572,11 +573,11 @@
             // 
             // BUTactiondo
             // 
-            resources.ApplyResources(this.BUTactiondo, "BUTactiondo");
-            this.BUTactiondo.Name = "BUTactiondo";
-            this.toolTip1.SetToolTip(this.BUTactiondo, resources.GetString("BUTactiondo.ToolTip"));
-            this.BUTactiondo.UseVisualStyleBackColor = true;
-            this.BUTactiondo.Click += new System.EventHandler(this.BUTactiondo_Click);
+            //resources.ApplyResources(this.BUTactiondo, "BUTactiondo");
+            //this.BUTactiondo.Name = "BUTactiondo";
+            //this.toolTip1.SetToolTip(this.BUTactiondo, resources.GetString("BUTactiondo.ToolTip"));
+            //this.BUTactiondo.UseVisualStyleBackColor = true;
+            //this.BUTactiondo.Click += new System.EventHandler(this.BUTactiondo_Click);
             // 
             // tabGauges
             // 
@@ -1459,7 +1460,7 @@
         private ArdupilotMega.Controls.MyButton BUT_clear_track;
         private System.Windows.Forms.CheckBox CB_tuning;
         private ArdupilotMega.Controls.MyButton BUT_RAWSensor;
-        private ArdupilotMega.Controls.MyButton BUTactiondo;
+        //private ArdupilotMega.Controls.MyButton BUTactiondo;
         private ArdupilotMega.Controls.MyButton BUTrestartmission;
         private System.Windows.Forms.ComboBox CMB_action;
         private ArdupilotMega.Controls.MyButton BUT_Homealt;
@@ -1485,16 +1486,16 @@
         private System.Windows.Forms.TabPage tabActions;
         private System.Windows.Forms.TabPage tabTLogs;
         private System.Windows.Forms.ComboBox CMB_modes;
-        private ArdupilotMega.Controls.MyButton BUT_setmode;
+        //private ArdupilotMega.Controls.MyButton BUT_setmode;
         private System.Windows.Forms.ComboBox CMB_setwp;
         private ArdupilotMega.Controls.MyButton BUT_setwp;
-        private ArdupilotMega.Controls.MyButton BUT_quickmanual;
+        //private ArdupilotMega.Controls.MyButton BUT_quickmanual;
         private ArdupilotMega.Controls.MyButton BUT_quickrtl;
         private ArdupilotMega.Controls.MyButton BUT_quickauto;
         private ArdupilotMega.Controls.MyButton BUT_log2kml;
         private ArdupilotMega.Controls.MyLabel lbl_windvel;
         private ArdupilotMega.Controls.MyLabel lbl_winddir;
-        private ArdupilotMega.Controls.MyButton BUT_joystick;
+        //private ArdupilotMega.Controls.MyButton BUT_joystick;
         private System.Windows.Forms.ToolTip toolTip1;
         private ArdupilotMega.Controls.MyTrackBar NUM_playbackspeed;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripHud;
@@ -1503,7 +1504,7 @@
         private ArdupilotMega.Controls.MyLabel lbl_logpercent;
         private System.Windows.Forms.ToolStripMenuItem pointCameraHereToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private ArdupilotMega.Controls.MyButton BUT_script;
+        //private ArdupilotMega.Controls.MyButton BUT_script;
         private ArdupilotMega.Controls.MyLabel lbl_hdop;
         private ArdupilotMega.Controls.MyLabel lbl_sats;
         private Controls.HSI Gheading;
