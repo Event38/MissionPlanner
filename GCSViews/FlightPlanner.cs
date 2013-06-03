@@ -527,25 +527,38 @@ namespace ArdupilotMega.GCSViews
                     inner.MoveToElement();
                     if (inner.IsStartElement())
                     {
+                        // Ankit Birla - 01 June 2013
+                        List<string> AllowedValues = new List<string>();
+                        AllowedValues.Add("WAYPOINT");
+                        AllowedValues.Add("LOITER_UNLIM");
+                        AllowedValues.Add("LOITER_TIME");
+                        AllowedValues.Add("RETURN_TO_LAUNCH");
+                        AllowedValues.Add("LAND");
+                        AllowedValues.Add("TAKEOFF");
+                        AllowedValues.Add("ROI");
+
                         string cmdname = inner.Name;
-                        string[] cmdarray = new string[7];
-                        int b = 0;
-
-                        XmlReader inner2 = inner.ReadSubtree();
-
-                        inner2.Read();
-
-                        while (inner2.Read())
+                        if (AllowedValues.Contains(cmdname))
                         {
-                            inner2.MoveToElement();
-                            if (inner2.IsStartElement())
-                            {
-                                cmdarray[b] = inner2.ReadString();
-                                b++;
-                            }
-                        }
+                            string[] cmdarray = new string[7];
+                            int b = 0;
 
-                        cmd[cmdname] = cmdarray;
+                            XmlReader inner2 = inner.ReadSubtree();
+
+                            inner2.Read();
+
+                            while (inner2.Read())
+                            {
+                                inner2.MoveToElement();
+                                if (inner2.IsStartElement())
+                                {
+                                    cmdarray[b] = inner2.ReadString();
+                                    b++;
+                                }
+                            }
+
+                            cmd[cmdname] = cmdarray;
+                        }
                     }
                 }
             }
