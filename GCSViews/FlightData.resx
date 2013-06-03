@@ -514,10 +514,10 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_ARM.Location" type="System.Drawing.Point, System.Drawing">
-    <value>111, 90</value>
+    <value>86, 91</value>
   </data>
   <data name="BUT_ARM.Size" type="System.Drawing.Size, System.Drawing">
-    <value>45, 23</value>
+    <value>55, 23</value>
   </data>
   <data name="BUT_ARM.TabIndex" type="System.Int32, mscorlib">
     <value>79</value>
@@ -631,10 +631,10 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_quickrtl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 64</value>
+    <value>86, 63</value>
   </data>
   <data name="BUT_quickrtl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 23</value>
+    <value>55, 23</value>
   </data>
   <data name="BUT_quickrtl.TabIndex" type="System.Int32, mscorlib">
     <value>75</value>
@@ -661,10 +661,10 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_quickauto.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 6</value>
+    <value>86, 6</value>
   </data>
   <data name="BUT_quickauto.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 23</value>
+    <value>55, 23</value>
   </data>
   <data name="BUT_quickauto.TabIndex" type="System.Int32, mscorlib">
     <value>74</value>
@@ -796,10 +796,10 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_clear_track.Location" type="System.Drawing.Point, System.Drawing">
-    <value>162, 90</value>
+    <value>147, 91</value>
   </data>
   <data name="BUT_clear_track.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 23</value>
+    <value>69, 23</value>
   </data>
   <data name="BUT_clear_track.TabIndex" type="System.Int32, mscorlib">
     <value>52</value>
@@ -847,7 +847,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_Homealt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>200, 6</value>
+    <value>147, 6</value>
   </data>
   <data name="BUT_Homealt.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 23</value>
@@ -877,7 +877,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_RAWSensor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>200, 64</value>
+    <value>147, 64</value>
   </data>
   <data name="BUT_RAWSensor.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 23</value>
@@ -907,7 +907,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUTrestartmission.Location" type="System.Drawing.Point, System.Drawing">
-    <value>200, 35</value>
+    <value>147, 35</value>
   </data>
   <data name="BUTrestartmission.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 23</value>
