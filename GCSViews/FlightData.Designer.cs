@@ -14,7 +14,7 @@
             this.goHereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flyToHereAltToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pointCameraHereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.triggerCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            //this.triggerCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flightPlannerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainH = new System.Windows.Forms.SplitContainer();
             this.SubMainLeft = new System.Windows.Forms.SplitContainer();
@@ -135,7 +135,7 @@
             this.goHereToolStripMenuItem,
             this.flyToHereAltToolStripMenuItem,
             this.pointCameraHereToolStripMenuItem,
-            this.triggerCameraToolStripMenuItem,
+            //this.triggerCameraToolStripMenuItem,
             this.flightPlannerToolStripMenuItem});
             this.contextMenuStripMap.Name = "contextMenuStrip1";
             resources.ApplyResources(this.contextMenuStripMap, "contextMenuStripMap");
@@ -160,9 +160,9 @@
             // 
             // triggerCameraToolStripMenuItem
             // 
-            this.triggerCameraToolStripMenuItem.Name = "triggerCameraToolStripMenuItem";
-            resources.ApplyResources(this.triggerCameraToolStripMenuItem, "triggerCameraToolStripMenuItem");
-            this.triggerCameraToolStripMenuItem.Click += new System.EventHandler(this.triggerCameraToolStripMenuItem_Click);
+            //this.triggerCameraToolStripMenuItem.Name = "triggerCameraToolStripMenuItem";
+            //resources.ApplyResources(this.triggerCameraToolStripMenuItem, "triggerCameraToolStripMenuItem");
+            //this.triggerCameraToolStripMenuItem.Click += new System.EventHandler(this.triggerCameraToolStripMenuItem_Click);
             // 
             // flightPlannerToolStripMenuItem
             // 
@@ -1525,7 +1525,7 @@
         private Controls.MyButton BUT_ARM;
         private Controls.ModifyandSet modifyandSetAlt;
         private Controls.ModifyandSet modifyandSetSpeed;
-        private System.Windows.Forms.ToolStripMenuItem triggerCameraToolStripMenuItem;
+        //private System.Windows.Forms.ToolStripMenuItem triggerCameraToolStripMenuItem;
         private Controls.MyTrackBar TRK_zoom;
         private Controls.MyLabel LBL_logfn;
         private System.Windows.Forms.TabPage tabServo;
