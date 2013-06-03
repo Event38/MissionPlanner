@@ -157,24 +157,24 @@ namespace ArdupilotMega.GCSViews
             }
 
 
-            List<string> list = new List<string>();
+            //List<string> list = new List<string>();
 
-            {
-                list.Add("LOITER_UNLIM");
-                list.Add("RETURN_TO_LAUNCH");
-                list.Add("PREFLIGHT_CALIBRATION");
-                list.Add("MISSION_START");
-                list.Add("PREFLIGHT_REBOOT_SHUTDOWN");
-                //DO_SET_SERVO
-                //DO_REPEAT_SERVO
-            }
+            //{
+            //    list.Add("LOITER_UNLIM");
+            //    list.Add("RETURN_TO_LAUNCH");
+            //    list.Add("PREFLIGHT_CALIBRATION");
+            //    list.Add("MISSION_START");
+            //    list.Add("PREFLIGHT_REBOOT_SHUTDOWN");
+            //    //DO_SET_SERVO
+            //    //DO_REPEAT_SERVO
+            //}
 
 
-            CMB_action.DataSource = list;
+            //CMB_action.DataSource = list;
 
-            CMB_modes.DataSource = Common.getModesList();
-            CMB_modes.ValueMember = "Key";
-            CMB_modes.DisplayMember = "Value";
+            //CMB_modes.DataSource = Common.getModesList();
+            //CMB_modes.ValueMember = "Key";
+            //CMB_modes.DisplayMember = "Value";
 
             CMB_setwp.SelectedIndex = 0;
 
@@ -1235,17 +1235,17 @@ namespace ArdupilotMega.GCSViews
                 route.Points.Clear();
         }
 
-        private void BUTactiondo_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ((Button)sender).Enabled = false;
+        //private void BUTactiondo_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        ((Button)sender).Enabled = false;
 
-                MainV2.comPort.doCommand((MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), CMB_action.Text), 0, 0, 1, 0, 0, 0, 0);
-            }
-            catch { CustomMessageBox.Show("The Command failed to execute"); }
-            ((Button)sender).Enabled = true;
-        }
+        //        MainV2.comPort.doCommand((MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), CMB_action.Text), 0, 0, 1, 0, 0, 0, 0);
+        //    }
+        //    catch { CustomMessageBox.Show("The Command failed to execute"); }
+        //    ((Button)sender).Enabled = true;
+        //}
 
         private void BUTrestartmission_Click(object sender, EventArgs e)
         {
@@ -1596,10 +1596,10 @@ namespace ArdupilotMega.GCSViews
 
         }
 
-        private void BUT_setmode_Click(object sender, EventArgs e)
-        {
-            MainV2.comPort.setMode(CMB_modes.Text);
-        }
+        //private void BUT_setmode_Click(object sender, EventArgs e)
+        //{
+        //    //MainV2.comPort.setMode(CMB_modes.Text);
+        //}
 
         private void BUT_setwp_Click(object sender, EventArgs e)
         {
@@ -1688,12 +1688,12 @@ namespace ArdupilotMega.GCSViews
             joy.Show();
         }
 
-        private void CMB_modes_Click(object sender, EventArgs e)
-        {
-            CMB_modes.DataSource = Common.getModesList();
-            CMB_modes.ValueMember = "Key";
-            CMB_modes.DisplayMember = "Value";
-        }
+        //private void CMB_modes_Click(object sender, EventArgs e)
+        //{
+        //    CMB_modes.DataSource = Common.getModesList();
+        //    CMB_modes.ValueMember = "Key";
+        //    CMB_modes.DisplayMember = "Value";
+        //}
 
         private void hud1_DoubleClick(object sender, EventArgs e)
         {
