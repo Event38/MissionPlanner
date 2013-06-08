@@ -1788,6 +1788,9 @@
     <Content Include="bin\Debug\zh-cn\ZedGraph.resources.dll" />
     <Content Include="bin\Debug\zh-Hans\ArdupilotMegaPlanner10.resources.dll" />
     <Content Include="bin\Debug\zh-TW\ArdupilotMegaPlanner10.resources.dll" />
+    <Content Include="cameras.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ChangeLog.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

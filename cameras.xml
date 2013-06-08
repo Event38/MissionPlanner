@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Cameras>
+  <Camera>
+    <name>SX230 HS</name>
+    <flen>5</flen>
+    <imgh>3000</imgh>
+    <imgw>4000</imgw>
+    <senh>4.62</senh>
+    <senw>6.16</senw>
+  </Camera>
+  <Camera>
+    <name>SX260 HS</name>
+    <flen>4</flen>
+    <imgh>3000</imgh>
+    <imgw>4000</imgw>
+    <senh>4.55</senh>
+    <senw>6.17</senw>
+  </Camera>
+  <Camera>
+    <name>NX1000</name>
+    <flen>20</flen>
+    <imgh>3648</imgh>
+    <imgw>5472</imgw>
+    <senh>15.7</senh>
+    <senw>23.5</senw>
+  </Camera>
+</Cameras>
