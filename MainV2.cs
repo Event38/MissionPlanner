@@ -2386,7 +2386,7 @@ new System.Net.Security.RemoteCertificateValidationCallback((sender, certificate
             }
 
             response.Close();
-
+            /*
             if (updateFound)
             {
                 var dr = CustomMessageBox.Show("Update Found\n\nDo you wish to update now?", "Update Now", MessageBoxButtons.YesNo);
@@ -2398,7 +2398,7 @@ new System.Net.Security.RemoteCertificateValidationCallback((sender, certificate
                 {
                     return;
                 }
-            }
+            }*/
         }
 
         public static void DoUpdate()
