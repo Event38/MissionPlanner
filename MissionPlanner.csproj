@@ -187,7 +187,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\netDxf.dll</HintPath>
     </Reference>
-    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+    <Reference Include="OpenTK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\OpenTK.dll</HintPath>
     </Reference>
@@ -1520,6 +1520,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigArdurover.resx">
       <DependentUpon>ConfigArdurover.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\ConfigurationView\ConfigAP_Limits.resx">
       <DependentUpon>ConfigAP_Limits.cs</DependentUpon>
@@ -1829,6 +1830,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Swarm\FormationControl.resx">
       <DependentUpon>FormationControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Swarm\Grid.resx">
       <DependentUpon>Grid.cs</DependentUpon>
@@ -1896,6 +1898,56 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="JSBSim.exe" />
+    <Content Include="Lib\alglibnet2.dll" />
+    <Content Include="Lib\AStar.dll" />
+    <Content Include="Lib\AviFile.dll" />
+    <Content Include="Lib\AWSSDK.dll" />
+    <Content Include="Lib\BaseClassesNET.dll" />
+    <Content Include="Lib\BouncyCastle.Crypto.dll" />
+    <Content Include="Lib\BSE.Windows.Forms.dll" />
+    <Content Include="Lib\Core.dll" />
+    <Content Include="Lib\Crom.Controls.dll" />
+    <Content Include="Lib\CsAssortedWidgets.net.dll" />
+    <Content Include="Lib\csmatio.dll" />
+    <Content Include="Lib\DirectShowLib-2005.dll" />
+    <Content Include="Lib\GMap.NET.Core.dll" />
+    <Content Include="Lib\GMap.NET.WindowsForms.dll" />
+    <Content Include="Lib\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="Lib\Ionic.Zip.Reduced.dll" />
+    <Content Include="Lib\IronPython.dll" />
+    <Content Include="Lib\IronPython.Modules.dll" />
+    <Content Include="Lib\KMLib.dll" />
+    <Content Include="Lib\log4net.dll" />
+    <Content Include="Lib\MetaDataExtractor.dll" />
+    <Content Include="Lib\Microsoft.DirectX.DirectInput.dll" />
+    <Content Include="Lib\Microsoft.DirectX.dll" />
+    <Content Include="Lib\Microsoft.Dynamic.dll" />
+    <Content Include="Lib\Microsoft.Scripting.Core.dll" />
+    <Content Include="Lib\Microsoft.Scripting.Debugging.dll" />
+    <Content Include="Lib\Microsoft.Scripting.dll" />
+    <Content Include="Lib\Microsoft.Scripting.ExtensionAttribute.dll" />
+    <Content Include="Lib\MonoMac.dll" />
+    <Content Include="Lib\netDxf.dll" />
+    <Content Include="Lib\Newtonsoft.Json.dll" />
+    <Content Include="Lib\OpenTK.Compatibility.dll" />
+    <Content Include="Lib\OpenTK.dll" />
+    <Content Include="Lib\OpenTK.GLControl.dll" />
+    <Content Include="Lib\ProjNet.dll" />
+    <Content Include="Lib\px4uploader.exe" />
+    <Content Include="Lib\Sharp3D.Math.DirectX.dll" />
+    <Content Include="Lib\Sharp3D.Math.DirectX.xml" />
+    <Content Include="Lib\Sharp3D.Math.dll" />
+    <Content Include="Lib\Sharp3D.Math.GDI.dll" />
+    <Content Include="Lib\Sharp3D.Math.GDI.xml" />
+    <Content Include="Lib\Sharp3D.Math.xml" />
+    <Content Include="Lib\SharpKml.dll" />
+    <Content Include="Lib\System.Data.SQLite.DLL" />
+    <Content Include="Lib\System.Reactive.dll" />
+    <Content Include="Lib\System.Reactive.XML" />
+    <Content Include="Lib\System.Speech.dll" />
+    <Content Include="Lib\Transitions.dll" />
+    <Content Include="Lib\ZedGraph.dll" />
+    <Content Include="Lib\zlib.net.dll" />
     <Content Include="mavcmd.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
