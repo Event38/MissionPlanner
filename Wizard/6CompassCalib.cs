@@ -22,6 +22,10 @@ namespace MissionPlanner.Wizard
             return 1;
         }
 
+        public bool WizardBusy()
+        {
+            return false;
+        }
         public void Activate()
         { 
             timer1.Start(); 
@@ -51,88 +55,37 @@ namespace MissionPlanner.Wizard
 
         private void BUT_MagCalibration_Click(object sender, EventArgs e)
         {
-            MainV2.comPort.MAV.cs.ratesensors = 2;
-
-            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA3, MainV2.comPort.MAV.cs.ratesensors);
-            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.RAW_SENSORS, MainV2.comPort.MAV.cs.ratesensors);
-
-            MainV2.comPort.setParam("MAG_ENABLE", 1);
-
-            CustomMessageBox.Show("Data will be collected for 60 seconds, Please click ok and move the apm around all axises");
-
-            ProgressReporterDialogue prd = new ProgressReporterDialogue();
-
-            Utilities.ThemeManager.ApplyThemeTo(prd);
-
-            prd.DoWork += prd_DoWork;
-
-            prd.RunBackgroundOperationAsync();
-        }
-
-        void prd_DoWork(object sender, ProgressWorkerEventArgs e, object passdata = null)
-        {
-            // list of x,y,z 's
-            List<Tuple<float, float, float>> data = new List<Tuple<float, float, float>>();
-
-            // backup current rate and set to 10 hz
-            byte backupratesens = MainV2.comPort.MAV.cs.ratesensors;
-            MainV2.comPort.MAV.cs.ratesensors = 10;
-            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.RAW_SENSORS, MainV2.comPort.MAV.cs.ratesensors); // mag captures at 10 hz
-
-            DateTime deadline = DateTime.Now.AddSeconds(60);
-
-            float oldmx = 0;
-            float oldmy = 0;
-            float oldmz = 0;
-
-            while (deadline > DateTime.Now)
+            if (!MainV2.comPort.BaseStream.IsOpen)
             {
-                double timeremaining = (deadline - DateTime.Now).TotalSeconds;
-                ((ProgressReporterDialogue)sender).UpdateProgressAndStatus((int)(((60 - timeremaining) / 60) * 100), timeremaining.ToString("0") + " Seconds - got " + data.Count + " Samples");
-
-                if (e.CancelRequested)
-                {
-                    // restore old sensor rate
-                    MainV2.comPort.MAV.cs.ratesensors = backupratesens;
-                    MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.RAW_SENSORS, MainV2.comPort.MAV.cs.ratesensors);
-
-                    e.CancelAcknowledged = true;
-                    return;
-                }
-
-                if (oldmx != MainV2.comPort.MAV.cs.mx &&
-                    oldmy != MainV2.comPort.MAV.cs.my &&
-                    oldmz != MainV2.comPort.MAV.cs.mz)
-                {
-                    data.Add(new Tuple<float, float, float>(
-                        MainV2.comPort.MAV.cs.mx - (float)MainV2.comPort.MAV.cs.mag_ofs_x,
-                        MainV2.comPort.MAV.cs.my - (float)MainV2.comPort.MAV.cs.mag_ofs_y,
-                        MainV2.comPort.MAV.cs.mz - (float)MainV2.comPort.MAV.cs.mag_ofs_z));
-
-                    oldmx = MainV2.comPort.MAV.cs.mx;
-                    oldmy = MainV2.comPort.MAV.cs.my;
-                    oldmz = MainV2.comPort.MAV.cs.mz;
-                }
+                CustomMessageBox.Show(Strings.ErrorNotConnected, Strings.ERROR);
+                Wizard.instance.Close();
             }
 
-            // restore old sensor rate
-            MainV2.comPort.MAV.cs.ratesensors = backupratesens;
-            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.RAW_SENSORS, MainV2.comPort.MAV.cs.ratesensors);
-
-            if (data.Count < 10)
+            try
             {
-                CustomMessageBox.Show("Log does not contain enough data");
-                return;
+                MainV2.comPort.MAV.cs.ratesensors = 2;
+
+                MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA3, MainV2.comPort.MAV.cs.ratesensors);
+                MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.RAW_SENSORS, MainV2.comPort.MAV.cs.ratesensors);
+
+                MainV2.comPort.setParam("MAG_ENABLE", 1);
+            }
+            catch
+            {
+                CustomMessageBox.Show(Strings.ErrorNotConnected, Strings.ERROR);
+                Wizard.instance.Close();
             }
 
-            double[] ans = MagCalib.LeastSq(data);
-
-            MagCalib.SaveOffsets(ans);
+            MagCalib.DoGUIMagCalib();
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.youtube.com/watch?v=DmsueBS0J3E");
+            try
+            {
+                System.Diagnostics.Process.Start("https://www.youtube.com/watch?v=DmsueBS0J3E");
+            }
+            catch { CustomMessageBox.Show("Your default http association is not set correctly."); }
         }
 
         int step = 0;

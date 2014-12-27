@@ -43,15 +43,27 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         public void Activate()
         {
-            mavlinkComboBox_fs_thr_enable.setup(ParameterMetaDataRepository.GetParameterOptionsInt("FS_THR_ENABLE"), "FS_THR_ENABLE", MainV2.comPort.MAV.param);
-
-            
-
+            mavlinkComboBox_fs_thr_enable.setup(ParameterMetaDataRepository.GetParameterOptionsInt("FS_THR_ENABLE", MainV2.comPort.MAV.cs.firmware.ToString()), "FS_THR_ENABLE", MainV2.comPort.MAV.param);
 
             // arducopter
-            mavlinkCheckBoxfs_batt_enable.setup(1, 0, "FS_BATT_ENABLE", MainV2.comPort.MAV.param);
+            mavlinkComboBoxfs_batt_enable.setup(ParameterMetaDataRepository.GetParameterOptionsInt("FS_BATT_ENABLE", MainV2.comPort.MAV.cs.firmware.ToString()), "FS_BATT_ENABLE", MainV2.comPort.MAV.param);
             mavlinkNumericUpDownfs_thr_value.setup(800, 1200, 1, 1, "FS_THR_VALUE", MainV2.comPort.MAV.param);
-            mavlinkNumericUpDownlow_voltage.setup(6, 99, 1, 0.1f, "LOW_VOLT", MainV2.comPort.MAV.param, PNL_low_bat);
+
+            // low battery
+            if (MainV2.comPort.MAV.param.ContainsKey("LOW_VOLT"))
+            {
+                mavlinkNumericUpDownlow_voltage.setup(6, 99, 1, 0.1f, "LOW_VOLT", MainV2.comPort.MAV.param, PNL_low_bat);
+            }
+            else
+            {
+                mavlinkNumericUpDownlow_voltage.setup(6, 99, 1, 0.1f, "FS_BATT_VOLTAGE", MainV2.comPort.MAV.param, PNL_low_bat);
+            }
+
+            mavlinkNumericUpDownFS_BATT_MAH.setup(1000, 99999, 1, 1, "FS_BATT_MAH", MainV2.comPort.MAV.param, pnlmah);
+
+            // removed at randys request
+            //mavlinkCheckBoxfs_gps_enable.setup(1, 0, "FS_GPS_ENABLE", MainV2.comPort.MAV.param);
+            mavlinkCheckBoxFS_GCS_ENABLE.setup(1, 0, "FS_GCS_ENABLE", MainV2.comPort.MAV.param);
 
             // plane
             mavlinkCheckBoxthr_fs.setup(1, 0, "THR_FAILSAFE", MainV2.comPort.MAV.param, mavlinkNumericUpDownthr_fs_value);

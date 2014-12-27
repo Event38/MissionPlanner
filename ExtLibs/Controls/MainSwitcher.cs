@@ -43,6 +43,11 @@ namespace MissionPlanner.Controls
             Screen.Control.Visible = false;
         }
 
+        public void Reload()
+        {
+            ShowScreen(current.Name);
+        }
+
         public void ShowScreen(string name)
         {
             if (current != null)
@@ -79,6 +84,9 @@ namespace MissionPlanner.Controls
             // find next screen
             Screen nextscreen = screens.Single(s => s.Name == name);
 
+            MainControl.SuspendLayout();
+            nextscreen.Control.SuspendLayout();
+
             nextscreen.Control.Location = new Point(0, 0);
 
             nextscreen.Control.AutoScaleMode = AutoScaleMode.None;
@@ -88,8 +96,6 @@ namespace MissionPlanner.Controls
             nextscreen.Control.Dock = DockStyle.Fill;
 
             MissionPlanner.Utilities.Tracking.AddPage(nextscreen.Control.GetType().ToString(), name);
-
-            MainControl.SuspendLayout();
 
             if (nextscreen.Control is IActivate)
             {
@@ -101,9 +107,10 @@ namespace MissionPlanner.Controls
 
             MainControl.Controls.Add(nextscreen.Control);
 
-            nextscreen.Visible = true;
-
+            nextscreen.Control.ResumeLayout();
             MainControl.ResumeLayout();
+
+            nextscreen.Visible = true;
 
             current = nextscreen;
 
@@ -136,12 +143,16 @@ namespace MissionPlanner.Controls
             {
                 try
                 {
+                    Console.WriteLine("MainSwitcher dispose " + item.Control.Name);
+                    item.Control.Close();
                     item.Control.Dispose();
                 }
                 catch { }
             }
 
             MainControl.Dispose();
+
+            GC.SuppressFinalize(this);
         }
     }
 }

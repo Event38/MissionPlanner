@@ -13,6 +13,9 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+			if (_subscriptionsDisposable != null)
+    	        _subscriptionsDisposable.Dispose();
+
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -252,8 +255,7 @@
             // 
             // ConnectionStats
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
             this.Name = "ConnectionStats";

@@ -10,6 +10,7 @@ using System.Text.RegularExpressions; // regex
 using System.Xml; // GE xml alt reader
 using System.Net; // dns, ip address
 using System.Net.Sockets; // tcplistner
+using System.Threading;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using System.Globalization; // language
@@ -22,6 +23,7 @@ using MissionPlanner.Controls.BackstageView;
 //using Crom.Controls.Docking;
 using log4net;
 using System.Reflection;
+using MissionPlanner.Log;
 
 // written by michael oborne
 namespace MissionPlanner.GCSViews
@@ -94,14 +96,29 @@ namespace MissionPlanner.GCSViews
         {
             threadrun = 0;
             MainV2.comPort.logreadmode = false;
-  
+
             System.Threading.Thread.Sleep(100);
+
+            if (swlog != null)
+                swlog.Dispose();
+            if (polygon != null)
+                polygon.Dispose();
+            if (polygons != null)
+                polygons.Dispose();
+            if (marker != null)
+                marker.Dispose();
+
+            if (components != null)
+                components.Dispose();
+
             base.Dispose(disposing);
         }
 
         public Simple()
         {
             InitializeComponent();
+
+            MissionPlanner.Utilities.Tracking.AddPage(this.GetType().ToString(), this.Text);
 
             instance = this;
             //    _serializer = new DockStateSerializer(dockContainer1);
@@ -151,7 +168,7 @@ namespace MissionPlanner.GCSViews
             CreateChart(zg1);
 
             // config map             
-            gMapControl1.MapType = MapType.GoogleSatellite;
+            gMapControl1.MapProvider = GMap.NET.MapProviders.GoogleSatelliteMapProvider.Instance;
             gMapControl1.MinZoom = 1;
             gMapControl1.CacheLocation = Path.GetDirectoryName(Application.ExecutablePath) + "/gmapcache/";
 
@@ -162,16 +179,16 @@ namespace MissionPlanner.GCSViews
             gMapControl1.RoutesEnabled = true;
             gMapControl1.PolygonsEnabled = true;
 
-            kmlpolygons = new GMapOverlay(gMapControl1, "kmlpolygons");
+            kmlpolygons = new GMapOverlay( "kmlpolygons");
             gMapControl1.Overlays.Add(kmlpolygons);
 
-            geofence = new GMapOverlay(gMapControl1, "geofence");
+            geofence = new GMapOverlay( "geofence");
             gMapControl1.Overlays.Add(geofence);
 
-            polygons = new GMapOverlay(gMapControl1, "polygons");
+            polygons = new GMapOverlay( "polygons");
             gMapControl1.Overlays.Add(polygons);
 
-            routes = new GMapOverlay(gMapControl1, "routes");
+            routes = new GMapOverlay( "routes");
             gMapControl1.Overlays.Add(routes);
 
 
@@ -348,13 +365,13 @@ namespace MissionPlanner.GCSViews
                         //System.Threading.Thread.Sleep(1000);
 
                         //comPort.requestDatastream((byte)MissionPlanner.MAVLink09.MAV_DATA_STREAM.RAW_CONTROLLER, 0); // request servoout
-                        MainV2.comPort.requestDatastream(MissionPlanner.MAVLink.MAV_DATA_STREAM.EXTENDED_STATUS, MainV2.comPort.MAV.cs.ratestatus); // mode
-                        MainV2.comPort.requestDatastream(MissionPlanner.MAVLink.MAV_DATA_STREAM.POSITION, MainV2.comPort.MAV.cs.rateposition); // request gps
-                        MainV2.comPort.requestDatastream(MissionPlanner.MAVLink.MAV_DATA_STREAM.EXTRA1, MainV2.comPort.MAV.cs.rateattitude); // request attitude
-                        MainV2.comPort.requestDatastream(MissionPlanner.MAVLink.MAV_DATA_STREAM.EXTRA2, MainV2.comPort.MAV.cs.rateattitude); // request vfr
-                        MainV2.comPort.requestDatastream(MissionPlanner.MAVLink.MAV_DATA_STREAM.EXTRA3, MainV2.comPort.MAV.cs.ratesensors); // request extra stuff - tridge
-                        MainV2.comPort.requestDatastream(MissionPlanner.MAVLink.MAV_DATA_STREAM.RAW_SENSORS, MainV2.comPort.MAV.cs.ratesensors); // request raw sensor
-                        MainV2.comPort.requestDatastream(MissionPlanner.MAVLink.MAV_DATA_STREAM.RC_CHANNELS, MainV2.comPort.MAV.cs.raterc); // request rc info
+                        MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTENDED_STATUS, MainV2.comPort.MAV.cs.ratestatus); // mode
+                        MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.POSITION, MainV2.comPort.MAV.cs.rateposition); // request gps
+                        MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA1, MainV2.comPort.MAV.cs.rateattitude); // request attitude
+                        MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA2, MainV2.comPort.MAV.cs.rateattitude); // request vfr
+                        MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.EXTRA3, MainV2.comPort.MAV.cs.ratesensors); // request extra stuff - tridge
+                        MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.RAW_SENSORS, MainV2.comPort.MAV.cs.ratesensors); // request raw sensor
+                        MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.RC_CHANNELS, MainV2.comPort.MAV.cs.raterc); // request rc info
                     }
                     catch { log.Error("Failed to request rates"); }
                     lastdata = DateTime.Now.AddSeconds(120); // prevent flooding
@@ -510,7 +527,7 @@ namespace MissionPlanner.GCSViews
                                 if (routes.Markers.Count != 1)
                                 {
                                     routes.Markers.Clear();
-                                    routes.Markers.Add(new GMapMarkerCross(currentloc));
+                                    routes.Markers.Add(new GMarkerGoogle(currentloc,GMarkerGoogleType.none));
                                 }
 
                                 if (MainV2.comPort.MAV.cs.mode.ToLower() == "guided" && MainV2.comPort.MAV.GuidedMode.x != 0)
@@ -520,7 +537,7 @@ namespace MissionPlanner.GCSViews
 
                                 if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx)
                                 {
-                                    routes.Markers[0] = (new GMapMarkerPlane(currentloc, MainV2.comPort.MAV.cs.yaw, MainV2.comPort.MAV.cs.groundcourse, MainV2.comPort.MAV.cs.nav_bearing, MainV2.comPort.MAV.cs.target_bearing, gMapControl1)
+                                    routes.Markers[0] = (new GMapMarkerPlane(currentloc, MainV2.comPort.MAV.cs.yaw, MainV2.comPort.MAV.cs.groundcourse, MainV2.comPort.MAV.cs.nav_bearing, MainV2.comPort.MAV.cs.target_bearing)
                                     {
                                         ToolTipText = MainV2.comPort.MAV.cs.mode + "\n" + MainV2.comPort.MAV.cs.alt.ToString("alt 0") + "\n" + MainV2.comPort.MAV.cs.groundspeed.ToString("gs 0"),
                                         ToolTipMode = MarkerTooltipMode.Always
@@ -528,7 +545,11 @@ namespace MissionPlanner.GCSViews
                                 }
                                 else if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduRover)
                                 {
-                                    routes.Markers[0] = (new GMapMarkerRover(currentloc, MainV2.comPort.MAV.cs.yaw, MainV2.comPort.MAV.cs.groundcourse, MainV2.comPort.MAV.cs.nav_bearing, MainV2.comPort.MAV.cs.target_bearing, gMapControl1));
+                                    routes.Markers[0] = (new GMapMarkerRover(currentloc, MainV2.comPort.MAV.cs.yaw, MainV2.comPort.MAV.cs.groundcourse, MainV2.comPort.MAV.cs.nav_bearing, MainV2.comPort.MAV.cs.target_bearing));
+                                }
+                                else if (MainV2.comPort.MAV.aptype == MAVLink.MAV_TYPE.HELICOPTER)
+                                {
+                                    routes.Markers[0] = (new GMapMarkerHeli(currentloc, MainV2.comPort.MAV.cs.yaw, MainV2.comPort.MAV.cs.groundcourse, MainV2.comPort.MAV.cs.nav_bearing));
                                 }
                                 else
                                 {
@@ -641,7 +662,7 @@ namespace MissionPlanner.GCSViews
             try
             {
                 PointLatLng point = new PointLatLng(lat, lng);
-                GMapMarkerGoogleGreen m = new GMapMarkerGoogleGreen(point);
+                GMarkerGoogle m = new GMarkerGoogle(point,GMarkerGoogleType.green);
                 m.ToolTipMode = MarkerTooltipMode.Always;
                 m.ToolTipText = tag;
                 m.Tag = tag;
@@ -652,10 +673,9 @@ namespace MissionPlanner.GCSViews
                     mBorders.InnerMarker = m;
                     try
                     {
-                        mBorders.wprad = (int)(float.Parse(MissionPlanner.MainV2.config["TXT_WPRad"].ToString()) / MainV2.comPort.MAV.cs.multiplierdist);
+                        mBorders.wprad = (int)(float.Parse(MissionPlanner.MainV2.config["TXT_WPRad"].ToString()) / CurrentState.multiplierdist);
                     }
                     catch { }
-                    mBorders.MainMap = gMapControl1;
                     if (color.HasValue)
                     {
                         mBorders.Color = color.Value;
@@ -673,7 +693,7 @@ namespace MissionPlanner.GCSViews
             try
             {
                 PointLatLng point = new PointLatLng(lat, lng);
-                GMapMarkerGoogleRed m = new GMapMarkerGoogleRed(point);
+                GMarkerGoogle m = new GMarkerGoogle(point,GMarkerGoogleType.red);
                 m.ToolTipMode = MarkerTooltipMode.Always;
                 m.ToolTipText = tag;
                 m.Tag = tag;
@@ -1003,7 +1023,7 @@ namespace MissionPlanner.GCSViews
                     marker = new GMapMarkerRect(point);
                     marker.ToolTip = new GMapToolTip(marker);
                     marker.ToolTipMode = MarkerTooltipMode.Always;
-                    marker.ToolTipText = "Dist to Home: " + ((gMapControl1.Manager.GetDistance(point, MainV2.comPort.MAV.cs.HomeLocation.Point()) * 1000) * MainV2.comPort.MAV.cs.multiplierdist).ToString("0");
+                    marker.ToolTipText = "Dist to Home: " + ((gMapControl1.MapProvider.Projection.GetDistance(point, MainV2.comPort.MAV.cs.HomeLocation.Point()) * 1000) * CurrentState.multiplierdist).ToString("0");
 
                     routes.Markers.Add(marker);
                 }
@@ -1025,7 +1045,7 @@ namespace MissionPlanner.GCSViews
             }
             else
             {
-                MainV2.comPort.MAV.cs.altoffsethome = MainV2.comPort.MAV.cs.alt / MainV2.comPort.MAV.cs.multiplierdist;
+                MainV2.comPort.MAV.cs.altoffsethome = MainV2.comPort.MAV.cs.alt / CurrentState.multiplierdist;
             }
         }
 
@@ -1075,14 +1095,14 @@ namespace MissionPlanner.GCSViews
 
         private void BUT_log2kml_Click(object sender, EventArgs e)
         {
-            Form frm = new MavlinkLog();
+            Form frm = new Log.MavlinkLog();
             ThemeManager.ApplyThemeTo(frm);
             frm.ShowDialog();
         }
 
         private void BUT_joystick_Click(object sender, EventArgs e)
         {
-            Form joy = new JoystickSetup();
+            Form joy = new Joystick.JoystickSetup();
             ThemeManager.ApplyThemeTo(joy);
             joy.Show();
         }
@@ -1304,17 +1324,10 @@ namespace MissionPlanner.GCSViews
                 string selected = "";
                 try
                 {
-                    selected = selected + zg1.GraphPane.CurveList[0].Label.Text + "|";
-                    selected = selected + zg1.GraphPane.CurveList[1].Label.Text + "|";
-                    selected = selected + zg1.GraphPane.CurveList[2].Label.Text + "|";
-                    selected = selected + zg1.GraphPane.CurveList[3].Label.Text + "|";
-                    selected = selected + zg1.GraphPane.CurveList[4].Label.Text + "|";
-                    selected = selected + zg1.GraphPane.CurveList[5].Label.Text + "|";
-                    selected = selected + zg1.GraphPane.CurveList[6].Label.Text + "|";
-                    selected = selected + zg1.GraphPane.CurveList[7].Label.Text + "|";
-                    selected = selected + zg1.GraphPane.CurveList[8].Label.Text + "|";
-                    selected = selected + zg1.GraphPane.CurveList[9].Label.Text + "|";
-                    selected = selected + zg1.GraphPane.CurveList[10].Label.Text + "|";
+                    foreach (var curve in zg1.GraphPane.CurveList)
+                    {
+                        selected = selected + curve.Label.Text + "|";
+                    }
                 }
                 catch { }
                 MainV2.config["Tuning_Graph_Selected"] = selected;
@@ -1383,11 +1396,11 @@ namespace MissionPlanner.GCSViews
                 return;
             }
 
-            string alt = (100 * MainV2.comPort.MAV.cs.multiplierdist).ToString("0");
+            string alt = (100 * CurrentState.multiplierdist).ToString("0");
             if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Enter Alt", "Enter Target Alt (absolute)", ref alt))
                 return;
 
-            int intalt = (int)(100 * MainV2.comPort.MAV.cs.multiplierdist);
+            int intalt = (int)(100 * CurrentState.multiplierdist);
             if (!int.TryParse(alt, out intalt))
             {
                 CustomMessageBox.Show("Bad Alt");
@@ -1401,114 +1414,8 @@ namespace MissionPlanner.GCSViews
             }
 
             MainV2.comPort.setMountConfigure(MAVLink.MAV_MOUNT_MODE.GPS_POINT, true, true, true);
-            MainV2.comPort.setMountControl(gotolocation.Lat, gotolocation.Lng, (int)(intalt / MainV2.comPort.MAV.cs.multiplierdist), true);
+            MainV2.comPort.setMountControl(gotolocation.Lat, gotolocation.Lng, (int)(intalt / CurrentState.multiplierdist), true);
 
-        }
-
-        private void BUT_script_Click(object sender, EventArgs e)
-        {
-
-            System.Threading.Thread t11 = new System.Threading.Thread(new System.Threading.ThreadStart(ScriptStart))
-            {
-                IsBackground = true,
-                Name = "Script Thread"
-            };
-            t11.Start();
-        }
-
-        void ScriptStart()
-        {
-            string myscript = @"
-# cs.???? = currentstate, any variable on the status tab in the planner can be used.
-# Script = options are 
-# Script.Sleep(ms)
-# Script.ChangeParam(name,value)
-# Script.GetParam(name)
-# Script.ChangeMode(mode) - same as displayed in mode setup screen 'AUTO'
-# Script.WaitFor(string,timeout)
-# Script.SendRC(channel,pwm,sendnow)
-# 
-
-print 'Start Script'
-for chan in range(1,9):
-    Script.SendRC(chan,1500,False)
-Script.SendRC(3,Script.GetParam('RC3_MIN'),True)
-
-Script.Sleep(5000)
-while cs.lat == 0:
-    print 'Waiting for GPS'
-    Script.Sleep(1000)
-print 'Got GPS'
-jo = 10 * 13
-print jo
-Script.SendRC(3,1000,False)
-Script.SendRC(4,2000,True)
-cs.messages.Clear()
-Script.WaitFor('ARMING MOTORS',30000)
-Script.SendRC(4,1500,True)
-print 'Motors Armed!'
-
-Script.SendRC(3,1700,True)
-while cs.alt < 50:
-    Script.Sleep(50)
-
-Script.SendRC(5,2000,True) # acro
-
-Script.SendRC(1,2000,False) # roll
-Script.SendRC(3,1370,True) # throttle
-while cs.roll > -45: # top hald 0 - 180
-    Script.Sleep(5)
-while cs.roll < -45: # -180 - -45
-    Script.Sleep(5)
-
-Script.SendRC(5,1500,False) # stabalise
-Script.SendRC(1,1500,True) # level roll
-Script.Sleep(2000) # 2 sec to stabalise
-Script.SendRC(3,1300,True) # throttle back to land
-
-thro = 1350 # will decend
-
-while cs.alt > 0.1:
-    Script.Sleep(300)
-
-Script.SendRC(3,1000,False)
-Script.SendRC(4,1000,True)
-Script.WaitFor('DISARMING MOTORS',30000)
-Script.SendRC(4,1500,True)
-
-print 'Roll complete'
-
-";
-
-            //  CustomMessageBox.Show("This is Very ALPHA");
-
-            Form scriptedit = new Form();
-
-            scriptedit.Size = new System.Drawing.Size(500, 500);
-
-            TextBox tb = new TextBox();
-
-            tb.Dock = DockStyle.Fill;
-
-            tb.ScrollBars = ScrollBars.Both;
-            tb.Multiline = true;
-
-            tb.Location = new Point(0, 0);
-            tb.Size = new System.Drawing.Size(scriptedit.Size.Width - 30, scriptedit.Size.Height - 30);
-
-            scriptedit.Controls.Add(tb);
-
-            tb.Text = myscript;
-
-            scriptedit.ShowDialog();
-
-            if (DialogResult.Yes == CustomMessageBox.Show("Run Script", "Run this script?", MessageBoxButtons.YesNo))
-            {
-
-                Script scr = new Script();
-
-                scr.runScript(tb.Text);
-            }
         }
 
         private void CHK_autopan_CheckedChanged(object sender, EventArgs e)
@@ -1640,11 +1547,11 @@ print 'Roll complete'
 
             if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
             {
-                alt = (10 * MainV2.comPort.MAV.cs.multiplierdist).ToString("0");
+                alt = (10 * CurrentState.multiplierdist).ToString("0");
             }
             else
             {
-                alt = (100 * MainV2.comPort.MAV.cs.multiplierdist).ToString("0");
+                alt = (100 * CurrentState.multiplierdist).ToString("0");
             }
 
             if (MainV2.config.ContainsKey("guided_alt"))
@@ -1655,7 +1562,7 @@ print 'Roll complete'
 
             MainV2.config["guided_alt"] = alt;
 
-            int intalt = (int)(100 * MainV2.comPort.MAV.cs.multiplierdist);
+            int intalt = (int)(100 * CurrentState.multiplierdist);
             if (!int.TryParse(alt, out intalt))
             {
                 CustomMessageBox.Show("Bad Alt");

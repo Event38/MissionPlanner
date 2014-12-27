@@ -14,7 +14,7 @@ namespace MissionPlanner.Controls
         // start at 5 increment each instance
         static int servo = 5;
 
-        int thisservo = 0;
+        public int thisservo { get; set; }
 
         public ServoOptions()
         {
@@ -28,7 +28,7 @@ namespace MissionPlanner.Controls
 
             servo++;
 
-            TXT_rcchannel.BackColor = Color.Silver;
+            TXT_rcchannel.BackColor = Color.Gray;
         }
 
         void loadSettings()
@@ -36,6 +36,9 @@ namespace MissionPlanner.Controls
             string desc = MainV2.getConfig("Servo" + thisservo + "_desc");
             string low = MainV2.getConfig("Servo" + thisservo + "_low");
             string high = MainV2.getConfig("Servo" + thisservo + "_high");
+
+            string highdesc = MainV2.getConfig("Servo" + thisservo + "_highdesc");
+            string lowdesc = MainV2.getConfig("Servo" + thisservo + "_lowdesc");
 
             if (low != "")
             {
@@ -51,6 +54,16 @@ namespace MissionPlanner.Controls
             {
                 TXT_rcchannel.Text = desc;
             }
+
+            if (highdesc != "")
+            {
+                BUT_High.Text = highdesc;
+            }
+
+            if (lowdesc != "")
+            {
+                BUT_Low.Text = lowdesc;
+            }
         }
 
         private void BUT_Low_Click(object sender, EventArgs e)
@@ -63,10 +76,10 @@ namespace MissionPlanner.Controls
                 }
                 else
                 {
-                    CustomMessageBox.Show("Command Failed", "Error");
+                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
                 }
             }
-            catch (Exception ex) { CustomMessageBox.Show("Command Failed " + ex.ToString(), "Error"); }
+            catch (Exception ex) { CustomMessageBox.Show(Strings.CommandFailed + ex.ToString(), Strings.ERROR); }
         }
 
         private void BUT_High_Click(object sender, EventArgs e)
@@ -79,10 +92,10 @@ namespace MissionPlanner.Controls
                 }
                 else
                 {
-                    CustomMessageBox.Show("Command Failed", "Error");
+                    CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR);
                 }
             }
-            catch (Exception ex) { CustomMessageBox.Show("Command Failed " + ex.ToString(), "Error"); }
+            catch (Exception ex) { CustomMessageBox.Show(Strings.CommandFailed + ex.ToString(), Strings.ERROR); }
         }
 
         private void BUT_Repeat_Click(object sender, EventArgs e)
@@ -110,7 +123,7 @@ namespace MissionPlanner.Controls
                     TXT_rcchannel.BackColor = Color.Red;
                 }
             }
-            catch (Exception ex) { CustomMessageBox.Show("Command Failed " + ex.ToString(), "Error"); }
+            catch (Exception ex) { CustomMessageBox.Show(Strings.CommandFailed + ex.ToString(), Strings.ERROR); }
             // MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, int.Parse(TXT_rcchannel.Text), int.Parse(TXT_pwm_high.Text), 10, 1000, 0, 0, 0);         
         }
 
@@ -126,10 +139,24 @@ namespace MissionPlanner.Controls
 
         private void renameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string desc = TXT_rcchannel.Text;
+            Control sourcectl = ((ContextMenuStrip)renameToolStripMenuItem.Owner).SourceControl;
+
+            string desc = sourcectl.Text;
             MissionPlanner.Controls.InputBox.Show("Description", "Enter new Description", ref desc);
-            TXT_rcchannel.Text = desc;
-            MainV2.config["Servo" + thisservo + "_desc"] = desc;
+            sourcectl.Text = desc;
+
+            if (sourcectl == BUT_High)
+            {
+                MainV2.config["Servo" + thisservo + "_highdesc"] = desc;
+            }
+            else if (sourcectl == BUT_Low)
+            {
+                MainV2.config["Servo" + thisservo + "_lowdesc"] = desc;
+            }
+            else if (sourcectl == TXT_rcchannel)
+            {
+                MainV2.config["Servo" + thisservo + "_desc"] = desc;
+            }
         }
     }
 }

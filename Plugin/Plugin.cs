@@ -2,16 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using GMap.NET;
+using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using MissionPlanner;
+using MissionPlanner.Utilities;
+using MissionPlanner.GCSViews;
 
 namespace MissionPlanner.Plugin
 {
     public abstract class Plugin
     {
+        public Assembly Assembly = null;
+
         public PluginHost Host { get; internal set; }
 
         public abstract string Name { get; }
@@ -88,7 +94,12 @@ namespace MissionPlanner.Plugin
         /// <summary>
         /// access to mavlink functions
         /// </summary>
-        public MAVLink comPort { get { return MainV2.comPort; } }
+        public MAVLinkInterface comPort { get { return MainV2.comPort; } }
+
+        /// <summary>
+        /// access to mp settings
+        /// </summary>
+        public Hashtable config { get { return MainV2.config; } }
 
         /// <summary>
         /// add things to flightdata map menu
@@ -98,7 +109,9 @@ namespace MissionPlanner.Plugin
         /// <summary>
         /// The point where the menu was drawn
         /// </summary>
-        public PointLatLng FDMenuMapPosition { get { return MainV2.instance.FlightData.gotolocation; } }
+        public PointLatLng FDMenuMapPosition { get { return MainV2.instance.FlightData.MouseDownStart; } }
+
+        public GMapProvider FDMapType { get { return FlightData.mymap.MapProvider; } }
 
         /// <summary>
         /// add things to flightdata hud menu
@@ -119,6 +132,11 @@ namespace MissionPlanner.Plugin
         /// The polygon drawn by the user on the FP page
         /// </summary>
         public GMapPolygon FPDrawnPolygon { get { return new GMapPolygon(new List<PointLatLng>(MainV2.instance.FlightPlanner.drawnpolygon.Points), "Poly Copy") { Stroke = MainV2.instance.FlightPlanner.drawnpolygon.Stroke }; } }
+
+        public void RedrawFPPolygon(List<PointLatLngAlt> list)
+        {
+            MainV2.instance.FlightPlanner.redrawPolygonSurvey(list);
+        }
 
         /// <summary>
         /// add wp to command queue - dont upload to mav

@@ -21,6 +21,20 @@ namespace MissionPlanner.GCSViews
 
         static string lastpagename = "";
 
+        public bool isConnected { get { return MainV2.comPort.BaseStream.IsOpen; } }
+
+        public bool isDisConnected { get { return !MainV2.comPort.BaseStream.IsOpen; } }
+
+        public bool isTracker { get { return isConnected && MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduTracker; } }
+
+        public bool isCopter { get { return isConnected && MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2; } }
+
+        public bool isHeli { get { return isConnected && MainV2.comPort.MAV.param["H_SWASH_TYPE"] != null; } }
+
+        public bool isPlane { get { return isConnected && (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx); } }
+
+        public bool isRover { get { return isConnected && MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduRover; } }
+
         public InitialSetup()
         {
             InitializeComponent();
@@ -28,86 +42,20 @@ namespace MissionPlanner.GCSViews
 
         public void Activate()
         {
-        }
-
-        private BackstageView.BackstageViewPage AddBackstageViewPage(UserControl userControl, string headerText, BackstageView.BackstageViewPage Parent = null)
-        {
-            try
-            {
-                return backstageView.AddPage(userControl, headerText, Parent);
-            }
-            catch (Exception ex) { log.Error(ex); return null; }
+            initialSetupBindingSource.DataSource = this;
         }
 
         private void HardwareConfig_Load(object sender, EventArgs e)
         {
-            BackstageView.BackstageViewPage start;
-            if (MainV2.comPort.BaseStream.IsOpen)
-            {
-                AddBackstageViewPage(new MissionPlanner.GCSViews.ConfigurationView.ConfigFirmwareDisabled(), "Install Firmware");
-
-                BackstageView.BackstageViewPage mandatoryhardware = AddBackstageViewPage(new ConfigMandatory(), "Mandatory Hardware", null);
-                BackstageView.BackstageViewPage optionalhardware = AddBackstageViewPage(new ConfigOptional(), "Optional Hardware", null);
-
-                start = mandatoryhardware;
-
-                if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
-                {
-                    AddBackstageViewPage(new ConfigFrameType(), "Frame Type", mandatoryhardware);
-                }
-
-                AddBackstageViewPage(new ConfigHWCompass(), "Compass",mandatoryhardware);
-
-                if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
-                {
-                    AddBackstageViewPage(new ConfigAccelerometerCalibrationQuad(), "Accel Calibration", mandatoryhardware);
-                }
-
-                if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane)
-                {
-                    AddBackstageViewPage(new ConfigAccelerometerCalibrationPlane(), "Accel Calibration", mandatoryhardware);
-                }
-
-                AddBackstageViewPage(new ConfigRadioInput(), "Radio Calibration", mandatoryhardware);
-
-                AddBackstageViewPage(new ConfigFlightModes(), "Flight Modes", mandatoryhardware);
-
-                AddBackstageViewPage(new ConfigFailSafe(), "FailSafe",mandatoryhardware);
-
-                AddBackstageViewPage(new MissionPlanner._3DRradio(), "3DR Radio", optionalhardware);
-                AddBackstageViewPage(new ConfigBatteryMonitoring(), "Battery Monitor", optionalhardware);
-                AddBackstageViewPage(new ConfigHWSonar(), "Sonar", optionalhardware);
-                if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx)
-                    AddBackstageViewPage(new ConfigHWAirspeed(), "Airspeed", optionalhardware);
-                AddBackstageViewPage(new ConfigHWOptFlow(), "Optical Flow", optionalhardware);
-                AddBackstageViewPage(new ConfigHWOSD(), "OSD", optionalhardware);
-                // opt flow
-                // osd
-                AddBackstageViewPage(new ConfigMount(), "Camera Gimbal", optionalhardware);
-
-                AddBackstageViewPage(new MissionPlanner.Antenna.Tracker(), "Antenna Tracker", optionalhardware);
-
-
-            }
-            else
-            {
-                AddBackstageViewPage(new MissionPlanner.GCSViews.ConfigFirmware(), "Install Firmware");
-                AddBackstageViewPage(new MissionPlanner._3DRradio(), "3DR Radio");
-                AddBackstageViewPage(new MissionPlanner.Antenna.Tracker(), "Antenna Tracker");
-            }
-
             // remeber last page accessed
-            foreach (BackstageView.BackstageViewPage page in backstageView.Pages)
+            foreach (BackstageViewPage page in backstageView.Pages)
             {
-                if (page.LinkText == lastpagename)
+                if (page.LinkText == lastpagename && page.Show)
                 {
                     this.backstageView.ActivatePage(page);
                     break;
                 }
             }
-
-            if (backstageView.SelectedPage == null)
-                backstageView.DrawMenu(null, true);
 
             ThemeManager.ApplyThemeTo(this);
         }

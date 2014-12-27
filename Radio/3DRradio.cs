@@ -27,6 +27,33 @@ namespace MissionPlanner
 
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
+        enum mavlink_option : int
+        {
+            RawData = 0,
+            Mavlink = 1,
+            LowLatency = 2,
+        }
+
+        /*
+ATI5
+S0: FORMAT=25
+S1: SERIAL_SPEED=57
+S2: AIR_SPEED=64
+S3: NETID=40
+S4: TXPOWER=30
+S5: ECC=1
+S6: MAVLINK=1
+S7: OPPRESEND=1
+S8: MIN_FREQ=915000
+S9: MAX_FREQ=928000
+S10: NUM_CHANNELS=50
+S11: DUTY_CYCLE=100
+S12: LBT_RSSI=0
+S13: MANCHESTER=0
+S14: RTSCTS=0
+S15: MAX_WINDOW=131
+         */
+
         public _3DRradio()
         {
             InitializeComponent();
@@ -38,29 +65,77 @@ namespace MissionPlanner
             // setup netid
             S3.DataSource = Enumerable.Range(0, 500).ToArray();
             RS3.DataSource = Enumerable.Range(0, 500).ToArray();
+
+            var dict = Enum.GetValues(typeof(mavlink_option))
+               .Cast<mavlink_option>()
+               .ToDictionary(t => (int)t, t => t.ToString());
+
+            S6.DisplayMember = "Value";
+            S6.ValueMember = "Key";
+            S6.DataSource = dict.ToArray();
+            RS6.DisplayMember = "Value";
+            RS6.ValueMember = "Key";
+            RS6.DataSource = dict.ToArray();
+
+            S15.DataSource = Enumerable.Range(33, 131 - 32).ToArray();
+            RS15.DataSource = Enumerable.Range(33, 131 - 32).ToArray();
         }
 
-        bool getFirmware(uploader.Uploader.Code device)
+        bool getFirmware(uploader.Uploader.Board device, bool custom = false)
         {
             // was https://raw.github.com/tridge/SiK/master/Firmware/dst/radio.hm_trp.hex
-            // now http://www.samba.org/tridge/UAV/3DR/radio.hm_trp.hex
+            // was http://www.samba.org/tridge/UAV/3DR/radio.hm_trp.hex
+            // now http://firmware.diydrones.com/SiK/stable/
 
-            if (device == uploader.Uploader.Code.DEVICE_ID_HM_TRP)
+            if (custom)
             {
-                return Common.getFilefromNet("http://www.samba.org/tridge/UAV/3DR/radio.hm_trp.hex", firmwarefile);
+                return getFirmwareLocal(device);
             }
-            else if (device == uploader.Uploader.Code.DEVICE_ID_RFD900)
+
+            if (device == uploader.Uploader.Board.DEVICE_ID_HM_TRP)
             {
-                return Common.getFilefromNet("http://rfdesign.com.au/firmware/radio.rfd900.hex", firmwarefile);
+                if (beta)
+                { return Common.getFilefromNet("http://firmware.diydrones.com/SiK/beta/radio~hm_trp.ihx", firmwarefile); }
+                else
+                {
+                    return Common.getFilefromNet("http://firmware.diydrones.com/SiK/stable/radio~hm_trp.ihx", firmwarefile);
+                }
             }
-            else if (device == uploader.Uploader.Code.DEVICE_ID_RFD900A)
+            else if (device == uploader.Uploader.Board.DEVICE_ID_RFD900)
             {
-                int fixme;
-                int fixme23;
+                if (beta)
+                {
+                    return Common.getFilefromNet("http://firmware.diydrones.com/SiK/beta/radio~rfd900.ihx", firmwarefile);
+                }
+                else
+                {
+                    return Common.getFilefromNet("http://firmware.diydrones.com/SiK/stable/radio~rfd900.ihx", firmwarefile);
+                }
+            }
+            else if (device == uploader.Uploader.Board.DEVICE_ID_RFD900A)
+            {
+                //  return Common.getFilefromNet("http://rfdesign.com.au/firmware/MPSik%20V2.3%20radio~rfd900a.ihx", firmwarefile);
+                if (beta)
+                {
+                    return Common.getFilefromNet("http://firmware.diydrones.com/SiK/beta/radio~rfd900a.ihx", firmwarefile);
+                }
+                else
+                {
+                    return Common.getFilefromNet("http://firmware.diydrones.com/SiK/stable/radio~rfd900a.ihx", firmwarefile);
+                }
 
-              //  return Common.getFilefromNet("http://rfdesign.com.au/firmware/MPSiK%20V2.2%20radio~rfd900a.ihx", firmwarefile);
+            }
+            else if (device == uploader.Uploader.Board.DEVICE_ID_RFD900U)
+            {
+                if (beta)
+                {
+                    return Common.getFilefromNet("http://rfdesign.com.au/firmware/RFD_SiK_V1.10_BETA_rfd900u.ihx", firmwarefile);
+                }
+                else
+                {
+                    return Common.getFilefromNet("http://rfdesign.com.au/firmware/RFD_SiK_V1.9_rfd900u.ihx", firmwarefile);
+                }
 
-                return Common.getFilefromNet("http://rfdesign.com.au/firmware/radio.rfd900a.hex", firmwarefile);
             }
             else
             {
@@ -68,7 +143,26 @@ namespace MissionPlanner
             }
         }
 
-        void Sleep(int mstimeout)
+        bool beta = false;
+
+        bool getFirmwareLocal(uploader.Uploader.Board device)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            openFileDialog1.Filter = "Firmware|*.hex;*.ihx";
+            openFileDialog1.RestoreDirectory = true;
+            openFileDialog1.Multiselect = false;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                File.Copy(openFileDialog1.FileName, firmwarefile, true);
+                return true;
+            }
+
+            return false;
+        }
+
+        void Sleep(int mstimeout, ICommsSerial comPort = null)
         {
             DateTime endtime = DateTime.Now.AddMilliseconds(mstimeout);
 
@@ -76,14 +170,40 @@ namespace MissionPlanner
             {
                 System.Threading.Thread.Sleep(1);
                 Application.DoEvents();
+
+                // prime the mavlinkserial loop with data.
+                if (comPort != null) { 
+                    int test = comPort.BytesToRead;
+                    test++;
+                }
             }
         }
 
         private void BUT_upload_Click(object sender, EventArgs e)
         {
-            ArduinoSTK comPort = new ArduinoSTK();
+            UploadFW(false);
+        }
+
+        private void UploadFW(bool custom = false)
+        {
+            ICommsSerial comPort = new SerialPort();
 
             uploader.Uploader uploader = new uploader.Uploader();
+
+            if (MainV2.comPort.BaseStream.IsOpen)
+            {
+                try
+                {
+                    comPort = new MAVLinkSerialPort(MainV2.comPort, 0);//MAVLink.SERIAL_CONTROL_DEV.TELEM1);
+
+                    uploader.PROG_MULTI_MAX = 64;
+
+                }
+                catch (Exception ex) 
+                {
+                    CustomMessageBox.Show("Error " + ex.ToString());
+                }
+            }
 
             try
             {
@@ -94,6 +214,13 @@ namespace MissionPlanner
 
             }
             catch { CustomMessageBox.Show("Invalid ComPort or in use"); return; }
+
+            // prep what we are going to upload
+            uploader.IHex iHex = new uploader.IHex();
+
+            iHex.LogEvent += new LogEventHandler(iHex_LogEvent);
+
+            iHex.ProgressEvent += new ProgressEventHandler(iHex_ProgressEvent);
 
             bool bootloadermode = false;
 
@@ -115,8 +242,18 @@ namespace MissionPlanner
             {
                 // cleanup bootloader mode fail, and try firmware mode
                 comPort.Close();
-                comPort.BaudRate = MainV2.comPort.BaseStream.BaudRate;
-                comPort.Open();
+                if (MainV2.comPort.BaseStream.IsOpen)
+                {
+                    // default baud... guess
+                    comPort.BaudRate = 57600;
+                } else {
+                    comPort.BaudRate = MainV2.comPort.BaseStream.BaudRate;
+                }
+                try
+                {
+                    comPort.Open();
+                }
+                catch { CustomMessageBox.Show("Error opening port", "Error"); return; }
 
                 uploader.ProgressEvent += new ProgressEventHandler(uploader_ProgressEvent);
                 uploader.LogEvent += new LogEventHandler(uploader_LogEvent);
@@ -128,13 +265,6 @@ namespace MissionPlanner
             // check for either already bootloadermode, or if we can do a ATI to ID the firmware 
             if (bootloadermode || doConnect(comPort))
             {
-
-                uploader.IHex iHex = new uploader.IHex();
-
-                iHex.LogEvent += new LogEventHandler(iHex_LogEvent);
-
-                iHex.ProgressEvent += new ProgressEventHandler(iHex_ProgressEvent);
-
                 // put into bootloader mode/udpate mode
                 if (!bootloadermode)
                 {
@@ -149,14 +279,17 @@ namespace MissionPlanner
                     catch { }
                 }
 
-                global::uploader.Uploader.Code device = global::uploader.Uploader.Code.FAILED;
-                global::uploader.Uploader.Code freq = global::uploader.Uploader.Code.FAILED;
+                // force sync after changing baudrate
+                uploader.connect_and_sync();
+
+                global::uploader.Uploader.Board device = global::uploader.Uploader.Board.FAILED;
+                global::uploader.Uploader.Frequency freq = global::uploader.Uploader.Frequency.FAILED;
 
                 // get the device type and frequency in the bootloader
                 uploader.getDevice(ref device, ref freq);
 
                 // get firmware for this device
-                if (getFirmware(device))
+                if (getFirmware(device, custom))
                 {
                     // load the hex
                     try
@@ -249,8 +382,17 @@ namespace MissionPlanner
 
             try
             {
-                comPort.PortName = MainV2.comPort.BaseStream.PortName;
-                comPort.BaudRate = MainV2.comPort.BaseStream.BaudRate;
+                if (MainV2.comPort.BaseStream.IsOpen)
+                {
+                    comPort = new MAVLinkSerialPort(MainV2.comPort, 0);//MAVLink.SERIAL_CONTROL_DEV.TELEM1);
+
+                    comPort.BaudRate = 57600;
+                }
+                else
+                {
+                    comPort.PortName = MainV2.comPort.BaseStream.PortName;
+                    comPort.BaudRate = MainV2.comPort.BaseStream.BaudRate;
+                }
 
                 comPort.ReadTimeout = 4000;
 
@@ -273,11 +415,10 @@ namespace MissionPlanner
 
                 if (RTI.Text != "")
                 {
-
                     // remote
                     string answer = doCommand(comPort, "RTI5");
 
-                    string[] items = answer.Split('\n');
+                    string[] items = answer.Split(new char[] {'\n'},StringSplitOptions.RemoveEmptyEntries);
 
                     foreach (string item in items)
                     {
@@ -309,11 +450,15 @@ namespace MissionPlanner
                                             }
                                         }
                                     }
-                                    else
+                                    else if (controls[0] is TextBox)
                                     {
-                                        if (controls[0].Text != values[2].Trim() && controls[0].Text != "")
+
+                                    }
+                                    else if (controls[0].Name.Contains("S6")) //
+                                    {
+                                        if (((ComboBox)controls[0]).SelectedValue.ToString() != values[2].Trim())
                                         {
-                                            string cmdanswer = doCommand(comPort, "RT" + values[0].Trim() + "=" + controls[0].Text + "\r");
+                                            string cmdanswer = doCommand(comPort, "RT" + values[0].Trim() + "=" + ((ComboBox)controls[0]).SelectedValue + "\r");
 
                                             if (cmdanswer.Contains("OK"))
                                             {
@@ -325,7 +470,26 @@ namespace MissionPlanner
                                             }
                                         }
                                     }
+                                    else if (controls[0] is ComboBox)
+                                    {
+                                        if (controls[0].Text != values[2].Trim()) {
+                                        string cmdanswer = doCommand(comPort, "RT" + values[0].Trim() + "=" + controls[0].Text + "\r");
+
+                                        if (cmdanswer.Contains("OK"))
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            CustomMessageBox.Show("Set Command error");
+                                        }
+                                    }
+                                    }
                                 }
+                            }
+                            else
+                            {
+                                // bad ?ti5 line
                             }
                         }
                     }
@@ -344,7 +508,7 @@ namespace MissionPlanner
                     //local
                     string answer = doCommand(comPort, "ATI5");
 
-                    string[] items = answer.Split('\n');
+                    string[] items = answer.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
                     foreach (string item in items)
                     {
@@ -376,7 +540,27 @@ namespace MissionPlanner
                                             }
                                         }
                                     }
-                                    else
+                                    else if (controls[0] is TextBox)
+                                    {
+
+                                    }
+                                    else if (controls[0].Name.Contains("S6")) //
+                                    {
+                                        if (((ComboBox)controls[0]).SelectedValue.ToString() != values[2].Trim())
+                                        {
+                                            string cmdanswer = doCommand(comPort, "AT" + values[0].Trim() + "=" + ((ComboBox)controls[0]).SelectedValue + "\r");
+
+                                            if (cmdanswer.Contains("OK"))
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                CustomMessageBox.Show("Set Command error");
+                                            }
+                                        }
+                                    }
+                                    else if (controls[0] is ComboBox)
                                     {
                                         if (controls[0].Text != values[2].Trim())
                                         {
@@ -421,7 +605,7 @@ namespace MissionPlanner
             comPort.Close();
         }
 
-        public static IEnumerable<int> Range(int start,int step, int end)
+        public static IEnumerable<int> Range(int start, int step, int end)
         {
             List<int> list = new List<int>();
 
@@ -438,10 +622,21 @@ namespace MissionPlanner
         {
             ICommsSerial comPort = new SerialPort();
 
+
+
             try
             {
-                comPort.PortName = MainV2.comPort.BaseStream.PortName;
-                comPort.BaudRate = MainV2.comPort.BaseStream.BaudRate;
+                if (MainV2.comPort.BaseStream.IsOpen)
+                {
+                    comPort = new MAVLinkSerialPort(MainV2.comPort, 0);//MAVLink.SERIAL_CONTROL_DEV.TELEM1);
+
+                    comPort.BaudRate = 57600;
+                }
+                else
+                {
+                    comPort.PortName = MainV2.comPort.BaseStream.PortName;
+                    comPort.BaudRate = MainV2.comPort.BaseStream.BaudRate;
+                }
 
                 comPort.ReadTimeout = 4000;
 
@@ -453,40 +648,51 @@ namespace MissionPlanner
 
             lbl_status.Text = "Connecting";
 
-            if (doConnect(comPort))
+            try
             {
-                // cleanup
-                doCommand(comPort, "AT&T");
 
-                comPort.DiscardInBuffer();
+                if (doConnect(comPort))
+                {
+                    // cleanup
+                    doCommand(comPort, "AT&T");
 
-                lbl_status.Text = "Doing Command ATI & RTI";
+                    comPort.DiscardInBuffer();
 
-                ATI.Text = doCommand(comPort, "ATI");
+                    lbl_status.Text = "Doing Command ATI & RTI";
 
-                RTI.Text = doCommand(comPort, "RTI");
+                    ATI.Text = doCommand(comPort, "ATI");
 
-                    uploader.Uploader.Code freq = (uploader.Uploader.Code)Enum.Parse(typeof(uploader.Uploader.Code), doCommand(comPort, "ATI3"));
-                    uploader.Uploader.Code board = (uploader.Uploader.Code)Enum.Parse(typeof(uploader.Uploader.Code), doCommand(comPort, "ATI2"));
+                    RTI.Text = doCommand(comPort, "RTI");
+
+                    uploader.Uploader.Frequency freq = (uploader.Uploader.Frequency)Enum.Parse(typeof(uploader.Uploader.Frequency), doCommand(comPort, "ATI3"));
+                    uploader.Uploader.Board board = (uploader.Uploader.Board)Enum.Parse(typeof(uploader.Uploader.Board), doCommand(comPort, "ATI2"));
 
                     ATI3.Text = freq.ToString();
-                // 8 and 9
-                    if (freq == uploader.Uploader.Code.FREQ_915) {
+
+                    ATI2.Text = board.ToString();
+                    try
+                    {
+                        RTI2.Text = ((uploader.Uploader.Board)Enum.Parse(typeof(uploader.Uploader.Board), doCommand(comPort, "RTI2"))).ToString();
+                    }
+                    catch { }
+                    // 8 and 9
+                    if (freq == uploader.Uploader.Frequency.FREQ_915)
+                    {
                         S8.DataSource = Range(895000, 1000, 935000);
                         RS8.DataSource = Range(895000, 1000, 935000);
 
                         S9.DataSource = Range(895000, 1000, 935000);
                         RS9.DataSource = Range(895000, 1000, 935000);
                     }
-                    else if (freq == uploader.Uploader.Code.FREQ_433)
+                    else if (freq == uploader.Uploader.Frequency.FREQ_433)
                     {
-                        S8.DataSource = Range(414000, 100, 454000);
-                        RS8.DataSource = Range(414000, 100, 454000);
+                        S8.DataSource = Range(414000, 50, 460000);
+                        RS8.DataSource = Range(414000, 50, 460000);
 
-                        S9.DataSource = Range(414000, 100, 454000);
-                        RS9.DataSource = Range(414000, 100, 454000);
+                        S9.DataSource = Range(414000, 50, 460000);
+                        RS9.DataSource = Range(414000, 50, 460000);
                     }
-                    else if (freq == uploader.Uploader.Code.FREQ_868) 
+                    else if (freq == uploader.Uploader.Frequency.FREQ_868)
                     {
                         S8.DataSource = Range(849000, 1000, 889000);
                         RS8.DataSource = Range(849000, 1000, 889000);
@@ -495,119 +701,147 @@ namespace MissionPlanner
                         RS9.DataSource = Range(849000, 1000, 889000);
                     }
 
-                    if (board == uploader.Uploader.Code.DEVICE_ID_RFD900 || board == uploader.Uploader.Code.DEVICE_ID_RFD900A)
+                    if (board == uploader.Uploader.Board.DEVICE_ID_RFD900 || board == uploader.Uploader.Board.DEVICE_ID_RFD900A)
                     {
                         S4.DataSource = Range(1, 1, 30);
                         RS4.DataSource = Range(1, 1, 30);
                     }
 
 
-                RSSI.Text = doCommand(comPort, "ATI7").Trim();
+                    RSSI.Text = doCommand(comPort, "ATI7").Trim();
 
-                lbl_status.Text = "Doing Command ATI5";
+                    lbl_status.Text = "Doing Command ATI5";
 
-                string answer = doCommand(comPort, "ATI5");
+                    string answer = doCommand(comPort, "ATI5");
 
-                string[] items = answer.Split('\n');
+                    string[] items = answer.Split('\n');
 
-                foreach (string item in items)
-                {
-                    if (item.StartsWith("S"))
+                    foreach (string item in items)
                     {
-                        string[] values = item.Split(':', '=');
-
-                        if (values.Length == 3)
+                        if (item.StartsWith("S"))
                         {
-                            Control[] controls = this.Controls.Find(values[0].Trim(), true);
+                            string[] values = item.Split(':', '=');
 
-                            if (controls.Length > 0)
+                            if (values.Length == 3)
                             {
+                                Control[] controls = this.Controls.Find(values[0].Trim(), true);
+
+                                if (controls.Length > 0)
+                                {
+                                    controls[0].Enabled = true;
+
+                                    if (controls[0] is CheckBox)
+                                    {
+                                        ((CheckBox)controls[0]).Checked = values[2].Trim() == "1";
+                                    }
+                                    else if (controls[0] is TextBox)
+                                    {
+                                        ((TextBox)controls[0]).Text = values[2].Trim();
+                                    }
+                                    else if (controls[0].Name.Contains("S6")) //
+                                    {
+                                        var ans = Enum.Parse(typeof(mavlink_option), values[2].Trim());
+                                        ((ComboBox)controls[0]).Text = ans.ToString();
+                                    }
+                                    else if (controls[0] is ComboBox)
+                                    {
+                                        ((ComboBox)controls[0]).Text = values[2].Trim();
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // remote
+                    foreach (Control ctl in groupBox2.Controls)
+                    {
+                        if (ctl.Name.StartsWith("RS") && ctl.Name != "RSSI")
+                            ctl.ResetText();
+                    }
+
+                    comPort.DiscardInBuffer();
+
+                    lbl_status.Text = "Doing Command RTI5";
+
+                    answer = doCommand(comPort, "RTI5");
+
+                    items = answer.Split('\n');
+
+                    foreach (string item in items)
+                    {
+                        if (item.StartsWith("S"))
+                        {
+                            string[] values = item.Split(':', '=');
+
+                            if (values.Length == 3)
+                            {
+                                Control[] controls = this.Controls.Find("R" + values[0].Trim(), true);
+
+                                if (controls.Length == 0)
+                                    continue;
+
                                 controls[0].Enabled = true;
 
-                                if (controls[0].GetType() == typeof(CheckBox))
+                                if (controls[0] is CheckBox)
                                 {
                                     ((CheckBox)controls[0]).Checked = values[2].Trim() == "1";
                                 }
-                                else
+                                else if (controls[0] is TextBox)
                                 {
-                                    controls[0].Text = values[2].Trim();
+                                    ((TextBox)controls[0]).Text = values[2].Trim();
+                                }
+                                else if (controls[0].Name.Contains("S6")) //
+                                {
+                                    var ans = Enum.Parse(typeof(mavlink_option), values[2].Trim());
+                                    ((ComboBox)controls[0]).Text = ans.ToString();
+                                }
+                                else if (controls[0] is ComboBox)
+                                {
+                                    ((ComboBox)controls[0]).Text = values[2].Trim();
                                 }
                             }
+                            else
+                            {
+                                /*
+                                if (item.Contains("S15"))
+                                {
+                                    answer = doCommand(comPort, "RTS15?");
+                                    int rts15 = 0;
+                                    if (int.TryParse(answer, out rts15))
+                                    {
+                                        RS15.Enabled = true;
+                                        RS15.Text = rts15.ToString();
+                                    }
+                                }
+                                */
+                                log.Info("Odd config line :" + item);
+                            }
                         }
                     }
-                }
 
-                // remote
-                foreach (Control ctl in groupBox2.Controls)
+                    // off hook
+                    doCommand(comPort, "ATO");
+
+                    lbl_status.Text = "Done";
+                }
+                else
                 {
-                    if (ctl.Name.StartsWith("RS") && ctl.Name != "RSSI")
-                        ctl.ResetText();
+
+                    // off hook
+                    doCommand(comPort, "ATO");
+
+                    lbl_status.Text = "Fail";
+                    CustomMessageBox.Show("Failed to enter command mode");
                 }
 
+                comPort.Close();
 
-                comPort.DiscardInBuffer();
+                BUT_Syncoptions.Enabled = true;
 
-                lbl_status.Text = "Doing Command RTI5";
-
-                answer = doCommand(comPort, "RTI5");
-
-                items = answer.Split('\n');
-
-                foreach (string item in items)
-                {
-                    if (item.StartsWith("S"))
-                    {
-                        string[] values = item.Split(':', '=');
-
-                        if (values.Length == 3)
-                        {
-                            Control[] controls = this.Controls.Find("R" + values[0].Trim(), true);
-
-                            if (controls.Length == 0)
-                                continue;
-
-                            controls[0].Enabled = true;
-
-                            if (controls[0].GetType() == typeof(CheckBox))
-                            {
-                                ((CheckBox)controls[0]).Checked = values[2].Trim() == "1";
-                            }
-                            else if (controls[0].GetType() == typeof(TextBox))
-                            {
-                                ((TextBox)controls[0]).Text = values[2].Trim();
-                            }
-                            else if (controls[0].GetType() == typeof(ComboBox))
-                            {
-                                ((ComboBox)controls[0]).Text = values[2].Trim();
-                            }
-                        }
-                        else
-                        {
-                            log.Info("Odd config line :" + item);
-                        }
-                    }
-                }
-
-                // off hook
-                doCommand(comPort, "ATO");
-
-                lbl_status.Text = "Done";
-            }
-            else
-            {
-
-                // off hook
-                doCommand(comPort, "ATO");
-
-                lbl_status.Text = "Fail";
-                CustomMessageBox.Show("Failed to enter command mode");
+                BUT_savesettings.Enabled = true;
             }
 
-            comPort.Close();
-
-            BUT_Syncoptions.Enabled = true;
-
-            BUT_savesettings.Enabled = true;
+            catch (Exception ex) { lbl_status.Text = "Error"; CustomMessageBox.Show("Error during read " + ex.ToString()); return; } 
         }
 
         string Serial_ReadLine(ICommsSerial comPort)
@@ -635,11 +869,22 @@ namespace MissionPlanner
                 return "";
 
             comPort.ReadTimeout = 1000;
+            comPort.DiscardInBuffer();
             // setup to known state
             comPort.Write("\r\n");
-            // alow some time to gather thoughts
+            try
+            {
+                var temp1 = Serial_ReadLine(comPort);
+            }
+            catch 
+            {
+                try
+                {
+                    comPort.ReadExisting();
+                }
+                catch { return ""; }
+            }
             Sleep(100);
-            // ignore all existing data
             comPort.DiscardInBuffer();
             lbl_status.Text = "Doing Command " + cmd;
             log.Info("Doing Command " + cmd);
@@ -653,11 +898,10 @@ namespace MissionPlanner
             }
             catch { temp = comPort.ReadExisting(); }
             log.Info("cmd " + cmd + " echo " + temp);
-            // delay for command
-            Sleep(500);
-            // get responce
+            // get response
             string ans = "";
-            while (comPort.BytesToRead > 0)
+            DateTime deadline = DateTime.Now.AddMilliseconds(200);
+            while (comPort.BytesToRead > 0 || DateTime.Now < deadline)
             {
                 try
                 {
@@ -666,21 +910,21 @@ namespace MissionPlanner
                 catch { ans = ans + comPort.ReadExisting() + "\n"; }
                 Sleep(50);
 
-                if (ans.Length > 500)
+                if (ans.Length > 1024)
                 {
                     break;
                 }
             }
 
-            log.Info("responce " + level + " " + ans.Replace('\0', ' '));
+            log.Info("response " + level + " " + ans.Replace('\0', ' '));
 
-            Regex pattern = new Regex(@"^\[([0-9+])\]\s+",RegexOptions.Multiline);
+            Regex pattern = new Regex(@"^\[([0-9+])\]\s+", RegexOptions.Multiline);
 
             if (pattern.IsMatch(ans))
             {
                 Match mat = pattern.Match(ans);
 
-                ans = pattern.Replace(ans,"");
+                ans = pattern.Replace(ans, "");
             }
 
             // try again
@@ -694,20 +938,25 @@ namespace MissionPlanner
         {
             try
             {
-                // clear buffer
-                comPort.DiscardInBuffer();
+                Console.WriteLine("doConnect");
+
                 // setup a known enviroment
-                comPort.Write("\r\n");
+                comPort.Write("ATO\r\n");
                 // wait
-                Sleep(1100);
+                Sleep(1100, comPort);
+                comPort.DiscardInBuffer();
                 // send config string
                 comPort.Write("+++");
-                // wait
-                Sleep(1100);
-                // check for config responce "OK"
+                Sleep(1100,comPort);
+                // check for config response "OK"
                 log.Info("Connect btr " + comPort.BytesToRead + " baud " + comPort.BaudRate);
-                string conn = comPort.ReadExisting();
-                log.Info("Connect first responce " + conn.Replace('\0', ' ') + " " + conn.Length);
+                // allow time for data/response
+                
+
+                byte[] buffer = new byte[20];
+                int len = comPort.Read(buffer, 0, buffer.Length);
+                string conn = ASCIIEncoding.ASCII.GetString(buffer, 0, len);
+                log.Info("Connect first response " + conn.Replace('\0', ' ') + " " + conn.Length);
                 if (conn.Contains("OK"))
                 {
                     //return true;
@@ -741,15 +990,11 @@ namespace MissionPlanner
             RS2.Text = S2.Text;
             RS3.Text = S3.Text;
             RS5.Checked = S5.Checked;
+            RS6.Text = S6.Text;
             RS8.Text = S8.Text;
             RS9.Text = S9.Text;
             RS10.Text = S10.Text;
-        }
-
-        private void CHK_advanced_CheckedChanged(object sender, EventArgs e)
-        {
-            SPLIT_local.Panel2Collapsed = !CHK_advanced.Checked;
-            SPLIT_remote.Panel2Collapsed = !CHK_advanced.Checked;
+            RS15.Text = S15.Text;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -763,7 +1008,7 @@ red LED solid - in firmware update mode");
 
         private void BUT_resettodefault_Click(object sender, EventArgs e)
         {
-             ICommsSerial comPort = new SerialPort();
+            ICommsSerial comPort = new SerialPort();
 
             try
             {
@@ -813,6 +1058,36 @@ red LED solid - in firmware update mode");
 
             if (comPort.IsOpen)
                 comPort.Close();
+        }
+
+        private void BUT_loadcustom_Click(object sender, EventArgs e)
+        {
+            UploadFW(true);
+        }
+
+        private void Progressbar_Click(object sender, EventArgs e)
+        {
+            beta = !beta;
+            CustomMessageBox.Show("Beta set to " + beta.ToString());
+        }
+
+        private void linkLabel_mavlink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            S6.SelectedValue = 1;
+            S15.Text = (131).ToString();
+
+            RS6.SelectedValue = 1;
+            RS15.Text = (131).ToString();
+
+        }
+
+        private void linkLabel_lowlatency_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            S6.SelectedValue = 2;
+            S15.Text = (33).ToString();
+
+            RS6.SelectedValue = 2;
+            RS15.Text = (33).ToString();
         }
     }
 }

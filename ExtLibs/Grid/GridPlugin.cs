@@ -9,7 +9,9 @@ namespace MissionPlanner
 {
     public class GridPlugin : MissionPlanner.Plugin.Plugin
     {
-        public static MissionPlanner.Plugin.PluginHost Host2;
+        
+
+        ToolStripMenuItem but;
 
         public override string Name
         {
@@ -33,11 +35,15 @@ namespace MissionPlanner
 
         public override bool Loaded()
         {
-            Host2 = Host;
+            Grid.Host2 = Host;
 
-            ToolStripMenuItem but = new ToolStripMenuItem("Survey (Grid)");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GridUI));
+            var temp = (string)(resources.GetObject("$this.Text"));
+
+            but = new ToolStripMenuItem(temp);
             but.Click += but_Click;
 
+            bool hit = false;
             ToolStripItemCollection col = Host.FPMenuMap.Items;
             int index = col.Count;
             foreach (ToolStripItem item in col)
@@ -46,24 +52,37 @@ namespace MissionPlanner
                 {
                     index = col.IndexOf(item);
                     ((ToolStripMenuItem)item).DropDownItems.Add(but);
+                    hit = true;
                     break;
                 }
             }
+
+            if (hit == false)
+                col.Add(but);
 
             return true;
         }
 
         void but_Click(object sender, EventArgs e)
         {
+            var gridui = new GridUI(this);
+            MissionPlanner.Utilities.ThemeManager.ApplyThemeTo(gridui);
+
             if (Host.FPDrawnPolygon != null && Host.FPDrawnPolygon.Points.Count > 2)
             {
-                Form gridui = new GridUI(this);
-                MissionPlanner.Utilities.ThemeManager.ApplyThemeTo(gridui);
-                gridui.Show();
+                gridui.ShowDialog();
             }
             else
             {
-                CustomMessageBox.Show("Please define a polygon.", "Error");
+                if (CustomMessageBox.Show("No polygon defined. Load a file?", "Load File", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    gridui.LoadGrid();
+                    gridui.ShowDialog();
+                }
+                else
+                {
+                    CustomMessageBox.Show("Please define a polygon.", "Error");
+                }
             }
         }
 

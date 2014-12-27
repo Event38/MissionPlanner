@@ -9,6 +9,8 @@ using System.Drawing;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using MissionPlanner.Utilities;
+using GMap.NET.MapProviders;
+using GMap.NET.Projections;
 
 namespace MissionPlanner.Controls
 {
@@ -19,6 +21,8 @@ namespace MissionPlanner.Controls
         // terrain image
         Bitmap _terrain = new Bitmap(640,480);
         int texture = 0;
+
+        GMap.NET.Internals.Core core = new GMap.NET.Internals.Core();
 
         float _angle = 0;
         double cameraX, cameraY, cameraZ;       // camera coordinates
@@ -45,7 +49,8 @@ namespace MissionPlanner.Controls
                     return;
 
                 _alt = value.Alt;
-                area = new RectLatLng(value.Lat + 0.15, value.Lng - 0.15, 0.3, 0.3);
+                double size = 0.01;
+                area = new RectLatLng(value.Lat + size, value.Lng - size, size*2,size*2);
                // Console.WriteLine(area.LocationMiddle + " " + value.ToString());
                 this.Invalidate();
             } 
@@ -59,22 +64,22 @@ namespace MissionPlanner.Controls
 
             InitializeComponent();
 
-            GL.GenTextures(1, out texture);
+            core.OnMapOpen();
         }
 
         void getImage()
         {
-            MapType type = MapType.GoogleSatellite;
-            PureProjection prj = null;
-            int maxZoom;
+            GMapProvider type  = GMap.NET.MapProviders.GoogleSatelliteMapProvider.Instance;
+            PureProjection prj = type.Projection;
 
-            GMaps.Instance.AdjustProjection(type, ref prj, out maxZoom);
-          //int zoom = 14; // 12
+            //GMap.NET.GMaps.Instance.GetImageFrom();
+
+            DateTime startimage = DateTime.Now;
+            
             if (!area.IsEmpty)
             {
                 try
                 {
-                    List<GPoint> tileArea = prj.GetAreaTileList(area, zoom, 0);
                     //string bigImage = zoom + "-" + type + "-vilnius.png";
 
                     //Console.WriteLine("Preparing: " + bigImage);
@@ -82,49 +87,90 @@ namespace MissionPlanner.Controls
                     //Console.WriteLine("Type: " + type.ToString());
                     //Console.WriteLine("Area: " + area);
 
-                    var types = GMaps.Instance.GetAllLayersOfType(type);
+                    var types = type;// GMaps.Instance.GetAllLayersOfType(type);
 
-                    // current area
+                    // max zoom level
+                    zoom = 20;
+
                     GPoint topLeftPx = prj.FromLatLngToPixel(area.LocationTopLeft, zoom);
                     GPoint rightButtomPx = prj.FromLatLngToPixel(area.Bottom, area.Right, zoom);
                     GPoint pxDelta = new GPoint(rightButtomPx.X - topLeftPx.X, rightButtomPx.Y - topLeftPx.Y);
 
-                    DateTime startimage = DateTime.Now;
+                    // zoom based on pixel density
+                    while (pxDelta.X > 2000)
+                    {
+                        zoom--;
+
+                        // current area
+                        topLeftPx = prj.FromLatLngToPixel(area.LocationTopLeft, zoom);
+                        rightButtomPx = prj.FromLatLngToPixel(area.Bottom, area.Right, zoom);
+                        pxDelta = new GPoint(rightButtomPx.X - topLeftPx.X, rightButtomPx.Y - topLeftPx.Y);
+
+                    }
+
+                    // get tiles - bg
+                    core.Provider = type;
+                    core.Position = LocationCenter;
+                    core.Zoom = zoom;
+
+                    // get type list at new zoom level
+                    List<GPoint> tileArea = prj.GetAreaTileList(area, zoom, 0);
+
+                    //this.Invalidate();
+
+                    Console.WriteLine((startimage - DateTime.Now).TotalMilliseconds);
 
                     int padding = 0;
                     {
-                        using (Bitmap bmpDestination = new Bitmap(pxDelta.X + padding * 2, pxDelta.Y + padding * 2))
+                        using (Bitmap bmpDestination = new Bitmap((int)pxDelta.X + padding * 2, (int)pxDelta.Y + padding * 2))
                         {
+                            Console.WriteLine((startimage - DateTime.Now).TotalMilliseconds);
                             using (Graphics gfx = Graphics.FromImage(bmpDestination))
                             {
+                                Console.WriteLine((startimage - DateTime.Now).TotalMilliseconds);
                                 gfx.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
+                                gfx.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
+                                gfx.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
 
                                 // get tiles & combine into one
                                 foreach (var p in tileArea)
                                 {
                                    Console.WriteLine("Downloading[" + p + "]: " + tileArea.IndexOf(p) + " of " + tileArea.Count);
 
-                                    foreach (MapType tp in types)
+                                   foreach (var tp in type.Overlays)
                                     {
-                                        Exception ex;
-                                        WindowsFormsImage tile = GMaps.Instance.GetImageFrom(tp, p, zoom, out ex) as WindowsFormsImage;
+                                        Console.WriteLine((startimage - DateTime.Now).TotalMilliseconds);
+                                        GMapImage tile = ((PureImageCache)Maps.MyImageCache.Instance).GetImageFromCache(type.DbId, p, zoom) as GMapImage;
+
+                                        //GMapImage tile = GMaps.Instance.GetImageFrom(tp, p, zoom, out ex) as GMapImage;
+                                        //GMapImage tile = type.GetTileImage(p, zoom) as GMapImage;
+                                        //tile.Img.Save(zoom + "-" + p.X + "-" + p.Y + ".bmp");
+
                                         if (tile != null)
                                         {
                                             using (tile)
                                             {
-                                                int x = p.X * prj.TileSize.Width - topLeftPx.X + padding;
-                                                int y = p.Y * prj.TileSize.Width - topLeftPx.Y + padding;
+                                                long x = p.X * prj.TileSize.Width - topLeftPx.X + padding;
+                                                long y = p.Y * prj.TileSize.Width - topLeftPx.Y + padding;
                                                 {
+                                                    Console.WriteLine((startimage - DateTime.Now).TotalMilliseconds);
                                                     gfx.DrawImage(tile.Img, x, y, prj.TileSize.Width, prj.TileSize.Height);
+                                                    Console.WriteLine((startimage - DateTime.Now).TotalMilliseconds);
                                                 }
                                             }
                                         }
+                                        else
+                                        {
+                                            
+                                        }
                                     }
-                                    if ((DateTime.Now - startimage).TotalMilliseconds > 200)
-                                        break;
                                 }
                             }
-                            _terrain = new Bitmap(bmpDestination, 512, 512);
+
+                            Console.WriteLine((startimage-DateTime.Now).TotalMilliseconds);
+                            _terrain = new Bitmap(bmpDestination, 1024*2, 1024*2);
+
+                           // _terrain.Save(zoom +"-map.bmp");
 
 
                             GL.BindTexture(TextureTarget.Texture2D, texture);
@@ -145,16 +191,8 @@ namespace MissionPlanner.Controls
 
                         }
                     }
-                    if ((DateTime.Now - startimage).TotalMilliseconds > 200)
-                    {
-                        zoom--;
-                    }
-                    else
-                    {
-                        //zoom++;
-                    }
                 }
-                catch { }
+                catch (Exception ex) { Console.WriteLine(ex); }
             }
         }
 
@@ -190,15 +228,13 @@ namespace MissionPlanner.Controls
             }
             catch { return;  }
 
-            double heightscale = (step / 90.0) * 1;
-
-            float scale = 1.0f;
+            double heightscale = (step / 90.0) * 1.3;
 
             float radians = (float)(Math.PI * (rpy.Z * -1) / 180.0f);
 
              //radians = 0;
 
-            float mouseY = (float)(0.1 * scale);
+            float mouseY = (float)(0.1);
  
       cameraX = area.LocationMiddle.Lng;     // multiplying by mouseY makes the
       cameraZ = area.LocationMiddle.Lat;    // camera get closer/farther away with mouseY
@@ -215,7 +251,7 @@ namespace MissionPlanner.Controls
 
             GL.MatrixMode(MatrixMode.Projection);
 
-            OpenTK.Matrix4 projection = OpenTK.Matrix4.CreatePerspectiveFieldOfView(60 * deg2rad, 1f, 0.00001f, 5000.0f);
+            OpenTK.Matrix4 projection = OpenTK.Matrix4.CreatePerspectiveFieldOfView(100 * deg2rad, 1f, 0.00001f, (float)step* 50);
             GL.LoadMatrix(ref projection);
 
             Matrix4 modelview = Matrix4.LookAt((float)cameraX, (float)cameraY, (float)cameraZ, (float)lookX, (float)lookY, (float)lookZ, 0,1,0);
@@ -228,7 +264,7 @@ namespace MissionPlanner.Controls
 
             GL.LoadMatrix(ref modelview);
 
-            GL.ClearColor(Color.Blue);
+            GL.ClearColor(Color.LightBlue);
 
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
@@ -254,7 +290,7 @@ namespace MissionPlanner.Controls
 
             sw.Start();
 
-            zoom = 14;
+            //zoom = 14;
 
             getImage();
 
@@ -264,20 +300,19 @@ namespace MissionPlanner.Controls
 
             sw.Start();
 
-           double increment = step *5;
+           double increment = step *1;
 
             double cleanup = area.Bottom % increment;
             double cleanup2 = area.Left % increment;
-
             
 
             for (double z = (area.Bottom - cleanup); z < area.Top - step; z += increment)
             {
                 //Makes OpenGL draw a triangle at every three consecutive vertices
-                GL.Begin(BeginMode.TriangleStrip);
+                GL.Begin(PrimitiveType.TriangleStrip);
                 for (double x = (area.Left - cleanup2); x < area.Right - step; x += increment)
                 {
-                    int heightl = srtm.getAltitude(z, area.Right + area.Left - x, 20);
+                    double heightl = srtm.getAltitude(z, area.Right + area.Left - x, 20);
 
                   //  Console.WriteLine(x + " " + z);
 
@@ -292,7 +327,7 @@ namespace MissionPlanner.Controls
 
                     double imgx = 1 - scale2;
                     double imgy = 1 - scale3;
-                   // GL.Color3(Color.Red);
+                    //GL.Color3(Color.Red);
 
                     //GL.Color3(_terrain.GetPixel(imgx, imgy));
                     GL.TexCoord2(imgx,imgy);
@@ -334,9 +369,15 @@ namespace MissionPlanner.Controls
 
             Console.WriteLine("GL  "+sw.ElapsedMilliseconds);
 
+            try
+            {
+
             this.SwapBuffers();
 
-            Context.MakeCurrent(null);
+          
+                Context.MakeCurrent(null);
+            }
+            catch { }
 
             //this.Invalidate();
         }
@@ -357,6 +398,8 @@ namespace MissionPlanner.Controls
 
         private void test_Load(object sender, EventArgs e)
         {
+                GL.GenTextures(1, out texture);
+
             GL.Enable(EnableCap.DepthTest);
            // GL.Enable(EnableCap.Light0);
             GL.Enable(EnableCap.Lighting);

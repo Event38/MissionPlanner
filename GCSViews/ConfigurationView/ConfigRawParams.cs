@@ -9,6 +9,8 @@ using MissionPlanner.Utilities;
 using log4net;
 using MissionPlanner.Controls;
 using System.Collections.Generic;
+using System.Net;
+using System.Globalization;
 
 namespace MissionPlanner.GCSViews.ConfigurationView
 {
@@ -21,6 +23,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         readonly Hashtable _changes = new Hashtable();
 
         static Hashtable tooltips = new Hashtable();
+
+        List<GitHubContent.FileInfo> paramfiles;
 
         // ?
         internal bool startup = true;
@@ -49,69 +53,15 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 return true;
             }
 
+            if (keyData == (Keys.Control | Keys.F))
+            {
+                BUT_find_Click(null, null);
+                return true;
+            }
+
             return false;
         }
 
-        Hashtable loadParamFile(string Filename)
-        {
-            Hashtable param = new Hashtable();
-
-            StreamReader sr = new StreamReader(Filename);
-            while (!sr.EndOfStream)
-            {
-                string line = sr.ReadLine();
-
-                if (line.Contains("NOTE:"))
-                {
-                    CustomMessageBox.Show(line, "Saved Note");
-                    continue;
-                }
-
-                if (line.StartsWith("#"))
-                    continue;
-
-                string[] items = line.Split(new char[] { ' ', ',', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-
-                if (items.Length != 2)
-                    continue;
-
-                string name = items[0];
-                float value = 0;
-                try
-                {
-                    value = float.Parse(items[1], System.Globalization.CultureInfo.InvariantCulture);// new System.Globalization.CultureInfo("en-US"));
-                }
-                catch (Exception ex) { log.Error(ex); throw new FormatException("Invalid number on param " + name + " : " + items[1].ToString()); }
-
-                if (name == "SYSID_SW_MREV")
-                    continue;
-                if (name == "WP_TOTAL")
-                    continue;
-                if (name == "CMD_TOTAL")
-                    continue;
-                if (name == "FENCE_TOTAL")
-                    continue;
-                if (name == "SYS_NUM_RESETS")
-                    continue;
-                if (name == "ARSPD_OFFSET")
-                    continue;
-                if (name == "GND_ABS_PRESS")
-                    continue;
-                if (name == "GND_TEMP")
-                    continue;
-                if (name == "CMD_INDEX")
-                    continue;
-                if (name == "LOG_LASTFILE")
-                    continue;
-                if (name == "FORMAT_VERSION")
-                    continue;
-
-                param[name] = value;
-            }
-            sr.Close();
-
-            return param;
-        }
 
         private void BUT_load_Click(object sender, EventArgs e)
         {
@@ -126,42 +76,47 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
             if (dr == DialogResult.OK)
             {
-                Hashtable param2 = loadParamFile(ofd.FileName);
+                loadparamsfromfile(ofd.FileName);
+            }
+        }
 
-                foreach (string name in param2.Keys)
+        void loadparamsfromfile(string fn)
+        {
+            Hashtable param2 = Utilities.ParamFile.loadParamFile(fn);
+
+            foreach (string name in param2.Keys)
+            {
+                string value = param2[name].ToString();
+                // set param table as well
+                foreach (DataGridViewRow row in Params.Rows)
                 {
-                    string value = param2[name].ToString();
-                    // set param table as well
-                    foreach (DataGridViewRow row in Params.Rows)
+                    if (name == "SYSID_SW_MREV")
+                        continue;
+                    if (name == "WP_TOTAL")
+                        continue;
+                    if (name == "CMD_TOTAL")
+                        continue;
+                    if (name == "FENCE_TOTAL")
+                        continue;
+                    if (name == "SYS_NUM_RESETS")
+                        continue;
+                    if (name == "ARSPD_OFFSET")
+                        continue;
+                    if (name == "GND_ABS_PRESS")
+                        continue;
+                    if (name == "GND_TEMP")
+                        continue;
+                    if (name == "CMD_INDEX")
+                        continue;
+                    if (name == "LOG_LASTFILE")
+                        continue;
+                    if (name == "FORMAT_VERSION")
+                        continue;
+                    if (row.Cells[0].Value.ToString() == name)
                     {
-                        if (name == "SYSID_SW_MREV")
-                            continue;
-                        if (name == "WP_TOTAL")
-                            continue;
-                        if (name == "CMD_TOTAL")
-                            continue;
-                        if (name == "FENCE_TOTAL")
-                            continue;
-                        if (name == "SYS_NUM_RESETS")
-                            continue;
-                        if (name == "ARSPD_OFFSET")
-                            continue;
-                        if (name == "GND_ABS_PRESS")
-                            continue;
-                        if (name == "GND_TEMP")
-                            continue;
-                        if (name == "CMD_INDEX")
-                            continue;
-                        if (name == "LOG_LASTFILE")
-                            continue;
-                        if (name == "FORMAT_VERSION")
-                            continue;
-                        if (row.Cells[0].Value.ToString() == name)
-                        {
-                            if (row.Cells[1].Value.ToString() != value.ToString())
-                                row.Cells[1].Value = value;
-                            break;
-                        }
+                        if (row.Cells[1].Value.ToString() != value.ToString())
+                            row.Cells[1].Value = value;
+                        break;
                     }
                 }
             }
@@ -180,22 +135,20 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             var dr = sfd.ShowDialog();
             if (dr == DialogResult.OK)
             {
-                StreamWriter sw = new StreamWriter(sfd.OpenFile());
-                string input = DateTime.Now + " Frame : ";
-                if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane)
-                {
-                    input = DateTime.Now + " Plane: Skywalker";
-                }
-                InputBox.Show("Custom Note", "Enter your Notes/Frame Type etc", ref input);
-                if (input != "")
-                    sw.WriteLine("#NOTE: " + input.Replace(',', '|'));
+                Hashtable data = new Hashtable();
                 foreach (DataGridViewRow row in Params.Rows)
                 {
-                    float value = float.Parse(row.Cells[1].Value.ToString());
+                    try
+                    {
+                        float value = float.Parse(row.Cells[1].Value.ToString());
 
-                    sw.WriteLine(row.Cells[0].Value.ToString() + "," + value.ToString(new System.Globalization.CultureInfo("en-US")));
+                        data[row.Cells[0].Value.ToString()] = value;
+                    }
+                    catch (Exception) { CustomMessageBox.Show(Strings.InvalidNumberEntered + " " + row.Cells[0].Value.ToString()); }
                 }
-                sw.Close();
+
+                Utilities.ParamFile.SaveParamFile(sfd.FileName,data);
+
             }
         }
 
@@ -262,7 +215,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             var dr = ofd.ShowDialog();
             if (dr == DialogResult.OK)
             {
-                param2 = loadParamFile(ofd.FileName);
+                param2 = Utilities.ParamFile.loadParamFile(ofd.FileName);
 
                 Form paramCompareForm = new ParamCompare(Params, MainV2.comPort.MAV.param, param2);
                 
@@ -277,29 +230,29 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             if (!MainV2.comPort.BaseStream.IsOpen)
                 return;
 
-            ((Control)sender).Enabled = false;
-            
-            try
+            if (DialogResult.OK == CustomMessageBox.Show(Strings.WarningUpdateParamList, Strings.ERROR, MessageBoxButtons.OKCancel))
             {
-                MainV2.comPort.getParamList();
-            }
-            catch (Exception ex)
-            {
-                log.Error("Exception getting param list", ex);
-                CustomMessageBox.Show("Error: getting param list");
-            }
+                ((Control)sender).Enabled = false;
+
+                try
+                {
+                    MainV2.comPort.getParamList();
+                }
+                catch (Exception ex)
+                {
+                    log.Error("Exception getting param list", ex);
+                    CustomMessageBox.Show(Strings.ErrorReceivingParams, Strings.ERROR);
+                }
 
 
-            ((Control)sender).Enabled = true;
-            
-            startup = true;
+                ((Control)sender).Enabled = true;
 
-            processToScreen();
+                startup = true;
 
-            startup = false;
-            
-            // Todo: this populates or the combos etc and what not. This shoudl prob be a bsv button
-            
+                processToScreen();
+
+                startup = false;
+            }            
         }
 
         void Params_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -314,8 +267,26 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                         Params[e.ColumnIndex, e.RowIndex].Value = "-1";
                 }
 
+                double min = 0;
+                double max = 0;
+
+                string value = (string)Params[e.ColumnIndex, e.RowIndex].Value;
+
+                float newvalue = float.Parse(value.Replace(',', '.'), CultureInfo.InvariantCulture);
+
+                if (ParameterMetaDataRepository.GetParameterRange(Params[Command.Index, e.RowIndex].Value.ToString(), ref min, ref max, MainV2.comPort.MAV.cs.firmware.ToString()))
+                {
+                    if (newvalue > max || newvalue < min)
+                    {
+                        if (CustomMessageBox.Show(Params[Command.Index, e.RowIndex].Value.ToString()+ " value is out of range. Do you want to continue?", "Out of range", MessageBoxButtons.YesNo) == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
+                }
+
                 Params[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Green;
-                _changes[Params[0, e.RowIndex].Value] = float.Parse(((string)Params[e.ColumnIndex, e.RowIndex].Value).ToString());
+                _changes[Params[Command.Index, e.RowIndex].Value] = float.Parse(((string)Params[e.ColumnIndex, e.RowIndex].Value).ToString());
             }
             catch (Exception)
             {
@@ -324,38 +295,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         
             Params.Focus();
-        }
-
-        void readToolTips()
-        {
-            string data = global::MissionPlanner.Properties.Resources.MAVParam;
-
-            string[] tips = data.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (var tip in tips)
-            {
-                if (!tip.StartsWith("||"))
-                    continue;
-
-                string[] cols = tip.Split(new string[] { "||" }, 9, StringSplitOptions.None);
-
-                if (cols.Length >= 8)
-                {
-                    paramsettings param = new paramsettings();
-                    try
-                    {
-                        param.name = cols[1];
-                        param.desc = AddNewLinesForTooltip(cols[7]);
-                        param.scale = float.Parse(cols[5]);
-                        param.minvalue = float.Parse(cols[2]);
-                        param.maxvalue = float.Parse(cols[3]);
-                        param.normalvalue = float.Parse(cols[4]);
-                    }
-                    catch { }
-                    tooltips[cols[1]] = param;
-                }
-
-            }
         }
 
         // from http://stackoverflow.com/questions/2512781/winforms-big-paragraph-tooltip/2512895#2512895
@@ -413,21 +352,21 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
                 Params.Rows.Add();
                 Params.Rows[Params.RowCount - 1].Cells[Command.Index].Value = value;
-                Params.Rows[Params.RowCount - 1].Cells[Value.Index].Value = ((float)MainV2.comPort.MAV.param[value]).ToString("0.###");
+                Params.Rows[Params.RowCount - 1].Cells[Value.Index].Value = ((float)MainV2.comPort.MAV.param[value]).ToString();
                 try
                 {
-                    string metaDataDescription = ParameterMetaDataRepository.GetParameterMetaData(value, ParameterMetaDataConstants.Description);
+                    string metaDataDescription = ParameterMetaDataRepository.GetParameterMetaData(value, ParameterMetaDataConstants.Description, MainV2.comPort.MAV.cs.firmware.ToString());
                     if (!String.IsNullOrEmpty(metaDataDescription))
                     {
                         Params.Rows[Params.RowCount - 1].Cells[Command.Index].ToolTipText = metaDataDescription;
                         Params.Rows[Params.RowCount - 1].Cells[Value.Index].ToolTipText = metaDataDescription;
 
-                        string range = ParameterMetaDataRepository.GetParameterMetaData(value, ParameterMetaDataConstants.Range);
-                        string options = ParameterMetaDataRepository.GetParameterMetaData(value, ParameterMetaDataConstants.Values);
-                        string units = ParameterMetaDataRepository.GetParameterMetaData(value, ParameterMetaDataConstants.Units);
+                        string range = ParameterMetaDataRepository.GetParameterMetaData(value, ParameterMetaDataConstants.Range, MainV2.comPort.MAV.cs.firmware.ToString());
+                        string options = ParameterMetaDataRepository.GetParameterMetaData(value, ParameterMetaDataConstants.Values, MainV2.comPort.MAV.cs.firmware.ToString());
+                        string units = ParameterMetaDataRepository.GetParameterMetaData(value, ParameterMetaDataConstants.Units, MainV2.comPort.MAV.cs.firmware.ToString());
 
                         Params.Rows[Params.RowCount - 1].Cells[Units.Index].Value = units;
-                        Params.Rows[Params.RowCount - 1].Cells[Options.Index].Value = range + options;
+                        Params.Rows[Params.RowCount - 1].Cells[Options.Index].Value = range + options.Replace(","," ");
                         Params.Rows[Params.RowCount - 1].Cells[Desc.Index].Value = metaDataDescription;
 
                     }
@@ -444,7 +383,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                         //Params.Rows[Params.RowCount - 1].Cells[Value.Index].Value = float.Parse(Params.Rows[Params.RowCount - 1].Cells[RawValue.Index].Value.ToString()) / float.Parse(Params.Rows[Params.RowCount - 1].Cells[mavScale.Index].Value.ToString());
                     }
                 }
-                catch { }
+                catch (Exception ex) { log.Error(ex); }
 
             }
             //Params.Sort(Params.Columns[0], ListSortDirection.Ascending);
@@ -452,10 +391,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         public void Activate()
         {
-            // read tooltips
-            if (tooltips.Count == 0)
-                readToolTips();
-
             startup = true;
 
             this.SuspendLayout();
@@ -464,7 +399,35 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
             this.ResumeLayout();
 
+            Common.MessageShowAgain("Raw Param Warning", "All values on this screen are not min/max checked. Please double check your input.\n Please use Standard/Advanced Params for the safe settings");
+
+            CMB_paramfiles.Enabled = false;
+            BUT_paramfileload.Enabled = false;
+
+
+            System.Threading.ThreadPool.QueueUserWorkItem(updatedefaultlist);
+
             startup = false;
+        }
+
+        void updatedefaultlist(object crap)
+        {
+            try
+            {
+                if (paramfiles == null)
+                {
+                    paramfiles = GitHubContent.GetDirContent("diydrones", "ardupilot", "/Tools/Frame_params/",".param");
+                }
+
+                this.BeginInvoke((Action)delegate
+                {
+                    CMB_paramfiles.DataSource = paramfiles.ToArray();
+                    CMB_paramfiles.DisplayMember = "name";
+                    CMB_paramfiles.Enabled = true;
+                    BUT_paramfileload.Enabled = true;
+                });
+            }
+            catch (Exception ex) { log.Error(ex); }
         }
 
         private void BUT_find_Click(object sender, EventArgs e)
@@ -486,6 +449,59 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                         row.Visible = false;
                     }
                 }
+            }
+        }
+
+        private void BUT_paramfileload_Click(object sender, EventArgs e)
+        {
+            string filepath = Application.StartupPath + Path.DirectorySeparatorChar + CMB_paramfiles.Text;
+
+            try
+            {
+
+                byte[] data = GitHubContent.GetFileContent("diydrones", "ardupilot", ((GitHubContent.FileInfo)CMB_paramfiles.SelectedValue).path);
+
+                File.WriteAllBytes(filepath, data);
+
+                Hashtable param2 = Utilities.ParamFile.loadParamFile(filepath);
+
+                Form paramCompareForm = new ParamCompare(Params, MainV2.comPort.MAV.param, param2);
+
+                ThemeManager.ApplyThemeTo(paramCompareForm);
+                if (paramCompareForm.ShowDialog() == DialogResult.OK)
+                {
+                    CustomMessageBox.Show("Loaded parameters, please make sure you write them!", "Loaded");
+                }
+
+                // no activate the user needs to click write.
+                //this.Activate();
+            }
+            catch (Exception ex) 
+            { 
+                CustomMessageBox.Show("Failed to load file.\n" + ex);
+            }
+        }
+
+        private void CMB_paramfiles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BUT_reset_params_Click(object sender, EventArgs e)
+        {
+            if (CustomMessageBox.Show("Reset all parameters to default\nAre you sure!!", "Reset", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                try
+                {
+                    MainV2.comPort.setParam(new string[] { "FORMAT_VERSION", "SYSID_SW_MREV" }, 0);
+                    System.Threading.Thread.Sleep(1000);
+                    MainV2.comPort.doReboot(false);
+                    MainV2.comPort.BaseStream.Close();
+                
+
+                CustomMessageBox.Show("Your board is now rebooting, You will be required to reconnect to the autopilot.");
+                }
+                catch (Exception ex) { log.Error(ex); CustomMessageBox.Show(Strings.ErrorCommunicating +"\n"+ ex.ToString(), Strings.ERROR); }
             }
         }
     }

@@ -11,8 +11,17 @@ using System.Collections;
 
 namespace MissionPlanner
 {
-    public class srtm
+    public class srtm: IDisposable
     {
+        public enum tiletype
+        {
+            valid,
+            invalid,
+            ocean
+        }
+
+        public static tiletype currenttype = tiletype.invalid;
+
         public static string datadirectory = "./srtm/";
 
         static List<string> allhgts = new List<string>();
@@ -21,15 +30,19 @@ namespace MissionPlanner
 
         static Thread requestThread;
 
+        static bool requestThreadrun = false;
+
         static List<string> queue = new List<string>();
 
         static Hashtable fnamecache = new Hashtable();
 
         static Hashtable filecache = new Hashtable();
 
+        static List<string> oceantile = new List<string>();
+
         static Dictionary<string, short[,]> cache = new Dictionary<string, short[,]>();
 
-        public static int getAltitude(double lat, double lng, double zoom)
+        public static double getAltitude(double lat, double lng, double zoom = 16)
         {
             short alt = 0;
 
@@ -40,7 +53,7 @@ namespace MissionPlanner
             //		lng	117.94178754638671	double
             // 		alt	70	short
 
-            int x = (lng < 0) ? (int)(lng-1) : (int)lng;//(int)Math.Floor(lng);
+            int x = (lng < 0) ? (int)(lng - 1) : (int)lng;//(int)Math.Floor(lng);
             int y = (lat < 0) ? (int)(lat - 1) : (int)lat; ;//(int)Math.Floor(lat);
 
             string ns;
@@ -55,6 +68,7 @@ namespace MissionPlanner
             else
                 ew = "W";
 
+            // running tostring at a high rate was costing cpu
             if (fnamecache[y] == null)
                 fnamecache[y] = Math.Abs(y).ToString("00");
             if (fnamecache[1000 + x] == null)
@@ -70,6 +84,7 @@ namespace MissionPlanner
 
                     int size = -1;
 
+                    // add to cache
                     if (!cache.ContainsKey(filename))
                     {
                         FileStream fs = new FileStream(datadirectory + Path.DirectorySeparatorChar + filename, FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -78,10 +93,12 @@ namespace MissionPlanner
                         {
                             size = 1201;
                         }
-                        else
+                        else if (fs.Length == (3601 * 3601 * 2))
                         {
                             size = 3601;
                         }
+                        else 
+                            return -1;
 
                         byte[] altbytes = new byte[2];
                         short[,] altdata = new short[size, size];
@@ -111,19 +128,40 @@ namespace MissionPlanner
                     {
                         size = 1201;
                     }
-                    else
+                    else if (cache[filename].Length == (3601 * 3601))
                     {
                         size = 3601;
                     }
+                    else
+                        return -1;
 
-                    int posx = 0;
-                    int row = 0;
+                    // remove the base lat long
+                    lat -= y;
+                    lng -= x;
 
-                    posx = (int)(((float)(lng - x)) * (size * 1));
-                    row = (int)(((float)(lat - y)) * (size * 1));
-                    row = size - row;
+                    // values should be 0-1199, 1200 is for interpolation
+                    double xf = lng * (size - 2);
+                    double yf = lat * (size - 2);
 
-                    return cache[filename][posx, row];
+                    int x_int = (int)xf;
+                    double x_frac = xf - x_int;
+
+                    int y_int = (int)yf;
+                    double y_frac = yf - y_int;
+
+                    y_int = (size - 2) - y_int;
+
+                    double alt00 = GetAlt(filename, x_int, y_int);
+                    double alt10 = GetAlt(filename, x_int + 1, y_int);
+                    double alt01 = GetAlt(filename, x_int, y_int + 1);
+                    double alt11 = GetAlt(filename, x_int + 1, y_int + 1);
+
+                    double v1 = avg(alt00, alt10, x_frac);
+                    double v2 = avg(alt01, alt11, x_frac);
+                    double v = avg(v1, v2, -y_frac);
+
+                    currenttype = tiletype.valid;
+                    return v;
                 }
 
                 string filename2 = "srtm_" + Math.Round((lng + 2.5 + 180) / 5, 0).ToString("00") + "_" + Math.Round((60 - lat + 2.5) / 5, 0).ToString("00") + ".asc";
@@ -211,12 +249,15 @@ namespace MissionPlanner
                     }
 
                     //sr.Close();
-
+                    currenttype = tiletype.valid;
                     return alt;
                 }
                 else // get something
                 {
-                    if (zoom >= 15)
+                    if (oceantile.Contains(filename))
+                        currenttype = tiletype.ocean;
+
+                    if (zoom >= 12)
                     {
                         if (!Directory.Exists(datadirectory))
                             Directory.CreateDirectory(datadirectory);
@@ -246,9 +287,19 @@ namespace MissionPlanner
                 }
 
             }
-            catch { alt = 0; }
+            catch { alt = 0; currenttype = tiletype.invalid; }
 
             return alt;
+        }
+
+        static double GetAlt(string filename, int x, int y)
+        {
+            return cache[filename][x, y];
+        }
+
+        static double avg(double v1, double v2, double weight)
+        {
+            return v2 * weight + v1 * (1 - weight);
         }
 
         static MemoryStream readFile(string filename)
@@ -274,7 +325,9 @@ namespace MissionPlanner
 
         static void requestRunner()
         {
-            while (true)
+            requestThreadrun = true;
+
+            while (requestThreadrun)
             {
                 try
                 {
@@ -303,7 +356,8 @@ namespace MissionPlanner
 
         static void get3secfile(object name)
         {
-            string baseurl = "http://dds.cr.usgs.gov/srtm/version2_1/SRTM3/";
+            string baseurl1sec = "http://dds.cr.usgs.gov/srtm/version2_1/SRTM1/";
+            string baseurl = "http://firmware.diydrones.com/SRTM/";
 
             // check file doesnt already exist
             if (File.Exists(datadirectory + Path.DirectorySeparatorChar + (string)name))
@@ -313,7 +367,10 @@ namespace MissionPlanner
                     return;
             }
 
-            List<string> list = getListing(baseurl);
+            // load 1 arc seconds first
+            List<string> list = getListing(baseurl1sec);
+            // load 3 arc second
+            list.AddRange(getListing(baseurl));
 
             foreach (string item in list)
             {
@@ -332,6 +389,9 @@ namespace MissionPlanner
                     }
                 }
             }
+
+            // we must be an ocean tile - no matchs
+            oceantile.Add((string)name);
         }
 
         static void gethgt(string url, string filename)
@@ -429,6 +489,11 @@ namespace MissionPlanner
             catch { }
 
             return list;
+        }
+
+        public void Dispose()
+        {
+            requestThreadrun = false;
         }
     }
 }

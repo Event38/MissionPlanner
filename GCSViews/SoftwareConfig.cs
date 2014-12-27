@@ -30,89 +30,94 @@ namespace MissionPlanner.GCSViews
         {
         }
 
-        private BackstageView.BackstageViewPage AddBackstageViewPage(UserControl userControl, string headerText, BackstageView.BackstageViewPage Parent = null)
+        private BackstageViewPage AddBackstageViewPage(UserControl userControl, string headerText, BackstageViewPage Parent = null, bool advanced = false)
         {
             try
             {
-                return backstageView.AddPage(userControl, headerText, Parent);
+                return backstageView.AddPage(userControl, headerText, Parent, advanced);
             }
             catch (Exception ex) { log.Error(ex); return null; }
         }
 
         private void SoftwareConfig_Load(object sender, EventArgs e)
         {
-            BackstageView.BackstageViewPage start = null;
-
-            if (MainV2.comPort.BaseStream.IsOpen)
+            try
             {
-                AddBackstageViewPage(new ConfigFlightModes(), "Flight Modes");
+                BackstageViewPage start = null;
 
-                if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
-                    AddBackstageViewPage(new ConfigAC_Fence(), "GeoFence");
-
-                if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
+                if (MainV2.comPort.BaseStream.IsOpen)
                 {
-                    start = AddBackstageViewPage(new ConfigSimplePids(), "Basic Pids");
+                    AddBackstageViewPage(new ConfigFlightModes(), Strings.FlightModes);
 
-               //     AddBackstageViewPage(new ConfigSimplePidsV2(), "Basic Pids V2");
+                    if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
+                        AddBackstageViewPage(new ConfigAC_Fence(), Strings.GeoFence);
+
+                    if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
+                    {
+                        start = AddBackstageViewPage(new ConfigSimplePids(), Strings.BasicTuning);
+
+                        AddBackstageViewPage(new ConfigArducopter(), Strings.ExtendedTuning);
+                    }
+
+                    if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane)
+                    {
+                        start = AddBackstageViewPage(new ConfigArduplane(), Strings.BasicTuning);
+
+                    }
+
+                    if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduRover)
+                    {
+                        start = AddBackstageViewPage(new ConfigArdurover(), Strings.BasicTuning);
+                    }
+
+                    if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduTracker)
+                    {
+                        start = AddBackstageViewPage(new ConfigAntennaTracker(), Strings.ExtendedTuning);
+                    }
+
+                    AddBackstageViewPage(new ConfigFriendlyParams { ParameterMode = ParameterMetaDataConstants.Standard }, Strings.StandardParams);
+                    AddBackstageViewPage(new ConfigFriendlyParams { ParameterMode = ParameterMetaDataConstants.Advanced }, Strings.AdvancedParams, null, true);
+                    AddBackstageViewPage(new ConfigRawParams(), Strings.FullParameterList, null, true);
+
+                    AddBackstageViewPage(new ConfigRawParamsTree(), Strings.FullParameterTree, null, true);
+
+
+                    if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx)
+                    {
+                        start = AddBackstageViewPage(new ConfigFlightModes(), Strings.FlightModes);
+                        AddBackstageViewPage(new ConfigAteryxSensors(), "Ateryx Zero Sensors");
+                        AddBackstageViewPage(new ConfigAteryx(), "Ateryx Pids");
+                    }
+
+                    if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduTracker)
+                    {
+                        start = AddBackstageViewPage(new ConfigRawParams(), Strings.FullParameterList, null, true);
+                    }
+
+                    AddBackstageViewPage(new ConfigPlanner(), "Planner");
+                }
+                else
+                {
+                    start = AddBackstageViewPage(new ConfigPlanner(), "Planner");
                 }
 
-                if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane)
+                // remeber last page accessed
+                foreach (BackstageViewPage page in backstageView.Pages)
                 {
-                    start = AddBackstageViewPage(new ConfigArduplane(), "APM:Plane Pids");
-
+                    if (page.LinkText == lastpagename)
+                    {
+                        this.backstageView.ActivatePage(page);
+                        break;
+                    }
                 }
 
-                if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
-                {
-                    // var configpanel = new Controls.ConfigPanel(Application.StartupPath + System.IO.Path.DirectorySeparatorChar + "ArduCopterConfig.xml");
-                    // AddBackstageViewPage(configpanel, "ArduCopter Pids");
 
-                    AddBackstageViewPage(new ConfigArducopter(), "APM:Copter Pids");
-                }
+                if (this.backstageView.SelectedPage == null && start != null)
+                    backstageView.ActivatePage(start);
 
-                if (MainV2.comPort.MAV.param["H_SWASH_TYPE"] != null)
-                {
-                    AddBackstageViewPage(new ConfigTradHeli(), "Heli Setup");
-                }
-
-                AddBackstageViewPage(new ConfigFriendlyParams { ParameterMode = ParameterMetaDataConstants.Standard }, "Standard Params");
-                AddBackstageViewPage(new ConfigFriendlyParams { ParameterMode = ParameterMetaDataConstants.Advanced }, "Advanced Params");
-                AddBackstageViewPage(new ConfigRawParams(), "Full Parameter List");
-
-
-
-                if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx)
-                {
-                    start = AddBackstageViewPage(new ConfigFlightModes(), "Flight Modes");
-                    AddBackstageViewPage(new ConfigAteryxSensors(), "Ateryx Zero Sensors");
-                    AddBackstageViewPage(new ConfigAteryx(), "Ateryx Pids");
-                }
-
-                AddBackstageViewPage(new ConfigPlanner(), "Planner");
+                ThemeManager.ApplyThemeTo(this);
             }
-            else
-            {
-                start = AddBackstageViewPage(new ConfigPlanner(), "Planner");
-            }
-
-            AddBackstageViewPage(new ConfigHelp(), "Help");
-
-            // remeber last page accessed
-            foreach (BackstageView.BackstageViewPage page in backstageView.Pages)
-            {
-                if (page.LinkText == lastpagename)
-                {
-                    this.backstageView.ActivatePage(page);
-                    break;
-                }
-            }
-
-
-            if (this.backstageView.SelectedPage == null)
-                backstageView.ActivatePage(start);
-
-            ThemeManager.ApplyThemeTo(this);
+            catch (Exception ex) { log.Error(ex); }
         }
 
         private void SoftwareConfig_FormClosing(object sender, FormClosingEventArgs e)

@@ -13,6 +13,7 @@ using log4net;
 using System.Reflection;
 using System.Globalization;
 using MissionPlanner.Controls;
+using System.Collections;
 
 namespace MissionPlanner.GCSViews.ConfigurationView
 {
@@ -24,7 +25,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         int y = 10;
 
-        class configitem
+        class configitem: IDisposable
         {
             public string title;
             public string desc;
@@ -39,6 +40,12 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             public Label lbl_max = new Label();
             // use increments
 
+
+            public void Dispose()
+            {
+                lbl_max.Dispose();
+                lbl_min.Dispose();
+            }
         }
 
         class relationitem
@@ -63,7 +70,11 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             y = 10;
 
             LoadXML(Path.GetDirectoryName(Application.ExecutablePath) + Path.DirectorySeparatorChar + "acsimplepids.xml");
+
+
         }
+
+
 
         private void ConfigSimplePids_Load(object sender, EventArgs e)
         {
@@ -154,6 +165,9 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             try
             {
+                if (!MainV2.comPort.MAV.param.ContainsKey(item.paramname))
+                    return;
+
                 float value = (float)MainV2.comPort.MAV.param[item.paramname];
 
                 if (value < item.min)
@@ -161,8 +175,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 if (value > item.max)
                     item.max = value;
 
-                string range = ParameterMetaDataRepository.GetParameterMetaData(item.paramname, ParameterMetaDataConstants.Range);
-                string increment = ParameterMetaDataRepository.GetParameterMetaData(item.paramname, ParameterMetaDataConstants.Increment);
+                string range = ParameterMetaDataRepository.GetParameterMetaData(item.paramname, ParameterMetaDataConstants.Range, MainV2.comPort.MAV.cs.firmware.ToString());
+                string increment = ParameterMetaDataRepository.GetParameterMetaData(item.paramname, ParameterMetaDataConstants.Increment, MainV2.comPort.MAV.cs.firmware.ToString());
 
                 string[] rangeopt = range.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -174,7 +188,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
                 float incrementf = 0.01f;
                 if (increment.Length > 0)
-                    float.TryParse(increment, out incrementf);
+                    float.TryParse(increment,NumberStyles.Float, CultureInfo.InvariantCulture, out incrementf);
 
                 Controls.RangeControl RNG = new Controls.RangeControl(item.paramname, item.desc, item.title, incrementf, 1, item.min, item.max, value.ToString());
                 RNG.Tag = item;
@@ -198,7 +212,10 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             TXT_info.Clear();
 
-            float value = float.Parse(Value,CultureInfo.InvariantCulture);
+            if (Value.Contains(','))
+                Value = Value.Replace(",",".");
+
+            float value = float.Parse(Value, System.Globalization.CultureInfo.InvariantCulture);
 
             Controls.RangeControl rc = ((Controls.RangeControl)sender);
             log.Info(rc.Name + " " + rc.Value);

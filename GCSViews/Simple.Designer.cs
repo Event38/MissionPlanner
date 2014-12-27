@@ -221,7 +221,6 @@
             this.gMapControl1.RetryLoadTile = 0;
             this.gMapControl1.RoutesEnabled = true;
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.streamjpg = ((System.IO.MemoryStream)(resources.GetObject("gMapControl1.streamjpg")));
             this.gMapControl1.Zoom = 0D;
             this.gMapControl1.Click += new System.EventHandler(this.gMapControl1_Click);
             this.gMapControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gMapControl1_MouseDown);
@@ -231,7 +230,7 @@
             // TRK_zoom
             // 
             resources.ApplyResources(this.TRK_zoom, "TRK_zoom");
-            this.TRK_zoom.Maximum = 18f;
+            this.TRK_zoom.Maximum = 24f;
             this.TRK_zoom.Minimum = 1f;
             this.TRK_zoom.Name = "TRK_zoom";
             this.TRK_zoom.TickFrequency = 1;

@@ -69,25 +69,28 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
             changes.Clear();
 
-            // read tooltips
-            if (tooltips.Count == 0)
-                readToolTips();
-
             // ensure the fields are populated before setting them
-            CH7_OPT.DataSource = ParameterMetaDataRepository.GetParameterOptionsInt("CH7_OPT").ToList(); 
+            CH7_OPT.DataSource = ParameterMetaDataRepository.GetParameterOptionsInt("CH7_OPT", MainV2.comPort.MAV.cs.firmware.ToString()).ToList(); 
             CH7_OPT.DisplayMember = "Value";
             CH7_OPT.ValueMember = "Key";
 
-            CH8_OPT.DataSource = ParameterMetaDataRepository.GetParameterOptionsInt("CH8_OPT").ToList(); 
+            CH8_OPT.DataSource = ParameterMetaDataRepository.GetParameterOptionsInt("CH8_OPT", MainV2.comPort.MAV.cs.firmware.ToString()).ToList(); 
             CH8_OPT.DisplayMember = "Value";
             CH8_OPT.ValueMember = "Key";
 
-            TUNE.DataSource = ParameterMetaDataRepository.GetParameterOptionsInt("TUNE").ToList();
+            TUNE.DataSource = ParameterMetaDataRepository.GetParameterOptionsInt("TUNE", MainV2.comPort.MAV.cs.firmware.ToString()).ToList();
             TUNE.DisplayMember = "Value";
             TUNE.ValueMember = "Key";
 
             // prefill all fields
             processToScreen();
+
+            // unlock entries if they differ
+            if (RATE_RLL_P.Value != RATE_PIT_P.Value || RATE_RLL_I.Value != RATE_PIT_I.Value
+                || RATE_RLL_D.Value != RATE_PIT_D.Value || RATE_RLL_IMAX.Value != RATE_PIT_IMAX.Value)
+            {
+                CHK_lockrollpitch.Checked = false;
+            }
 
             if (MainV2.comPort.MAV.param["H_SWASH_TYPE"] != null)
             {
@@ -95,40 +98,6 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             }
 
             startup = false;
-        }
-
-
-
-        void readToolTips()
-        {
-            string data = global::MissionPlanner.Properties.Resources.MAVParam;
-
-            string[] tips = data.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (var tip in tips)
-            {
-                if (!tip.StartsWith("||"))
-                    continue;
-
-                string[] cols = tip.Split(new string[] { "||" }, 9, StringSplitOptions.None);
-
-                if (cols.Length >= 8)
-                {
-                    paramsettings param = new paramsettings();
-                    try
-                    {
-                        param.name = cols[1];
-                        param.desc = AddNewLinesForTooltip(cols[7]);
-                        param.scale = float.Parse(cols[5]);
-                        param.minvalue = float.Parse(cols[2]);
-                        param.maxvalue = float.Parse(cols[3]);
-                        param.normalvalue = float.Parse(cols[4]);
-                    }
-                    catch { }
-                    tooltips[cols[1]] = param;
-                }
-
-            }
         }
 
         // from http://stackoverflow.com/questions/2512781/winforms-big-paragraph-tooltip/2512895#2512895
@@ -204,7 +173,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
                             float numbervalue = (float)MainV2.comPort.MAV.param[value];
 
-                            MAVLink.modifyParamForDisplay(true, value, ref numbervalue);
+                            MAVLinkInterface.modifyParamForDisplay(true, value, ref numbervalue);
 
                             NumericUpDown thisctl = ((NumericUpDown)ctl);
                             thisctl.Maximum = 9000;
@@ -229,8 +198,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                                 thisctl.Minimum = 0;
                             } else if (thisctl.Name.EndsWith("_IMAX"))
                             {
-                                thisctl.Maximum = 180;
-                                thisctl.Minimum = -180;
+                                thisctl.Maximum = 1800;
+                                thisctl.Minimum = -1800;
                             }
 
                             thisctl.Enabled = true;
@@ -296,7 +265,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 if (sender.GetType() == typeof(NumericUpDown))
                 {
                     value = (float)((NumericUpDown)sender).Value;
-                    MAVLink.modifyParamForDisplay(false, ((Control)sender).Name, ref value);
+                    MAVLinkInterface.modifyParamForDisplay(false, ((Control)sender).Name, ref value);
                     changes[name] = value;
                 }
                 else if (sender.GetType() == typeof(ComboBox))
@@ -396,6 +365,10 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             {
                 try
                 {
+                    if ((float)changes[value] > (float)MainV2.comPort.MAV.param[value] * 2.0f)
+                        if (CustomMessageBox.Show(value +" has more than doubled the last input. Are you sure?", "Large Value", MessageBoxButtons.YesNo) == DialogResult.No)
+                            return;
+
                     MainV2.comPort.setParam(value, (float)changes[value]);
 
                     try
@@ -415,7 +388,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 }
                 catch
                 {
-                    CustomMessageBox.Show("Set " + value + " Failed", "Error");
+                    CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, value), Strings.ERROR);
                 }
             }
         }
@@ -438,7 +411,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             }
             catch (Exception ex)
             {
-                CustomMessageBox.Show("Error: getting param list " + ex.ToString(), "Error");
+                CustomMessageBox.Show(Strings.ErrorReceivingParams + ex.ToString(), Strings.ERROR);
             }
 
 

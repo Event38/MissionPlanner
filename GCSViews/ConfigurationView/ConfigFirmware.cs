@@ -16,15 +16,19 @@ using px4uploader;
 using MissionPlanner.Controls;
 using System.Collections;
 
-namespace MissionPlanner.GCSViews
+namespace MissionPlanner.GCSViews.ConfigurationView
 {
-    partial class ConfigFirmware : MyUserControl
+    partial class ConfigFirmware : MyUserControl, IActivate
     {
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         string firmwareurl = "";
 
+        string custom_fw_dir = "";
+        
         Utilities.Firmware fw = new Utilities.Firmware();
+
+        bool firstrun = true;
 
         ProgressReporterDialogue pdr;
 
@@ -39,7 +43,7 @@ namespace MissionPlanner.GCSViews
                 CustomMessageBox.Show("These are the latest trunk firmware, use at your own risk!!!", "trunk");
                 firmwareurl = "https://raw.github.com/diydrones/binary/master/dev/firmwarelatest.xml";
                 softwares.Clear();
-                Firmware_Load(null, null);
+                UpdateFWList();
                 CMB_history.Visible = false;
             }
 
@@ -47,17 +51,37 @@ namespace MissionPlanner.GCSViews
         }
 
         static List<Utilities.Firmware.software> softwares = new List<Utilities.Firmware.software>();
-        bool flashing = false;
 
         public ConfigFirmware()
         {
             InitializeComponent();
-
-            WebRequest.DefaultWebProxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
-
         }
 
-        internal void Firmware_Load(object sender, EventArgs e)
+        public void Activate()
+        {
+            if (firstrun)
+            {
+                UpdateFWList();
+                firstrun = false;
+            }
+
+            if (MainV2.Advanced)
+            {
+                lbl_devfw.Visible = true;
+                lbl_Custom_firmware_label.Visible = true;
+                lbl_dlfw.Visible = true;
+                CMB_history_label.Visible = true;
+            }
+            else
+            {
+                lbl_devfw.Visible = false;
+                lbl_Custom_firmware_label.Visible = false;
+                lbl_dlfw.Visible = false;
+                CMB_history_label.Visible = false;
+            }
+        }
+
+        void UpdateFWList() 
         {
             pdr = new ProgressReporterDialogue();
 
@@ -149,48 +173,53 @@ namespace MissionPlanner.GCSViews
             }
             else if (temp.url2560.ToLower().Contains("ac2-quad-".ToLower()) || temp.url2560.ToLower().Contains("1-quad/ArduCopter".ToLower()))
             {
-                pictureBoxQuad.Text = temp.name + " Quad";
+                pictureBoxQuad.Text = temp.name += " Quad";
                 pictureBoxQuad.Tag = temp;
             }
             else if (temp.url2560.ToLower().Contains("ac2-tri".ToLower()) || temp.url2560.ToLower().Contains("-tri/ArduCopter".ToLower()))
             {
-                pictureBoxTri.Text = temp.name + " Tri";
+                pictureBoxTri.Text = temp.name += " Tri";
                 pictureBoxTri.Tag = temp;
             }
             else if (temp.url2560.ToLower().Contains("ac2-hexa".ToLower()) || temp.url2560.ToLower().Contains("-hexa/ArduCopter".ToLower()))
             {
-                pictureBoxHexa.Text = temp.name + " Hexa";
+                pictureBoxHexa.Text = temp.name += " Hexa";
                 pictureBoxHexa.Tag = temp;
             }
             else if (temp.url2560.ToLower().Contains("ac2-y6".ToLower()) || temp.url2560.ToLower().Contains("-y6/ArduCopter".ToLower()))
             {
-                pictureBoxY6.Text = temp.name + " Y6";
+                pictureBoxY6.Text = temp.name += " Y6";
                 pictureBoxY6.Tag = temp;
             }
             else if (temp.url2560.ToLower().Contains("ac2-heli-".ToLower()) || temp.url2560.ToLower().Contains("-heli/ArduCopter".ToLower()))
             {
-                pictureBoxHeli.Text = temp.name;
+                pictureBoxHeli.Text = temp.name+= " heli";
                 pictureBoxHeli.Tag = temp;
             }
             else if (temp.url2560.ToLower().Contains("ac2-helhil".ToLower()) || temp.url2560.ToLower().Contains("-heli-hil/ArduCopter".ToLower()))
             {
-                pictureBoxACHHil.Text = temp.name;
+                pictureBoxACHHil.Text = temp.name +=  " heli hil";
                 pictureBoxACHHil.Tag = temp;
             }
             else if (temp.url2560.ToLower().Contains("ac2-quadhil".ToLower()) || temp.url2560.ToLower().Contains("-quad-hil/ArduCopter".ToLower()))
             {
-                pictureBoxACHil.Text = temp.name;
+                pictureBoxACHil.Text = temp.name +=  " hil";
                 pictureBoxACHil.Tag = temp;
             }
             else if (temp.url2560.ToLower().Contains("ac2-octaquad-".ToLower()) || temp.url2560.ToLower().Contains("-octa-quad/ArduCopter".ToLower()))
             {
-                pictureBoxOctaQuad.Text = temp.name + " Octa Quad";
+                pictureBoxOctaQuad.Text = temp.name += " Octa Quad";
                 pictureBoxOctaQuad.Tag = temp;
             }
             else if (temp.url2560.ToLower().Contains("ac2-octa-".ToLower()) || temp.url2560.ToLower().Contains("-octa/ArduCopter".ToLower()))
             {
-                pictureBoxOcta.Text = temp.name + " Octa";
+                pictureBoxOcta.Text = temp.name += " Octa";
                 pictureBoxOcta.Tag = temp;
+            }
+            else if (temp.url2560_2.ToLower().Contains("antennatracker"))
+            {
+                pictureAntennaTracker.Text = temp.name;
+                pictureAntennaTracker.Tag = temp;
             }
             else
             {
@@ -210,12 +239,23 @@ namespace MissionPlanner.GCSViews
                 catch { }
                 fw.Progress -= fw_Progress;
                 fw.Progress += fw_Progress1;
-                bool updated = fw.update(MainV2.comPortName, fwtoupload);
+
+                string history = (CMB_history.SelectedValue == null) ? "" : CMB_history.SelectedValue.ToString();
+
+                bool updated = fw.update(MainV2.comPortName, fwtoupload, history);
 
                 if (updated)
                 {
-                    if (fwtoupload.url2560_2 != null && fwtoupload.url2560_2.ToLower().Contains("copter"))
-                        CustomMessageBox.Show("Please ensure you do a live compass calibration after installing arducopter V 3.x", "Compass");
+
+                    if (fwtoupload.url2560_2 != null && fwtoupload.url2560_2.ToLower().Contains("copter") && fwtoupload.name.ToLower().Contains("3.1"))
+                        CustomMessageBox.Show("Warning, as of AC 3.1 motors will spin when armed, configurable through the MOT_SPIN_ARMED parameter", "Warning");
+
+                    if (fwtoupload.url2560_2 != null && fwtoupload.url2560_2.ToLower().Contains("copter") && fwtoupload.name.ToLower().Contains("3.2"))
+                        CustomMessageBox.Show("Warning, if you are installing AC 3.2 for the first time you MUST redo a Compass calibration.", "Warning");
+                }
+                else
+                {
+                    CustomMessageBox.Show("Error uploading firmware",Strings.ERROR);
                 }
             }
 
@@ -225,7 +265,7 @@ namespace MissionPlanner.GCSViews
         {
             if (((Control)sender).Tag.GetType() != typeof(Utilities.Firmware.software))
             {
-                CustomMessageBox.Show("Bad Firmware", "Error"); return;
+                CustomMessageBox.Show(Strings.ErrorFirmwareFile, Strings.ERROR); return;
             }
 
             findfirmware((Utilities.Firmware.software)((Control)sender).Tag);
@@ -250,21 +290,13 @@ namespace MissionPlanner.GCSViews
             this.progress.Refresh();
         }
 
-        private void FirmwareVisual_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (flashing == true)
-            {
-                e.Cancel = true;
-                CustomMessageBox.Show("Cant exit while updating", "Error");
-            }
-        }
 
         private void CMB_history_SelectedIndexChanged(object sender, EventArgs e)
         {
             firmwareurl = fw.getUrl(CMB_history.SelectedValue.ToString(), "");
 
             softwares.Clear();
-            Firmware_Load(null, null);
+            UpdateFWList();
         }
 
         //Show list of previous firmware versions (old CTRL+O shortcut)
@@ -272,12 +304,12 @@ namespace MissionPlanner.GCSViews
         {
             CMB_history.Enabled = false;
 
-            CMB_history.Items.Clear();
+            //CMB_history.Items.Clear();
             //CMB_history.Items.AddRange(fw.gholdurls);
             //CMB_history.Items.AddRange(fw.gcoldurls);
-            CMB_history.DataSource = fw.niceNames;
             CMB_history.DisplayMember = "Value";
             CMB_history.ValueMember = "Key";
+            CMB_history.DataSource = fw.niceNames;        
 
             CMB_history.Enabled = true;
             CMB_history.Visible = true;
@@ -287,10 +319,14 @@ namespace MissionPlanner.GCSViews
         //Load custom firmware (old CTRL+C shortcut)
         private void Custom_firmware_label_Click(object sender, EventArgs e)
         {
-            var fd = new OpenFileDialog { Filter = "Firmware (*.hex;*.px4)|*.hex;*.px4" };
+            var fd = new OpenFileDialog { Filter = "Firmware (*.hex;*.px4;*.vrx)|*.hex;*.px4;*.vrx" };
+            if (Directory.Exists(custom_fw_dir))
+                fd.InitialDirectory = custom_fw_dir;
             fd.ShowDialog();
             if (File.Exists(fd.FileName))
             {
+                custom_fw_dir = Path.GetDirectoryName(fd.FileName);
+
                 fw.Progress -= fw_Progress;
                 fw.Progress += fw_Progress1;
 
@@ -301,7 +337,7 @@ namespace MissionPlanner.GCSViews
                 }
                 catch
                 {
-                    CustomMessageBox.Show("Can not connect to com port and detect board type", "Error");
+                    CustomMessageBox.Show("Can not connect to com port and detect board type", Strings.ERROR);
                     return;
                 }
 
@@ -314,7 +350,7 @@ namespace MissionPlanner.GCSViews
             CustomMessageBox.Show("These are beta firmware, use at your own risk!!!", "Beta");
             firmwareurl = "https://raw.github.com/diydrones/binary/master/dev/firmware2.xml";
             softwares.Clear();
-            Firmware_Load(null, null);
+            UpdateFWList();
             CMB_history.Visible = false;
         }
 
@@ -376,7 +412,7 @@ namespace MissionPlanner.GCSViews
                 lbl_status.Text = "Done";
                 Application.DoEvents();
             }
-            catch { CustomMessageBox.Show("Error receiving firmware", "Error"); return; }
+            catch { CustomMessageBox.Show("Error receiving firmware", Strings.ERROR); return; }
 
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.FileName = "px4io.bin";
@@ -398,7 +434,30 @@ namespace MissionPlanner.GCSViews
 
         private void lbl_dlfw_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("http://firmware.diydrones.com/");
+            try
+            {
+                System.Diagnostics.Process.Start("http://firmware.diydrones.com/");
+            }
+            catch { CustomMessageBox.Show("Can not open url http://firmware.diydrones.com/", Strings.ERROR); }
+        }
+
+        private void lbl_px4bl_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MainV2.comPort.Open(false);
+
+                if (MainV2.comPort.BaseStream.IsOpen)
+                {
+                    MainV2.comPort.doReboot(true);
+                    CustomMessageBox.Show("Please ignore the unplug and plug back in when uploading flight firmware.");
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch { CustomMessageBox.Show("Failed to connect and send the reboot command",Strings.ERROR); }
         }
     }
 }

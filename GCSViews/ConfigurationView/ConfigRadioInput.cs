@@ -34,6 +34,27 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 rctrim[a] = 1500;
             }
 
+            //setup bindings
+            if (MainV2.comPort.MAV.param.ContainsKey("RCMAP_ROLL"))
+            {
+                this.BARroll.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.currentStateBindingSource, "ch" + MainV2.comPort.MAV.param["RCMAP_ROLL"]+ "in", true));
+                this.BARpitch.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.currentStateBindingSource, "ch" + MainV2.comPort.MAV.param["RCMAP_PITCH"] + "in", true));
+                this.BARthrottle.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.currentStateBindingSource, "ch" + MainV2.comPort.MAV.param["RCMAP_THROTTLE"] + "in", true));
+                this.BARyaw.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.currentStateBindingSource, "ch" + MainV2.comPort.MAV.param["RCMAP_YAW"] + "in", true));
+            }
+            else
+            {
+                this.BARroll.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.currentStateBindingSource, "ch1in", true));
+                this.BARpitch.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.currentStateBindingSource, "ch2in", true));
+                this.BARthrottle.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.currentStateBindingSource, "ch3in", true));
+                this.BARyaw.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.currentStateBindingSource, "ch4in", true));
+            }
+
+            this.BAR5.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.currentStateBindingSource, "ch5in", true));
+            this.BAR6.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.currentStateBindingSource, "ch6in", true));
+            this.BAR7.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.currentStateBindingSource, "ch7in", true));
+            this.BAR8.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.currentStateBindingSource, "ch8in", true));
+
             // setup rc update
             timer.Tick += new EventHandler(timer_Tick);
         }
@@ -62,7 +83,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             try
             {
                 // force this screen to work
-                MainV2.comPort.requestDatastream(MissionPlanner.MAVLink.MAV_DATA_STREAM.RC_CHANNELS, 2);
+                MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.RC_CHANNELS, 2);
             }
             catch { }
 
@@ -95,10 +116,14 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             {
                 CHK_revch1.Checked = MainV2.comPort.MAV.param["RC1_REV"].ToString() == "-1";
                 CHK_revch2.Checked = MainV2.comPort.MAV.param["RC2_REV"].ToString() == "-1";
-                CHK_revch3.Checked = MainV2.comPort.MAV.param["RC3_REV"].ToString() == "-1";
-                CHK_revch4.Checked = MainV2.comPort.MAV.param["RC4_REV"].ToString() == "-1";
+                if (MainV2.comPort.MAV.param.ContainsKey("RC3_REV"))
+                {
+
+                    CHK_revch3.Checked = MainV2.comPort.MAV.param["RC3_REV"].ToString() == "-1";
+                    CHK_revch4.Checked = MainV2.comPort.MAV.param["RC4_REV"].ToString() == "-1";
+                }
             }
-            catch {}//(Exception ex) { CustomMessageBox.Show("Missing RC rev Param " + ex.ToString()); }
+            catch { }//(Exception ex) { CustomMessageBox.Show("Missing RC rev Param " + ex.ToString()); }
             startup = false;
         }
 
@@ -126,7 +151,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             try
             {
 
-                MainV2.comPort.requestDatastream(MissionPlanner.MAVLink.MAV_DATA_STREAM.RC_CHANNELS, 10);
+                MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.RC_CHANNELS, 10);
 
             }
             catch { }
@@ -242,7 +267,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             try
             {
 
-                MainV2.comPort.requestDatastream(MissionPlanner.MAVLink.MAV_DATA_STREAM.RC_CHANNELS, oldrc);
+                MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.RC_CHANNELS, oldrc);
 
             }
             catch { }

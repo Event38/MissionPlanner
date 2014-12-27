@@ -6,11 +6,15 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections;
+using BrightIdeasSoftware;
 
 namespace MissionPlanner
 {
     public partial class ParamCompare : Form
     {
+        public delegate void dtlvcallbackHandler(string param, float value);
+        public event dtlvcallbackHandler dtlvcallback;
+
         DataGridView dgv;
         Hashtable param = new Hashtable();
         Hashtable param2 = new Hashtable();
@@ -38,15 +42,18 @@ namespace MissionPlanner
                 //System.Diagnostics.Debug.WriteLine("Doing: " + value);
                 try
                 {
-                    if (param[value].ToString() != param2[value].ToString()) // this will throw is there is no matching key
+                    if (param.ContainsKey(value) && param2.ContainsKey(value))
                     {
-                        Console.WriteLine("{0} {1} vs {2}", value, param[value], param2[value]);
-                        Params.Rows.Add();
-                        Params.Rows[Params.RowCount - 1].Cells[Command.Index].Value = value;
-                        Params.Rows[Params.RowCount - 1].Cells[Value.Index].Value = param[value].ToString();
+                        if (param[value].ToString() != param2[value].ToString()) // this will throw is there is no matching key
+                        {
+                            Console.WriteLine("{0} {1} vs {2}", value, param[value], param2[value]);
+                            Params.Rows.Add();
+                            Params.Rows[Params.RowCount - 1].Cells[Command.Index].Value = value;
+                            Params.Rows[Params.RowCount - 1].Cells[Value.Index].Value = param[value].ToString();
 
-                        Params.Rows[Params.RowCount - 1].Cells[newvalue.Index].Value = param2[value].ToString();
-                        Params.Rows[Params.RowCount - 1].Cells[Use.Index].Value = true;
+                            Params.Rows[Params.RowCount - 1].Cells[newvalue.Index].Value = param2[value].ToString();
+                            Params.Rows[Params.RowCount - 1].Cells[Use.Index].Value = true;
+                        }
                     }
                 }
                 catch { };//if (Params.RowCount > 1) { Params.Rows.RemoveAt(Params.RowCount - 1); } }
@@ -57,16 +64,37 @@ namespace MissionPlanner
 
         private void BUT_save_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in Params.Rows)
+            if (dgv == null)
             {
-                if ((bool)row.Cells[Use.Index].Value == true)
+                try
                 {
-                    foreach (DataGridViewRow dgvr in dgv.Rows)
+                    foreach (DataGridViewRow row in Params.Rows)
                     {
-                        if (dgvr.Cells[0].Value.ToString().Trim() == row.Cells[Command.Index].Value.ToString().Trim())
+                        if ((bool)row.Cells[Use.Index].Value == true)
                         {
-                            dgvr.Cells[1].Value = row.Cells[newvalue.Index].Value.ToString();
-                            break;
+                            if (dtlvcallback != null)
+                                dtlvcallback(row.Cells[Command.Index].Value.ToString().Trim(), float.Parse(row.Cells[newvalue.Index].Value.ToString()));
+                            else
+                                MainV2.comPort.setParam(row.Cells[Command.Index].Value.ToString().Trim(), float.Parse(row.Cells[newvalue.Index].Value.ToString()));
+                        }
+                    }
+                }
+                catch { CustomMessageBox.Show(Strings.ErrorSettingParameter, Strings.ERROR); return; }
+            }
+            else
+            {
+
+                foreach (DataGridViewRow row in Params.Rows)
+                {
+                    if ((bool)row.Cells[Use.Index].Value == true)
+                    {
+                        foreach (DataGridViewRow dgvr in dgv.Rows)
+                        {
+                            if (dgvr.Cells[0].Value.ToString().Trim() == row.Cells[Command.Index].Value.ToString().Trim())
+                            {
+                                dgvr.Cells[1].Value = row.Cells[newvalue.Index].Value.ToString();
+                                break;
+                            }
                         }
                     }
                 }

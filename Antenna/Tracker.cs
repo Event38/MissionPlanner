@@ -132,7 +132,7 @@ namespace MissionPlanner.Antenna
                     BaudRate = int.Parse(CMB_baudrate.Text)
                 };
             }
-            catch (Exception ex) { CustomMessageBox.Show("Bad Port settings " + ex.Message,"Error"); return; }
+            catch (Exception ex) { CustomMessageBox.Show(Strings.ErrorConnecting + ex.Message, Strings.ERROR); return; }
 
             try
             {
@@ -153,8 +153,12 @@ namespace MissionPlanner.Antenna
                 tracker.PanPWMCenter = int.Parse(TXT_centerpan.Text);
                 tracker.TiltPWMCenter = int.Parse(TXT_centertilt.Text);
 
+                tracker.PanSpeed = int.Parse(TXT_panspeed.Text);
+                tracker.PanAccel = int.Parse(TXT_panaccel.Text);
+                tracker.TiltSpeed = int.Parse(TXT_tiltspeed.Text);
+                tracker.TiltAccel = int.Parse(TXT_tiltaccel.Text);
             }
-            catch (Exception ex) { CustomMessageBox.Show("Bad User input " + ex.Message,"Error"); return; }
+            catch (Exception ex) { CustomMessageBox.Show(Strings.InvalidNumberEntered + ex.Message, Strings.ERROR); return; }
 
             if (tracker.Init())
             {
@@ -165,8 +169,16 @@ namespace MissionPlanner.Antenna
 
                     if (TXT_centertilt.Text != tracker.TiltPWMCenter.ToString())
                         TXT_centertilt.Text = tracker.TiltPWMCenter.ToString();
-     
-                    tracker.PanAndTilt(0, 0);
+
+                    try
+                    {
+                        tracker.PanAndTilt(0, 0);
+                    }
+                    catch (Exception ex) { 
+                        CustomMessageBox.Show("Failed to set initial pan and tilt\n" + ex.Message, Strings.ERROR);
+                        tracker.Close();
+                        return;
+                    }
 
                     foreach (Control ctl in Controls)
                     {
@@ -225,6 +237,8 @@ namespace MissionPlanner.Antenna
 
             int.TryParse(TXT_panrange.Text, out range);
 
+            range = 360;
+
             TRK_pantrim.Minimum = range / 2 * -1;
             TRK_pantrim.Maximum = range / 2;
         }
@@ -270,7 +284,7 @@ namespace MissionPlanner.Antenna
 
             if (snr == 0)
             {
-                CustomMessageBox.Show("No valid 3dr radio","Error");
+                CustomMessageBox.Show("No valid 3dr radio",Strings.ERROR);
                 return;
             }
 
@@ -337,7 +351,20 @@ namespace MissionPlanner.Antenna
 
         private void CMB_interface_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (CMB_interface.Text == interfaces.Maestro.ToString())
+            {
+                TXT_panspeed.Enabled = true;
+                TXT_panaccel.Enabled = true;
+                TXT_tiltspeed.Enabled = true;
+                TXT_tiltaccel.Enabled = true;
+            }
+            else
+            {
+                TXT_panspeed.Enabled = false;
+                TXT_panaccel.Enabled = false;
+                TXT_tiltspeed.Enabled = false;
+                TXT_tiltaccel.Enabled = false;
+            }
         }
 
         private void TXT_centerpan_TextChanged(object sender, EventArgs e)
@@ -348,6 +375,43 @@ namespace MissionPlanner.Antenna
         private void TXT_centertilt_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void TXT_panspeed_TextChanged(object sender, EventArgs e)
+        {
+            int speed;
+
+            int.TryParse(TXT_panspeed.Text, out speed);
+            if (tracker != null)
+                tracker.PanSpeed = speed;
+
+        }
+
+        private void TXT_tiltspeed_TextChanged(object sender, EventArgs e)
+        {
+            int speed;
+
+            int.TryParse(TXT_tiltspeed.Text, out speed);
+            if (tracker != null)
+                tracker.TiltSpeed = speed;
+        }
+
+        private void TXT_panaccel_TextChanged(object sender, EventArgs e)
+        {
+            int accel;
+
+            int.TryParse(TXT_panaccel.Text, out accel);
+            if (tracker != null)
+                tracker.PanAccel = accel;
+        }
+
+        private void TXT_tiltaccel_TextChanged(object sender, EventArgs e)
+        {
+            int accel;
+
+            int.TryParse(TXT_tiltaccel.Text, out accel);
+            if (tracker != null)
+                tracker.TiltAccel = accel;
         }
     }
 }

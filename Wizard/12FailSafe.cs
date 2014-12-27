@@ -31,46 +31,90 @@ namespace MissionPlanner.Wizard
             {
                 foreach (var item in ac_failsafe)
                 {
-                    createValueControl(new KeyValuePair<string,string>(item,MainV2.comPort.MAV.param[item].ToString()));
+                    try
+                    {
+                        createValueControl(new KeyValuePair<string, string>(item, MainV2.comPort.MAV.param[item].ToString()));
+                    }
+                    catch { }
                 }
             }
             else if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane)
             {
                 foreach (var item in ap_failsafe)
                 {
-                    createValueControl(new KeyValuePair<string, string>(item, ""));
+                    try
+                    {
+                        createValueControl(new KeyValuePair<string, string>(item, ""));
+                    }
+                    catch { }
                 }
             }
         }
 
-        void createValueControl(KeyValuePair<string,string> x)
+        void createValueControl(KeyValuePair<string, string> x)
         {
 
             string value = ((float)MainV2.comPort.MAV.param[x.Key]).ToString("0.###", CultureInfo.InvariantCulture);
-            string description = ParameterMetaDataRepository.GetParameterMetaData(x.Key, ParameterMetaDataConstants.Description);
-            string displayName = ParameterMetaDataRepository.GetParameterMetaData(x.Key, ParameterMetaDataConstants.DisplayName) + " (" + x.Key + ")";
-            string units = ParameterMetaDataRepository.GetParameterMetaData(x.Key, ParameterMetaDataConstants.Units);
+            string description = ParameterMetaDataRepository.GetParameterMetaData(x.Key, ParameterMetaDataConstants.Description, MainV2.comPort.MAV.cs.firmware.ToString());
+            string displayName = ParameterMetaDataRepository.GetParameterMetaData(x.Key, ParameterMetaDataConstants.DisplayName, MainV2.comPort.MAV.cs.firmware.ToString()) + " (" + x.Key + ")";
+            string units = ParameterMetaDataRepository.GetParameterMetaData(x.Key, ParameterMetaDataConstants.Units, MainV2.comPort.MAV.cs.firmware.ToString());
+            string rangeRaw = ParameterMetaDataRepository.GetParameterMetaData(x.Key, ParameterMetaDataConstants.Range, MainV2.comPort.MAV.cs.firmware.ToString());
+            string incrementRaw = ParameterMetaDataRepository.GetParameterMetaData(x.Key, ParameterMetaDataConstants.Increment, MainV2.comPort.MAV.cs.firmware.ToString());
+            string availableValuesRaw = ParameterMetaDataRepository.GetParameterMetaData(x.Key, ParameterMetaDataConstants.Values, MainV2.comPort.MAV.cs.firmware.ToString());
 
-            var valueControl = new ValuesControl();
-            valueControl.Name = x.Key;
-            valueControl.DescriptionText = FitDescriptionText(units, description);
-            valueControl.LabelText = displayName;
+            float displayscale = 1;
 
-            ThemeManager.ApplyThemeTo(valueControl);
+            float increment, intValue;
+            float.TryParse(incrementRaw, NumberStyles.Float, CultureInfo.InvariantCulture, out increment);
+            // this is in local culture
+            float.TryParse(value, out intValue);
 
-            valueControl.ComboBoxControl.DisplayMember = "Value";
-            valueControl.ComboBoxControl.ValueMember = "Key";
-            valueControl.ComboBoxControl.DataSource = ParameterMetaDataRepository.GetParameterOptionsInt(x.Key);
-            valueControl.ComboBoxControl.SelectedItem = value;
+            string[] rangeParts = rangeRaw.Split(new[] { ' ' });
+            if (rangeParts.Count() == 2 && increment > 0)
+            {
+                float lowerRange;
+                float.TryParse(rangeParts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out lowerRange);
+                float upperRange;
+                float.TryParse(rangeParts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out upperRange);
 
-            valueControl.ValueChanged += valueControl_ValueChanged;
+                var valueControl = new RangeControl(x.Key, FitDescriptionText(units, description), displayName, increment, displayscale, lowerRange, upperRange, value);
 
-            flowLayoutPanel1.Controls.Add(valueControl);
+                ThemeManager.ApplyThemeTo(valueControl);
+
+                valueControl.ValueChanged += valueControl_ValueChanged;
+
+                flowLayoutPanel1.Controls.Add(valueControl);
+            }
+            else if (availableValuesRaw.Length > 0)
+            {
+                var valueControl = new ValuesControl();
+                valueControl.Name = x.Key;
+                valueControl.DescriptionText = FitDescriptionText(units, description);
+                valueControl.LabelText = displayName;
+
+                ThemeManager.ApplyThemeTo(valueControl);
+
+                valueControl.ComboBoxControl.DisplayMember = "Value";
+                valueControl.ComboBoxControl.ValueMember = "Key";
+                valueControl.ComboBoxControl.DataSource = ParameterMetaDataRepository.GetParameterOptionsInt(x.Key, MainV2.comPort.MAV.cs.firmware.ToString());
+                valueControl.ComboBoxControl.SelectedItem = value;
+
+                valueControl.ValueChanged += valueControl_ValueChanged;
+
+                flowLayoutPanel1.Controls.Add(valueControl);
+            }
+            else { Console.WriteLine("No valid param metadata for " + x.Key); }
+
+
         }
 
         void valueControl_ValueChanged(object sender, string Name, string Value)
         {
-            MainV2.comPort.setParam(Name, float.Parse(Value, CultureInfo.InvariantCulture));
+            try
+            {
+                MainV2.comPort.setParam(Name, float.Parse(Value));
+            }
+            catch (Exception ex) { CustomMessageBox.Show(Strings.ErrorSettingParameter + Name +"\n"+ex.ToString(),Strings.ERROR); }
         }
 
         /// <summary>
@@ -111,6 +155,10 @@ namespace MissionPlanner.Wizard
         public int WizardValidate()
         {
             return 1;
+        }
+        public bool WizardBusy()
+        {
+            return false;
         }
     }
 }

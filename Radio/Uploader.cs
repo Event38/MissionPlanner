@@ -12,7 +12,11 @@ namespace uploader
 		
 		private	int bytes_to_process;
 		private int bytes_processed;
-		public SerialPort port;
+		public ICommsSerial port;
+
+        bool banking = false;
+        Board id = Board.FAILED;
+        Frequency freq = Frequency.FAILED;
 		
 		public enum Code : byte
 		{
@@ -34,22 +38,39 @@ namespace uploader
 			REBOOT			= 0x30,
 			
 			// protocol constants
-			PROG_MULTI_MAX	= 32,	// maximum number of bytes in a PROG_MULTI command
-			READ_MULTI_MAX	= 255,	// largest read that can be requested
 			
-			// device IDs XXX should come with the firmware image...
-			DEVICE_ID_RF50	= 0x4d,
-			DEVICE_ID_HM_TRP= 0x4e,
+			
+		};
+
+        public int PROG_MULTI_MAX	= 32;	// maximum number of bytes in a PROG_MULTI command
+        public int READ_MULTI_MAX = 255;	// largest read that can be requested
+
+        public enum Board : byte
+        {
+            // device IDs XXX should come with the firmware image...
+            DEVICE_ID_RF50 = 0x4d,
+            DEVICE_ID_HM_TRP = 0x4e,
             DEVICE_ID_RFD900 = 0X42,
             DEVICE_ID_RFD900A = 0X43,
-			
-			// frequency code bytes XXX should come with the firmware image...
-			FREQ_NONE		= 0xf0,
-			FREQ_433		= 0x43,
-			FREQ_470		= 0x47,
-			FREQ_868		= 0x86,
-			FREQ_915		= 0x91,
-		};
+
+            DEVICE_ID_RFD900U = 0X80 | 0x01,
+            DEVICE_ID_RFD900P =	 0x80 | 0x02,
+
+            FAILED = 0x11,
+        }
+
+        public enum Frequency : byte
+        {
+            // frequency code bytes XXX should come with the firmware image...
+            FREQ_NONE = 0xf0,
+            FREQ_433 = 0x43,
+            FREQ_470 = 0x47,
+            FREQ_868 = 0x86,
+            FREQ_915 = 0x91,
+
+            FAILED = 0x11,
+        }
+
 		
 		public Uploader ()
 		{
@@ -62,20 +83,20 @@ namespace uploader
 		/// <param name='image_data'>
 		/// Image_data to be uploaded.
 		/// </param>
-		public void upload (SerialPort on_port, IHex image_data)
+		public void upload (ICommsSerial on_port, IHex image_data, bool use_mavlink = false)
 		{
 			progress (0);
 			
 			port = on_port;
 			
 			try {
-				connect_and_sync ();
+                connect_and_sync();
 				upload_and_verify (image_data);
 				cmdReboot ();
-			} catch (Exception e) {
+			} catch {
 				if (port.IsOpen)
 					port.Close ();
-				throw e;
+				throw;
 			}
 		}
 			
@@ -98,13 +119,25 @@ namespace uploader
 				log ("FAIL: could not synchronise with the bootloader");
 				throw new Exception ("SYNC FAIL");
 			}
-			checkDevice ();
+
+            checkDevice();
 			
 			log ("connected to bootloader\n");
 		}
 		
 		private void upload_and_verify (IHex image_data)
 		{
+            if (image_data.bankingDetected && ((byte)id & 0x80) != 0x80)
+            {
+                log("This Firmware requires banking support");
+                throw new Exception("This Firmware requires banking support");
+            }
+
+            if ((((byte)id & 0x80) == 0x80))
+            {
+                this.banking = true;
+                log("Using 24bit addresses");
+            }
 			
 			// erase the program area first
 			log ("erasing program flash\n");
@@ -145,7 +178,7 @@ namespace uploader
 		private void upload_block (byte[] data)
 		{						
 			foreach (byte b in data) {
-				cmdProgram (b);
+				cmdProgram_Single (b);
 				progress ((double)(++bytes_processed) / bytes_to_process);
 			}
 		}
@@ -160,8 +193,8 @@ namespace uploader
 			// will program.
 			while (offset < length) {
 				to_send = length - offset;
-				if (to_send > (int)Code.PROG_MULTI_MAX)
-					to_send = (int)Code.PROG_MULTI_MAX;
+				if (to_send > (int)PROG_MULTI_MAX)
+					to_send = (int)PROG_MULTI_MAX;
 				
 				log (string.Format ("multi {0}/{1}\n", offset, to_send), 1);
 				cmdProgramMulti (data, offset, to_send);
@@ -182,8 +215,8 @@ namespace uploader
 			// will read.
 			while (offset < length) {
 				to_verf = length - offset;
-				if (to_verf > (int)Code.READ_MULTI_MAX)
-					to_verf = (int)Code.READ_MULTI_MAX;
+				if (to_verf > (int)READ_MULTI_MAX)
+					to_verf = (int)READ_MULTI_MAX;
 				
 				log (string.Format ("multi {0}/{1}\n", offset, to_verf), 1);
 				cmdVerifyMulti (data, offset, to_verf);
@@ -239,10 +272,22 @@ namespace uploader
 		/// </param>
 		private void cmdSetAddress (UInt32 address)
 		{
-			send (Code.LOAD_ADDRESS);
-			send ((UInt16)address);
-			send (Code.EOC);
-			
+            if (banking)
+            {
+                send(Code.LOAD_ADDRESS);
+                send((byte)(address & 0xff));
+                send((byte)((address >> 8) & 0xff));
+                send((byte)((address >> 16) & 0xff));
+                send(Code.EOC);
+
+                log("Bank Programming address "+ (address >> 16));
+            }
+            else
+            {
+                send(Code.LOAD_ADDRESS);
+                send((UInt16)address);
+                send(Code.EOC);
+            }
 			getSync ();
 		}	
 		
@@ -252,7 +297,7 @@ namespace uploader
 		/// <param name='data'>
 		/// Data to program.
 		/// </param>
-		private void cmdProgram (byte data)
+		private void cmdProgram_Single(byte data)
 		{
 			send (Code.PROG_FLASH);
 			send (data);
@@ -265,8 +310,9 @@ namespace uploader
 		{
 			send (Code.PROG_MULTI);
 			send ((byte)length);
-			for (int i = 0; i < length; i++)
-				send (data [offset + i]);
+			//for (int i = 0; i < length; i++)
+				//send (data [offset + i]);
+            send(data, offset, length);
 			send (Code.EOC);
 			
 			getSync ();
@@ -312,33 +358,31 @@ namespace uploader
 		{
 			send (Code.REBOOT);
 		}
-		
-		private void checkDevice ()
-		{
-			Code id, freq;
-			
-			send (Code.GET_DEVICE);
-			send (Code.EOC);
-			
-			id = (Code)recv ();
-			freq = (Code)recv ();
-			
-			// XXX should be getting valid board/frequency data from firmware file
-            if ((id != Code.DEVICE_ID_HM_TRP) && (id != Code.DEVICE_ID_RF50) && (id != Code.DEVICE_ID_RFD900) && (id != Code.DEVICE_ID_RFD900A))
-				throw new Exception ("bootloader device ID mismatch - device:" + id.ToString());
-			
-			getSync ();
-		}
 
-        public void getDevice(ref Code device, ref Code freq)
+        private void checkDevice()
         {
-            connect_and_sync();
-
             send(Code.GET_DEVICE);
             send(Code.EOC);
 
-            device = (Code)recv();
-            freq = (Code)recv();
+            id = (Board)recv();
+            freq = (Frequency)recv();
+
+            log("Connected to board "+ id+ " freq "+ freq);
+
+            // XXX should be getting valid board/frequency data from firmware file
+            if ((id != Board.DEVICE_ID_HM_TRP) && (id != Board.DEVICE_ID_RF50) && (id != Board.DEVICE_ID_RFD900) && (id != Board.DEVICE_ID_RFD900A))
+                throw new Exception("bootloader device ID mismatch - device:" + id.ToString());
+
+            getSync();
+        }
+
+        public void getDevice(ref Board device, ref Frequency freq)
+        {
+            send(Code.GET_DEVICE);
+            send(Code.EOC);
+
+            device = (Board)recv();
+            freq = (Frequency)recv();
 
             getSync();
         }
@@ -416,6 +460,17 @@ namespace uploader
             }
 			port.Write (b, 0, 1);
 		}
+
+        private void send(byte[] data, int offset, int length)
+        {
+            while (port.BytesToWrite > 50)
+            {
+                int fred = 1;
+                fred++;
+                Console.WriteLine("slowdown");
+            }
+            port.Write(data, offset, length);
+        }
 		
 		/// <summary>
 		/// Send the specified 16-bit value, LSB first.

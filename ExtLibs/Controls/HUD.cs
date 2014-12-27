@@ -54,7 +54,7 @@ namespace MissionPlanner.Controls
 
         public int huddrawtime = 0;
 
-        public bool opengl { get { return base.UseOpenGL; } set { base.UseOpenGL = value; } }
+        public bool opengl { get { return UseOpenGL; } set { UseOpenGL = value; } }
 
         bool started = false;
 
@@ -108,6 +108,8 @@ namespace MissionPlanner.Controls
         float _targetalt = 0;
         float _groundspeed = 0;
         float _airspeed = 0;
+        bool _lowgroundspeed = false;
+        bool _lowairspeed = false;
         float _targetspeed = 0;
         float _batterylevel = 0;
         float _current = 0;
@@ -144,6 +146,10 @@ namespace MissionPlanner.Controls
         public float groundspeed { get { return _groundspeed; } set { if (_groundspeed != value) { _groundspeed = value; this.Invalidate(); } } }
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
         public float airspeed { get { return _airspeed; } set { if (_airspeed != value) { _airspeed = value; this.Invalidate(); } } }
+        [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
+        public bool lowgroundspeed { get { return _lowgroundspeed; } set { if (_lowgroundspeed != value) { _lowgroundspeed = value; this.Invalidate(); } } }
+        [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
+        public bool lowairspeed { get { return _lowairspeed; } set { if (_lowairspeed != value) { _lowairspeed = value; this.Invalidate(); } } }
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
         public float targetspeed { get { return _targetspeed; } set { if (_targetspeed != value) { _targetspeed = value; this.Invalidate(); } } }
         [System.ComponentModel.Browsable(true), System.ComponentModel.Category("Values")]
@@ -204,13 +210,30 @@ namespace MissionPlanner.Controls
             //public float FontSize;
             public string Header;
             public System.Reflection.PropertyInfo Item;
-            public float GetValue { get { return (float)Item.GetValue(src, null); } }
-            public object src { get; set; }
+            public double GetValue
+            {
+                get
+                {
+                    if (Item.PropertyType == typeof(Single))
+                    {
+                        return (double)(float)Item.GetValue(src, null);
+                    }
+                    if (Item.PropertyType == typeof(Int32))
+                    {
+                        return (double)(int)Item.GetValue(src, null);
+                    }
+                    if (Item.PropertyType == typeof(double))
+                    {
+                        return (double)Item.GetValue(src, null);
+                    }
+
+                    throw new Exception("Bad data type");
+                }
+            }
+            public static object src { get; set; }
         }
 
         public Hashtable CustomItems = new Hashtable();
-        
-
 
         public bool bgon = true;
         public bool hudon = true;
@@ -339,7 +362,6 @@ namespace MissionPlanner.Controls
             started = true;
         }
 
-        object lockit = new object();
         bool inOnPaint = false;
         string otherthread = "";
 
@@ -368,7 +390,7 @@ namespace MissionPlanner.Controls
                 return;              
             }
 
-            lock (lockit)
+            lock (this)
             {
 
                 if (inOnPaint)
@@ -449,7 +471,7 @@ namespace MissionPlanner.Controls
                 GL.LineWidth(penn.Width);
                 GL.Color4(penn.Color);
 
-                GL.Begin(BeginMode.LineStrip);
+                GL.Begin(PrimitiveType.LineStrip);
 
                 start = 360 - start;
                 start -= 30;
@@ -478,7 +500,7 @@ namespace MissionPlanner.Controls
                 GL.LineWidth(penn.Width);
                 GL.Color4(penn.Color);
 
-                GL.Begin(BeginMode.LineLoop);
+                GL.Begin(PrimitiveType.LineLoop);
                 float x, y;
                 for (float i = 0; i < 360; i += 1)
                 {
@@ -512,6 +534,7 @@ namespace MissionPlanner.Controls
                     graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
                     graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
                     graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+                    graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
                     //draw the image into the target bitmap 
                     graphics.DrawImage(img, 0, 0, bitmap.Width, bitmap.Height);
                 }
@@ -539,7 +562,7 @@ namespace MissionPlanner.Controls
 
                 GL.BindTexture(TextureTarget.Texture2D, texture);
 
-                GL.Begin(BeginMode.Quads);
+                GL.Begin(PrimitiveType.Quads);
 
                 GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(0, this.Height);
                 GL.TexCoord2(1.0f, 1.0f); GL.Vertex2(this.Width, this.Height);
@@ -624,7 +647,7 @@ namespace MissionPlanner.Controls
         {
             if (opengl)
             {
-                GL.Begin(BeginMode.TriangleFan);
+                GL.Begin(PrimitiveType.TriangleFan);
                 GL.Color4(((SolidBrush)brushh).Color);
                 foreach (Point pnt in list)
                 {
@@ -643,7 +666,7 @@ namespace MissionPlanner.Controls
         {
             if (opengl)
             {
-                GL.Begin(BeginMode.Quads);
+                GL.Begin(PrimitiveType.Quads);
                 GL.Color4(((SolidBrush)brushh).Color);
                 foreach (PointF pnt in list)
                 {
@@ -665,7 +688,7 @@ namespace MissionPlanner.Controls
                 GL.LineWidth(penn.Width);
                 GL.Color4(penn.Color);
 
-                GL.Begin(BeginMode.LineLoop);
+                GL.Begin(PrimitiveType.LineLoop);
                 foreach (Point pnt in list)
                 {
                     GL.Vertex2(pnt.X, pnt.Y);
@@ -685,7 +708,7 @@ namespace MissionPlanner.Controls
             GL.LineWidth(penn.Width);
             GL.Color4(penn.Color);
 
-            GL.Begin(BeginMode.LineLoop);
+            GL.Begin(PrimitiveType.LineLoop);
             foreach (PointF pnt in list)
             {
                 GL.Vertex2(pnt.X, pnt.Y);
@@ -710,7 +733,7 @@ namespace MissionPlanner.Controls
                 float width = rectf.Width;
                 float height = rectf.Height;
 
-                GL.Begin(BeginMode.Quads);
+                GL.Begin(PrimitiveType.Quads);
 
                 GL.LineWidth(0);
 
@@ -760,7 +783,7 @@ namespace MissionPlanner.Controls
                 GL.LineWidth(penn.Width);
                 GL.Color4(penn.Color);
 
-                GL.Begin(BeginMode.LineLoop);
+                GL.Begin(PrimitiveType.LineLoop);
                 GL.Vertex2(x1, y1);
                 GL.Vertex2(x1 + width, y1);
                 GL.Vertex2(x1 + width, y1 + height);
@@ -781,7 +804,7 @@ namespace MissionPlanner.Controls
                 GL.Color4(penn.Color);
                 GL.LineWidth(penn.Width);
 
-                GL.Begin(BeginMode.Lines);
+                GL.Begin(PrimitiveType.Lines);
                 GL.Vertex2(x1, y1);
                 GL.Vertex2(x2, y2);
                 GL.End();
@@ -918,45 +941,8 @@ namespace MissionPlanner.Controls
                 graphicsObject.SetClip(new Rectangle(0, this.Height / 14, this.Width, this.Height - this.Height / 14));
 
                 graphicsObject.TranslateTransform(this.Width / 2, this.Height / 2);
-                
+
                 graphicsObject.RotateTransform(-_roll);
-
-
-                // draw armed
-
-                if (status != statuslast)
-                {
-                    armedtimer = DateTime.Now;
-                }
-
-                if (status == false) // not armed
-                {
-                    //if ((armedtimer.AddSeconds(8) > DateTime.Now))
-                    {
-                        drawstring(graphicsObject, "DISARMED", font, fontsize + 10, (SolidBrush)Brushes.Red, -85, halfheight / -3);
-                        statuslast = status;
-                    }
-                }
-                else if (status == true) // armed
-                {
-                    if ((armedtimer.AddSeconds(8) > DateTime.Now))
-                    {
-                        drawstring(graphicsObject, "ARMED", font, fontsize + 20, (SolidBrush)Brushes.Red, -70, halfheight / -3);
-                        statuslast = status;
-                    }
-                }
-
-                if (failsafe == true)
-                {
-                    drawstring(graphicsObject, "FAILSAFE", font, fontsize + 20, (SolidBrush)Brushes.Red, -85, halfheight / -5);
-                    statuslast = status;
-                }
-
-                if (message != "" && messagetime.AddSeconds(20) > DateTime.Now)
-                {
-                    drawstring(graphicsObject, message, font, fontsize + 10, (SolidBrush)Brushes.Red, -halfwidth + 50, halfheight / -2);
-                }
-
 
                 //draw pitch           
 
@@ -1315,8 +1301,23 @@ namespace MissionPlanner.Controls
 
                 // extra text data
 
-                drawstring(graphicsObject, "AS " + _airspeed.ToString("0.0"), font, fontsize, whiteBrush, 1, scrollbg.Bottom + 5);
-                drawstring(graphicsObject, "GS " + _groundspeed.ToString("0.0"), font, fontsize, whiteBrush, 1, scrollbg.Bottom + fontsize + 2 + 10);
+                if (_lowairspeed)
+                {
+                    drawstring(graphicsObject, "AS " + _airspeed.ToString("0.0"), font, fontsize, (SolidBrush)Brushes.Red, 1, scrollbg.Bottom + 5);
+                }
+                else
+                {
+                    drawstring(graphicsObject, "AS " + _airspeed.ToString("0.0"), font, fontsize, whiteBrush, 1, scrollbg.Bottom + 5);
+                }
+
+                if (_lowgroundspeed)
+                {
+                    drawstring(graphicsObject, "GS " + _groundspeed.ToString("0.0"), font, fontsize, (SolidBrush)Brushes.Red, 1, scrollbg.Bottom + fontsize + 2 + 10);
+                }
+                else
+                {
+                    drawstring(graphicsObject, "GS " + _groundspeed.ToString("0.0"), font, fontsize, whiteBrush, 1, scrollbg.Bottom + fontsize + 2 + 10);
+                }
 
                 //drawstring(e,, new Font("Arial", fontsize + 2), whiteBrush, 1, scrollbg.Bottom + fontsize + 2 + 10);
 
@@ -1484,9 +1485,9 @@ namespace MissionPlanner.Controls
                 {
                     graphicsObject.ResetTransform();
 
-                    string text = "Bat " + _batterylevel.ToString("0.00v") + " " + _current.ToString("0 A");
+                    string text = "Bat " + _batterylevel.ToString("0.00v") + " " + _current.ToString("0.0 A");
 
-                    text = "Bat " + _batterylevel.ToString("0.00v") + " " + _current.ToString("0 A") + " " + (_batteryremaining) + "%";
+                    text = "Bat " + _batterylevel.ToString("0.00v") + " " + _current.ToString("0.0 A") + " " + (_batteryremaining) + "%";
 
                     if (lowvoltagealert)
                     {
@@ -1520,7 +1521,14 @@ namespace MissionPlanner.Controls
                 {
                     gps = ("GPS: 3D Fix");
                 }
-
+                else if (_gpsfix == 4)
+                {
+                    gps = ("GPS: 3D dgps");
+                }
+                else if (_gpsfix == 5)
+                {
+                    gps = ("GPS: 3D rtk");
+                }
                 drawstring(graphicsObject, gps, font, fontsize + 2, col, this.Width - 13 * fontsize, this.Height - 30 - fontoffset);
 
 
@@ -1537,12 +1545,80 @@ namespace MissionPlanner.Controls
                         Custom item = (Custom)CustomItems[key];
                         if (item.Item == null)
                             continue;
-                        drawstring(graphicsObject, item.Header + item.GetValue.ToString("0.##"), font, fontsize + 2, whiteBrush, this.Width / 8, height);
+                        if (item.Item.Name.Contains("lat") || item.Item.Name.Contains("lng")) 
+                        {
+                            drawstring(graphicsObject, item.Header + item.GetValue.ToString("0.#######"), font, fontsize + 2, whiteBrush, this.Width / 8, height);
+                        }
+                        else if (item.Item.Name == "battery_usedmah")
+                        {
+                            drawstring(graphicsObject, item.Header + item.GetValue.ToString("0"), font, fontsize + 2, whiteBrush, this.Width / 8, height);
+                        }
+                        else if (item.Item.Name == "timeInAir")
+                        {
+                            double stime = item.GetValue;
+                            int hrs = (int)(stime / (60 * 60));
+                            //stime -= hrs * 60 * 60;
+                            int mins = (int)(stime / (60)) % 60;
+                            //stime = mins * 60;
+                            int secs = (int)(stime % 60);
+                            drawstring(graphicsObject, item.Header + hrs.ToString("00") + ":" + mins.ToString("00") + ":" + secs.ToString("00"), font, fontsize + 2, whiteBrush, this.Width / 8, height);
+                        }
+                        else
+                        {
+                            drawstring(graphicsObject, item.Header + item.GetValue.ToString("0.##"), font, fontsize + 2, whiteBrush, this.Width / 8, height);
+                        }
                         height -= fontsize+5;
                     }
                     catch { }
 
                 }
+
+
+
+
+                graphicsObject.TranslateTransform(this.Width / 2, this.Height / 2);
+
+                // draw armed
+
+                if (status != statuslast)
+                {
+                    armedtimer = DateTime.Now;
+                }
+
+                if (status == false) // not armed
+                {
+                    //if ((armedtimer.AddSeconds(8) > DateTime.Now))
+                    {
+                        drawstring(graphicsObject, "DISARMED", font, fontsize + 10, (SolidBrush)Brushes.Red, -85, halfheight / -3);
+                        statuslast = status;
+                    }
+                }
+                else if (status == true) // armed
+                {
+                    if ((armedtimer.AddSeconds(8) > DateTime.Now))
+                    {
+                        drawstring(graphicsObject, "ARMED", font, fontsize + 20, (SolidBrush)Brushes.Red, -70, halfheight / -3);
+                        statuslast = status;
+                    }
+                }
+
+                if (failsafe == true)
+                {
+                    drawstring(graphicsObject, "FAILSAFE", font, fontsize + 20, (SolidBrush)Brushes.Red, -85, halfheight / -5);
+                    statuslast = status;
+                }
+
+                if (message != "" && messagetime.AddSeconds(15) > DateTime.Now)
+                {
+                    drawstring(graphicsObject, message, font, fontsize + 10, (SolidBrush)Brushes.Red, -halfwidth + 50, halfheight / 3);
+                }
+
+
+
+                graphicsObject.ResetTransform();
+
+
+
                 
 
                 if (!opengl)
@@ -1731,7 +1807,7 @@ namespace MissionPlanner.Controls
 
                 float scale = 1.0f;
 
-                GL.Begin(BeginMode.Quads);
+                GL.Begin(PrimitiveType.Quads);
                 GL.TexCoord2(0, 0); GL.Vertex2(x, y);
                 GL.TexCoord2(1, 0); GL.Vertex2(x + charDict[charid].bitmap.Width * scale, y);
                 GL.TexCoord2(1, 1); GL.Vertex2(x + charDict[charid].bitmap.Width * scale, y + charDict[charid].bitmap.Height * scale);
@@ -1825,7 +1901,7 @@ namespace MissionPlanner.Controls
                     base.OnHandleCreated(e);
                 }
             }
-            catch (Exception ex) { log.Info(ex.ToString()); opengl = false; } // macs fail here
+            catch (Exception ex) { log.Error(ex); opengl = false; } // macs fail here
         }
 
         protected override void OnHandleDestroyed(EventArgs e)
@@ -1847,7 +1923,7 @@ namespace MissionPlanner.Controls
 
         protected override void OnResize(EventArgs e)
         {
-            if (DesignMode || !started)
+            if (DesignMode || !IsHandleCreated || !started)
                 return;
 
             base.OnResize(e);
@@ -1855,7 +1931,7 @@ namespace MissionPlanner.Controls
             if (SixteenXNine)
             {
                 int ht = (int)(this.Width / 1.777f);
-                if (ht != this.Height)
+                if (ht >= this.Height + 5 || ht <= this.Height - 5)
                 {
                     this.Height = ht;
                     return;
@@ -1865,7 +1941,7 @@ namespace MissionPlanner.Controls
             {
                 // 4x3
                 int ht = (int)(this.Width / 1.333f);
-                if (ht != this.Height)
+                if (ht >= this.Height + 5 || ht <= this.Height - 5)
                 {
                     this.Height = ht;
                     return;
@@ -1918,5 +1994,7 @@ namespace MissionPlanner.Controls
 
             Refresh();
         }
+
+        public bool UseOpenGL { get; set; }
     }
 }

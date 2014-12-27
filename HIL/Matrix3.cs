@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using YLScsDrawing.Drawing3d;
 
 namespace MissionPlanner.HIL
 {
@@ -87,6 +86,17 @@ namespace MissionPlanner.HIL
             yaw = Utils.atan2(self.b.x, self.a.x);
             //return (roll, pitch, yaw)
         }
+
+        public Vector3 to_euler_yxz()
+        {
+            double cos_phi = Math.Sqrt(1 - self.c.y * self.c.y);
+            double phi = Utils.atan2(self.c.y, cos_phi);
+            double omega = Utils.atan2(-self.c.x, self.c.z);
+            double kappa = Utils.atan2(-self.a.y, self.b.y);
+
+            return new Vector3(omega, phi, kappa);
+        }
+
 
         public static Matrix3 operator +(Matrix3 self, Matrix3 m)
         {

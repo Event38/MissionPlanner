@@ -21,7 +21,7 @@ namespace MissionPlanner.Wizard
 
         public void Activate()
         {
-            if (Wizard.config["fwtype"].ToString() == "copter")
+            if (MainV2.comPort.MAV.aptype != MAVLink.MAV_TYPE.FIXED_WING && MainV2.comPort.MAV.aptype != MAVLink.MAV_TYPE.GROUND_ROVER )
             {
                 configAC_Fence1.Activate();
             }
@@ -45,5 +45,9 @@ namespace MissionPlanner.Wizard
             return 1;
         }
 
+        public bool WizardBusy()
+        {
+            return false;
+        }
     }
 }

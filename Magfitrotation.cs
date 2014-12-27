@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using log4net;
 using MissionPlanner;
 using MissionPlanner.HIL;
 
@@ -10,6 +11,10 @@ namespace MissionPlanner
 {
     public class Magfitrotation : HIL.Utils
     {
+        private static readonly ILog log =
+       LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+
         // copy of https://github.com/mavlink/mavlink/blob/master/pymavlink/tools/magfit_rotation_gyro.py
         class Rotation
         {
@@ -126,7 +131,7 @@ new     Rotation("ROTATION_ROLL_180_YAW_45",         180,   0,  45),
             // print("Processing log %s" % filename);
             // mlog = mavutil.mavlink_connection(filename, notimestamps=opts.notimestamps);
 
-            MAVLink mavint = new MAVLink();
+            MAVLinkInterface mavint = new MAVLinkInterface();
 
             try
             {
@@ -134,7 +139,7 @@ new     Rotation("ROTATION_ROLL_180_YAW_45",         180,   0,  45),
                 mavint.BaseStream.PortName = logfile;
                 mavint.BaseStream.Open();
             }
-            catch (Exception ex) { return ""; }
+            catch (Exception ex) { log.Error(ex); return ""; }
 
             mavint.logreadmode = true;
 
@@ -157,7 +162,7 @@ new     Rotation("ROTATION_ROLL_180_YAW_45",         180,   0,  45),
             return ans;
         }
 
-        static string process(MAVLink mavint)
+        static string process(MAVLinkInterface mavint)
         {
             DateTime Deadline = DateTime.Now.AddSeconds(60);
 

@@ -28,18 +28,23 @@ namespace MissionPlanner.Controls
         }
         [System.ComponentModel.Browsable(true)]
         public double number { get { return double.Parse(labelWithPseudoOpacity2.Text); } 
-            set { 
-                string ans = (value).ToString("0.00");
+            set {
+                string ans = (value).ToString(_numberformat);
                 if (labelWithPseudoOpacity2.Text == ans) 
                     return;
+                
                 string before = labelWithPseudoOpacity2.Text;
                 labelWithPseudoOpacity2.Text = ans;
 
                 // only run when needed
-                if (before.Length != ans.Length)
+                if (before.Length < ans.Length)
                     GetFontSize();
             }
         }
+
+        string _numberformat = "0.00";
+        [System.ComponentModel.Browsable(true)]
+        public string numberformat { get { return _numberformat; } set { _numberformat = value; this.Invalidate(); } }
 
         [System.ComponentModel.Browsable(true)]
         public Color numberColor { get { return labelWithPseudoOpacity2.ForeColor; } set { if (labelWithPseudoOpacity2.ForeColor == value) return; labelWithPseudoOpacity2.ForeColor = value; } }
@@ -91,7 +96,7 @@ namespace MissionPlanner.Controls
 
             //SizeF extenttest2 = Graphics.FromHwnd(this.Handle).MeasureString(labelWithPseudoOpacity2.Text, this.Font);
 
-            //SizeF extent = Measure.MeasureString(Graphics.FromHwnd(this.Handle), this.Font, labelWithPseudoOpacity2.Text);
+         //   SizeF extent2 = Measure.MeasureString(Graphics.FromHwnd(this.Handle), this.Font, labelWithPseudoOpacity2.Text);
 
            // extent = extenttest;
 

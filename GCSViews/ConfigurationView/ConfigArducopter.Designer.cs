@@ -35,8 +35,6 @@
             this.TUNE = new System.Windows.Forms.ComboBox();
             this.CH7_OPT = new System.Windows.Forms.ComboBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.THR_RATE_D = new System.Windows.Forms.NumericUpDown();
-            this.label29 = new System.Windows.Forms.Label();
             this.THR_RATE_P = new System.Windows.Forms.NumericUpDown();
             this.label25 = new System.Windows.Forms.Label();
             this.CHK_lockrollpitch = new System.Windows.Forms.CheckBox();
@@ -103,11 +101,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.LOITER_LAT_P = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
-            this.BUT_rerequestparams = new Controls.MyButton();
-            this.BUT_writePIDS = new Controls.MyButton();
-            this.myLabel3 = new Controls.MyLabel();
-            this.myLabel2 = new Controls.MyLabel();
-            this.myLabel1 = new Controls.MyLabel();
+            this.BUT_rerequestparams = new MissionPlanner.Controls.MyButton();
+            this.BUT_writePIDS = new MissionPlanner.Controls.MyButton();
+            this.myLabel3 = new MissionPlanner.Controls.MyLabel();
+            this.myLabel2 = new MissionPlanner.Controls.MyLabel();
+            this.myLabel1 = new MissionPlanner.Controls.MyLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.THR_ACCEL_D = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
@@ -117,13 +115,18 @@
             this.label7 = new System.Windows.Forms.Label();
             this.THR_ACCEL_P = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
-            this.BUT_refreshpart = new Controls.MyButton();
-            this.myLabel4 = new Controls.MyLabel();
+            this.BUT_refreshpart = new MissionPlanner.Controls.MyButton();
+            this.myLabel4 = new MissionPlanner.Controls.MyLabel();
             this.CH8_OPT = new System.Windows.Forms.ComboBox();
+            this.RATE_ROLL_FF = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.RATE_PITCH_FF = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
+            this.RATE_YAW_FF = new System.Windows.Forms.NumericUpDown();
+            this.label18 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.TUNE_LOW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TUNE_HIGH)).BeginInit();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.THR_RATE_D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.THR_RATE_P)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.WPNAV_SPEED_UP)).BeginInit();
@@ -166,6 +169,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.THR_ACCEL_IMAX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.THR_ACCEL_I)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.THR_ACCEL_P)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RATE_ROLL_FF)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RATE_PITCH_FF)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RATE_YAW_FF)).BeginInit();
             this.SuspendLayout();
             // 
             // TUNE_LOW
@@ -196,23 +202,11 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.THR_RATE_D);
-            this.groupBox5.Controls.Add(this.label29);
             this.groupBox5.Controls.Add(this.THR_RATE_P);
             this.groupBox5.Controls.Add(this.label25);
             resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
-            // 
-            // THR_RATE_D
-            // 
-            resources.ApplyResources(this.THR_RATE_D, "THR_RATE_D");
-            this.THR_RATE_D.Name = "THR_RATE_D";
-            // 
-            // label29
-            // 
-            resources.ApplyResources(this.label29, "label29");
-            this.label29.Name = "label29";
             // 
             // THR_RATE_P
             // 
@@ -390,6 +384,8 @@
             // 
             // groupBox23
             // 
+            this.groupBox23.Controls.Add(this.RATE_YAW_FF);
+            this.groupBox23.Controls.Add(this.label18);
             this.groupBox23.Controls.Add(this.RATE_YAW_D);
             this.groupBox23.Controls.Add(this.label10);
             this.groupBox23.Controls.Add(this.RATE_YAW_IMAX);
@@ -444,6 +440,8 @@
             // 
             // groupBox24
             // 
+            this.groupBox24.Controls.Add(this.RATE_PITCH_FF);
+            this.groupBox24.Controls.Add(this.label14);
             this.groupBox24.Controls.Add(this.RATE_PIT_D);
             this.groupBox24.Controls.Add(this.label11);
             this.groupBox24.Controls.Add(this.RATE_PIT_IMAX);
@@ -498,6 +496,8 @@
             // 
             // groupBox25
             // 
+            this.groupBox25.Controls.Add(this.RATE_ROLL_FF);
+            this.groupBox25.Controls.Add(this.label12);
             this.groupBox25.Controls.Add(this.RATE_RLL_D);
             this.groupBox25.Controls.Add(this.label17);
             this.groupBox25.Controls.Add(this.RATE_RLL_IMAX);
@@ -612,23 +612,15 @@
             // 
             // BUT_rerequestparams
             // 
-            this.BUT_rerequestparams.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(226)))), ((int)(((byte)(150)))));
-            this.BUT_rerequestparams.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
             resources.ApplyResources(this.BUT_rerequestparams, "BUT_rerequestparams");
             this.BUT_rerequestparams.Name = "BUT_rerequestparams";
-            this.BUT_rerequestparams.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(148)))), ((int)(((byte)(41)))));
-            this.BUT_rerequestparams.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(87)))), ((int)(((byte)(4)))));
             this.BUT_rerequestparams.UseVisualStyleBackColor = true;
             this.BUT_rerequestparams.Click += new System.EventHandler(this.BUT_rerequestparams_Click);
             // 
             // BUT_writePIDS
             // 
-            this.BUT_writePIDS.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(226)))), ((int)(((byte)(150)))));
-            this.BUT_writePIDS.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
             resources.ApplyResources(this.BUT_writePIDS, "BUT_writePIDS");
             this.BUT_writePIDS.Name = "BUT_writePIDS";
-            this.BUT_writePIDS.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(148)))), ((int)(((byte)(41)))));
-            this.BUT_writePIDS.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(87)))), ((int)(((byte)(4)))));
             this.BUT_writePIDS.UseVisualStyleBackColor = true;
             this.BUT_writePIDS.Click += new System.EventHandler(this.BUT_writePIDS_Click);
             // 
@@ -711,12 +703,8 @@
             // 
             // BUT_refreshpart
             // 
-            this.BUT_refreshpart.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(226)))), ((int)(((byte)(150)))));
-            this.BUT_refreshpart.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
             resources.ApplyResources(this.BUT_refreshpart, "BUT_refreshpart");
             this.BUT_refreshpart.Name = "BUT_refreshpart";
-            this.BUT_refreshpart.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(148)))), ((int)(((byte)(41)))));
-            this.BUT_refreshpart.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(87)))), ((int)(((byte)(4)))));
             this.BUT_refreshpart.UseVisualStyleBackColor = true;
             this.BUT_refreshpart.Click += new System.EventHandler(this.BUT_refreshpart_Click);
             // 
@@ -733,6 +721,36 @@
             this.CH8_OPT.FormattingEnabled = true;
             resources.ApplyResources(this.CH8_OPT, "CH8_OPT");
             this.CH8_OPT.Name = "CH8_OPT";
+            // 
+            // RATE_ROLL_FF
+            // 
+            resources.ApplyResources(this.RATE_ROLL_FF, "RATE_ROLL_FF");
+            this.RATE_ROLL_FF.Name = "RATE_ROLL_FF";
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
+            // 
+            // RATE_PITCH_FF
+            // 
+            resources.ApplyResources(this.RATE_PITCH_FF, "RATE_PITCH_FF");
+            this.RATE_PITCH_FF.Name = "RATE_PITCH_FF";
+            // 
+            // label14
+            // 
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.Name = "label14";
+            // 
+            // RATE_YAW_FF
+            // 
+            resources.ApplyResources(this.RATE_YAW_FF, "RATE_YAW_FF");
+            this.RATE_YAW_FF.Name = "RATE_YAW_FF";
+            // 
+            // label18
+            // 
+            resources.ApplyResources(this.label18, "label18");
+            this.label18.Name = "label18";
             // 
             // ConfigArducopter
             // 
@@ -767,7 +785,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.TUNE_LOW)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TUNE_HIGH)).EndInit();
             this.groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.THR_RATE_D)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.THR_RATE_P)).EndInit();
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.WPNAV_SPEED_UP)).EndInit();
@@ -810,6 +827,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.THR_ACCEL_IMAX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.THR_ACCEL_I)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.THR_ACCEL_P)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RATE_ROLL_FF)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RATE_PITCH_FF)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RATE_YAW_FF)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -825,8 +845,6 @@
         private Controls.MyLabel myLabel1;
         private System.Windows.Forms.ComboBox CH7_OPT;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.NumericUpDown THR_RATE_D;
-        private System.Windows.Forms.Label label29;
         private System.Windows.Forms.NumericUpDown THR_RATE_P;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.CheckBox CHK_lockrollpitch;
@@ -907,5 +925,11 @@
         private Controls.MyButton BUT_refreshpart;
         private Controls.MyLabel myLabel4;
         private System.Windows.Forms.ComboBox CH8_OPT;
+        private System.Windows.Forms.NumericUpDown RATE_YAW_FF;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.NumericUpDown RATE_PITCH_FF;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.NumericUpDown RATE_ROLL_FF;
+        private System.Windows.Forms.Label label12;
     }
 }

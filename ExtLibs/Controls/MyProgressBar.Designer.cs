@@ -28,10 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.marquee = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
+            // 
+            // marquee
+            // 
+            this.marquee.Interval = 50;
+            this.marquee.Tick += new System.EventHandler(this.marquee_Tick);
             // 
             // MyProgressBar
             // 
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Name = "MyProgressBar";
             this.Size = new System.Drawing.Size(208, 29);
             this.ResumeLayout(false);
@@ -39,5 +47,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer marquee;
     }
 }

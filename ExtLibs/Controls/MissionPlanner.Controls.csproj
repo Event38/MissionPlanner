@@ -32,13 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
-      <HintPath>..\..\Lib\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenTK, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Lib\OpenTK.dll</HintPath>
+      <HintPath>..\..\extLibs\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -46,6 +43,12 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="OpenTK">
+      <HintPath>..\..\extLibs\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl">
+      <HintPath>..\OpenTK.GLControl.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AGauge.cs">
@@ -60,10 +63,11 @@
     <Compile Include="BackstageView\BackstageViewButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="BackstageView\BackStageViewContentPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="BackstageView\BackstageViewCollection.cs" />
     <Compile Include="BackstageView\BackStageViewMenuPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BackstageView\BackstageViewPage.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ControlExt.cs" />
@@ -162,6 +166,9 @@
     <Compile Include="ProgressReporterDialogue.designer.cs">
       <DependentUpon>ProgressReporterDialogue.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProgressReporterSphere.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ProgressStep.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -193,6 +200,9 @@
     <Compile Include="RangeControl.Designer.cs">
       <DependentUpon>RangeControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sphere.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ValuesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -204,6 +214,12 @@
     </Compile>
     <Compile Include="VerticalProgressBar2.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WindDir.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WindDir.Designer.cs">
+      <DependentUpon>WindDir.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -240,6 +256,12 @@
     <EmbeddedResource Include="ProgressReporterDialogue.resx">
       <DependentUpon>ProgressReporterDialogue.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ProgressReporterDialogue.zh-Hans.resx">
+      <DependentUpon>ProgressReporterDialogue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProgressReporterSphere.resx">
+      <DependentUpon>ProgressReporterSphere.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProgressStep.resx">
       <DependentUpon>ProgressStep.cs</DependentUpon>
     </EmbeddedResource>
@@ -259,6 +281,9 @@
     <EmbeddedResource Include="ValuesControl.resx">
       <DependentUpon>ValuesControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WindDir.resx">
+      <DependentUpon>WindDir.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\iconWarning32.png" />
@@ -268,16 +293,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BSE.Windows.Forms\BSE.Windows.Forms.csproj">
-      <Project>{9ca367b8-0b98-49d1-84fb-735e612e3ba9}</Project>
+      <Project>{9CA367B8-0B98-49D1-84FB-735E612E3BA9}</Project>
       <Name>BSE.Windows.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\GeoUtility\GeoUtility.csproj">
-      <Project>{7f7994ce-823f-4a04-bbea-d0a3808ff56d}</Project>
+      <Project>{7F7994CE-823F-4A04-BBEA-D0A3808FF56D}</Project>
       <Name>GeoUtility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GLControl\OpenTK.GLControl.csproj">
-      <Project>{a625be88-0000-0000-0000-000000000000}</Project>
-      <Name>OpenTK.GLControl</Name>
     </ProjectReference>
     <ProjectReference Include="..\GMap.NET.Core\GMap.NET.Core.csproj">
       <Project>{d0c39d9d-bed0-418b-9a5e-713176caf40c}</Project>
@@ -288,7 +309,7 @@
       <Name>GMap.NET.WindowsForms</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utilities\MissionPlanner.Utilities.csproj">
-      <Project>{1378a66c-38e4-46f5-a05f-dc04ef7d4d16}</Project>
+      <Project>{1378A66C-38E4-46F5-A05F-DC04EF7D4D16}</Project>
       <Name>MissionPlanner.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
@@ -297,6 +318,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataGrid\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

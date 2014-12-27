@@ -18,6 +18,14 @@ using log4net;
 using System.Security.Permissions;
 using MissionPlanner.Arduino;
 using MissionPlanner.Utilities;
+using GMap.NET;
+using System.Xml;
+using IronPython.Hosting;
+using IronPython.Runtime.Operations;
+using System.Net.Sockets;
+using DotSpatial.Projections;
+using MissionPlanner.Controls;
+using System.Security;
 
 namespace MissionPlanner
 {
@@ -29,17 +37,17 @@ namespace MissionPlanner
         {
             InitializeComponent();
 
-            //if (System.Diagnostics.Debugger.IsAttached) {
+            if (System.Diagnostics.Debugger.IsAttached) {
             try
             {
-                Controls.OpenGLtest ogl = new Controls.OpenGLtest();
+                Controls.OpenGLtest2 ogl = new Controls.OpenGLtest2();
 
                 this.Controls.Add(ogl);
 
                 ogl.Dock = DockStyle.Fill;
             }
             catch { }
-           // }
+            }
 
             MissionPlanner.Utilities.Tracking.AddPage(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.ToString(), System.Reflection.MethodBase.GetCurrentMethod().Name);
         }
@@ -800,8 +808,9 @@ namespace MissionPlanner
 
         private void BUT_geinjection_Click(object sender, EventArgs e)
         {
-            GMapControl MainMap = new GMapControl();   
-            MainMap.MapType = GMap.NET.MapType.GoogleSatellite;
+            GMapControl MainMap = new GMapControl();
+
+            MainMap.MapProvider = GMap.NET.MapProviders.GoogleSatelliteMapProvider.Instance;
 
             MainMap.CacheLocation = Path.GetDirectoryName(Application.ExecutablePath) + "/gmapcache/";
 
@@ -816,7 +825,8 @@ namespace MissionPlanner
             if (fbd.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                 return;
 
-            if (fbd.SelectedPath != "") {
+            if (fbd.SelectedPath != "") 
+            {
 
                 string[] files = Directory.GetFiles(fbd.SelectedPath,"*.jpg",SearchOption.AllDirectories);
                 string[] files1 = Directory.GetFiles(fbd.SelectedPath, "*.png", SearchOption.AllDirectories);
@@ -854,12 +864,11 @@ namespace MissionPlanner
 
                     Application.DoEvents();
 
-                    MainMap.Manager.ImageCacheLocal.PutImageToCache(tile, GMap.NET.MapType.Custom, pnt, int.Parse(mat.Groups[1].Value)); 
+                    GMaps.Instance.PrimaryCache.PutImageToCache(tile.ToArray(), Maps.Custom.Instance.DbId, pnt, int.Parse(mat.Groups[1].Value)); 
 
                    // Application.DoEvents();
                 }
             }
-          
         }
 
         private string getfilepath(int x, int y, int zoom)
@@ -879,16 +888,11 @@ namespace MissionPlanner
         private void BUT_clearcustommaps_Click(object sender, EventArgs e)
         {
             GMapControl MainMap = new GMapControl();
-            MainMap.MapType = GMap.NET.MapType.GoogleSatellite;
+            MainMap.MapProvider = GMap.NET.MapProviders.GoogleSatelliteMapProvider.Instance;
 
-            MainMap.CacheLocation = Path.GetDirectoryName(Application.ExecutablePath) + "/gmapcache/";
+            int removed = MainMap.Manager.PrimaryCache.DeleteOlderThan(DateTime.Now, Maps.Custom.Instance.DbId);
 
-            int removed =  ((GMap.NET.CacheProviders.myPureImageCache)MainMap.Manager.ImageCacheLocal).DeleteOlderThan(DateTime.Now, GMap.NET.MapType.Custom);
-
-            CustomMessageBox.Show("Removed "+removed + " images\nshrinking file next");
-
-            GMap.NET.CacheProviders.myPureImageCache.VacuumDb(MainMap.CacheLocation + @"\TileDBv3\en\Data.gmdb");
-
+            CustomMessageBox.Show("Removed "+removed + " images");
 
             log.InfoFormat("Removed {0} images", removed);
         }
@@ -954,7 +958,19 @@ namespace MissionPlanner
 
         private void BUT_magfit_Click(object sender, EventArgs e)
         {
-            MagCalib.ProcessLog(0);
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "t Log|*.tlog";
+
+            ofd.ShowDialog();
+
+            var com = new Comms.CommsFile();
+            com.Open(ofd.FileName);
+
+            MainV2.comPort.BaseStream = com;
+
+            MagCalib.DoGUIMagCalib(false);
+
+            //MagCalib.ProcessLog(0);
         }
 
         private void but_multimav_Click(object sender, EventArgs e)
@@ -974,7 +990,7 @@ namespace MissionPlanner
                 }
             }
 
-            MAVLink com2 = new MAVLink();
+            MAVLinkInterface com2 = new MAVLinkInterface();
 
             com2.BaseStream.PortName = Comms.CommsSerialScan.portinterface.PortName;
             com2.BaseStream.BaudRate = Comms.CommsSerialScan.portinterface.BaudRate;
@@ -1040,8 +1056,6 @@ namespace MissionPlanner
 
             if (File.Exists(ofd.FileName))
             {
-                List<string> log = Log.BinaryLog.ReadLog(ofd.FileName);
-
                 SaveFileDialog sfd = new SaveFileDialog();
                 sfd.Filter = "log|*.log";
 
@@ -1049,12 +1063,7 @@ namespace MissionPlanner
 
                 if (res == System.Windows.Forms.DialogResult.OK)
                 {
-                    StreamWriter sw = new StreamWriter(sfd.OpenFile());
-                    foreach (string line in log)
-                    {
-                        sw.Write(line);
-                    }
-                    sw.Close();
+                    MissionPlanner.Log.BinaryLog.ConvertBin(ofd.FileName, sfd.FileName);
                 }
             }
         }
@@ -1062,13 +1071,6 @@ namespace MissionPlanner
         private void BUT_followleader_Click(object sender, EventArgs e)
         {
             new Swarm.FollowPathControl().Show();
-        }
-
-        private void BUT_compassmot_Click(object sender, EventArgs e)
-        {
-            MissionPlanner.MagMotor mot = new MissionPlanner.MagMotor();
-
-            mot.StartCalibration();
         }
 
         private void BUT_driverclean_Click(object sender, EventArgs e)
@@ -1079,6 +1081,518 @@ namespace MissionPlanner
         private void but_compassrotation_Click(object sender, EventArgs e)
         {
             MissionPlanner.Magfitrotation.magfit();
+        }
+
+        private void BUT_sorttlogs_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.SelectedPath = MainV2.LogDir;
+
+            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                try
+                {
+                    MissionPlanner.Log.LogSort.SortLogs(Directory.GetFiles(fbd.SelectedPath, "*.tlog"));
+                }
+                catch { }
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+    
+        }
+
+        private void BUT_accellogs_Click(object sender, EventArgs e)
+        {
+            CustomMessageBox.Show("This scan may take some time.");
+            Log.Scan.ScanAccel();
+            CustomMessageBox.Show("Scan Complete");
+        }
+
+        private void BUT_movingbase_Click(object sender, EventArgs e)
+        {
+            MovingBase si = new MovingBase();
+            ThemeManager.ApplyThemeTo((Form)si);
+            si.Show();
+        }
+
+        private void but_getfw_Click(object sender, EventArgs e)
+        {
+            string basedir = Application.StartupPath + Path.DirectorySeparatorChar + "History";
+
+            Directory.CreateDirectory(basedir);
+
+            Firmware fw = new Firmware();
+
+            var list = fw.getFWList();
+
+            using (XmlTextWriter xmlwriter = new XmlTextWriter(basedir + Path.DirectorySeparatorChar + @"firmware2.xml", Encoding.ASCII))
+            {
+                xmlwriter.Formatting = Formatting.Indented;
+
+                xmlwriter.WriteStartDocument();
+
+                xmlwriter.WriteStartElement("options");
+
+                foreach (var software in list)
+                {
+                    xmlwriter.WriteStartElement("Firmware");
+
+                    if (software.url != "")
+                        xmlwriter.WriteElementString("url", new Uri(software.url).LocalPath.TrimStart('/','\\'));
+                    if (software.url2560 != "")
+                        xmlwriter.WriteElementString("url2560", new Uri(software.url2560).LocalPath.TrimStart('/', '\\'));
+                    if (software.url2560_2 != "")
+                        xmlwriter.WriteElementString("url2560-2", new Uri(software.url2560_2).LocalPath.TrimStart('/', '\\'));
+                    if (software.urlpx4v1 != "")
+                        xmlwriter.WriteElementString("urlpx4", new Uri(software.urlpx4v1).LocalPath.TrimStart('/', '\\'));
+                    if (software.urlpx4v2 != "")
+                        xmlwriter.WriteElementString("urlpx4v2", new Uri(software.urlpx4v2).LocalPath.TrimStart('/', '\\'));
+                    if (software.urlvrbrainv40 != "")
+                        xmlwriter.WriteElementString("urlvrbrainv40", new Uri(software.urlvrbrainv40).LocalPath.TrimStart('/', '\\'));
+                    if (software.urlvrbrainv45 != "")
+                        xmlwriter.WriteElementString("urlvrbrainv45", new Uri(software.urlvrbrainv45).LocalPath.TrimStart('/', '\\'));
+                    if (software.urlvrbrainv50 != "")
+                        xmlwriter.WriteElementString("urlvrbrainv50", new Uri(software.urlvrbrainv50).LocalPath.TrimStart('/', '\\'));
+                    if (software.urlvrbrainv51 != "")
+                        xmlwriter.WriteElementString("urlvrbrainv51", new Uri(software.urlvrbrainv51).LocalPath.TrimStart('/', '\\'));
+                    if (software.urlvrbrainv52 != "")
+                        xmlwriter.WriteElementString("urlvrbrainv52", new Uri(software.urlvrbrainv52).LocalPath.TrimStart('/', '\\'));
+                    if (software.urlvrherov10 != "")
+                        xmlwriter.WriteElementString("urlvrherov10", new Uri(software.urlvrherov10).LocalPath.TrimStart('/', '\\'));
+                    if (software.urlvrubrainv51 != "")
+                        xmlwriter.WriteElementString("urlvrubrainv51", new Uri(software.urlvrubrainv51).LocalPath.TrimStart('/', '\\'));
+                    if (software.urlvrubrainv52 != "")
+                        xmlwriter.WriteElementString("urlvrubrainv52", new Uri(software.urlvrubrainv52).LocalPath.TrimStart('/', '\\'));
+                    if (software.urlvrgimbalv20 != "")
+                        xmlwriter.WriteElementString("urlvrgimbalv20", new Uri(software.urlvrgimbalv20).LocalPath.TrimStart('/', '\\'));
+                    if (software.urlvrugimbalv11 != "")
+                        xmlwriter.WriteElementString("urlvrugimbalv11", new Uri(software.urlvrugimbalv11).LocalPath.TrimStart('/', '\\'));
+                    xmlwriter.WriteElementString("name", software.name);
+                    xmlwriter.WriteElementString("desc", software.desc);
+                    xmlwriter.WriteElementString("format_version", software.k_format_version.ToString());
+
+                    xmlwriter.WriteEndElement();
+
+                    if (software.url != "")
+                    {
+                        Common.getFilefromNet(software.url, basedir + new Uri(software.url).LocalPath);
+                    }
+                    if (software.url2560 != "")
+                    {
+                        Common.getFilefromNet(software.url2560, basedir + new Uri(software.url2560).LocalPath);
+                    }
+                    if (software.url2560_2 != "")
+                    {
+                        Common.getFilefromNet(software.url2560_2, basedir + new Uri(software.url2560_2).LocalPath);
+                    }
+                    if (software.urlpx4v1 != "")
+                    {
+                        Common.getFilefromNet(software.urlpx4v1, basedir + new Uri(software.urlpx4v1).LocalPath);
+                    }
+                    if (software.urlpx4v2 != "")
+                    {
+                        Common.getFilefromNet(software.urlpx4v2, basedir + new Uri(software.urlpx4v2).LocalPath);
+                    }
+                    if (software.urlvrbrainv40 != "")
+                    {
+                        Common.getFilefromNet(software.urlvrbrainv40, basedir + new Uri(software.urlvrbrainv40).LocalPath);
+                    }
+                    if (software.urlvrbrainv45 != "")
+                    {
+                        Common.getFilefromNet(software.urlvrbrainv45, basedir + new Uri(software.urlvrbrainv45).LocalPath);
+                    }
+                    if (software.urlvrbrainv50 != "")
+                    {
+                        Common.getFilefromNet(software.urlvrbrainv50, basedir + new Uri(software.urlvrbrainv50).LocalPath);
+                    }
+                    if (software.urlvrbrainv51 != "")
+                    {
+                        Common.getFilefromNet(software.urlvrbrainv51, basedir + new Uri(software.urlvrbrainv51).LocalPath);
+                    }
+                    if (software.urlvrbrainv52 != "")
+                    {
+                        Common.getFilefromNet(software.urlvrbrainv52, basedir + new Uri(software.urlvrbrainv52).LocalPath);
+                    }
+                    if (software.urlvrherov10 != "")
+                    {
+                        Common.getFilefromNet(software.urlvrherov10, basedir + new Uri(software.urlvrherov10).LocalPath);
+                    }
+                    if (software.urlvrubrainv51 != "")
+                    {
+                        Common.getFilefromNet(software.urlvrubrainv51, basedir + new Uri(software.urlvrubrainv51).LocalPath);
+                    }
+                    if (software.urlvrubrainv52 != "")
+                    {
+                        Common.getFilefromNet(software.urlvrubrainv52, basedir + new Uri(software.urlvrubrainv52).LocalPath);
+                    }
+                    if (software.urlvrgimbalv20 != "")
+                    {
+                        Common.getFilefromNet(software.urlvrgimbalv20, basedir + new Uri(software.urlvrgimbalv20).LocalPath);
+                    }
+                    if (software.urlvrugimbalv11 != "")
+                    {
+                        Common.getFilefromNet(software.urlvrugimbalv11, basedir + new Uri(software.urlvrugimbalv11).LocalPath);
+                    }
+                }
+
+                xmlwriter.WriteEndElement();
+                xmlwriter.WriteEndDocument();
+            }
+        }
+
+        private void but_loganalysis_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            ofd.ShowDialog();
+
+            if (ofd.FileName != "")
+            {
+                string xmlfile = MissionPlanner.Utilities.LogAnalyzer.CheckLogFile(ofd.FileName);
+
+                if (File.Exists(xmlfile))
+                {
+                    var out1 = MissionPlanner.Utilities.LogAnalyzer.Results(xmlfile);
+
+                    MissionPlanner.Controls.LogAnalyzer frm = new Controls.LogAnalyzer(out1);
+
+                    frm.Show();
+                }
+                else
+                {
+                    CustomMessageBox.Show("Bad input file");
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Warnings.WarningsManager frm = new Warnings.WarningsManager();
+
+            frm.Show();
+        }
+		
+        Comms.MAVLinkSerialPort comport;
+
+        TcpListener listener;
+
+        TcpClient client;
+
+        private void but_mavserialport_Click(object sender, EventArgs e)
+        {
+            if (comport != null)
+                comport.Close();
+
+            comport = new Comms.MAVLinkSerialPort(MainV2.comPort, MAVLink.SERIAL_CONTROL_DEV.GPS1);
+
+            if (listener != null)
+            {
+                listener.Stop();
+                listener = null;
+            }
+
+            listener = new TcpListener(IPAddress.Any,500);
+
+            listener.Start();
+
+            listener.BeginAcceptTcpClient(new AsyncCallback(DoAcceptTcpClientCallback), listener);
+        }
+
+        private void DoAcceptTcpClientCallback(IAsyncResult ar)
+        {
+            // Get the listener that handles the client request.
+            TcpListener listener = (TcpListener)ar.AsyncState;
+
+            listener.BeginAcceptTcpClient(new AsyncCallback(DoAcceptTcpClientCallback), listener);
+
+            if (client != null && client.Connected)
+                return;
+
+            // End the operation and display the received data on  
+            // the console.
+            using (
+            client = listener.EndAcceptTcpClient(ar))
+            {
+                NetworkStream stream = client.GetStream();
+
+                if (!comport.IsOpen)
+                    comport.Open();
+
+                while (client.Connected && comport.IsOpen)
+                {
+
+                    while (stream.DataAvailable)
+                    {
+                        var data = new byte[4096];
+                        try
+                        {
+                            int len = stream.Read(data, 0, data.Length);
+
+                            comport.Write(data, 0, len);
+                        }
+                        catch { }
+                    }
+
+                    while (comport.BytesToRead > 0)
+                    {
+                        var data = new byte[4096];
+                        try
+                        {
+                            int len = comport.Read(data, 0, data.Length);
+
+                            stream.Write(data, 0, len);
+                        }
+                        catch { }
+                    }
+
+                     System.Threading.Thread.Sleep(1);
+                }
+            }
+        }
+
+        private void BUT_magfit2_Click(object sender, EventArgs e)
+        {
+            MagCalib.ProcessLog(0);
+        }
+
+        private void BUT_shptopoly_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fd = new OpenFileDialog();
+            fd.Filter = "Shape file|*.shp";
+            DialogResult result = fd.ShowDialog();
+            string file = fd.FileName;
+
+            ProjectionInfo pStart = new ProjectionInfo();
+            ProjectionInfo pESRIEnd = KnownCoordinateSystems.Geographic.World.WGS1984;
+            bool reproject = false;
+
+            if (File.Exists(file))
+            {
+                string prjfile = Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(file) + ".prj";
+                if (File.Exists(prjfile))
+                {
+
+                    using (StreamReader re = File.OpenText(Path.GetDirectoryName(file) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(file) + ".prj"))
+                    {
+                        pStart.ParseEsriString(re.ReadLine());
+
+                        reproject = true;
+                    }
+                }
+
+                DotSpatial.Data.IFeatureSet fs = DotSpatial.Data.FeatureSet.Open(file);
+
+                fs.FillAttributes();
+
+                int rows = fs.NumRows();
+
+                DataTable dtOriginal = fs.DataTable;
+                for (int row = 0; row < dtOriginal.Rows.Count; row++)
+                {
+                    object[] original = dtOriginal.Rows[row].ItemArray;
+                }
+
+                foreach (DataColumn col in dtOriginal.Columns)
+                {
+                    Console.WriteLine(col.ColumnName + " " + col.DataType.ToString());
+                }
+
+                int a = 1;
+
+                string path = Path.GetDirectoryName(file);
+
+                foreach (var feature in fs.Features)
+                {
+                    StringBuilder sb = new StringBuilder();
+
+                    sb.Append("#Shap to Poly - Mission Planner\r\n");
+                    foreach (var point in feature.Coordinates)
+                    {
+                        if (reproject)
+                        {
+                            double[] xyarray = { point.X, point.Y };
+                            double[] zarray = { point.Z };
+
+                            Reproject.ReprojectPoints(xyarray, zarray, pStart, pESRIEnd, 0, 1);
+
+                            point.X = xyarray[0];
+                            point.Y = xyarray[1];
+                            point.Z = zarray[0];
+                        }
+
+                        sb.Append(point.Y.ToString(System.Globalization.CultureInfo.InvariantCulture) + "\t" + point.X.ToString(System.Globalization.CultureInfo.InvariantCulture) + "\r\n");
+                    }
+
+                    log.Info("writting poly to " + path + Path.DirectorySeparatorChar + "poly-" + a + ".poly");
+                    File.WriteAllText(path + Path.DirectorySeparatorChar + "poly-" + a + ".poly", sb.ToString());
+
+                    a++;
+                }
+            }
+        }
+
+        private void but_droneshare_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "tlog|*.tlog|*.log|*.log";
+            ofd.Multiselect = true;
+            ofd.ShowDialog();
+
+            string droneshareusername = MainV2.getConfig("droneshareusername");
+
+            InputBox.Show("Username", "Username", ref droneshareusername);
+
+            MainV2.config["droneshareusername"] = droneshareusername;
+
+            string dronesharepassword = MainV2.getConfig("dronesharepassword");
+
+            if (dronesharepassword != "")
+            {
+                try
+                {
+                    // fail on bad entry
+                    var crypto = new Crypto();
+                    dronesharepassword = crypto.DecryptString(dronesharepassword);
+                }
+                catch { }
+            }
+
+            InputBox.Show("Password", "Password", ref dronesharepassword,true);
+
+            var crypto2 = new Crypto();
+
+            string encryptedpw = crypto2.EncryptString(dronesharepassword);
+
+            MainV2.config["dronesharepassword"] = encryptedpw;            
+
+            if (File.Exists(ofd.FileName)) 
+            {
+                foreach (var file in ofd.FileNames) 
+                {
+                    string viewurl = Utilities.DroneApi.droneshare.doUpload(file, droneshareusername, dronesharepassword, Guid.NewGuid().ToString(), Utilities.DroneApi.APIConstants.apiKey);
+
+                    if (viewurl != "")
+                        System.Diagnostics.Process.Start(viewurl);
+                }
+            }
+
+            dronesharepassword = null;
+        }
+
+        String SecureStringToString(SecureString value)
+        {
+            IntPtr valuePtr = IntPtr.Zero;
+            try
+            {
+                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
+                return Marshal.PtrToStringUni(valuePtr);
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
+            }
+        }
+
+        private void but_gimbaltest_Click(object sender, EventArgs e)
+        {
+            var answer = GimbalPoint.ProjectPoint();
+        }
+
+        private void but_mntstatus_Click(object sender, EventArgs e)
+        {
+            MainV2.comPort.GetMountStatus();
+        }
+
+        private void but_maplogs_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            fbd.SelectedPath = MainV2.LogDir;
+
+            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Log.LogMap.MapLogs(Directory.GetFiles(fbd.SelectedPath, "*.tlog", SearchOption.AllDirectories));
+            }
+        }
+
+        private void butlogindex_Click(object sender, EventArgs e)
+        {
+            Log.LogIndex form = new Log.LogIndex();
+
+            form.Show();
+        }
+
+        private void but_droneapi_Click(object sender, EventArgs e)
+        {
+            
+            string droneshareusername = MainV2.getConfig("droneshareusername");
+
+            InputBox.Show("Username", "Username", ref droneshareusername);
+
+            MainV2.config["droneshareusername"] = droneshareusername;
+
+            string dronesharepassword = MainV2.getConfig("dronesharepassword");
+
+            if (dronesharepassword != "")
+            {
+                try
+                {
+                    // fail on bad entry
+                    var crypto = new Crypto();
+                    dronesharepassword = crypto.DecryptString(dronesharepassword);
+                }
+                catch { }
+            }
+
+            InputBox.Show("Password", "Password", ref dronesharepassword,true);
+
+            var crypto2 = new Crypto();
+
+            string encryptedpw = crypto2.EncryptString(dronesharepassword);
+
+            MainV2.config["dronesharepassword"] = encryptedpw;  
+
+            Utilities.DroneApi.DroneProto dp = new Utilities.DroneApi.DroneProto();
+
+            if (dp.connect())
+            {
+                if (dp.loginUser(droneshareusername, dronesharepassword))
+                {
+                    MAVLinkInterface mine = new MAVLinkInterface();
+                    var comfile = new Comms.CommsFile();
+                    mine.BaseStream = comfile;
+                    mine.BaseStream.PortName = @"C:\Users\hog\Documents\apm logs\iris 6-4-14\2014-04-06 09-07-32.tlog";
+                    mine.BaseStream.Open();
+
+                    comfile.bps = 4000;
+
+                    mine.getHeartBeat();
+
+                    dp.setVechileId(mine.MAV.Guid, 0, mine.MAV.sysid);
+
+                    dp.startMission();
+
+                    while (true) {
+
+                        byte[] packet = mine.readPacket();
+
+                        dp.SendMavlink(packet,0);
+
+                        
+                    }
+
+                   // dp.close();
+
+                   // mine.Close();
+                }
+            }
+
+        }
+
+        private void but_terrain_Click(object sender, EventArgs e)
+        {
+            MainV2.comPort.Terrain.checkTerrain(MainV2.comPort.MAV.cs.HomeLocation.Lat, MainV2.comPort.MAV.cs.HomeLocation.Lng);
         }
     }
 }

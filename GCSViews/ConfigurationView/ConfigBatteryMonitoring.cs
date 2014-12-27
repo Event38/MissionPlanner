@@ -8,7 +8,6 @@ using System.Text;
 using System.Windows.Forms;
 using MissionPlanner.Controls.BackstageView;
 using MissionPlanner.Controls;
-using MissionPlanner.Controls;
 
 namespace MissionPlanner.GCSViews.ConfigurationView
 {
@@ -37,7 +36,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                         CMB_batmontype.SelectedIndex = 1;
                 }
             }
-            catch { CustomMessageBox.Show("Set BATT_MONITOR Failed", "Error"); }
+            catch { CustomMessageBox.Show("Set BATT_MONITOR Failed", Strings.ERROR); }
         }
         private void TXT_battcapacity_Validating(object sender, CancelEventArgs e)
         {
@@ -52,14 +51,14 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             {
                 if (MainV2.comPort.MAV.param["BATT_CAPACITY"] == null)
                 {
-                    CustomMessageBox.Show("Not Available", "Error");
+                    CustomMessageBox.Show(Strings.ErrorFeatureNotEnabled, Strings.ERROR);
                 }
                 else
                 {
                     MainV2.comPort.setParam("BATT_CAPACITY", float.Parse(TXT_battcapacity.Text));
                 }
             }
-            catch { CustomMessageBox.Show("Set BATT_CAPACITY Failed", "Error"); }
+            catch { CustomMessageBox.Show("Set BATT_CAPACITY Failed", Strings.ERROR); }
         }
         private void CMB_batmontype_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -69,7 +68,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             {
                 if (MainV2.comPort.MAV.param["BATT_MONITOR"] == null)
                 {
-                    CustomMessageBox.Show("Not Available", "Error");
+                    CustomMessageBox.Show(Strings.ErrorFeatureNotEnabled, Strings.ERROR);
                 }
                 else
                 {
@@ -107,7 +106,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     MainV2.comPort.setParam("BATT_MONITOR", selection);
                 }
             }
-            catch { CustomMessageBox.Show("Set BATT_MONITOR,BATT_VOLT_PIN,BATT_CURR_PIN Failed", "Error"); }
+            catch { CustomMessageBox.Show("Set BATT_MONITOR,BATT_VOLT_PIN,BATT_CURR_PIN Failed", Strings.ERROR); }
         }
    
         private void TXT_measuredvoltage_Validating(object sender, CancelEventArgs e)
@@ -129,20 +128,15 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 float new_divider = (measuredvoltage * divider) / voltage;
                 TXT_divider.Text = new_divider.ToString();
             }
-            catch { CustomMessageBox.Show("Invalid number entered", "Error"); return; }
+            catch { CustomMessageBox.Show(Strings.InvalidNumberEntered, Strings.ERROR); return; }
 
             try
             {
-                if (MainV2.comPort.MAV.param["VOLT_DIVIDER"] == null)
-                {
-                    CustomMessageBox.Show("Not Available", "Error");
-                }
-                else
-                {
-                    MainV2.comPort.setParam("VOLT_DIVIDER", float.Parse(TXT_divider.Text));
-                }
+                
+                    MainV2.comPort.setParam(new string[] {"VOLT_DIVIDER","BATT_VOLT_MULT"}, float.Parse(TXT_divider.Text));
+                
             }
-            catch { CustomMessageBox.Show("Set VOLT_DIVIDER Failed", "Error"); }
+            catch { CustomMessageBox.Show("Set BATT_VOLT_MULT Failed", Strings.ERROR); }
         }
         private void TXT_divider_Validating(object sender, CancelEventArgs e)
         {
@@ -155,16 +149,11 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 return;
             try
             {
-                if (MainV2.comPort.MAV.param["VOLT_DIVIDER"] == null)
-                {
-                    CustomMessageBox.Show("Not Available", "Error");
-                }
-                else
-                {
-                    MainV2.comPort.setParam("VOLT_DIVIDER", float.Parse(TXT_divider.Text));
-                }
+                
+                    MainV2.comPort.setParam(new string[] {"VOLT_DIVIDER","BATT_VOLT_MULT"}, float.Parse(TXT_divider.Text));
+                
             }
-            catch { CustomMessageBox.Show("Set VOLT_DIVIDER Failed", "Error"); }
+            catch { CustomMessageBox.Show("Set BATT_VOLT_MULT Failed", Strings.ERROR); }
         }
         private void TXT_ampspervolt_Validating(object sender, CancelEventArgs e)
         {
@@ -177,16 +166,11 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 return;
             try
             {
-                if (MainV2.comPort.MAV.param["AMP_PER_VOLT"] == null)
-                {
-                    CustomMessageBox.Show("Not Available", "Error");
-                }
-                else
-                {
-                    MainV2.comPort.setParam("AMP_PER_VOLT", float.Parse(TXT_ampspervolt.Text));
-                }
+                
+                    MainV2.comPort.setParam(new string[] {"AMP_PER_VOLT","BATT_AMP_PERVOLT"}, float.Parse(TXT_ampspervolt.Text));
+                
             }
-            catch { CustomMessageBox.Show("Set AMP_PER_VOLT Failed", "Error"); }
+            catch { CustomMessageBox.Show("Set BATT_AMP_PERVOLT Failed", Strings.ERROR); }
         }
 
         private void CMB_batmonsensortype_SelectedIndexChanged(object sender, EventArgs e)
@@ -238,7 +222,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             {
                 float maxvolt = 50f;
                 float maxamps = 90f;
-                float mvpervolt = 100f;
+                float mvpervolt = 99f;
                 float mvperamp = 55.55f;
 
                 float topvolt = (maxvolt * mvpervolt) / 1000;
@@ -246,6 +230,21 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
                 TXT_divider.Text = (maxvolt / topvolt).ToString();
                 TXT_ampspervolt.Text = (maxamps / topamps).ToString();
+            }
+            else if (selection == 5) // 3dr 4 in one esc
+            {
+                TXT_divider.Text = (12.02).ToString();
+                TXT_ampspervolt.Text = (17).ToString();
+            }
+            else if (selection == 6) // hv 3dr apm - what i have
+            {
+                TXT_divider.Text = (12.02).ToString();
+                TXT_ampspervolt.Text = (24).ToString();
+            }
+            else if (selection == 7) // hv 3dr px4
+            {
+                TXT_divider.Text = (12.02).ToString();
+                TXT_ampspervolt.Text = (39.877).ToString();
             }
 
             // enable to update
@@ -279,12 +278,22 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         public void Activate()
         {
+            if (!MainV2.comPort.BaseStream.IsOpen || !MainV2.comPort.MAV.param.ContainsKey("BATT_MONITOR"))
+            {
+                this.Enabled = false;
+                return;
+            }
+
             startup = true;
             if (MainV2.comPort.MAV.param["BATT_MONITOR"] != null)
             {
-                if (MainV2.comPort.MAV.param["BATT_MONITOR"].ToString() != "0.0")
+                if ((float)MainV2.comPort.MAV.param["BATT_MONITOR"] != 0)
                 {
                     CMB_batmontype.SelectedIndex = getIndex(CMB_batmontype, (int)float.Parse(MainV2.comPort.MAV.param["BATT_MONITOR"].ToString()));
+                }
+                else
+                {
+                    CMB_batmontype.SelectedIndex = 0;
                 }
             }
 
@@ -294,6 +303,13 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             TXT_voltage.Text = MainV2.comPort.MAV.cs.battery_voltage.ToString();
             TXT_measuredvoltage.Text = TXT_voltage.Text;
 
+			// new
+            if (MainV2.comPort.MAV.param["BATT_VOLT_MULT"] != null)
+                TXT_divider.Text = MainV2.comPort.MAV.param["BATT_VOLT_MULT"].ToString();
+
+            if (MainV2.comPort.MAV.param["BATT_AMP_PERVOLT"] != null)
+                TXT_ampspervolt.Text = MainV2.comPort.MAV.param["BATT_AMP_PERVOLT"].ToString();
+			// old
             if (MainV2.comPort.MAV.param["VOLT_DIVIDER"] != null)
                 TXT_divider.Text = MainV2.comPort.MAV.param["VOLT_DIVIDER"].ToString();
 
@@ -322,9 +338,13 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             {
                 CMB_batmonsensortype.SelectedIndex = 3;
             }
-            else if (TXT_ampspervolt.Text == (18.0018).ToString() && TXT_divider.Text == (10).ToString())
+            else if (TXT_ampspervolt.Text == (18.0018).ToString() && TXT_divider.Text == (10.10101).ToString())
             {
                 CMB_batmonsensortype.SelectedIndex = 4;
+            }
+            else if (TXT_ampspervolt.Text == (17).ToString() && TXT_divider.Text == (12.02).ToString())
+            {
+                CMB_batmonsensortype.SelectedIndex = 5;
             }
             else
             {
@@ -352,6 +372,25 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 else if (value == 100) // px4
                 {
                     CMB_apmversion.SelectedIndex = 3;
+                }
+                else if (value == 2)
+                { // pixhawk
+                    CMB_apmversion.SelectedIndex = 4;
+                }
+                else if (value == 6)
+                { // vrbrain4
+                    CMB_apmversion.SelectedIndex = 7;
+                }
+                else if (value == 10)
+                { // vrbrain 5 or micro
+                    if ((float)MainV2.comPort.MAV.param["BATT_CURR_PIN"] == 11)
+                    {
+                        CMB_apmversion.SelectedIndex = 5;
+                    }
+                    else
+                    {
+                        CMB_apmversion.SelectedIndex = 6;
+                    }
                 }
             }
             else
@@ -383,6 +422,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         private void timer1_Tick(object sender, EventArgs e)
         {
             TXT_voltage.Text = MainV2.comPort.MAV.cs.battery_voltage.ToString();
+            txt_current.Text = MainV2.comPort.MAV.cs.current.ToString();
         }
 
         private void CMB_apmversion_SelectedIndexChanged(object sender, EventArgs e)
@@ -417,7 +457,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     //px4
                     MainV2.comPort.setParam("BATT_VOLT_PIN", 100);
                     MainV2.comPort.setParam("BATT_CURR_PIN", 101);
-                    MainV2.comPort.setParam("VOLT_DIVIDER", 1);
+                    MainV2.comPort.setParam(new string[] {"VOLT_DIVIDER","BATT_VOLT_MULT"}, 1);
                     TXT_divider.Text = "1";
                 }
                 else if (selection == 4)
@@ -426,8 +466,32 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     MainV2.comPort.setParam("BATT_VOLT_PIN", 2);
                     MainV2.comPort.setParam("BATT_CURR_PIN", 3);
                 }
+                else if (selection == 5)
+                {
+                    //vrbrain 5
+                    MainV2.comPort.setParam("BATT_VOLT_PIN", 10);
+                    MainV2.comPort.setParam("BATT_CURR_PIN", 11);
+                    MainV2.comPort.setParam(new string[] { "VOLT_DIVIDER", "BATT_VOLT_MULT" }, 10);
+                    TXT_divider.Text = "10";
+                }
+                else if (selection == 6)
+                {
+                    //vr micro brain 5
+                    MainV2.comPort.setParam("BATT_VOLT_PIN", 10);
+                    MainV2.comPort.setParam("BATT_CURR_PIN", -1);
+                    MainV2.comPort.setParam(new string[] { "VOLT_DIVIDER", "BATT_VOLT_MULT" }, 10);
+                    TXT_divider.Text = "10";
+                }
+                else if (selection == 7)
+                {
+                    //vr brain 4
+                    MainV2.comPort.setParam("BATT_VOLT_PIN", 6);
+                    MainV2.comPort.setParam("BATT_CURR_PIN", 7);
+                    MainV2.comPort.setParam(new string[] { "VOLT_DIVIDER", "BATT_VOLT_MULT" }, 10);
+                    TXT_divider.Text = "10";
+                }
             }
-            catch { CustomMessageBox.Show("Set BATT_????_PIN Failed", "Error"); }
+            catch { CustomMessageBox.Show("Set BATT_????_PIN Failed", Strings.ERROR); }
 
         }
 
@@ -482,6 +546,31 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             if (e.KeyData == Keys.Enter)
                 TXT_divider_Validated(sender, e);
+        }
+
+        private void txt_meascurrent_Validated(object sender, EventArgs e)
+        {
+            if (startup || ((TextBox)sender).Enabled == false)
+                return;
+            try
+            {
+                float measuredcurrent = float.Parse(txt_meascurrent.Text);
+                float current = float.Parse(txt_current.Text);
+                float divider = float.Parse(TXT_ampspervolt.Text);
+                if (current == 0)
+                    return;
+                float new_divider = (measuredcurrent * divider) / current;
+                TXT_ampspervolt.Text = new_divider.ToString();
+            }
+            catch { CustomMessageBox.Show(Strings.InvalidNumberEntered, Strings.ERROR); return; }
+
+            try
+            {
+
+                MainV2.comPort.setParam(new string[] { "AMP_PER_VOLT", "BATT_AMP_PERVOLT" }, float.Parse(TXT_ampspervolt.Text));
+
+            }
+            catch { CustomMessageBox.Show("Set BATT_AMP_PERVOLT Failed", Strings.ERROR); }
         }
     }
 }

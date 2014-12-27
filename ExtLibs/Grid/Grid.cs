@@ -18,6 +18,8 @@ namespace MissionPlanner
 {
     public class Grid
     {
+        public static MissionPlanner.Plugin.PluginHost Host2;
+
         const float rad2deg = (float)(180 / Math.PI);
         const float deg2rad = (float)(1.0 / rad2deg);
 
@@ -43,9 +45,9 @@ namespace MissionPlanner
         static void addtomap(linelatlng pos)
         {
             return;
-            List<PointLatLng> list = new List<PointLatLng>();
-            list.Add(pos.p1.ToLLA());
-            list.Add(pos.p2.ToLLA());
+            //List<PointLatLng> list = new List<PointLatLng>();
+            //list.Add(pos.p1.ToLLA());
+            //list.Add(pos.p2.ToLLA());
 
          //   polygons.Routes.Add(new GMapRoute(list, "test") { Stroke = new System.Drawing.Pen(System.Drawing.Color.Yellow,4) });
             
@@ -72,6 +74,12 @@ namespace MissionPlanner
         {
             if (spacing < 10 && spacing != 0)
                 spacing = 10;
+
+            if (distance < 5)
+                distance = 5;
+
+            if (polygon.Count == 0)
+                return new List<PointLatLngAlt>();
 
             List<PointLatLngAlt> ans = new List<PointLatLngAlt>();
 
@@ -257,7 +265,7 @@ namespace MissionPlanner
             {
                 default:
                 case StartPosition.Home:
-                    startposutm = new utmpos(GridPlugin.Host2.cs.HomeLocation);
+                    startposutm = new utmpos(Host2.cs.HomeLocation);
                     break;
                 case StartPosition.BottomLeft:
                     startposutm = new utmpos(area.Left, area.Bottom, utmzone);

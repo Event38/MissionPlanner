@@ -31,7 +31,6 @@ using System.IO;
 using System.Drawing.Drawing2D;
 using ProjNet.CoordinateSystems.Transformations;
 using ProjNet.CoordinateSystems;
-using MissionPlanner;
 
 namespace MissionPlanner
 {
@@ -39,16 +38,26 @@ namespace MissionPlanner
     /// <summary>
     /// used to override the drawing of the waypoint box bounding
     /// </summary>
+    [Serializable]
     public class GMapMarkerRect : GMapMarker
     {
         public Pen Pen = new Pen(Brushes.White, 2);
 
-        public Color Color { get { return Pen.Color; } set { Pen.Color = value; } }
+        public Color Color { get { return Pen.Color; } set { if (!initcolor.HasValue) initcolor = value; Pen.Color = value; } }
+
+        Color? initcolor = null;
 
         public GMapMarker InnerMarker;
 
         public int wprad = 0;
-        public GMapControl MainMap;
+
+        public void ResetColor()
+        {
+            if (initcolor.HasValue)
+                Color = initcolor.Value;
+            else
+                Color = Color.White;
+        }
 
         public GMapMarkerRect(PointLatLng p)
             : base(p)
@@ -65,25 +74,66 @@ namespace MissionPlanner
         {
             base.OnRender(g);
 
-            if (wprad == 0 || MainMap == null)
+            if (wprad == 0 || Overlay.Control == null)
                 return;
 
-            // undo autochange in mouse over
-            if (Pen.Color == Color.Blue)
-                Pen.Color = Color.White;
+            // if we have drawn it, then keep that color
+            if (!initcolor.HasValue)
+                Color = Color.White;
 
-                double width = (MainMap.Manager.GetDistance(MainMap.FromLocalToLatLng(0, 0), MainMap.FromLocalToLatLng(MainMap.Width, 0)) * 1000.0);
-                double height = (MainMap.Manager.GetDistance(MainMap.FromLocalToLatLng(0, 0), MainMap.FromLocalToLatLng(MainMap.Height, 0)) * 1000.0);
-                double m2pixelwidth = MainMap.Width / width;
-                double m2pixelheight = MainMap.Height / height;
+            // undo autochange in mouse over
+            //if (Pen.Color == Color.Blue)
+            //  Pen.Color = Color.White;
+
+            double width = (Overlay.Control.MapProvider.Projection.GetDistance(Overlay.Control.FromLocalToLatLng(0, 0), Overlay.Control.FromLocalToLatLng(Overlay.Control.Width, 0)) * 1000.0);
+            double height = (Overlay.Control.MapProvider.Projection.GetDistance(Overlay.Control.FromLocalToLatLng(0, 0), Overlay.Control.FromLocalToLatLng(Overlay.Control.Height, 0)) * 1000.0);
+            double m2pixelwidth = Overlay.Control.Width / width;
+            double m2pixelheight = Overlay.Control.Height / height;
 
             GPoint loc = new GPoint((int)(LocalPosition.X - (m2pixelwidth * wprad * 2)), LocalPosition.Y);// MainMap.FromLatLngToLocal(wpradposition);
 
-            g.DrawArc(Pen, new System.Drawing.Rectangle(LocalPosition.X - Offset.X - (Math.Abs(loc.X - LocalPosition.X) / 2), LocalPosition.Y - Offset.Y - Math.Abs(loc.X - LocalPosition.X) / 2, Math.Abs(loc.X - LocalPosition.X), Math.Abs(loc.X - LocalPosition.X)), 0, 360);
-       
+            if (m2pixelheight > 0.5)
+                g.DrawArc(Pen, new System.Drawing.Rectangle(LocalPosition.X - Offset.X - (int)(Math.Abs(loc.X - LocalPosition.X) / 2), LocalPosition.Y - Offset.Y - (int)Math.Abs(loc.X - LocalPosition.X) / 2, (int)Math.Abs(loc.X - LocalPosition.X), (int)Math.Abs(loc.X - LocalPosition.X)), 0, 360);
+
+        }
+    }
+    [Serializable]
+    public class GMapMarkerADSBPlane : GMapMarker
+    {
+        const float rad2deg = (float)(180 / Math.PI);
+        const float deg2rad = (float)(1.0 / rad2deg);
+
+        private readonly Bitmap icon = global::MissionPlanner.Properties.Resources.FW_icons_2013_logos_01;
+
+        float heading = 0;
+
+        public GMapMarkerADSBPlane(PointLatLng p, float heading)
+            : base(p)
+        {
+            icon = new Bitmap(icon, new Size(40, 40));
+            this.heading = heading;
+            Size = icon.Size;
+        }
+
+        public override void OnRender(Graphics g)
+        {
+            Matrix temp = g.Transform;
+            g.TranslateTransform(LocalPosition.X, LocalPosition.Y);
+
+            g.RotateTransform(-Overlay.Control.Bearing);
+
+            try
+            {
+                g.RotateTransform(heading);
+            }
+            catch { }
+            g.DrawImageUnscaled(icon, icon.Width / -2, icon.Height / -2);
+
+            g.Transform = temp;
         }
     }
 
+    [Serializable]
     public class GMapMarkerRover : GMapMarker
     {
         const float rad2deg = (float)(180 / Math.PI);
@@ -94,9 +144,8 @@ namespace MissionPlanner
         float cog = -1;
         float target = -1;
         float nav_bearing = -1;
-        public GMapControl MainMap;
 
-        public GMapMarkerRover(PointLatLng p, float heading, float cog, float nav_bearing, float target, GMapControl map)
+        public GMapMarkerRover(PointLatLng p, float heading, float cog, float nav_bearing, float target)
             : base(p)
         {
             this.heading = heading;
@@ -104,7 +153,6 @@ namespace MissionPlanner
             this.target = target;
             this.nav_bearing = nav_bearing;
             Size = SizeSt;
-            MainMap = map;
         }
 
         public override void OnRender(Graphics g)
@@ -112,7 +160,7 @@ namespace MissionPlanner
             Matrix temp = g.Transform;
             g.TranslateTransform(LocalPosition.X, LocalPosition.Y);
 
-            g.RotateTransform(-MainMap.Bearing);
+            g.RotateTransform(-Overlay.Control.Bearing);
 
             int length = 500;
             // anti NaN
@@ -137,7 +185,7 @@ namespace MissionPlanner
         }
     }
 
-
+    [Serializable]
     public class GMapMarkerPlane : GMapMarker
     {
         const float rad2deg = (float)(180 / Math.PI);
@@ -149,9 +197,8 @@ namespace MissionPlanner
         float cog = -1;
         float target = -1;
         float nav_bearing = -1;
-        public GMapControl MainMap;
-        
-        public GMapMarkerPlane(PointLatLng p, float heading, float cog, float nav_bearing,float target, GMapControl map)
+
+        public GMapMarkerPlane(PointLatLng p, float heading, float cog, float nav_bearing, float target)
             : base(p)
         {
             this.heading = heading;
@@ -159,7 +206,6 @@ namespace MissionPlanner
             this.target = target;
             this.nav_bearing = nav_bearing;
             Size = icon.Size;
-            MainMap = map;
         }
 
         public override void OnRender(Graphics g)
@@ -167,10 +213,10 @@ namespace MissionPlanner
             Matrix temp = g.Transform;
             g.TranslateTransform(LocalPosition.X, LocalPosition.Y);
 
-            g.RotateTransform(-MainMap.Bearing);
+            g.RotateTransform(-Overlay.Control.Bearing);
 
             int length = 500;
-// anti NaN
+            // anti NaN
             try
             {
                 g.DrawLine(new Pen(Color.Red, 2), 0.0f, 0.0f, (float)Math.Cos((heading - 90) * deg2rad) * length, (float)Math.Sin((heading - 90) * deg2rad) * length);
@@ -179,15 +225,15 @@ namespace MissionPlanner
             g.DrawLine(new Pen(Color.Green, 2), 0.0f, 0.0f, (float)Math.Cos((nav_bearing - 90) * deg2rad) * length, (float)Math.Sin((nav_bearing - 90) * deg2rad) * length);
             g.DrawLine(new Pen(Color.Black, 2), 0.0f, 0.0f, (float)Math.Cos((cog - 90) * deg2rad) * length, (float)Math.Sin((cog - 90) * deg2rad) * length);
             g.DrawLine(new Pen(Color.Orange, 2), 0.0f, 0.0f, (float)Math.Cos((target - 90) * deg2rad) * length, (float)Math.Sin((target - 90) * deg2rad) * length);
-// anti NaN
+            // anti NaN
             try
             {
 
                 float desired_lead_dist = 100;
 
 
-                double width = (MainMap.Manager.GetDistance(MainMap.FromLocalToLatLng(0, 0), MainMap.FromLocalToLatLng(MainMap.Width, 0)) * 1000.0);
-                double m2pixelwidth = MainMap.Width / width;
+                double width = (Overlay.Control.MapProvider.Projection.GetDistance(Overlay.Control.FromLocalToLatLng(0, 0), Overlay.Control.FromLocalToLatLng(Overlay.Control.Width, 0)) * 1000.0);
+                double m2pixelwidth = Overlay.Control.Width / width;
 
                 float alpha = ((desired_lead_dist * (float)m2pixelwidth) / MainV2.comPort.MAV.cs.radius) * rad2deg;
 
@@ -219,16 +265,18 @@ namespace MissionPlanner
             catch { }
 
 
-            try {
-            g.RotateTransform(heading);
-            } catch{}
+            try
+            {
+                g.RotateTransform(heading);
+            }
+            catch { }
             g.DrawImageUnscaled(icon, icon.Width / -2, icon.Height / -2);
 
             g.Transform = temp;
         }
     }
 
-
+    [Serializable]
     public class GMapMarkerQuad : GMapMarker
     {
         const float rad2deg = (float)(180 / Math.PI);
@@ -255,7 +303,7 @@ namespace MissionPlanner
             g.TranslateTransform(LocalPosition.X, LocalPosition.Y);
 
             int length = 500;
-// anti NaN
+            // anti NaN
             try
             {
                 g.DrawLine(new Pen(Color.Red, 2), 0.0f, 0.0f, (float)Math.Cos((heading - 90) * deg2rad) * length, (float)Math.Sin((heading - 90) * deg2rad) * length);
@@ -264,7 +312,7 @@ namespace MissionPlanner
             //g.DrawLine(new Pen(Color.Green, 2), 0.0f, 0.0f, (float)Math.Cos((nav_bearing - 90) * deg2rad) * length, (float)Math.Sin((nav_bearing - 90) * deg2rad) * length);
             g.DrawLine(new Pen(Color.Black, 2), 0.0f, 0.0f, (float)Math.Cos((cog - 90) * deg2rad) * length, (float)Math.Sin((cog - 90) * deg2rad) * length);
             g.DrawLine(new Pen(Color.Orange, 2), 0.0f, 0.0f, (float)Math.Cos((target - 90) * deg2rad) * length, (float)Math.Sin((target - 90) * deg2rad) * length);
-// anti NaN
+            // anti NaN
             try
             {
                 g.RotateTransform(heading);
@@ -276,13 +324,97 @@ namespace MissionPlanner
         }
     }
 
+    [Serializable]
+    public class GMapMarkerHeli : GMapMarker
+    {
+        const float rad2deg = (float)(180 / Math.PI);
+        const float deg2rad = (float)(1.0 / rad2deg);
+
+        private readonly Bitmap icon = global::MissionPlanner.Properties.Resources.heli;
+
+        float heading = 0;
+        float cog = -1;
+        float target = -1;
+
+        public GMapMarkerHeli(PointLatLng p, float heading, float cog, float target)
+            : base(p)
+        {
+            this.heading = heading;
+            this.cog = cog;
+            this.target = target;
+            Size = icon.Size;
+        }
+
+        public override void OnRender(Graphics g)
+        {
+            Matrix temp = g.Transform;
+            g.TranslateTransform(LocalPosition.X, LocalPosition.Y);
+
+            int length = 500;
+            // anti NaN
+            try
+            {
+                g.DrawLine(new Pen(Color.Red, 2), 0.0f, 0.0f, (float)Math.Cos((heading - 90) * deg2rad) * length, (float)Math.Sin((heading - 90) * deg2rad) * length);
+            }
+            catch { }
+            //g.DrawLine(new Pen(Color.Green, 2), 0.0f, 0.0f, (float)Math.Cos((nav_bearing - 90) * deg2rad) * length, (float)Math.Sin((nav_bearing - 90) * deg2rad) * length);
+            g.DrawLine(new Pen(Color.Black, 2), 0.0f, 0.0f, (float)Math.Cos((cog - 90) * deg2rad) * length, (float)Math.Sin((cog - 90) * deg2rad) * length);
+            g.DrawLine(new Pen(Color.Orange, 2), 0.0f, 0.0f, (float)Math.Cos((target - 90) * deg2rad) * length, (float)Math.Sin((target - 90) * deg2rad) * length);
+            // anti NaN
+            try
+            {
+                g.RotateTransform(heading);
+            }
+            catch { }
+            g.DrawImageUnscaled(icon, icon.Width / -2 + 2, icon.Height / -2);
+
+            g.Transform = temp;
+        }
+    }
+
+    [Serializable]
+    public class GMapMarkerAntennaTracker : GMapMarker
+    {
+        const float rad2deg = (float)(180 / Math.PI);
+        const float deg2rad = (float)(1.0 / rad2deg);
+
+        private readonly Bitmap icon = global::MissionPlanner.Properties.Resources.Antenna_Tracker_01;
+
+        float heading = 0;
+
+        public GMapMarkerAntennaTracker(PointLatLng p, float heading)
+            : base(p)
+        {
+            Size = icon.Size;
+        }
+
+        public override void OnRender(Graphics g)
+        {
+            Matrix temp = g.Transform;
+            g.TranslateTransform(LocalPosition.X, LocalPosition.Y);
+
+            int length = 500;
+
+            try
+            {
+                g.DrawLine(new Pen(Color.Red, 2), 0.0f, 0.0f, (float)Math.Cos((heading - 90) * deg2rad) * length, (float)Math.Sin((heading - 90) * deg2rad) * length);
+            }
+            catch { }
+
+            g.DrawImage(icon,-20,-20,40,40);
+
+            g.Transform = temp;
+        }
+    }
+
+
     class NoCheckCertificatePolicy : ICertificatePolicy
     {
         public bool CheckValidationResult(ServicePoint srvPoint, X509Certificate certificate, WebRequest request, int certificateProblem)
         {
             return true;
         }
-    } 
+    }
 
 
     public class Common
@@ -374,84 +506,15 @@ namespace MissionPlanner
             [DisplayText("APM2 D8")]
             AP_PRODUCT_ID_APM2_REV_D8 = 0x58,	// APM2 with MPU6000_REV_D8 	
             [DisplayText("APM2 D9")]
-            AP_PRODUCT_ID_APM2_REV_D9 = 0x59	// APM2 with MPU6000_REV_D9 
-        }
-        /*
-        public enum apmmodes
-        {
-            [DisplayText("Manual")]
-            MANUAL = 0,
-            [DisplayText("Circle")]
-            CIRCLE = 1,
-            [DisplayText("Stabilize")]
-            STABILIZE = 2,
-            [DisplayText("Training")]
-            TRAINING = 3,
-            [DisplayText("FBW A")]
-            FLY_BY_WIRE_A = 5,
-            [DisplayText("FBW B")]
-            FLY_BY_WIRE_B = 6,
-            [DisplayText("Auto")]
-            AUTO = 10,
-            [DisplayText("RTL")]
-            RTL = 11,
-            [DisplayText("Loiter")]
-            LOITER = 12,
-            [DisplayText("Guided")]
-            GUIDED = 15,
-
-            TAKEOFF = 99
+            AP_PRODUCT_ID_APM2_REV_D9 = 0x59,	// APM2 with MPU6000_REV_D9 
+            [DisplayText("FlyMaple")]
+            AP_PRODUCT_ID_FLYMAPLE = 0x100,   // Flymaple with ITG3205, ADXL345, HMC5883, BMP085
+            [DisplayText("Linux")]
+            AP_PRODUCT_ID_L3G4200D = 0x101,   // Linux with L3G4200D and ADXL345
         }
 
-        public enum aprovermodes
+        public static bool getFilefromNet(string url, string saveto)
         {
-            [DisplayText("Manual")]
-            MANUAL = 0,
-            [DisplayText("Learning")]
-            LEARNING = 2,
-            [DisplayText("Steering")]
-            STEERING = 3,
-            [DisplayText("Hold")]
-            HOLD = 4,
-            [DisplayText("Auto")]
-            AUTO = 10,
-            [DisplayText("RTL")]
-            RTL = 11,
-            [DisplayText("Guided")]
-            GUIDED = 15,
-            [DisplayText("Initialising")]
-            INITIALISING = 16
-        }
-
-        public enum ac2modes
-        {
-            [DisplayText("Stabilize")]
-            STABILIZE = 0,			// hold level position
-            [DisplayText("Acro")]
-            ACRO = 1,			// rate control
-            [DisplayText("Alt Hold")]
-            ALT_HOLD = 2,		// AUTO control
-            [DisplayText("Auto")]
-            AUTO = 3,			// AUTO control
-            [DisplayText("Guided")]
-            GUIDED = 4,		// AUTO control
-            [DisplayText("Loiter")]
-            LOITER = 5,		// Hold a single location
-            [DisplayText("RTL")]
-            RTL = 6,				// AUTO control
-            [DisplayText("Circle")]
-            CIRCLE = 7,
-            [DisplayText("Pos Hold")]
-            POSITION = 8,
-            [DisplayText("Land")]
-            LAND = 9,				// AUTO control
-            OF_LOITER = 10,
-            [DisplayText("Toy")]
-			TOY = 11
-        }
-        */
-  
-        public static bool getFilefromNet(string url,string saveto) {
             try
             {
                 // this is for mono to a ssl server
@@ -460,6 +523,7 @@ namespace MissionPlanner
                 ServicePointManager.ServerCertificateValidationCallback =
     new System.Net.Security.RemoteCertificateValidationCallback((sender, certificate, chain, policyErrors) => { return true; });
 
+                log.Info(url);
                 // Create a request using a URL that can receive a post. 
                 WebRequest request = WebRequest.Create(url);
                 request.Timeout = 10000;
@@ -478,6 +542,9 @@ namespace MissionPlanner
                 long contlen = bytes;
 
                 byte[] buf1 = new byte[1024];
+
+                if (!Directory.Exists(Path.GetDirectoryName(saveto)))
+                    Directory.CreateDirectory(Path.GetDirectoryName(saveto));
 
                 FileStream fs = new FileStream(saveto + ".new", FileMode.Create);
 
@@ -504,33 +571,41 @@ namespace MissionPlanner
             catch (Exception ex) { log.Info("getFilefromNet(): " + ex.ToString()); return false; }
         }
 
-        public static List<KeyValuePair<int,string>> getModesList(CurrentState cs)
+        public static List<KeyValuePair<int, string>> getModesList(CurrentState cs)
         {
             log.Info("getModesList Called");
 
-            // ensure we get the correct list
-            MainV2.comPort.MAV.cs.firmware = cs.firmware;
-
             if (cs.firmware == MainV2.Firmwares.ArduPlane)
             {
-                var flightModes = Utilities.ParameterMetaDataRepository.GetParameterOptionsInt("FLTMODE1");
-                flightModes.Add(new KeyValuePair<int,string>(16,"INITIALISING"));
+                var flightModes = Utilities.ParameterMetaDataRepository.GetParameterOptionsInt("FLTMODE1", cs.firmware.ToString());
+                flightModes.Add(new KeyValuePair<int, string>(16, "INITIALISING"));
                 return flightModes;
             }
             else if (cs.firmware == MainV2.Firmwares.Ateryx)
             {
-                var flightModes = Utilities.ParameterMetaDataRepository.GetParameterOptionsInt("FLTMODE1"); //same as apm
+                var flightModes = Utilities.ParameterMetaDataRepository.GetParameterOptionsInt("FLTMODE1", cs.firmware.ToString()); //same as apm
                 return flightModes;
             }
             else if (cs.firmware == MainV2.Firmwares.ArduCopter2)
             {
-                var flightModes = Utilities.ParameterMetaDataRepository.GetParameterOptionsInt("FLTMODE1");
+                var flightModes = Utilities.ParameterMetaDataRepository.GetParameterOptionsInt("FLTMODE1", cs.firmware.ToString());
                 return flightModes;
             }
             else if (cs.firmware == MainV2.Firmwares.ArduRover)
             {
-                var flightModes = Utilities.ParameterMetaDataRepository.GetParameterOptionsInt("MODE1");
+                var flightModes = Utilities.ParameterMetaDataRepository.GetParameterOptionsInt("MODE1", cs.firmware.ToString());
                 return flightModes;
+            }
+            else if (cs.firmware == MainV2.Firmwares.ArduTracker)
+            {
+                var temp = new List<KeyValuePair<int, string>>();
+                temp.Add(new KeyValuePair<int, string>(0, "MANUAL"));
+                temp.Add(new KeyValuePair<int, string>(1, "STOP"));
+                temp.Add(new KeyValuePair<int, string>(2, "SCAN"));
+                temp.Add(new KeyValuePair<int, string>(10, "AUTO"));
+                temp.Add(new KeyValuePair<int, string>(16, "INITIALISING"));
+
+                return temp;
             }
 
             return null;
@@ -579,11 +654,11 @@ namespace MissionPlanner
             form.Text = title;
             label.Text = promptText;
 
-            chk.Tag = ("SHOWAGAIN_" + title.Replace(" ","_"));
+            chk.Tag = ("SHOWAGAIN_" + title.Replace(" ", "_"));
             chk.AutoSize = true;
             chk.Text = "Show me again?";
             chk.Checked = true;
-            chk.Location = new Point(9,80);
+            chk.Location = new Point(9, 80);
 
             if (MainV2.config[(string)chk.Tag] != null && (string)MainV2.config[(string)chk.Tag] == "False") // skip it
             {
@@ -598,7 +673,7 @@ namespace MissionPlanner
 
             buttonOk.Text = "OK";
             buttonOk.DialogResult = DialogResult.OK;
-            buttonOk.Location = new Point(form.Right - 100 ,80);
+            buttonOk.Location = new Point(form.Right - 100, 80);
 
             label.SetBounds(9, 40, 372, 13);
 
@@ -614,7 +689,7 @@ namespace MissionPlanner
 
             ThemeManager.ApplyThemeTo(form);
 
-            DialogResult dialogResult =form.ShowDialog();
+            DialogResult dialogResult = form.ShowDialog();
 
             form.Dispose();
 
@@ -655,12 +730,9 @@ namespace MissionPlanner
 
             input = input.Replace("{vsp}", (MainV2.comPort.MAV.cs.verticalspeed).ToString("0.0"));
 
+            input = input.Replace("{curr}", (MainV2.comPort.MAV.cs.current).ToString("0.0"));
+
             return input;
         }
     }
-
-
-
-
-
 }

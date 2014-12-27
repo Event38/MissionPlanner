@@ -6,25 +6,28 @@ using System.ComponentModel;
 using MissionPlanner.Utilities;
 using log4net;
 using MissionPlanner.Attributes;
-using MissionPlanner.Utilities;
 using MissionPlanner;
+using System.Collections;
 
 namespace MissionPlanner
 {
     public class CurrentState : ICloneable
     {
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        internal MAVState parent;
+
         // multipliers
-        public float multiplierdist = 1;
-        internal string DistanceUnit = "";
-        public float multiplierspeed = 1;
-        internal string SpeedUnit = "";
+        public static float multiplierdist = 1;
+        public static string DistanceUnit = "";
+        public static float multiplierspeed = 1;
+        public static string SpeedUnit = "";
 
-        public double toDistDisplayUnit(double input) { return input * multiplierdist; }
-        public double toSpeedDisplayUnit(double input) { return input * multiplierspeed; }
+        public static double toDistDisplayUnit(double input) { return input * multiplierdist; }
+        public static double toSpeedDisplayUnit(double input) { return input * multiplierspeed; }
 
-        public double fromDistDisplayUnit(double input) { return input / multiplierdist; }
-        public double fromSpeedDisplayUnit(double input) { return input / multiplierspeed; }
+        public static double fromDistDisplayUnit(double input) { return input / multiplierdist; }
+        public static double fromSpeedDisplayUnit(double input) { return input / multiplierspeed; }
 
         // orientation - rads
         [DisplayText("Roll (deg)")]
@@ -79,6 +82,22 @@ namespace MissionPlanner
         [DisplayText("Sat Count")]
         public float satcount { get; set; }
 
+        public double lat2 { get; set; }
+
+        public double lng2 { get; set; }
+
+        public float altasl2 { get; set; }
+
+        public float gpsstatus2 { get; set; }
+
+        public float gpshdop2 { get; set; }
+
+        public float satcount2 { get; set; }
+
+        public float groundspeed2 { get; set; }
+
+        public float groundcourse2 { get; set; }
+
         public float altd1000 { get { return (alt / 1000) % 10; } }
         public float altd100 { get { return (alt / 100) % 10; } }
 
@@ -87,8 +106,12 @@ namespace MissionPlanner
         public float airspeed { get { return _airspeed * multiplierspeed; } set { _airspeed = value; } }
         [DisplayText("Airspeed Target (speed)")]
         public float targetairspeed { get { return _targetairspeed; } }
+        public bool lowairspeed { get; set; }
+        [DisplayText("Airspeed Ratio")]
+        public float asratio { get; set; }
         [DisplayText("GroundSpeed (speed)")]
         public float groundspeed { get { return _groundspeed * multiplierspeed; } set { _groundspeed = value; } }
+        public bool lowgroundspeed { get; set; }
         float _airspeed;
         float _groundspeed;
         float _verticalspeed;
@@ -133,12 +156,14 @@ namespace MissionPlanner
         public float magfield { get { return (float)Math.Sqrt(Math.Pow(mx, 2) + Math.Pow(my, 2) + Math.Pow(mz, 2)); } }
         [DisplayText("Accel Strength")]
         public float accelsq { get { return (float)Math.Sqrt(Math.Pow(ax, 2) + Math.Pow(ay, 2) + Math.Pow(az, 2)) / 1000.0f /*980.665f*/; } }
+        [DisplayText("Gyro Strength")]
+        public float gyrosq { get { return (float)Math.Sqrt(Math.Pow(gx, 2) + Math.Pow(gy, 2) + Math.Pow(gz, 2)); } }
 
         [DisplayText("Failsafe")]
         public bool failsafe { get; set; }
 
         [DisplayText("RX Rssi")]
-        public float rxrssi { get; set; }
+        public int rxrssi { get; set; }
         //radio
         public float ch1in { get; set; }
         public float ch2in { get; set; }
@@ -166,7 +191,7 @@ namespace MissionPlanner
                     return _ch3percent;
                 try
                 {
-                    if (MainV2.comPort.MAV.param.ContainsKey("RC3_MIN"))
+                    if (MainV2.comPort.MAV.param.ContainsKey("RC3_MIN") && MainV2.comPort.MAV.param.ContainsKey("RC3_MAX"))
                     {
                         return (int)(((ch3out - (float)MainV2.comPort.MAV.param["RC3_MIN"]) / ((float)MainV2.comPort.MAV.param["RC3_MAX"] - (float)MainV2.comPort.MAV.param["RC3_MIN"])) * 100);
                     }
@@ -221,6 +246,8 @@ namespace MissionPlanner
         /// </summary>
         [DisplayText("Time over Target (sec)")]
         public int tot { get { if (groundspeed <= 0) return 0; return (int)(wp_dist / groundspeed); } }
+        [DisplayText("Time over Home (sec)")]
+        public int toh { get { if (groundspeed <= 0) return 0; return (int)(DistToHome  / groundspeed); } }
         [DisplayText("Dist Traveled (dist)")]
         public float distTraveled { get; set; }
         [DisplayText("Time in Air (sec)")]
@@ -245,10 +272,8 @@ namespace MissionPlanner
 
         //airspeed_error = (airspeed_error - airspeed);
 
-
-
         //message
-        internal List<string> messages { get; set; }
+        public List<string> messages { get; set; }
         internal string message { get { if (messages.Count == 0) return ""; return messages[messages.Count - 1]; } }
         public string messageHigh { get {return _messagehigh;} set {_messagehigh = value;} }
         private string _messagehigh;
@@ -256,20 +281,31 @@ namespace MissionPlanner
 
         //battery
         [DisplayText("Bat Voltage (V)")]
-        public float battery_voltage { get { return _battery_voltage; } set { _battery_voltage = value; } }
+        public float battery_voltage { get { return _battery_voltage; } set { if (_battery_voltage == 0) _battery_voltage = value; _battery_voltage = value * 0.1f + _battery_voltage * 0.9f; } }
         private float _battery_voltage;
         [DisplayText("Bat Remaining (%)")]
-        public float battery_remaining { get { return _battery_remaining; } set { _battery_remaining = value; if (_battery_remaining < 0 || _battery_remaining > 100) _battery_remaining = 0; } }
-        private float _battery_remaining;
+        public int battery_remaining { get { return _battery_remaining; } set { _battery_remaining = value; if (_battery_remaining < 0 || _battery_remaining > 100) _battery_remaining = 0; } }
+        private int _battery_remaining;
         [DisplayText("Bat Current (Amps)")]
-        public float current { get { return _current; } set { if (value < 0) return; if (_lastcurrent == DateTime.MinValue) _lastcurrent = datetime; battery_usedmah += (value * 1000) * (float)(datetime - _lastcurrent).TotalHours; _current = value; _lastcurrent = datetime; } }
+        public float current { get { return _current; } set { if (value < 0) return; if (_lastcurrent == DateTime.MinValue) _lastcurrent = datetime; battery_usedmah += (float)((value * 1000.0) * (datetime - _lastcurrent).TotalHours); _current = value; _lastcurrent = datetime; } }
         private float _current;
+        [DisplayText("Bat Watts")]
+        public float watts { get { return battery_voltage * current; } }
         private DateTime _lastcurrent = DateTime.MinValue;
         [DisplayText("Bat used EST (mah)")]
         public float battery_usedmah { get; set; }
 
+        [DisplayText("Bat2 Voltage (V)")]
+        public float battery_voltage2 { get { return _battery_voltage2; } set { if (_battery_voltage2 == 0) _battery_voltage2 = value; _battery_voltage2 = value * 0.1f + _battery_voltage2 * 0.9f; } }
+        private float _battery_voltage2;
+        [DisplayText("Bat2 Current (Amps)")]
+        public float current2 { get { return _current2; } set { if (value < 0) return; _current2 = value; } }
+        private float _current2;
+
         public float HomeAlt { get { return (float)HomeLocation.Alt; } set { } }
         public PointLatLngAlt HomeLocation = new PointLatLngAlt();
+
+        public PointLatLngAlt MovingBase = null;
 
         PointLatLngAlt _trackerloc = new PointLatLngAlt();
         public PointLatLngAlt TrackerLocation { get { if (_trackerloc.Lng != 0) return _trackerloc; return HomeLocation; } set { _trackerloc = value; } }
@@ -279,7 +315,7 @@ namespace MissionPlanner
         {
             get
             {
-                if (lat == 0 && lng == 0)
+                if (lat == 0 && lng == 0 || TrackerLocation.Lat == 0)
                     return 0;
 
                 // shrinking factor for longitude going to poles direction
@@ -304,7 +340,7 @@ namespace MissionPlanner
                 if (dist < 5)
                     return 0;
 
-                float altdiff = (float)(_alt - TrackerLocation.Alt);
+                float altdiff = (float)(_altasl - TrackerLocation.Alt);
 
                 float angle = (float)Math.Atan(altdiff / dist) * rad2deg;
 
@@ -364,8 +400,9 @@ namespace MissionPlanner
         public float sonarvoltage { get; set; }
 
         // current firmware
-        public MainV2.Firmwares firmware = MainV2.Firmwares.ArduPlane;
+        public MainV2.Firmwares firmware = MainV2.Firmwares.ArduCopter2;
         public float freemem { get; set; }
+        public float load { get; set; }
         public float brklevel { get; set; }
         public bool armed { get; set; }
 
@@ -424,7 +461,12 @@ namespace MissionPlanner
         // stats
         public ushort packetdropremote { get; set; }
         public ushort linkqualitygcs { get; set; }
+        [DisplayText("HW Voltage")]
         public float hwvoltage { get; set; }
+        [DisplayText("Board Voltage")]
+        public float boardvoltage { get; set; }
+        [DisplayText("Serov Rail Voltage")]
+        public float servovoltage { get; set; }
         public ushort i2cerrors { get; set; }
 
         // requested stream rates
@@ -436,6 +478,7 @@ namespace MissionPlanner
 
         // reference
         public DateTime datetime { get; set; }
+        public DateTime gpstime { get; set; }
 
         // HIL
         public int hilch1 { get; set; }
@@ -459,7 +502,6 @@ namespace MissionPlanner
 
         public bool connected { get { return (MainV2.comPort.BaseStream.IsOpen || MainV2.comPort.logreadmode); } }
 
-        private object locker = new object();
         bool useLocation = false;
         bool gotwind = false;
         internal bool batterymonitoring = false;
@@ -489,7 +531,8 @@ namespace MissionPlanner
             battery_usedmah = 0;
             _lastcurrent = DateTime.MinValue;
             distTraveled = 0;
-           timeInAir = 0;
+            timeInAir = 0;
+            KIndexstatic = -1;
         }
 
         const float rad2deg = (float)(180 / Math.PI);
@@ -517,11 +560,11 @@ namespace MissionPlanner
 
             if (desc.Contains("(dist)"))
             {
-                desc = desc.Replace("(dist)", "(" + MainV2.comPort.MAV.cs.DistanceUnit + ")");
+                desc = desc.Replace("(dist)", "(" + CurrentState.DistanceUnit + ")");
             }
             else if (desc.Contains("(speed)"))
             {
-                desc = desc.Replace("(speed)", "(" + MainV2.comPort.MAV.cs.SpeedUnit + ")");
+                desc = desc.Replace("(speed)", "(" + CurrentState.SpeedUnit + ")");
             }
 
             return desc;
@@ -533,17 +576,23 @@ namespace MissionPlanner
         /// <param name="bs"></param>
         public void UpdateCurrentSettings(System.Windows.Forms.BindingSource bs)
         {
-            UpdateCurrentSettings(bs, false, MainV2.comPort);
+            UpdateCurrentSettings(bs, false, MainV2.comPort, MainV2.comPort.MAV);
         }
-        /*
-        public void UpdateCurrentSettings(System.Windows.Forms.BindingSource bs, bool updatenow)
+
+        /// <summary>
+        /// Use the default sysid
+        /// </summary>
+        /// <param name="bs"></param>
+        /// <param name="updatenow"></param>
+        /// <param name="mavinterface"></param>
+        public void UpdateCurrentSettings(System.Windows.Forms.BindingSource bs, bool updatenow, MAVLinkInterface mavinterface)
         {
-            UpdateCurrentSettings(bs, false, MainV2.comPort);
+            UpdateCurrentSettings(bs, updatenow, mavinterface, mavinterface.MAV);
         }
-        */
-        public void UpdateCurrentSettings(System.Windows.Forms.BindingSource bs, bool updatenow, MAVLink mavinterface)
+
+        public void UpdateCurrentSettings(System.Windows.Forms.BindingSource bs, bool updatenow, MAVLinkInterface mavinterface, MAVState MAV)
         {
-            lock (locker)
+            lock (this)
             {
 
                 if (DateTime.Now > lastupdate.AddMilliseconds(50) || updatenow) // 20 hz
@@ -551,16 +600,25 @@ namespace MissionPlanner
                     lastupdate = DateTime.Now;
 
                     //check if valid mavinterface
-                    if (mavinterface != null && mavinterface.packetsnotlost != 0)
-                        linkqualitygcs = (ushort)((mavinterface.packetsnotlost / (mavinterface.packetsnotlost + mavinterface.packetslost)) * 100.0);
-
-                    if (DateTime.Now.Second != lastsecondcounter.Second)
+                    if (parent != null && parent.packetsnotlost != 0)
                     {
-                        lastsecondcounter = DateTime.Now;
+                        if ((DateTime.Now - mavinterface.lastvalidpacket).TotalSeconds > 10)
+                        {
+                            linkqualitygcs = 0;
+                        }
+                        else
+                        {
+                            linkqualitygcs = (ushort)((parent.packetsnotlost / (parent.packetsnotlost + parent.packetslost)) * 100.0);
+                        }
+                    }
+
+                    if (datetime.Second != lastsecondcounter.Second)
+                    {
+                        lastsecondcounter = datetime;
 
                         if (lastpos.Lat != 0 && lastpos.Lng != 0 && armed)
                         {
-                            if (!MainV2.comPort.BaseStream.IsOpen && !MainV2.comPort.logreadmode)
+                            if (!mavinterface.BaseStream.IsOpen && !mavinterface.logreadmode)
                                 distTraveled = 0;
 
                             distTraveled += (float)lastpos.GetDistance(new PointLatLngAlt(lat, lng, 0, "")) * multiplierdist;
@@ -572,56 +630,14 @@ namespace MissionPlanner
                         }
 
                         // throttle is up, or groundspeed is > 3 m/s
-                        if (ch3percent > 12 || _groundspeed > 3.0) 
+                        if (ch3percent > 12 || _groundspeed > 3.0)
                             timeInAir++;
 
                         if (!gotwind)
                             dowindcalc();
                     }
 
-                    if (mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_STATUSTEXT] != null) // status text 
-                    {
-
-                        var msg = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_STATUSTEXT].ByteArrayToStructure<MAVLink.mavlink_statustext_t>(6);
-
-                        /*
-enum gcs_severity {
-    SEVERITY_LOW=1,
-    SEVERITY_MEDIUM,
-    SEVERITY_HIGH,
-    SEVERITY_CRITICAL
-};
-                         */
-
-                       byte sev = msg.severity;
-
-                        string logdata = Encoding.ASCII.GetString(mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_STATUSTEXT], 6, mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_STATUSTEXT].Length - 6);
-
-                        int ind = logdata.IndexOf('\0');
-                        if (ind != -1)
-                            logdata = logdata.Substring(0, ind);
-
-                        if (sev >= 3)
-                        {
-                            messageHigh = logdata;
-                            messageHighTime = DateTime.Now;
-                        }
-
-                        try
-                        {
-                            while (messages.Count > 50)
-                            {
-                                messages.RemoveAt(0);
-                            }
-                            messages.Add(logdata + "\n");
-
-                        }
-                        catch { }
-
-                        mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_STATUSTEXT] = null;
-                    }
-
-                    byte[] bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_RC_CHANNELS_SCALED];
+                    byte[] bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.RC_CHANNELS_SCALED];
 
                     if (bytearray != null) // hil mavlink 0.9
                     {
@@ -636,12 +652,12 @@ enum gcs_severity {
                         hilch7 = hil.chan7_scaled;
                         hilch8 = hil.chan8_scaled;
 
-                       // Console.WriteLine("MAVLINK_MSG_ID_RC_CHANNELS_SCALED Packet");
+                       // Console.WriteLine("RC_CHANNELS_SCALED Packet");
 
-                        mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_RC_CHANNELS_SCALED] = null;
+                        MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.RC_CHANNELS_SCALED] = null;
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_FENCE_STATUS];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.FENCE_STATUS];
 
                     if (bytearray != null)
                     {
@@ -654,10 +670,10 @@ enum gcs_severity {
                             messageHighTime = DateTime.Now;
                         }
 
-                        mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_FENCE_STATUS] = null;
+                        MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.FENCE_STATUS] = null;
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_HIL_CONTROLS];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.HIL_CONTROLS];
 
                     if (bytearray != null) // hil mavlink 0.9 and 1.0
                     {
@@ -668,10 +684,43 @@ enum gcs_severity {
                         hilch3 = (int)(hil.throttle * 10000);
                         hilch4 = (int)(hil.yaw_rudder * 10000);
 
-                        //MAVLink.packets[MAVLink.MAVLINK_MSG_ID_HIL_CONTROLS] = null;
+                        //MAVLink.packets[(byte)MAVLink.MSG_NAMES.HIL_CONTROLS] = null;
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_HWSTATUS];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.MOUNT_STATUS];
+
+                    if (bytearray != null)
+                    {
+                        var status = bytearray.ByteArrayToStructure<MAVLink.mavlink_mount_status_t>(6);
+
+                        campointa = status.pointing_a / 100.0f;
+                        campointb = status.pointing_b / 100.0f;
+                        campointc = status.pointing_c / 100.0f;
+                    }
+
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.AIRSPEED_AUTOCAL];
+
+                    if (bytearray != null)
+                    {
+                        var asac = bytearray.ByteArrayToStructure<MAVLink.mavlink_airspeed_autocal_t>(6);
+
+                        asratio = asac.ratio;
+                    }
+
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.SYSTEM_TIME];
+
+                    if (bytearray != null)
+                    {
+                        var systime = bytearray.ByteArrayToStructure<MAVLink.mavlink_system_time_t>(6);
+
+                        DateTime date1 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+                        date1 = date1.AddMilliseconds(systime.time_unix_usec / 1000);
+
+                        gpstime = date1;
+                    }
+
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.HWSTATUS];
 
                     if (bytearray != null)
                     {
@@ -680,10 +729,10 @@ enum gcs_severity {
                         hwvoltage = hwstatus.Vcc / 1000.0f;
                         i2cerrors = hwstatus.I2Cerr;
 
-                        //MAVLink.packets[MAVLink.MAVLINK_MSG_ID_HWSTATUS] = null;
+                        //MAVLink.packets[(byte)MAVLink.MSG_NAMES.HWSTATUS] = null;
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_RANGEFINDER];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.RANGEFINDER];
                     if (bytearray != null)
                     {
                         var sonar = bytearray.ByteArrayToStructure<MAVLink.mavlink_rangefinder_t>(6);
@@ -692,7 +741,17 @@ enum gcs_severity {
                         sonarvoltage = sonar.voltage;
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_WIND];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.POWER_STATUS];
+                    if (bytearray != null)
+                    {
+                        var power = bytearray.ByteArrayToStructure<MAVLink.mavlink_power_status_t>(6);
+
+                        boardvoltage = power.Vcc;
+                        servovoltage = power.Vservo;
+                    }
+                    
+
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.WIND];
                     if (bytearray != null)
                     {
                         var wind = bytearray.ByteArrayToStructure<MAVLink.mavlink_wind_t>(6);
@@ -702,13 +761,12 @@ enum gcs_severity {
                         wind_dir = (wind.direction + 360) % 360;
                         wind_vel = wind.speed * multiplierspeed;
 
-                        //MAVLink.packets[MissionPlanner.MAVLink.MAVLINK_MSG_ID_SYS_STATUS] = null;
                     }
 
 
 
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_HEARTBEAT];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.HEARTBEAT];
                     if (bytearray != null)
                     {
                         var hb = bytearray.ByteArrayToStructure<MAVLink.mavlink_heartbeat_t>(6);
@@ -723,7 +781,7 @@ enum gcs_severity {
                             armed = (hb.base_mode & (byte)MAVLink.MAV_MODE_FLAG.SAFETY_ARMED) == (byte)MAVLink.MAV_MODE_FLAG.SAFETY_ARMED;
 
                             // for future use
-                            bool landed = hb.system_status == (byte)MAVLink.MAV_STATE.STANDBY;
+                            landed = hb.system_status == (byte)MAVLink.MAV_STATE.STANDBY;
 
                             failsafe = hb.system_status == (byte)MAVLink.MAV_STATE.CRITICAL;
 
@@ -757,7 +815,7 @@ enum gcs_severity {
                                 }
                             }
 
-                            if (oldmode != mode && MainV2.speechEnable && MainV2.getConfig("speechmodeenabled") == "True")
+                            if (oldmode != mode && MainV2.speechEnable && MainV2.comPort.MAV.cs == this && MainV2.getConfig("speechmodeenabled") == "True")
                             {
                                 MainV2.speechEngine.SpeakAsync(Common.speechConversion(MainV2.getConfig("speechmode")));
                             }
@@ -765,21 +823,92 @@ enum gcs_severity {
                     }
 
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_SYS_STATUS];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.SYS_STATUS];
                     if (bytearray != null)
                     {
                         var sysstatus = bytearray.ByteArrayToStructure<MAVLink.mavlink_sys_status_t>(6);
 
+                        load = (float)sysstatus.load / 10.0f;
+
                         battery_voltage = (float)sysstatus.voltage_battery / 1000.0f;
-                        battery_remaining = (float)sysstatus.battery_remaining;
+                        battery_remaining = sysstatus.battery_remaining;
                         current = (float)sysstatus.current_battery / 100.0f;
 
                         packetdropremote = sysstatus.drop_rate_comm;
 
-                        mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_SYS_STATUS] = null;
+                        Mavlink_Sensors sensors_enabled = new Mavlink_Sensors(sysstatus.onboard_control_sensors_enabled);
+                        Mavlink_Sensors sensors_health = new Mavlink_Sensors(sysstatus.onboard_control_sensors_health);
+                        Mavlink_Sensors sensors_present = new Mavlink_Sensors(sysstatus.onboard_control_sensors_present);
+
+                        if (sensors_health.gps != sensors_enabled.gps && sensors_present.gps)
+                        {
+                            messageHigh = "Bad GPS Health";
+                            messageHighTime = DateTime.Now;
+                        }
+                        else if (sensors_health.gyro != sensors_enabled.gyro && sensors_present.gyro)
+                        {
+                            messageHigh = "Bad Gyro Health";
+                            messageHighTime = DateTime.Now;
+                        }
+                        else if (sensors_health.accelerometer != sensors_enabled.accelerometer && sensors_present.accelerometer)
+                        {
+                            messageHigh = "Bad Accel Health";
+                            messageHighTime = DateTime.Now;
+                        }
+                        else if (sensors_health.compass != sensors_enabled.compass && sensors_present.compass)
+                        {
+                            messageHigh = "Bad Compass Health";
+                            messageHighTime = DateTime.Now;
+                        }
+                        else if (sensors_health.barometer != sensors_enabled.barometer && sensors_present.barometer)
+                        {
+                            messageHigh = "Bad Baro Health";
+                            messageHighTime = DateTime.Now;
+                        }
+                        else if (sensors_health.LASER_POSITION != sensors_enabled.LASER_POSITION && sensors_present.LASER_POSITION)
+                        {
+                            messageHigh = "Bad LiDAR Health";
+                            messageHighTime = DateTime.Now;
+                        }                            
+                        else if (sensors_health.optical_flow != sensors_enabled.optical_flow && sensors_present.optical_flow)
+                        {
+                            messageHigh = "Bad OptFlow Health";
+                            messageHighTime = DateTime.Now;
+                        }
+                        else if (sensors_health.terrain != sensors_enabled.terrain && sensors_present.terrain)
+                        {
+                            messageHigh = "Bad or No Terrain Data";
+                            messageHighTime = DateTime.Now;
+                        }
+                        else if (sensors_health.geofence != sensors_enabled.geofence && sensors_present.geofence)
+                        {
+                            messageHigh = "Geofence Breach";
+                            messageHighTime = DateTime.Now;
+                        }
+                        else if (sensors_health.ahrs != sensors_enabled.ahrs && sensors_present.ahrs)
+                        {
+                            messageHigh = "Bad AHRS";
+                            messageHighTime = DateTime.Now;
+                        }
+                        else if (sensors_health.rc_receiver != sensors_enabled.rc_receiver && sensors_present.rc_receiver)
+                        {
+                            messageHigh = "NO RC Receiver";
+                            messageHighTime = DateTime.Now;
+                        }
+                        
+
+                        MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.SYS_STATUS] = null;
+                    }
+                    
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.BATTERY2];
+                    if (bytearray != null)
+                    {
+                        var bat = bytearray.ByteArrayToStructure<MAVLink.mavlink_battery2_t>(6);
+                        _battery_voltage2 = bat.voltage;
+                        current2 = bat.current_battery;
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_SCALED_PRESSURE];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.SCALED_PRESSURE];
                     if (bytearray != null)
                     {
                         var pres = bytearray.ByteArrayToStructure<MAVLink.mavlink_scaled_pressure_t>(6);
@@ -787,7 +916,18 @@ enum gcs_severity {
                         press_temp = pres.temperature;
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_SENSOR_OFFSETS];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.TERRAIN_REPORT];
+                    if (bytearray != null)
+                    {
+                        var terrainrep = bytearray.ByteArrayToStructure<MAVLink.mavlink_terrain_report_t>(6);
+                        ter_curalt = terrainrep.current_height;
+                        ter_alt = terrainrep.terrain_height;
+                        ter_load = terrainrep.loaded;
+                        ter_pend = terrainrep.pending;
+                        ter_space = terrainrep.spacing;
+                    }
+
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.SENSOR_OFFSETS];
                     if (bytearray != null)
                     {
                         var sensofs = bytearray.ByteArrayToStructure<MAVLink.mavlink_sensor_offsets_t>(6);
@@ -810,7 +950,7 @@ enum gcs_severity {
 
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_ATTITUDE];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.ATTITUDE];
 
                     if (bytearray != null)
                     {
@@ -822,22 +962,21 @@ enum gcs_severity {
 
                         //                    Console.WriteLine(roll + " " + pitch + " " + yaw);
 
-                        //MAVLink.packets[MAVLink.MAVLINK_MSG_ID_ATTITUDE] = null;
+                        //MAVLink.packets[(byte)MAVLink.MSG_NAMES.ATTITUDE] = null;
                     }
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_GPS_RAW_INT];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.GPS_RAW_INT];
                     if (bytearray != null)
                     {
                         var gps = bytearray.ByteArrayToStructure<MAVLink.mavlink_gps_raw_int_t>(6);
 
                         if (!useLocation)
                         {
-                            lat = gps.lat * 1.0e-7f;
-                            lng = gps.lon * 1.0e-7f;
+                            lat = gps.lat * 1.0e-7;
+                            lng = gps.lon * 1.0e-7;
 
+                            altasl = gps.alt / 1000.0f;
                            // alt = gps.alt; // using vfr as includes baro calc
                         }
-
-                        altasl = gps.alt / 1000.0f;
 
                         gpsstatus = gps.fix_type;
                         //                    Console.WriteLine("gpsfix {0}",gpsstatus);
@@ -849,17 +988,35 @@ enum gcs_severity {
                         groundspeed = gps.vel * 1.0e-2f;
                         groundcourse = gps.cog * 1.0e-2f;
 
-                        //MAVLink.packets[MAVLink.MAVLINK_MSG_ID_GPS_RAW] = null;
+                        //MAVLink.packets[(byte)MAVLink.MSG_NAMES.GPS_RAW] = null;
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_GPS_STATUS];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.GPS2_RAW];
+                    if (bytearray != null)
+                    {
+                        var gps = bytearray.ByteArrayToStructure<MAVLink.mavlink_gps2_raw_t>(6);
+
+                        lat2 = gps.lat * 1.0e-7;
+                        lng2 = gps.lon * 1.0e-7;
+                        altasl2 = gps.alt / 1000.0f;
+
+                        gpsstatus2 = gps.fix_type;
+                        gpshdop2 = (float)Math.Round((double)gps.eph / 100.0, 2);
+
+                        satcount2 = gps.satellites_visible;
+
+                        groundspeed2 = gps.vel * 1.0e-2f;
+                        groundcourse2 = gps.cog * 1.0e-2f;
+                    }
+
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.GPS_STATUS];
                     if (bytearray != null)
                     {
                         var gps = bytearray.ByteArrayToStructure<MAVLink.mavlink_gps_status_t>(6);
                         satcount = gps.satellites_visible;
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_RADIO];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.RADIO];
                     if (bytearray != null)
                     {
                         var radio = bytearray.ByteArrayToStructure<MAVLink.mavlink_radio_t>(6);
@@ -872,7 +1029,7 @@ enum gcs_severity {
                         fixedp = radio.@fixed;
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_RADIO_STATUS];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.RADIO_STATUS];
                     if (bytearray != null)
                     {
                         var radio = bytearray.ByteArrayToStructure<MAVLink.mavlink_radio_status_t>(6);
@@ -885,7 +1042,7 @@ enum gcs_severity {
                         fixedp = radio.@fixed;
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_GLOBAL_POSITION_INT];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.GLOBAL_POSITION_INT];
                     if (bytearray != null)
                     {
                         var loc = bytearray.ByteArrayToStructure<MAVLink.mavlink_global_position_int_t>(6);
@@ -894,6 +1051,7 @@ enum gcs_severity {
 
                         alt = loc.relative_alt / 1000.0f;
 
+
                         useLocation = true;
                         if (loc.lat == 0 && loc.lon == 0)
                         {
@@ -901,12 +1059,14 @@ enum gcs_severity {
                         }
                         else
                         {
-                            lat = loc.lat / 10000000.0f;
-                            lng = loc.lon / 10000000.0f;
+                            lat = loc.lat / 10000000.0;
+                            lng = loc.lon / 10000000.0;
+
+                            altasl = loc.alt / 1000.0f;
                         }
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_MISSION_CURRENT];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.MISSION_CURRENT];
                     if (bytearray != null)
                     {
                         var wpcur = bytearray.ByteArrayToStructure<MAVLink.mavlink_mission_current_t>(6);
@@ -915,15 +1075,15 @@ enum gcs_severity {
 
                         wpno = wpcur.seq;
 
-                        if (oldwp != wpno && MainV2.speechEnable && MainV2.getConfig("speechwaypointenabled") == "True")
+                        if (oldwp != wpno && MainV2.speechEnable && MainV2.comPort.MAV.cs == this && MainV2.getConfig("speechwaypointenabled") == "True")
                         {
                             MainV2.speechEngine.SpeakAsync(Common.speechConversion(MainV2.getConfig("speechwaypoint")));
                         }
 
-                        //MAVLink.packets[MissionPlanner.MAVLink.MAVLINK_MSG_ID_WAYPOINT_CURRENT] = null;
+                        //MAVLink.packets[(byte)MAVLink.MSG_NAMES.WAYPOINT_CURRENT] = null;
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.NAV_CONTROLLER_OUTPUT];
 
                     if (bytearray != null)
                     {
@@ -938,10 +1098,10 @@ enum gcs_severity {
                         aspd_error = nav.aspd_error / 100.0f;
                         xtrack_error = nav.xtrack_error;
 
-                        //MAVLink.packets[MAVLink.MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT] = null;
+                        //MAVLink.packets[(byte)MAVLink.MSG_NAMES.NAV_CONTROLLER_OUTPUT] = null;
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_RC_CHANNELS_RAW];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.RC_CHANNELS_RAW];
                     if (bytearray != null)
                     {
                         var rcin = bytearray.ByteArrayToStructure<MAVLink.mavlink_rc_channels_raw_t>(6);
@@ -956,12 +1116,12 @@ enum gcs_severity {
                         ch8in = rcin.chan8_raw;
 
                         //percent
-                        rxrssi = (float)((rcin.rssi / 255.0) * 100.0);
+                        rxrssi = (int)((rcin.rssi / 255.0) * 100.0);
 
-                        //MAVLink.packets[MAVLink.MAVLINK_MSG_ID_RC_CHANNELS_RAW] = null;
+                        //MAVLink.packets[(byte)MAVLink.MSG_NAMES.RC_CHANNELS_RAW] = null;
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_SERVO_OUTPUT_RAW];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.SERVO_OUTPUT_RAW];
                     if (bytearray != null)
                     {
                         var servoout = bytearray.ByteArrayToStructure<MAVLink.mavlink_servo_output_raw_t>(6);
@@ -975,11 +1135,11 @@ enum gcs_severity {
                         ch7out = servoout.servo7_raw;
                         ch8out = servoout.servo8_raw;
 
-                        //MAVLink.packets[MAVLink.MAVLINK_MSG_ID_SERVO_OUTPUT_RAW] = null;
+                        MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.SERVO_OUTPUT_RAW] = null;
                     }
 
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_RAW_IMU];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.RAW_IMU];
                     if (bytearray != null)
                     {
                         var imu = bytearray.ByteArrayToStructure<MAVLink.mavlink_raw_imu_t>(6);
@@ -996,10 +1156,10 @@ enum gcs_severity {
                         my = imu.ymag;
                         mz = imu.zmag;
 
-                        //MAVLink.packets[MAVLink.MAVLINK_MSG_ID_RAW_IMU] = null;
+                        //MAVLink.packets[(byte)MAVLink.MSG_NAMES.RAW_IMU] = null;
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_SCALED_IMU];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.SCALED_IMU];
                     if (bytearray != null)
                     {
                         var imu = bytearray.ByteArrayToStructure<MAVLink.mavlink_scaled_imu_t>(6);
@@ -1012,16 +1172,21 @@ enum gcs_severity {
                         ay = imu.yacc;
                         az = imu.zacc;
 
-                        //MAVLink.packets[MAVLink.MAVLINK_MSG_ID_RAW_IMU] = null;
+                        mx = imu.xmag;
+                        my = imu.ymag;
+                        mz = imu.zmag;
+
+                        //MAVLink.packets[(byte)MAVLink.MSG_NAMES.RAW_IMU] = null;
                     }
 
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_VFR_HUD];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.VFR_HUD];
                     if (bytearray != null)
                     {
                         var vfr = bytearray.ByteArrayToStructure<MAVLink.mavlink_vfr_hud_t>(6);
 
-                        //groundspeed = vfr.groundspeed;
+                        groundspeed = vfr.groundspeed;
+
                         airspeed = vfr.airspeed;
 
                         //alt = vfr.alt; // this might include baro
@@ -1032,12 +1197,14 @@ enum gcs_severity {
 
                         //climbrate = vfr.climb;
 
+                        // heading = vfr.heading;
+
  
 
-                        //MAVLink.packets[MAVLink.MAVLINK_MSG_ID_VFR_HUD] = null;
+                        //MAVLink.packets[(byte)MAVLink.MSG_NAMES.VFR_HUD] = null;
                     }
 
-                    bytearray = mavinterface.MAV.packets[MAVLink.MAVLINK_MSG_ID_MEMINFO];
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.MEMINFO];
                     if (bytearray != null)
                     {
                         var mem = bytearray.ByteArrayToStructure<MAVLink.mavlink_meminfo_t>(6);
@@ -1052,6 +1219,12 @@ enum gcs_severity {
                 {
                     if (bs != null)
                     {
+                        bs.DataSource = this;
+                        bs.ResetBindings(false);
+
+                        return;
+                        /*
+
                         if (bs.Count > 200)
                         {
                             while (bs.Count > 3)
@@ -1059,7 +1232,7 @@ enum gcs_severity {
                             //bs.Clear();
                         }
                         bs.Add(this);
-
+                        /*
                         return;
 
                         bs.DataSource = this;
@@ -1092,7 +1265,7 @@ enum gcs_severity {
                         sw.Stop();
                         elaps = sw.Elapsed;
                         Console.WriteLine("3 " + elaps.ToString("0.#####") + " done ");
-
+                        */
                     }
                 }
                 catch { log.InfoFormat("CurrentState Binding error"); }
@@ -1135,5 +1308,91 @@ enum gcs_severity {
 
             //low pass the outputs for better results!
         }
+
+        /// <summary>
+        /// derived from MAV_SYS_STATUS_SENSOR
+        /// </summary>
+        public class Mavlink_Sensors
+        {
+            BitArray bitArray = new BitArray(32);
+
+            public Mavlink_Sensors()
+            {
+                //var item = MAVLink.MAV_SYS_STATUS_SENSOR._3D_ACCEL;
+            }
+
+            public Mavlink_Sensors(uint p)
+            {
+                bitArray = new BitArray(new int[] { (int)p});
+            }
+
+            public bool gyro { get { return bitArray[0]; } set { bitArray[0] = value; } }
+            public bool accelerometer { get { return bitArray[1]; } set { bitArray[1] = value; } }
+            public bool compass { get { return bitArray[2]; } set { bitArray[2] = value; } }
+            public bool barometer { get { return bitArray[3]; } set { bitArray[3] = value; } }
+            public bool differential_pressure { get { return bitArray[4]; } set { bitArray[4] = value; } }
+            public bool gps { get { return bitArray[5]; } set { bitArray[5] = value; } }
+            public bool optical_flow { get { return bitArray[6]; } set { bitArray[6] = value; } }
+            public bool VISION_POSITION { get { return bitArray[7]; } set { bitArray[7] = value; } }
+            public bool LASER_POSITION { get { return bitArray[8]; } set { bitArray[8] = value; } }
+            public bool GROUND_TRUTH { get { return bitArray[9]; } set { bitArray[9] = value; } }
+            public bool rate_control { get { return bitArray[10]; } set { bitArray[10] = value; } }
+            public bool attitude_stabilization { get { return bitArray[11]; } set { bitArray[11] = value; } }
+            public bool yaw_position { get { return bitArray[12]; } set { bitArray[12] = value; } }
+            public bool altitude_control { get { return bitArray[13]; } set { bitArray[13] = value; } }
+            public bool xy_position_control { get { return bitArray[14]; } set { bitArray[14] = value; } }
+            public bool motor_control { get { return bitArray[15]; } set { bitArray[15] = value; } }
+            public bool rc_receiver { get { return bitArray[16]; } set { bitArray[16] = value; } }
+            public bool gyro2 { get { return bitArray[17]; } set { bitArray[17] = value; } }
+            public bool accel2 { get { return bitArray[18]; } set { bitArray[18] = value; } }
+            public bool mag2 { get { return bitArray[19]; } set { bitArray[19] = value; } }
+
+            public bool geofence { get { return bitArray[20]; } set { bitArray[20] = value; } }
+            public bool ahrs { get { return bitArray[21]; } set { bitArray[21] = value; } }
+            public bool terrain { get { return bitArray[22]; } set { bitArray[22] = value; } }
+
+            public int Value
+            {
+                get
+                {
+                    int[] array = new int[1];
+                    bitArray.CopyTo(array, 0);
+                    return array[0];
+                }
+                set 
+                {
+                    bitArray = new BitArray(value);
+                }
+            }
+        }
+
+        public float campointa { get; set; }
+
+        public float campointb { get; set; }
+
+        public float campointc { get; set; }
+
+        public PointLatLngAlt GimbalPoint { get; set; }
+
+        public float gimballat { get { if (GimbalPoint == null) return 0; return (float)GimbalPoint.Lat; } }
+        public float gimballng { get { if (GimbalPoint == null) return 0; return (float)GimbalPoint.Lng; } }
+
+
+        public bool landed { get; set; }
+
+        float _ter_curalt;
+        public float ter_curalt { get { return _ter_curalt * multiplierdist; } set { _ter_curalt = value; } }
+        float _ter_alt;
+        public float ter_alt { get { return _ter_alt * multiplierdist; } set { _ter_alt = value; } }
+
+        public float ter_load { get; set; }
+
+        public float ter_pend { get; set; }
+
+        public float ter_space { get; set; }
+
+        public static float KIndexstatic = -1;
+
+        public int KIndex { get { return (int)CurrentState.KIndexstatic; } }
     }
 }

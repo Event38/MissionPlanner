@@ -13,6 +13,7 @@ using System.Collections;
 using System.IO;
 using DirectShowLib;
 using AviFile;
+using DirectShowLib.DES;
 
 namespace MissionPlanner
 {
@@ -54,11 +55,12 @@ namespace MissionPlanner
         private bool m_bRunning = false;
 
         /// <summary> Dimensions of the image, calculated once in constructor. </summary>
-        public IntPtr m_handle = IntPtr.Zero;
+        private IntPtr m_handle = IntPtr.Zero;
         private int m_videoWidth;
         private int m_videoHeight;
         private int m_stride;
         public int m_Dropped = 0;
+        private long m_avgtimeperframe;
 
         public Bitmap image = null;
         IntPtr ip = IntPtr.Zero;
@@ -76,6 +78,8 @@ namespace MissionPlanner
             Control.CheckForIllegalCrossThreadCalls = false;
 
             hud1.SixteenXNine = true;
+
+            MissionPlanner.Utilities.Tracking.AddPage(this.GetType().ToString(), this.Text);
         }
 
         void OSDVideo_camimage(Image camimage)
@@ -95,7 +99,6 @@ namespace MissionPlanner
                     sw.WriteLine(txtAviFileName.Text);
                     sw.WriteLine(txt_tlog.Text);
                     sw.WriteLine(trackBar1.Value);
-                    sw.Close();
                 }
             }
             catch { }
@@ -110,7 +113,6 @@ namespace MissionPlanner
                     txtAviFileName.Text = sr.ReadLine();
                     txt_tlog.Text = sr.ReadLine();
                     trackBar1.Value = int.Parse(sr.ReadLine());
-                    sr.Close();
                 }
             }
             catch { }
@@ -284,7 +286,7 @@ namespace MissionPlanner
         {
             flightdata.Clear();
 
-            MAVLink mine = new MAVLink();
+            MAVLinkInterface mine = new MAVLinkInterface();
             try
             {
                 mine.logplaybackfile = new BinaryReader(File.Open(txt_tlog.Text, FileMode.Open, FileAccess.Read, FileShare.Read));
@@ -408,7 +410,10 @@ namespace MissionPlanner
 
                     hud1.datetime = cs.datetime;
                     
-                    cs.UpdateCurrentSettings(bindingSource1);
+                    //cs.UpdateCurrentSettings(bindingSource1,true,MainV2.comPort);
+
+                    bindingSource1.DataSource = cs;
+                    bindingSource1.ResetBindings(false);
 
                 }
                 catch (ThreadAbortException)
@@ -480,6 +485,63 @@ namespace MissionPlanner
             }
         }
 
+        private double GetFrameRate(string filename)
+        {
+            IMediaDet md = new MediaDet() as IMediaDet;
+            Guid streamType;
+            AMMediaType mt = new AMMediaType();
+            int hr, nStreams;
+
+            md.put_Filename(filename);
+            md.get_OutputStreams(out nStreams);
+
+            for (int i = 0; i < nStreams; i++)
+            {
+                hr = md.put_CurrentStream(i);
+                DsError.ThrowExceptionForHR(hr);
+
+                hr = md.get_StreamType(out streamType);
+                DsError.ThrowExceptionForHR(hr);
+                if (streamType == MediaType.Video)
+                {
+                    md.put_CurrentStream(0);
+
+                    double frate = 30;
+
+                    md.get_FrameRate(out frate);
+                    return frate;
+                }
+            }
+
+            return 30;        
+        }
+
+        private List<int> GetAudioStreams(string filename)
+        {
+            IMediaDet md = new MediaDet() as IMediaDet;
+            Guid streamType;
+            AMMediaType mt = new AMMediaType();
+            int hr, nStreams;
+            List<int> streamList = new List<int>();
+
+            md.put_Filename(filename);
+            md.get_OutputStreams(out nStreams);
+
+            for (int i = 0; i < nStreams; i++)
+            {
+                hr = md.put_CurrentStream(i);
+                DsError.ThrowExceptionForHR(hr);
+
+                hr = md.get_StreamType(out streamType);
+                DsError.ThrowExceptionForHR(hr);
+                if (streamType == MediaType.Audio)
+                    streamList.Add(i);
+            }
+
+            return streamList;
+        }
+
+
         private void SaveSizeInfo(ISampleGrabber sampGrabber)
         {
             int hr;
@@ -499,6 +561,7 @@ namespace MissionPlanner
             m_videoWidth = videoInfoHeader.BmiHeader.Width;
             m_videoHeight = videoInfoHeader.BmiHeader.Height;
             m_stride = m_videoWidth * (videoInfoHeader.BmiHeader.BitCount / 8);
+            m_avgtimeperframe = videoInfoHeader.AvgTimePerFrame;
 
             DsUtils.FreeAMMediaType(media);
             media = null;
@@ -584,7 +647,7 @@ namespace MissionPlanner
             {
                 newManager = new AviManager(System.IO.Path.GetDirectoryName(txtAviFileName.Text) + System.IO.Path.DirectorySeparatorChar + System.IO.Path.GetFileNameWithoutExtension(txtAviFileName.Text) + "-overlay.avi", false);
             }
-            catch { CustomMessageBox.Show("bad filename","error"); return; }
+            catch { CustomMessageBox.Show(Strings.InvalidFileName, Strings.ERROR); return; }
 
 
             //newManager.Close();
@@ -687,8 +750,11 @@ namespace MissionPlanner
 
                 if (newStream == null)
                 {
-                    int fixframerate; // currently forcing 30 fps
-                    newStream = newManager.AddVideoStream(true, (double)(int)30, bmp);
+                    //double frate = GetFrameRate(txtAviFileName.Text);
+
+                    double frate = Math.Round(10000000.0 / m_avgtimeperframe,0);
+
+                    newStream = newManager.AddVideoStream(true, frate, bmp);
                 }
 
                 Console.WriteLine("2 " + DateTime.Now.Millisecond);
@@ -710,6 +776,7 @@ namespace MissionPlanner
         }
 
         object avienclock = new object();
+       
 
         void addframe(object bmp) {
 
@@ -732,6 +799,8 @@ namespace MissionPlanner
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             hud1.Invalidate();
+
+            label1.Text = "time offset in seconds "+trackBar1.Value;
 
             saveconfig();
         }

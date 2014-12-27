@@ -44,6 +44,17 @@ namespace MissionPlanner.GCSViews
 
         public void Deactivate()
         {
+            try
+            {
+                if (comPort.IsOpen)
+                {
+                    comPort.Write("\rexit\rreboot\r");
+
+                    comPort.Close();
+                }
+            }
+            catch { }
+
             MainV2.instance.MenuConnect.Visible = true;
         }
 
@@ -68,10 +79,14 @@ namespace MissionPlanner.GCSViews
 
                         buffer[a] = indata;
 
-                        if (buffer[a] >= 0x20 && buffer[a] < 0x7f || buffer[a] == (int)'\n' || buffer[a] == (int)'\r')
+                        if (buffer[a] >= 0x20 && buffer[a] < 0x7f || buffer[a] == (int)'\n' || buffer[a] == 0x1b)
                         {
                             a++;
                         }
+
+                        if (indata == '\n')
+                            break;
+
                         if (a == (buffer.Length-1))
                             break;
                     }
@@ -91,19 +106,20 @@ namespace MissionPlanner.GCSViews
 
                 TXT_terminal.SelectionStart = TXT_terminal.Text.Length;
 
-                data = data.Replace("U3","");
-                data = data.Replace("U$", "");
-                data = data.Replace(@"U""","");
-                data = data.Replace("d'`F", "");
-                data = data.Replace("U.", "");
-                data = data.Replace("'`","");
-
                 data = data.TrimEnd('\r'); // else added \n all by itself
                 data = data.Replace("\0", "");
+                data = data.Replace((char)0x1b+"[K",""); // remove control code
                 TXT_terminal.AppendText(data);
+
                 if (data.Contains("\b"))
                 {
                     TXT_terminal.Text = TXT_terminal.Text.Remove(TXT_terminal.Text.IndexOf('\b'));
+                    TXT_terminal.SelectionStart = TXT_terminal.Text.Length;
+                }
+               
+                // erase to end of line. in our case jump to end of line
+                if (data.Contains((char)0x1b + "[K"))
+                {
                     TXT_terminal.SelectionStart = TXT_terminal.Text.Length;
                 }
                 inputStartPos = TXT_terminal.SelectionStart;
@@ -114,15 +130,16 @@ namespace MissionPlanner.GCSViews
         private void TXT_terminal_Click(object sender, EventArgs e)
         {
             // auto scroll
-            TXT_terminal.SelectionStart = TXT_terminal.Text.Length;
+            //TXT_terminal.SelectionStart = TXT_terminal.Text.Length;
 
-            TXT_terminal.ScrollToCaret();
+            //TXT_terminal.ScrollToCaret();
 
-            TXT_terminal.Refresh();
+            //TXT_terminal.Refresh();
         }
 
         private void TXT_terminal_KeyDown(object sender, KeyEventArgs e)
         {
+            TXT_terminal.SelectionStart = TXT_terminal.Text.Length;
             /*    if (e.KeyData == Keys.Up || e.KeyData == Keys.Down || e.KeyData == Keys.Left || e.KeyData == Keys.Right)
                 {
                     e.Handled = true; // ignore it
@@ -167,21 +184,21 @@ namespace MissionPlanner.GCSViews
 
             try
             {
-                if (comPort.IsOpen)
+                if (comPort != null && comPort.IsOpen)
                 {
                     comPort.Close();
                 }
             }
             catch { } // Exception System.IO.IOException: The specified port does not exist.
 
-            System.Threading.Thread.Sleep(400);
+            //System.Threading.Thread.Sleep(400);
         }
 
         private void TXT_terminal_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == '\r')
             {
-                
+
                 if (comPort.IsOpen)
                 {
                     try
@@ -215,7 +232,7 @@ namespace MissionPlanner.GCSViews
                             comPort.Write(Encoding.ASCII.GetBytes(cmd + "\r"), 0, cmd.Length + 1);
                         }
                     }
-                    catch { CustomMessageBox.Show("Error writing to com port"); }
+                    catch { CustomMessageBox.Show(Strings.ErrorCommunicating, Strings.ERROR); }
                 }
             }
             /*
@@ -275,10 +292,17 @@ namespace MissionPlanner.GCSViews
         {
             if (comPort == null)
             {
-                comPort = new MissionPlanner.Comms.SerialPort();
-                comPort.BaudRate = MainV2.comPort.BaseStream.BaudRate;
-                comPort.PortName = MainV2.comPortName;
-                comPort.ReadBufferSize = 1024 * 1024 * 4;
+                try
+                {
+                    comPort = new MissionPlanner.Comms.SerialPort();
+                    comPort.PortName = MainV2.comPortName;
+                    comPort.BaudRate = int.Parse(MainV2._connectionControl.CMB_baudrate.Text);
+                    comPort.ReadBufferSize = 1024 * 1024 * 4;
+                }
+                catch 
+                { 
+                    CustomMessageBox.Show(Strings.InvalidBaudRate, Strings.ERROR);
+                }
             }
         }
 
@@ -316,49 +340,55 @@ namespace MissionPlanner.GCSViews
 
                 if (px4)
                 {
-                    TXT_terminal.AppendText("Rebooting\n");
+                    TXT_terminal.AppendText("Rebooting " + MainV2.comPortName + " at " + comPort.BaudRate + "\n");
                     // keep it local
-                    MAVLink mine = new MAVLink();
-
-                    mine.BaseStream.PortName = MainV2.comPortName;
-                    mine.BaseStream.BaudRate = comPort.BaudRate;
-
-                    mine.giveComport = true;
-                    mine.BaseStream.Open();
-
-                    // check if we are a mavlink stream
-                    byte[] buffer = mine.readPacket();
-
-                    if (buffer.Length > 0)
+                    using (MAVLinkInterface mine = new MAVLinkInterface())
                     {
-                        log.Info("got packet - sending reboot via mavlink");
-                        TXT_terminal.AppendText("Via Mavlink\n");
-                        mine.doReboot(false);
-                        try
-                        {
-                            mine.BaseStream.Close();
-                        }
-                        catch { }
 
-                    }
-                    else
-                    {
-                        log.Info("no packet - sending reboot via console");
-                        TXT_terminal.AppendText("Via Console\n");
-                        MainV2.comPort.BaseStream.Write("exit\rreboot\r");
-                        try
-                        {
-                            MainV2.comPort.BaseStream.Close();
-                        }
-                        catch { }
+                        mine.BaseStream.PortName = MainV2.comPortName;
+                        mine.BaseStream.BaudRate = comPort.BaudRate;
 
+                        mine.giveComport = true;
+                        mine.BaseStream.Open();
+
+                        // check if we are a mavlink stream
+                        byte[] buffer = mine.readPacket();
+
+                        if (buffer.Length > 0)
+                        {
+                            log.Info("got packet - sending reboot via mavlink");
+                            TXT_terminal.AppendText("Via Mavlink\n");
+                            mine.doReboot(false);
+                            try
+                            {
+                                mine.BaseStream.Close();
+                            }
+                            catch { }
+
+                        }
+                        else
+                        {
+                            log.Info("no packet - sending reboot via console");
+                            TXT_terminal.AppendText("Via Console\n");
+                            try
+                            {
+                                mine.BaseStream.Write("reboot\r");
+                                mine.BaseStream.Write("exit\rreboot\r");
+                            }
+                            catch { }
+                            try
+                            {
+                                mine.BaseStream.Close();
+                            }
+                            catch { }
+                        }
                     }
 
                     TXT_terminal.AppendText("Waiting for reboot\n");
 
                     // wait 7 seconds for px4 reboot
                     log.Info("waiting for reboot");
-                    DateTime deadline = DateTime.Now.AddSeconds(8);
+                    DateTime deadline = DateTime.Now.AddSeconds(9);
                     while (DateTime.Now < deadline)
                     {
                         System.Threading.Thread.Sleep(500);
@@ -386,6 +416,8 @@ namespace MissionPlanner.GCSViews
 
                     comPort.Open();
 
+                    log.Info("toggle dtr");
+
                     comPort.toggleDTR();
                 }
 
@@ -404,6 +436,12 @@ namespace MissionPlanner.GCSViews
                     threadrun = true;
 
                     Console.WriteLine("Terminal thread start run run " + threadrun + " " + comPort.IsOpen);
+
+                    try
+                    {
+                        comPort.Write("\r");
+                    }
+                    catch { }
 
                     // 10 sec
                         waitandsleep(10000);
@@ -557,7 +595,7 @@ namespace MissionPlanner.GCSViews
         {
             inlogview = true;
             System.Threading.Thread.Sleep(300);
-            Form Log = new MissionPlanner.Log.Log();
+            Form Log = new MissionPlanner.Log.LogDownload();
             ThemeManager.ApplyThemeTo(Log);
             Log.ShowDialog();
             inlogview = false;
@@ -572,9 +610,20 @@ namespace MissionPlanner.GCSViews
 
         private void BUT_RebootAPM_Click(object sender, EventArgs e)
         {
+            if (MainV2.comPort.BaseStream.IsOpen)
+                MainV2.comPort.BaseStream.Close();
+
+            if (comPort.IsOpen)
+            {
+                BUT_disconnect.Enabled = true;
+                return;
+            }
+
             if (CMB_boardtype.Text.Contains("APM"))
                 start_Terminal(false);
             if (CMB_boardtype.Text.Contains("PX4"))
+                start_Terminal(true);
+            if (CMB_boardtype.Text.Contains("VRX"))
                 start_Terminal(true);
         }
 
@@ -582,6 +631,11 @@ namespace MissionPlanner.GCSViews
         {
             try
             {
+                try
+                {
+                    comPort.Write("reboot\n");
+                }
+                catch { }
                 comPort.Close();
                 TXT_terminal.AppendText("Closed\n");
             }

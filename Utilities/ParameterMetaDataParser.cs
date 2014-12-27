@@ -16,8 +16,7 @@ namespace MissionPlanner.Utilities
    {
       private static readonly Regex _paramMetaRegex = new Regex(String.Format("{0}(?<MetaKey>[^:\\s]+):(?<MetaValue>.+)", ParameterMetaDataConstants.ParamDelimeter));
       private static readonly Regex _parentDirectoryRegex = new Regex("(?<ParentDirectory>[../]*)(?<Path>.+)");
-      private static readonly ILog log =
-         LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+      private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
       static Dictionary<string, string> cache = new Dictionary<string, string>();
 
@@ -30,6 +29,9 @@ namespace MissionPlanner.Utilities
       public static void GetParameterInformation()
       {
          string parameterLocationsString = ConfigurationManager.AppSettings["ParameterLocations"];
+
+         if (MissionPlanner.Utilities.Update.dobeta)
+            parameterLocationsString = ConfigurationManager.AppSettings["ParameterLocationsBleeding"];
 
          if(!String.IsNullOrEmpty(parameterLocationsString))
          {
@@ -48,12 +50,21 @@ namespace MissionPlanner.Utilities
                {
                    string element = "none";
 
-                   if (parameterLocation.ToLower().Contains("arducopter")) {
+                   if (parameterLocation.ToLower().Contains("arducopter"))
+                   {
                        element = MainV2.Firmwares.ArduCopter2.ToString();
-                   } else if (parameterLocation.ToLower().Contains("arduplane")) {
+                   } 
+                   else if (parameterLocation.ToLower().Contains("arduplane"))
+                   {
                        element = MainV2.Firmwares.ArduPlane.ToString();
-                   } else if (parameterLocation.ToLower().Contains("rover")) {
+                   } 
+                   else if (parameterLocation.ToLower().Contains("rover"))
+                   {
                        element = MainV2.Firmwares.ArduRover.ToString();
+                   }
+                   else if (parameterLocation.ToLower().Contains("tracker"))
+                   {
+                       element = MainV2.Firmwares.ArduTracker.ToString();
                    }
 
                   // Write the start element for this parameter location
@@ -164,6 +175,8 @@ namespace MissionPlanner.Utilities
          {
             parsedInformation.ForEach(node =>
             {
+               parameterPrefix = parameterPrefix.Replace('(','_');
+               parameterPrefix = parameterPrefix.Replace(')','_');
                objXmlTextWriter.WriteStartElement(String.Format("{0}{1}", parameterPrefix, node.Key));
                if (node.Value != null && node.Value.Count > 0)
                {
@@ -297,8 +310,14 @@ namespace MissionPlanner.Utilities
       /// </summary>
       /// <param name="address">The address.</param>
       /// <returns></returns>
-      private static string ReadDataFromAddress(string address)
+      private static string ReadDataFromAddress(string address, int attempt = 0)
       {
+          if (attempt > 2)
+          {
+              log.Error(String.Format("Failed {0}", address));
+              return String.Empty;
+          }
+
          string data = string.Empty;
 
          log.Info(address);
@@ -333,18 +352,9 @@ namespace MissionPlanner.Utilities
                      {
                         // Store the data to return
                         data = reader.ReadToEnd();
-
-                        // Close the reader
-                        reader.Close();
                      }
-
-                     // Close the datastream
-                     dataStream.Close();
                   }
                }
-
-               // Close the response
-               response.Close();
             }
 
             cache[address] = data;
@@ -355,8 +365,9 @@ namespace MissionPlanner.Utilities
          catch (WebException ex)
          {
             log.Error(String.Format("The request to {0} failed.", address), ex);
+
+            return ReadDataFromAddress(address, attempt++);
          }
-         return string.Empty;
       }
    }
 }

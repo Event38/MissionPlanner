@@ -22,14 +22,18 @@ namespace MissionPlanner
         {
             InitializeComponent();
 
+            chk_write.Checked = MainV2.comPort.MirrorStreamWrite;
+
             CMB_serialport.Items.AddRange(SerialPort.GetPortNames());
-            CMB_serialport.Items.Add("TCP Host");
+            CMB_serialport.Items.Add("TCP Host - 14550");
             CMB_serialport.Items.Add("TCP Client");
 
             if (MainV2.comPort.MirrorStream != null && MainV2.comPort.MirrorStream.IsOpen || listener != null)
             {
                 BUT_connect.Text = "Stop";
             }
+
+            MissionPlanner.Utilities.Tracking.AddPage(this.GetType().ToString(), this.Text);
         }
 
         private void BUT_connect_Click(object sender, EventArgs e)
@@ -45,6 +49,7 @@ namespace MissionPlanner
                 {
                     switch (CMB_serialport.Text)
                     {
+                        case "TCP Host - 14550":
                         case "TCP Host":
                             MainV2.comPort.MirrorStream = new TcpSerial();
                             listener = new TcpListener(System.Net.IPAddress.Any,14550);
@@ -87,6 +92,11 @@ namespace MissionPlanner
             ((TcpSerial)MainV2.comPort.MirrorStream).client = client;
 
             listener.BeginAcceptTcpClient(new AsyncCallback(DoAcceptTcpClientCallback), listener);
+        }
+
+        private void chk_write_CheckedChanged(object sender, EventArgs e)
+        {
+            MainV2.comPort.MirrorStreamWrite = chk_write.Checked;
         }
     }
 }

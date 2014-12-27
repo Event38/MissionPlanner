@@ -28,6 +28,8 @@ namespace MissionPlanner.Swarm
             CMB_mavs.DataSource = bindingSource1;
 
             MessageBox.Show("this is beta, use at own risk");
+
+            MissionPlanner.Utilities.Tracking.AddPage(this.GetType().ToString(), this.Text);
         }
 
         private void CMB_mavs_SelectedIndexChanged(object sender, EventArgs e)
@@ -133,7 +135,7 @@ namespace MissionPlanner.Swarm
                 }
             }
 
-            MAVLink com2 = new MAVLink();
+            MAVLinkInterface com2 = new MAVLinkInterface();
 
             com2.BaseStream.PortName = Comms.CommsSerialScan.portinterface.PortName;
             com2.BaseStream.BaudRate = Comms.CommsSerialScan.portinterface.BaudRate;
@@ -155,7 +157,7 @@ namespace MissionPlanner.Swarm
             // clean up old
             foreach (Control ctl in PNL_status.Controls)
             {
-                if (!MainV2.Comports.Contains((MAVLink)ctl.Tag))
+                if (!MainV2.Comports.Contains((MAVLinkInterface)ctl.Tag))
                 {
                     ctl.Dispose();
                 }
@@ -170,7 +172,7 @@ namespace MissionPlanner.Swarm
                     if (ctl is Status && ctl.Tag == port)
                     {
                         exists = true;
-                        ((Status)ctl).GPS.Text = port.MAV.cs.gpsstatus == 3 ? "OK" : "Bad";
+                        ((Status)ctl).GPS.Text = port.MAV.cs.gpsstatus >= 3 ? "OK" : "Bad";
                         ((Status)ctl).Armed.Text = port.MAV.cs.armed.ToString();
                         ((Status)ctl).Mode.Text = port.MAV.cs.mode;
                         ((Status)ctl).MAV.Text = port.ToString();

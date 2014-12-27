@@ -104,7 +104,7 @@ namespace MissionPlanner.Utilities
 
         public static bool operator ==(utmpos left, utmpos right)
         {
-            return ((left.x == right.x) && (left.y == right.y));
+            return ((left.x == right.x) && (left.y == right.y) && (left.zone == right.zone));
         }
 
         public static bool operator !=(utmpos left, utmpos right)
@@ -115,6 +115,17 @@ namespace MissionPlanner.Utilities
         public override string ToString()
         {
             return "utmpos: " + x + "," + y;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = x.GetHashCode();
+                hashCode = (hashCode * 397) ^ y.GetHashCode();
+                hashCode = (hashCode * 397) ^ zone;
+                return hashCode;
+            }
         }
 
         public bool IsZero { get { if (this == Zero) return true; return false; } }

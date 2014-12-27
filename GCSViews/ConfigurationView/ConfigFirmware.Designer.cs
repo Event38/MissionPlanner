@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 using System.Xml;
 using System.Net;
 
-namespace MissionPlanner.GCSViews
+namespace MissionPlanner.GCSViews.ConfigurationView
 {
     partial class ConfigFirmware : MyUserControl
     {
@@ -45,7 +45,6 @@ namespace MissionPlanner.GCSViews
         private System.Windows.Forms.ProgressBar progress;
         private System.Windows.Forms.Label label2;
         private Controls.ImageLabel pictureBoxHeli;
-        private Controls.MyButton BUT_setup;
         private PictureBox pictureBoxHilimage;
         private PictureBox pictureBoxAPHil;
         private PictureBox pictureBoxACHil;
@@ -57,30 +56,31 @@ namespace MissionPlanner.GCSViews
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigFirmware));
-            this.pictureBoxAPM = new Controls.ImageLabel();
-            this.pictureBoxQuad = new Controls.ImageLabel();
-            this.pictureBoxHexa = new Controls.ImageLabel();
-            this.pictureBoxTri = new Controls.ImageLabel();
-            this.pictureBoxY6 = new Controls.ImageLabel();
+            this.pictureBoxAPM = new MissionPlanner.Controls.ImageLabel();
+            this.pictureBoxQuad = new MissionPlanner.Controls.ImageLabel();
+            this.pictureBoxHexa = new MissionPlanner.Controls.ImageLabel();
+            this.pictureBoxTri = new MissionPlanner.Controls.ImageLabel();
+            this.pictureBoxY6 = new MissionPlanner.Controls.ImageLabel();
             this.lbl_status = new System.Windows.Forms.Label();
             this.progress = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
-            this.pictureBoxHeli = new Controls.ImageLabel();
-            this.BUT_setup = new Controls.MyButton();
+            this.pictureBoxHeli = new MissionPlanner.Controls.ImageLabel();
             this.pictureBoxHilimage = new System.Windows.Forms.PictureBox();
             this.pictureBoxAPHil = new System.Windows.Forms.PictureBox();
             this.pictureBoxACHil = new System.Windows.Forms.PictureBox();
             this.pictureBoxACHHil = new System.Windows.Forms.PictureBox();
-            this.pictureBoxOcta = new Controls.ImageLabel();
-            this.pictureBoxOctaQuad = new Controls.ImageLabel();
-            this.pictureBoxRover = new Controls.ImageLabel();
+            this.pictureBoxOcta = new MissionPlanner.Controls.ImageLabel();
+            this.pictureBoxOctaQuad = new MissionPlanner.Controls.ImageLabel();
+            this.pictureBoxRover = new MissionPlanner.Controls.ImageLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.CMB_history = new System.Windows.Forms.ComboBox();
             this.CMB_history_label = new System.Windows.Forms.Label();
             this.lbl_Custom_firmware_label = new System.Windows.Forms.Label();
             this.lbl_devfw = new System.Windows.Forms.Label();
-            this.lbl_px4io = new System.Windows.Forms.Label();
             this.lbl_dlfw = new System.Windows.Forms.Label();
+            this.lbl_px4bl = new System.Windows.Forms.Label();
+            this.pictureAntennaTracker = new MissionPlanner.Controls.ImageLabel();
+            this.lbl_licence = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHilimage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAPHil)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxACHil)).BeginInit();
@@ -130,7 +130,7 @@ namespace MissionPlanner.GCSViews
             // pictureBoxY6
             // 
             this.pictureBoxY6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxY6.Image = global::MissionPlanner.Properties.Resources.y6;
+            this.pictureBoxY6.Image = global::MissionPlanner.Properties.Resources.y6a;
             resources.ApplyResources(this.pictureBoxY6, "pictureBoxY6");
             this.pictureBoxY6.Name = "pictureBoxY6";
             this.pictureBoxY6.TabStop = false;
@@ -162,16 +162,6 @@ namespace MissionPlanner.GCSViews
             this.pictureBoxHeli.TabStop = false;
             this.pictureBoxHeli.Tag = "";
             this.pictureBoxHeli.Click += new System.EventHandler(this.pictureBoxFW_Click);
-            // 
-            // BUT_setup
-            // 
-            this.BUT_setup.BGGradBot = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(226)))), ((int)(((byte)(150)))));
-            this.BUT_setup.BGGradTop = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
-            resources.ApplyResources(this.BUT_setup, "BUT_setup");
-            this.BUT_setup.Name = "BUT_setup";
-            this.BUT_setup.Outline = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(148)))), ((int)(((byte)(41)))));
-            this.BUT_setup.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(87)))), ((int)(((byte)(4)))));
-            this.BUT_setup.UseVisualStyleBackColor = true;
             // 
             // pictureBoxHilimage
             // 
@@ -274,13 +264,6 @@ namespace MissionPlanner.GCSViews
             this.lbl_devfw.Name = "lbl_devfw";
             this.lbl_devfw.Click += new System.EventHandler(this.lbl_devfw_Click);
             // 
-            // lbl_px4io
-            // 
-            resources.ApplyResources(this.lbl_px4io, "lbl_px4io");
-            this.lbl_px4io.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lbl_px4io.Name = "lbl_px4io";
-            this.lbl_px4io.Click += new System.EventHandler(this.lbl_px4io_Click);
-            // 
             // lbl_dlfw
             // 
             resources.ApplyResources(this.lbl_dlfw, "lbl_dlfw");
@@ -288,19 +271,44 @@ namespace MissionPlanner.GCSViews
             this.lbl_dlfw.Name = "lbl_dlfw";
             this.lbl_dlfw.Click += new System.EventHandler(this.lbl_dlfw_Click);
             // 
+            // lbl_px4bl
+            // 
+            resources.ApplyResources(this.lbl_px4bl, "lbl_px4bl");
+            this.lbl_px4bl.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbl_px4bl.Name = "lbl_px4bl";
+            this.lbl_px4bl.Click += new System.EventHandler(this.lbl_px4bl_Click);
+            // 
+            // pictureAntennaTracker
+            // 
+            this.pictureAntennaTracker.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureAntennaTracker.Image = global::MissionPlanner.Properties.Resources.Antenna_Tracker_01;
+            resources.ApplyResources(this.pictureAntennaTracker, "pictureAntennaTracker");
+            this.pictureAntennaTracker.Name = "pictureAntennaTracker";
+            this.pictureAntennaTracker.TabStop = false;
+            this.pictureAntennaTracker.Tag = "";
+            this.pictureAntennaTracker.Click += new System.EventHandler(this.pictureBoxFW_Click);
+            // 
+            // lbl_licence
+            // 
+            resources.ApplyResources(this.lbl_licence, "lbl_licence");
+            this.lbl_licence.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbl_licence.Name = "lbl_licence";
+            this.lbl_licence.Click += new System.EventHandler(this.lbl_dlfw_Click);
+            // 
             // ConfigFirmware
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lbl_licence);
+            this.Controls.Add(this.pictureAntennaTracker);
+            this.Controls.Add(this.lbl_px4bl);
             this.Controls.Add(this.lbl_dlfw);
-            this.Controls.Add(this.lbl_px4io);
             this.Controls.Add(this.lbl_devfw);
             this.Controls.Add(this.lbl_Custom_firmware_label);
             this.Controls.Add(this.CMB_history_label);
             this.Controls.Add(this.pictureBoxRover);
             this.Controls.Add(this.CMB_history);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.BUT_setup);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lbl_status);
             this.Controls.Add(this.progress);
@@ -317,7 +325,6 @@ namespace MissionPlanner.GCSViews
             this.Controls.Add(this.pictureBoxQuad);
             this.Controls.Add(this.pictureBoxAPM);
             this.Name = "ConfigFirmware";
-            this.Load += new System.EventHandler(this.Firmware_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHilimage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAPHil)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxACHil)).EndInit();
@@ -332,8 +339,10 @@ namespace MissionPlanner.GCSViews
         private Label CMB_history_label;
         private Label lbl_Custom_firmware_label;
         private Label lbl_devfw;
-        private Label lbl_px4io;
         private Label lbl_dlfw;
+        private Label lbl_px4bl;
+        private Controls.ImageLabel pictureAntennaTracker;
+        private Label lbl_licence;
 
     }
 }

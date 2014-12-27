@@ -8,6 +8,9 @@ using uint8_t = System.Byte;
 
 namespace MissionPlanner.Log
 {
+    /// <summary>
+    /// Convert a binary log to an assci log
+    /// </summary>
     public class BinaryLog
     {
         const byte HEAD_BYTE1 = 0xA3;    // Decimal 163  
@@ -28,6 +31,21 @@ namespace MissionPlanner.Log
 
         static Dictionary<string, log_Format> logformat = new Dictionary<string, log_Format>();
 
+        public static void ConvertBin(string inputfn, string outputfn)
+        {
+            using (var stream = File.Open(outputfn, FileMode.Create))
+            {
+                using (BinaryReader br = new BinaryReader(File.OpenRead(inputfn)))
+                {
+                    while (br.BaseStream.Position < br.BaseStream.Length)
+                    {
+                        byte[] data = ASCIIEncoding.ASCII.GetBytes(ReadMessage(br.BaseStream));
+                        stream.Write(data, 0, data.Length);
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Read and return the log in assci
         /// </summary>
@@ -37,13 +55,24 @@ namespace MissionPlanner.Log
         {
             List<string> lines = new List<string>();
 
-            BinaryReader br = new BinaryReader(File.OpenRead(fn));
+            using (BinaryReader br = new BinaryReader(File.OpenRead(fn)))
+            {
+                while (br.BaseStream.Position < br.BaseStream.Length)
+                {
+                    lines.Add(ReadMessage(br.BaseStream));
+                }
+            }
 
+            return lines;
+        }
+
+        static string ReadMessage(Stream br)
+        {
             int log_step = 0;
 
-            while (br.BaseStream.Position < br.BaseStream.Length)
+            while (br.Position < br.Length)
             {
-                byte data = br.ReadByte();
+                byte data = (byte)br.ReadByte();
 
                 switch (log_step)
                 {
@@ -72,31 +101,31 @@ namespace MissionPlanner.Log
                             string line = logEntry(data, br);
 
                             // we need to know the mav type to use the correct mode list.
-                            if (line.Contains("PARM, RATE_RLL_P"))
+                            if (line.Contains("PARM, RATE_RLL_P") || line.Contains("ArduCopter"))
                             {
                                 MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.ArduCopter2;
                             }
-                            else if ((line.Contains("PARM, H_SWASH_PLATE")))
+                            else if ((line.Contains("PARM, H_SWASH_PLATE")) || line.Contains("ArduCopter"))
                             {
                                 MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.ArduCopter2;
                             }
-                            else if (line.Contains("PARM, PTCH2SRV_P"))
+                            else if (line.Contains("PARM, PTCH2SRV_P") || line.Contains("ArduPlane"))
                             {
                                 MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.ArduPlane;
                             }
-                            else if (line.Contains("PARM, SKID_STEER_OUT"))
+                            else if (line.Contains("PARM, SKID_STEER_OUT") || line.Contains("ArduRover"))
                             {
                                 MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.ArduRover;
                             }
 
-                            lines.Add(line);
+                            return line;
                         }
                         catch { Console.WriteLine("Bad Binary log line {0}", data); }
                         break;
                 }
             }
 
-            return lines;
+            return "";
         }
 
         /// <summary>
@@ -105,7 +134,7 @@ namespace MissionPlanner.Log
         /// <param name="packettype">packet type</param>
         /// <param name="br">input file</param>
         /// <returns>string of converted data</returns>
-        static string logEntry(byte packettype, BinaryReader br)
+        static string logEntry(byte packettype, Stream br)
         {
 
             switch (packettype)
@@ -119,7 +148,9 @@ namespace MissionPlanner.Log
 
                     int len = Marshal.SizeOf(obj);
 
-                    byte[] bytearray = br.ReadBytes(len);
+                    byte[] bytearray = new byte[len];
+
+                    br.Read(bytearray, 0, bytearray.Length);
 
                     IntPtr i = Marshal.AllocHGlobal(len);
 
@@ -165,7 +196,11 @@ namespace MissionPlanner.Log
                     if (size == 0)
                         return "UNKW, " + packettype;
 
-                    return ProcessMessage(br.ReadBytes(size - 3),name,format); // size - 3 = message - messagetype - (header *2)
+                    byte[] data = new byte[size-3];// size - 3 = message - messagetype - (header *2)
+
+                    br.Read(data,0,data.Length);
+
+                    return ProcessMessage(data,name,format); 
             }
         }
 
@@ -200,74 +235,87 @@ namespace MissionPlanner.Log
 
             int offset = 0;
 
-            string line = name;
+            StringBuilder line = new StringBuilder(name);
 
             foreach (char ch in form)
             {
                 switch (ch)
                 {
                     case 'b':
-                        line += ", " + (sbyte)message[offset];
+                        line.Append(", " + (sbyte)message[offset]);
                         offset++;
                         break;
                     case 'B':
-                        line += ", " + message[offset];
+                        line.Append( ", " + message[offset]);
                         offset++;
                         break;
                     case 'h':
-                        line += ", " + BitConverter.ToInt16(message, offset).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        line.Append(", " + BitConverter.ToInt16(message, offset).ToString(System.Globalization.CultureInfo.InvariantCulture));
                         offset += 2;
                         break;
                     case 'H':
-                        line += ", " + BitConverter.ToUInt16(message, offset).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        line.Append( ", " + BitConverter.ToUInt16(message, offset).ToString(System.Globalization.CultureInfo.InvariantCulture));
                         offset += 2;
                         break;
                     case 'i':
-                        line += ", " + BitConverter.ToInt32(message, offset).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        line.Append( ", " + BitConverter.ToInt32(message, offset).ToString(System.Globalization.CultureInfo.InvariantCulture));
                         offset += 4;
                         break;
                     case 'I':
-                        line += ", " + BitConverter.ToUInt32(message, offset).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        line.Append( ", " + BitConverter.ToUInt32(message, offset).ToString(System.Globalization.CultureInfo.InvariantCulture));
                         offset += 4;
                         break;
                     case 'f':
-                        line += ", " + BitConverter.ToSingle(message, offset).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        line.Append( ", " + BitConverter.ToSingle(message, offset).ToString(System.Globalization.CultureInfo.InvariantCulture));
                         offset += 4;
                         break;
                     case 'c':
-                        line += ", " + (BitConverter.ToInt16(message, offset) / 100.0).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+                        line.Append( ", " + (BitConverter.ToInt16(message, offset) / 100.0).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture));
                         offset += 2;
                         break;
                     case 'C':
-                        line += ", " + (BitConverter.ToUInt16(message, offset) / 100.0).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+                        line.Append( ", " + (BitConverter.ToUInt16(message, offset) / 100.0).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture));
                         offset += 2;
                         break;
                     case 'e':
-                        line += ", " + (BitConverter.ToInt32(message, offset) / 100.0).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+                        line.Append( ", " + (BitConverter.ToInt32(message, offset) / 100.0).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture));
                         offset += 4;
                         break;
                     case 'E':
-                        line += ", " + (BitConverter.ToUInt32(message, offset) / 100.0).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+                        line.Append( ", " + (BitConverter.ToUInt32(message, offset) / 100.0).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture));
                         offset += 4;
                         break;
                     case 'L':
-                        line += ", " + ((double)BitConverter.ToInt32(message, offset) / 10000000.0).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        line.Append( ", " + ((double)BitConverter.ToInt32(message, offset) / 10000000.0).ToString(System.Globalization.CultureInfo.InvariantCulture));
                         offset += 4;
                         break;
                     case 'n':
-                        line += ", " + ASCIIEncoding.ASCII.GetString(message, offset, 4).Trim(new char[] { '\0' });
+                        line.Append( ", " + ASCIIEncoding.ASCII.GetString(message, offset, 4).Trim(new char[] { '\0' }));
                         offset += 4;
                         break;
                     case 'N':
-                        line += ", " + ASCIIEncoding.ASCII.GetString(message, offset, 16).Trim(new char[] { '\0' });
+                        line.Append( ", " + ASCIIEncoding.ASCII.GetString(message, offset, 16).Trim(new char[] { '\0' }));
                         offset += 16;
                         break;
                     case 'M':
-                        line += ", " + Common.getModesList(MainV2.comPort.MAV.cs)[message[offset]].Value;
+                        int modeno = message[offset];
+                        var modes = Common.getModesList(MainV2.comPort.MAV.cs);
+                        string currentmode = "";
+
+                        foreach (var mode in modes) 
+                        {
+                            if (mode.Key == modeno)
+                            {
+                                currentmode = mode.Value;
+                                break;
+                            }
+                        }
+
+                        line.Append(", " + currentmode);
                         offset++;
                         break;
                     case 'Z':
-                        line += ", " + ASCIIEncoding.ASCII.GetString(message, offset, 64).Trim(new char[] { '\0' });
+                        line.Append( ", " + ASCIIEncoding.ASCII.GetString(message, offset, 64).Trim(new char[] { '\0' }));
                         offset += 64;
                         break;
                     default:
@@ -276,7 +324,8 @@ namespace MissionPlanner.Log
                 }
             }
 
-            return line + "\r\n";
+            line.Append("\r\n");
+            return line.ToString();
         }
     }
 }

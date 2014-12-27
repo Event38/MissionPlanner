@@ -11,7 +11,7 @@ namespace MissionPlanner
     public class Script
     {
         DateTime timeout = DateTime.Now;
-        List<string> items = new List<string>();
+        //List<string> items = new List<string>();
         static Microsoft.Scripting.Hosting.ScriptEngine engine;
         static Microsoft.Scripting.Hosting.ScriptScope scope;
 
@@ -37,6 +37,7 @@ namespace MissionPlanner
             scope.SetVariable("cs", MainV2.comPort.MAV.cs);
             scope.SetVariable("Script", this);
             scope.SetVariable("mavutil", this);
+            scope.SetVariable("Joystick", MainV2.joystick);
 
             engine.CreateScriptSourceFromString("print 'hello world from python'").Execute(scope);
             engine.CreateScriptSourceFromString("print cs.roll").Execute(scope);
@@ -52,7 +53,7 @@ namespace MissionPlanner
             else
                 OutputWriter = null;
 
-
+            /*
             object thisBoxed = MainV2.comPort.MAV.cs;
             Type test = thisBoxed.GetType();
 
@@ -71,6 +72,7 @@ namespace MissionPlanner
 
                 items.Add(field.Name);
             }
+             */
         }
 
         public object mavlink_connection(string device, int baud = 115200, int source_system = 255,
@@ -92,15 +94,17 @@ namespace MissionPlanner
             System.Threading.Thread.Sleep(ms);
         }
 
-        public void runScript(string script)
+        public void runScript(string filename)
         {
             try
             {
-                engine.CreateScriptSourceFromString(script).Execute(scope);
+                Console.WriteLine("Run Script " + scope);
+                engine.CreateScriptSourceFromFile(filename).Execute(scope);
+                Console.WriteLine("Run Script Done");
             }
             catch (Exception e)
             {
-                System.Windows.Forms.CustomMessageBox.Show("Error running script " + e.Message);
+                CustomMessageBox.Show("Error running script " + e.Message);
             }
         }
 
@@ -193,7 +197,6 @@ namespace MissionPlanner
             {
                 MainV2.comPort.sendPacket(rc);
                 System.Threading.Thread.Sleep(20);
-                MainV2.comPort.sendPacket(rc);
                 MainV2.comPort.sendPacket(rc);
             }
 

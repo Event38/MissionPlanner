@@ -46,14 +46,18 @@ namespace MissionPlanner.Plugin
 
                 if (pluginInfo != null)
                 {
+                    log.Info("Plugin Load " + file);
+
                     Object o = Activator.CreateInstance(pluginInfo);
                     Plugin plugin = (Plugin)o;
+
+                    plugin.Assembly = asm;
 
                     plugin.Host = new PluginHost();
 
                     if (plugin.Init())
                     {
-                        log.InfoFormat("Plugin Init {0} {1} by {2}", plugin.Name,plugin.Version,plugin.Author );
+                        log.InfoFormat("Plugin Init {0} {1} by {2}", plugin.Name, plugin.Version, plugin.Author);
                         lock (Plugins)
                         {
                             Plugins.Add(plugin);
@@ -64,12 +68,16 @@ namespace MissionPlanner.Plugin
             catch (Exception)
             {
             }
-
         }
 
         public static void LoadAll()
         {
-            String[] files = Directory.GetFiles(Application.StartupPath +  Path.DirectorySeparatorChar+ "Plugins" +  Path.DirectorySeparatorChar, "*.dll");
+            string path = Application.StartupPath +  Path.DirectorySeparatorChar+ "Plugins" +  Path.DirectorySeparatorChar;
+
+            if (!Directory.Exists(path))
+                return;
+
+            String[] files = Directory.GetFiles(path, "*.dll");
             foreach (var s in files)
                 Load(Path.Combine(Environment.CurrentDirectory, s));
 
@@ -86,8 +94,9 @@ namespace MissionPlanner.Plugin
                             --i;
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        log.Error(ex);
                         Plugins.RemoveAt(i);
                         --i;
                     }

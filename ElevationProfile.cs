@@ -15,21 +15,28 @@ namespace MissionPlanner
     public partial class ElevationProfile : Form
     {
         List<PointLatLngAlt> gelocs = new List<PointLatLngAlt>();
+        List<PointLatLngAlt> srtmlocs = new List<PointLatLngAlt>();
         List<PointLatLngAlt> planlocs = new List<PointLatLngAlt>();
         PointPairList list1 = new PointPairList();
         PointPairList list2 = new PointPairList();
+        PointPairList list3 = new PointPairList();
+
+        PointPairList list4terrain = new PointPairList();
         int distance = 0;
         double homealt = 0;
+        GCSViews.FlightPlanner.altmode altmode = GCSViews.FlightPlanner.altmode.Relative;
 
-        public ElevationProfile(List<PointLatLngAlt> locs, double homealt)
+        public ElevationProfile(List<PointLatLngAlt> locs, double homealt, GCSViews.FlightPlanner.altmode altmode)
         {
             InitializeComponent();
+
+            this.altmode = altmode;
 
             planlocs = locs;
 
             if (planlocs.Count <= 1)
             {
-                CustomMessageBox.Show("Please plan something first", "Error");
+                CustomMessageBox.Show("Please plan something first", Strings.ERROR);
                 return;
             }
 
@@ -38,19 +45,26 @@ namespace MissionPlanner
             PointLatLngAlt lastloc = null;
             foreach (PointLatLngAlt loc in planlocs)
             {
+                if (loc == null)
+                    continue;
+
                 if (lastloc != null) {
                     distance += (int)loc.GetDistance(lastloc);
                 }
                 lastloc = loc;
             }
 
-            this.homealt = homealt / MainV2.comPort.MAV.cs.multiplierdist;
+            this.homealt = homealt / CurrentState.multiplierdist;
 
-            Form frm = Common.LoadingBox("Loading", "Downloading Google Earth Data");
+            Form frm = Common.LoadingBox("Loading", "using srtm data");//Downloading Google Earth Data
 
             gelocs = getGEAltPath(planlocs);
 
+            srtmlocs = getSRTMAltPath(planlocs);
+
             frm.Close();
+
+            MissionPlanner.Utilities.Tracking.AddPage(this.GetType().ToString(), this.Text);
         }
 
         private void ElevationProfile_Load(object sender, EventArgs e)
@@ -66,30 +80,112 @@ namespace MissionPlanner
 
             foreach (PointLatLngAlt geloc in gelocs)
             {
+                if (geloc == null)
+                    continue;
+
                 list2.Add(a,geloc.Alt);
 
-                Console.WriteLine(geloc.Lng + "," + geloc.Lat + "," + geloc.Alt);
+                Console.WriteLine("GE "+geloc.Lng + "," + geloc.Lat + "," + geloc.Alt);
 
                 a+=increment;
             }
+
             // Planner Plot
             a=0;
             int count = 0;
             PointLatLngAlt lastloc = null;
             foreach (PointLatLngAlt planloc in planlocs)
             {
+                if (planloc == null)
+                    continue;
+
                 if (lastloc != null)
                 {
                     a += planloc.GetDistance(lastloc);
                 }
 
-                list1.Add(a, planloc.Alt / MainV2.comPort.MAV.cs.multiplierdist, 0, planloc.Tag); // homealt
+                // deal with at mode
+                if (altmode == GCSViews.FlightPlanner.altmode.Terrain)
+                {
+                    list1 = list4terrain;
+                    break;
+                }
+                else if (altmode == GCSViews.FlightPlanner.altmode.Relative)
+                {
+                    // already includes the home alt
+                    list1.Add(a, (planloc.Alt / CurrentState.multiplierdist), 0, planloc.Tag);
+                }
+                else
+                {
+                    // abs
+                    // already absolute
+                    list1.Add(a, (planloc.Alt / CurrentState.multiplierdist), 0, planloc.Tag);
+                }
 
                 lastloc = planloc;
                 count++;
             }
             // draw graph
             CreateChart(zg1);
+        }
+
+        List<PointLatLngAlt> getSRTMAltPath(List<PointLatLngAlt> list)
+        {
+            List<PointLatLngAlt> answer = new List<PointLatLngAlt>();
+
+            PointLatLngAlt last = null;
+
+            double disttotal = 0;
+
+            foreach (PointLatLngAlt loc in list)
+            {
+                if (loc == null)
+                    continue;
+
+                if (last == null)
+                {
+                    last = loc;
+                    continue;
+                }
+
+                double dist = last.GetDistance(loc);
+
+                int points = (int)(dist / 10)+1;
+
+                double deltalat = (last.Lat - loc.Lat);
+                double deltalng = (last.Lng - loc.Lng);
+
+                double steplat = deltalat / points;
+                double steplng = deltalng / points;
+
+                PointLatLngAlt lastpnt = last;
+
+                for (int a = 0; a <= points; a++)
+                {
+                    double lat = last.Lat - steplat * a;
+                    double lng = last.Lng - steplng * a;
+
+                    var newpoint = new PointLatLngAlt(lat, lng, srtm.getAltitude(lat, lng), "");
+
+                    double subdist = lastpnt.GetDistance(newpoint);
+
+                    disttotal += subdist;
+
+                    // srtm alts
+                    list3.Add(disttotal, newpoint.Alt / CurrentState.multiplierdist);
+
+                    // terrain alt
+                    list4terrain.Add(disttotal, (newpoint.Alt - homealt + loc.Alt) / CurrentState.multiplierdist);
+
+                    lastpnt = newpoint;
+                }
+
+                answer.Add(new PointLatLngAlt(loc.Lat, loc.Lng, srtm.getAltitude(loc.Lat, loc.Lng), ""));
+
+                last = loc;
+            }
+
+            return answer;
         }
 
         List<PointLatLngAlt> getGEAltPath(List<PointLatLngAlt> list)
@@ -108,13 +204,16 @@ namespace MissionPlanner
 
             foreach (PointLatLngAlt loc in list)
             {
+                if (loc == null)
+                    continue;
+
                 coords = coords + loc.Lat.ToString(new System.Globalization.CultureInfo("en-US")) + "," + loc.Lng.ToString(new System.Globalization.CultureInfo("en-US")) + "|";
             }
             coords = coords.Remove(coords.Length - 1);
 
-            if (list.Count <= 2 || coords.Length > (2048 - 256) || distance > 50000)
+            if (list.Count < 2 || coords.Length > (2048 - 256))
             {
-                CustomMessageBox.Show("Too many/few WP's or to Big a Distance " + (distance / 1000) + "km", "Error");
+                CustomMessageBox.Show("Too many/few WP's or to Big a Distance " + (distance / 1000) + "km", Strings.ERROR);
                 return answer;
             }
 
@@ -146,7 +245,7 @@ namespace MissionPlanner
                     }
                 }
             }
-            catch { CustomMessageBox.Show("Error getting GE data", "Error"); }
+            catch { CustomMessageBox.Show("Error getting GE data", Strings.ERROR); }
 
             return answer;
         }
@@ -164,6 +263,7 @@ namespace MissionPlanner
 
             myCurve = myPane.AddCurve("Planner", list1, Color.Red, SymbolType.None);
             myCurve = myPane.AddCurve("GE", list2, Color.Green, SymbolType.None);
+            myCurve = myPane.AddCurve("SRTM", list3, Color.Blue, SymbolType.None);
 
             foreach (PointPair pp in list1)
             {

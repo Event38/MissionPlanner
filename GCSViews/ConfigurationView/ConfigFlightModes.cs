@@ -18,7 +18,11 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         public ConfigFlightModes()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -142,13 +146,20 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
                 if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2) // ac2
                 {
+                    // simple
                     float value = (float)(CB_simple1.Checked ? (int)SimpleMode.Simple1 : 0) + (CB_simple2.Checked ? (int)SimpleMode.Simple2 : 0) + (CB_simple3.Checked ? (int)SimpleMode.Simple3 : 0)
                         + (CB_simple4.Checked ? (int)SimpleMode.Simple4 : 0) + (CB_simple5.Checked ? (int)SimpleMode.Simple5 : 0) + (CB_simple6.Checked ? (int)SimpleMode.Simple6 : 0);
                     if (MainV2.comPort.MAV.param.ContainsKey("SIMPLE"))
                         MainV2.comPort.setParam("SIMPLE", value);
+
+                    // supersimple
+                    value = (float)(chk_ss1.Checked ? (int)SimpleMode.Simple1 : 0) + (chk_ss2.Checked ? (int)SimpleMode.Simple2 : 0) + (chk_ss3.Checked ? (int)SimpleMode.Simple3 : 0)
+                        + (chk_ss4.Checked ? (int)SimpleMode.Simple4 : 0) + (chk_ss5.Checked ? (int)SimpleMode.Simple5 : 0) + (chk_ss6.Checked ? (int)SimpleMode.Simple6 : 0);
+                    if (MainV2.comPort.MAV.param.ContainsKey("SUPER_SIMPLE"))
+                        MainV2.comPort.setParam("SUPER_SIMPLE", value);
                 }
             }
-            catch { CustomMessageBox.Show("Failed to set Flight modes", "Error"); }
+            catch { CustomMessageBox.Show(Strings.ErrorSettingParameter, Strings.ERROR); }
             BUT_SaveModes.Text = "Complete";
         }
 
@@ -180,6 +191,14 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 CB_simple5.Visible = false;
                 CB_simple6.Visible = false;
 
+                chk_ss1.Visible = false;
+                chk_ss2.Visible = false;
+                chk_ss3.Visible = false;
+                chk_ss4.Visible = false;
+                chk_ss5.Visible = false;
+                chk_ss6.Visible = false;
+
+                linkLabel1_ss.Visible = false;
 
                 try
                 {
@@ -209,6 +228,14 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 CB_simple5.Visible = false;
                 CB_simple6.Visible = false;
 
+                chk_ss1.Visible = false;
+                chk_ss2.Visible = false;
+                chk_ss3.Visible = false;
+                chk_ss4.Visible = false;
+                chk_ss5.Visible = false;
+                chk_ss6.Visible = false;
+
+                linkLabel1_ss.Visible = false;
 
                 try
                 {
@@ -248,19 +275,32 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     CMB_fmode6.SelectedValue = int.Parse(MainV2.comPort.MAV.param["FLTMODE6"].ToString());
                     CMB_fmode6.Enabled = true;
 
-                    int simple = int.Parse(MainV2.comPort.MAV.param["SIMPLE"].ToString());
+                    if (MainV2.comPort.MAV.param.ContainsKey("SIMPLE"))
+                    {
+                        int simple = int.Parse(MainV2.comPort.MAV.param["SIMPLE"].ToString());
 
-                    CB_simple1.Checked = ((simple >> 0 & 1) == 1);
-                    CB_simple2.Checked = ((simple >> 1 & 1) == 1);
-                    CB_simple3.Checked = ((simple >> 2 & 1) == 1);
-                    CB_simple4.Checked = ((simple >> 3 & 1) == 1);
-                    CB_simple5.Checked = ((simple >> 4 & 1) == 1);
-                    CB_simple6.Checked = ((simple >> 5 & 1) == 1);
+                        CB_simple1.Checked = ((simple >> 0 & 1) == 1);
+                        CB_simple2.Checked = ((simple >> 1 & 1) == 1);
+                        CB_simple3.Checked = ((simple >> 2 & 1) == 1);
+                        CB_simple4.Checked = ((simple >> 3 & 1) == 1);
+                        CB_simple5.Checked = ((simple >> 4 & 1) == 1);
+                        CB_simple6.Checked = ((simple >> 5 & 1) == 1);
+                    }
+
+                    if (MainV2.comPort.MAV.param.ContainsKey("SUPER_SIMPLE"))
+                    {
+                        int simple = int.Parse(MainV2.comPort.MAV.param["SUPER_SIMPLE"].ToString());
+
+                        chk_ss1.Checked = ((simple >> 0 & 1) == 1);
+                        chk_ss2.Checked = ((simple >> 1 & 1) == 1);
+                        chk_ss3.Checked = ((simple >> 2 & 1) == 1);
+                        chk_ss4.Checked = ((simple >> 3 & 1) == 1);
+                        chk_ss5.Checked = ((simple >> 4 & 1) == 1);
+                        chk_ss6.Checked = ((simple >> 5 & 1) == 1);
+                    }
                 }
                 catch { }
             }
-
-
 
             timer.Tick += new EventHandler(timer_Tick);
 
@@ -271,9 +311,60 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         void updateDropDown(ComboBox ctl, string param)
         {
-            ctl.DataSource = ParameterMetaDataRepository.GetParameterOptionsInt(param).ToList();
+            ctl.DataSource = ParameterMetaDataRepository.GetParameterOptionsInt(param, MainV2.comPort.MAV.cs.firmware.ToString()).ToList();
             ctl.DisplayMember = "Value";
             ctl.ValueMember = "Key";
+        }
+
+        private void linkLabel1_ss_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("http://copter.ardupilot.com/wiki/flight-modes/simpleandsuper-simple-modes/");
+            }
+            catch { CustomMessageBox.Show(Strings.ERROR + " http://copter.ardupilot.com/wiki/flight-modes/simpleandsuper-simple-modes/"); }
+        }
+
+        private void flightmode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
+            {
+                Control sender2 = (Control)sender;
+                string currentmode = sender2.Text.ToLower();
+
+                if (currentmode.Contains("althold") || currentmode.Contains("auto") ||
+                    currentmode.Contains("autotune") || currentmode.Contains("land") ||
+                    currentmode.Contains("loiter") || currentmode.Contains("ofloiter") ||
+                    currentmode.Contains("poshold") || currentmode.Contains("rtl") ||
+                    currentmode.Contains("sport") || currentmode.Contains("stabilize"))
+                {
+                    //CMB_fmode1
+                    //CB_simple1
+                    //chk_ss1
+
+                    string number = sender2.Name.Substring(sender2.Name.Length - 1);
+
+                    findandenableordisable("CB_simple" + number, true);
+                    findandenableordisable("chk_ss" + number, true);
+                }
+                else
+                {
+                    string number = sender2.Name.Substring(sender2.Name.Length - 1);
+
+                    findandenableordisable("CB_simple" + number, false);
+                    findandenableordisable("chk_ss" + number, false);
+                }
+            }
+        }
+
+        void findandenableordisable(string ctl, bool enable)
+        {
+            Control[] items = this.Controls.Find(ctl, true);
+
+            if (items.Length > 0)
+            {
+                items[0].Enabled = enable;
+            }
         }
     }
 }

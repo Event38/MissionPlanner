@@ -73,6 +73,7 @@ namespace MissionPlanner
             compilerParams.ReferencedAssemblies.Add("System.dll");
             compilerParams.ReferencedAssemblies.Add("System.Windows.Forms.dll");
             compilerParams.ReferencedAssemblies.Add(Application.ExecutablePath);
+            compilerParams.ReferencedAssemblies.Add("MAVLink.dll");
 
             compilerParams.ReferencedAssemblies.Add("");
 
@@ -195,7 +196,7 @@ namespace MissionPlanner
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error:  An exception occurred while executing the script", ex);
+                Console.WriteLine("Error:  An exception occurred while executing the script {0}", ex);
             }
         }
 
@@ -235,7 +236,7 @@ namespace MissionPlanner
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error:  An exception occurred while executing the script", ex);
+                Console.WriteLine("Error:  An exception occurred while executing the script {0}", ex);
             }
             return "";
         }
@@ -358,3 +359,4 @@ namespace MissionPlanner
         }
     }
 }
+

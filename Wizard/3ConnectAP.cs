@@ -19,6 +19,8 @@ namespace MissionPlanner.Wizard
         List<KeyValuePair<string, string>> fwmap = new List<KeyValuePair<string, string>>();
         ProgressReporterDialogue pdr;
         string comport = "";
+        bool fwdone = false;
+        private bool usebeta;
 
         public _3ConnectAP()
         {
@@ -71,10 +73,13 @@ namespace MissionPlanner.Wizard
         {
             foreach (var port in CMB_port.Items)
             {
-              //  if (SerialPort.GetNiceName((string)port).ToLower().Contains("arduino") || SerialPort.GetNiceName((string)port).ToLower().Contains("px4"))
+                if (CMB_port.Text == "")
                 {
-                  //  CMB_port.Text = port.ToString();
-                    break;
+                    if (SerialPort.GetNiceName((string)port).ToLower().Contains("arduino") || SerialPort.GetNiceName((string)port).ToLower().Contains("px4"))
+                    {
+                        CMB_port.Text = port.ToString();
+                        break;
+                    }
                 }
             }
         }
@@ -85,29 +90,40 @@ namespace MissionPlanner.Wizard
 
             if (comport == "")
             {
-                CustomMessageBox.Show("Please select a comport","error");
+                CustomMessageBox.Show(Strings.SelectComport, Strings.ERROR);
                 return 0;
             }
 
-            pdr = new ProgressReporterDialogue();
+            if (!fwdone)
+            {
+                pdr = new ProgressReporterDialogue();
 
-            pdr.DoWork += pdr_DoWork;
+                pdr.DoWork += pdr_DoWork;
 
-            ThemeManager.ApplyThemeTo(pdr);
+                ThemeManager.ApplyThemeTo(pdr);
 
-            pdr.RunBackgroundOperationAsync();
+                pdr.RunBackgroundOperationAsync();
 
-            if (pdr.doWorkArgs.CancelRequested || pdr.doWorkArgs.ErrorMessage != "")
-                return 0;
+                if (pdr.doWorkArgs.CancelRequested || !string.IsNullOrEmpty(pdr.doWorkArgs.ErrorMessage))
+                    return 0;
+            }
 
-            if (!MainV2.comPort.BaseStream.IsOpen)
+            if (MainV2.comPort.BaseStream.IsOpen)
                 MainV2.comPort.BaseStream.Close();
-            
-                MainV2.comPort.BaseStream.BaudRate = 115200;
-                MainV2.comPort.BaseStream.PortName = comport;
-            
+
+            // setup for over usb
+            MainV2.comPort.BaseStream.BaudRate = 115200;
+            MainV2.comPort.BaseStream.PortName = comport;
+
 
             MainV2.comPort.Open(true);
+
+            // try again
+            if (!MainV2.comPort.BaseStream.IsOpen)
+            {
+                CustomMessageBox.Show("Error connecting. Please unplug, plug back in, wait 10 seconds, and click OK","Try Again");
+                MainV2.comPort.Open(true);
+            }
 
             if (!MainV2.comPort.BaseStream.IsOpen)
                 return 0;
@@ -117,6 +133,9 @@ namespace MissionPlanner.Wizard
                 if (Wizard.config["fwtype"].ToString() == "copter")
                     // check if its a quad, and show the frame type screen
                     return 1;
+                if (Wizard.config["fwtype"].ToString() == "rover")
+                    // check if its a rover, and show the compass cal screen - skip accel
+                    return 3;
                 else
                     // skip the frame type screen as its not valid for anythine else
                     return 2;
@@ -125,13 +144,21 @@ namespace MissionPlanner.Wizard
             return 0;
         }
 
+        public bool WizardBusy()
+        {
+            return false;
+        }
         void pdr_DoWork(object sender, Controls.ProgressWorkerEventArgs e, object passdata = null)
         {
             // upload fw
             
             Utilities.Firmware fw = new Utilities.Firmware();
             fw.Progress += fw_Progress;
-            List<Utilities.Firmware.software> swlist = fw.getFWList();
+            string firmwareurl = "";
+            if (usebeta)
+                firmwareurl = "https://raw.github.com/diydrones/binary/master/dev/firmware2.xml";
+
+            List<Utilities.Firmware.software> swlist = fw.getFWList(firmwareurl);
 
             if (swlist.Count == 0)
             {
@@ -151,7 +178,7 @@ namespace MissionPlanner.Wizard
             }
 
             string target = Wizard.config["fwframe"].ToString();
-            bool fwdone = false;
+            
 
             if (e.CancelRequested)
             {
@@ -167,7 +194,8 @@ namespace MissionPlanner.Wizard
                     {
                         try
                         {
-                            fwdone = fw.update(comport, sw);
+                            fwdone = fw.update(comport, sw,"");
+                            //fwdone = true;
                         }
                         catch { }
                         if (fwdone == false)
@@ -241,9 +269,27 @@ namespace MissionPlanner.Wizard
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+            if (MainV2.comPort.BaseStream.IsOpen)
+                MainV2.comPort.BaseStream.Close();
+
+            if (CMB_port.Text == "")
+            {
+                CustomMessageBox.Show("Please pick a port");
+                return;
+            }
+
+            MainV2.comPort.BaseStream.PortName = CMB_port.Text;
+            MainV2.comPort.BaseStream.BaudRate = 115200;
+
             if (!MainV2.comPort.BaseStream.IsOpen)
                 MainV2.comPort.Open(true);
             Wizard.instance.GoNext(1);
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+            usebeta = true;
+            CustomMessageBox.Show("Using beta FW");
         }
     }
 }

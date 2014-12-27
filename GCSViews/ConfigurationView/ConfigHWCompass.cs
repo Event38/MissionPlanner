@@ -8,14 +8,13 @@ using System.Text;
 using System.Windows.Forms;
 using MissionPlanner.Controls.BackstageView;
 using MissionPlanner.Controls;
-using MissionPlanner.Controls;
+using netDxf;
 
 namespace MissionPlanner.GCSViews.ConfigurationView
 {
     public partial class ConfigHWCompass : UserControl, IActivate
     {
         bool startup = false;
-
         const float rad2deg = (float)(180 / Math.PI);
         const float deg2rad = (float)(1.0 / rad2deg);
 
@@ -26,76 +25,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         private void BUT_MagCalibration_Click(object sender, EventArgs e)
         {
-            CustomMessageBox.Show("Data will be collected for 60 seconds, Please click ok and move the apm around all axises");
-
-            ProgressReporterDialogue prd = new ProgressReporterDialogue();
-
-            Utilities.ThemeManager.ApplyThemeTo(prd);
-
-            prd.DoWork += prd_DoWork;
-
-            prd.RunBackgroundOperationAsync();
-        }
-
-        void prd_DoWork(object sender, ProgressWorkerEventArgs e, object passdata = null)
-        {
-            // list of x,y,z 's
-            List<Tuple<float, float, float>> data = new List<Tuple<float, float, float>>();
-
-            // backup current rate and set to 10 hz
-            byte backupratesens = MainV2.comPort.MAV.cs.ratesensors;
-            MainV2.comPort.MAV.cs.ratesensors = 10;
-            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.RAW_SENSORS, MainV2.comPort.MAV.cs.ratesensors); // mag captures at 10 hz
-
-            DateTime deadline = DateTime.Now.AddSeconds(60);
-
-            float oldmx = 0;
-            float oldmy = 0;
-            float oldmz = 0;
-
-            while (deadline > DateTime.Now)
-            {
-                double timeremaining = (deadline - DateTime.Now).TotalSeconds;
-                ((ProgressReporterDialogue)sender).UpdateProgressAndStatus((int)(((60 - timeremaining) / 60) * 100), timeremaining.ToString("0") + " Seconds");
-
-                if (e.CancelRequested)
-                {
-                    // restore old sensor rate
-                    MainV2.comPort.MAV.cs.ratesensors = backupratesens;
-                    MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.RAW_SENSORS, MainV2.comPort.MAV.cs.ratesensors);
-
-                    e.CancelAcknowledged = true;
-                    return;
-                }
-
-                if (oldmx != MainV2.comPort.MAV.cs.mx &&
-                    oldmy != MainV2.comPort.MAV.cs.my &&
-                    oldmz != MainV2.comPort.MAV.cs.mz)
-                {
-                    data.Add(new Tuple<float, float, float>(
-                        MainV2.comPort.MAV.cs.mx - (float)MainV2.comPort.MAV.cs.mag_ofs_x,
-                        MainV2.comPort.MAV.cs.my - (float)MainV2.comPort.MAV.cs.mag_ofs_y,
-                        MainV2.comPort.MAV.cs.mz - (float)MainV2.comPort.MAV.cs.mag_ofs_z));
-
-                    oldmx = MainV2.comPort.MAV.cs.mx;
-                    oldmy = MainV2.comPort.MAV.cs.my;
-                    oldmz = MainV2.comPort.MAV.cs.mz;
-                }
-            }
-
-            // restore old sensor rate
-            MainV2.comPort.MAV.cs.ratesensors = backupratesens;
-            MainV2.comPort.requestDatastream(MAVLink.MAV_DATA_STREAM.RAW_SENSORS, MainV2.comPort.MAV.cs.ratesensors);
-
-            if (data.Count < 10)
-            {
-                CustomMessageBox.Show("Log does not contain enough data");
-                return;
-            }
-
-            double[] ans = MagCalib.LeastSq(data);
-
-            MagCalib.SaveOffsets(ans);
+            MagCalib.DoGUIMagCalib();
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -122,7 +52,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             {
                 if (MainV2.comPort.MAV.param["COMPASS_DEC"] == null)
                 {
-                    CustomMessageBox.Show("Not Available", "Error");
+                    CustomMessageBox.Show(Strings.ErrorFeatureNotEnabled, Strings.ERROR);
                 }
                 else
                 {
@@ -137,10 +67,10 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
                         MainV2.comPort.setParam("COMPASS_DEC", dec * deg2rad);
                     }
-                    catch { CustomMessageBox.Show("Invalid input!", "Error"); return; }
+                    catch { CustomMessageBox.Show(Strings.InvalidNumberEntered, Strings.ERROR); return; }
                 }
             }
-            catch { CustomMessageBox.Show("Set COMPASS_DEC Failed", "Error"); }
+            catch { CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, "COMPASS_DEC"), Strings.ERROR); }
         }
 
 
@@ -165,14 +95,14 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             {
                 if (MainV2.comPort.MAV.param["MAG_ENABLE"] == null)
                 {
-                    CustomMessageBox.Show("Not Available", "Error");
+                    CustomMessageBox.Show(Strings.ErrorFeatureNotEnabled, Strings.ERROR);
                 }
                 else
                 {
                     MainV2.comPort.setParam("MAG_ENABLE", ((CheckBox)sender).Checked == true ? 1 : 0);
                 }
             }
-            catch { CustomMessageBox.Show("Set MAG_ENABLE Failed", "Error"); }
+            catch { CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, "MAG_ENABLE"), Strings.ERROR); }
         }
 
  
@@ -260,26 +190,55 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://www.youtube.com/watch?v=DmsueBS0J3E");
+            try
+            {
+                System.Diagnostics.Process.Start("https://www.youtube.com/watch?v=DmsueBS0J3E");
+            }
+            catch 
+            {
+                CustomMessageBox.Show(Strings.ERROR + " https://www.youtube.com/watch?v=DmsueBS0J3E");
+            }
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton_onboard.Checked)
+            if (!MainV2.comPort.BaseStream.IsOpen)
             {
-                CMB_compass_orient.SelectedIndex =  (int)Common.Rotation.ROTATION_NONE;
-                MainV2.comPort.setParam("COMPASS_EXTERNAL", 0);
+                CustomMessageBox.Show(Strings.ErrorNotConnected);
+                MainV2.View.Reload();
+                return;
             }
-            if (radioButton_external.Checked)
+
+            try
             {
-                CMB_compass_orient.SelectedIndex = (int)Common.Rotation.ROTATION_ROLL_180;
-                MainV2.comPort.setParam("COMPASS_EXTERNAL",1);
+
+                if (radioButton_onboard.Checked && sender == radioButton_onboard)
+                {
+                    CMB_compass_orient.SelectedIndex = (int)Common.Rotation.ROTATION_NONE;
+                    MainV2.comPort.setParam("COMPASS_EXTERNAL", 0);
+                }
+
+                if (radioButton_external.Checked && sender == radioButton_external)
+                {
+                    CMB_compass_orient.SelectedIndex = (int)Common.Rotation.ROTATION_ROLL_180;
+                    MainV2.comPort.setParam("COMPASS_EXTERNAL", 1);
+                }
+
+                if (rb_px4pixhawk.Checked && sender == rb_px4pixhawk)
+                {
+                    if (CustomMessageBox.Show("is the FW version greater than APM:copter 3.01 or APM:Plane 2.74?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        CMB_compass_orient.SelectedIndex = (int)Common.Rotation.ROTATION_NONE;
+                    }
+                    else
+                    {
+                        CMB_compass_orient.SelectedIndex = (int)Common.Rotation.ROTATION_ROLL_180;
+                        MainV2.comPort.setParam("COMPASS_EXTERNAL", 0);
+                    }
+
+                }
             }
-            if (radioButtonpx4.Checked)
-            {
-                CMB_compass_orient.SelectedIndex = (int)Common.Rotation.ROTATION_ROLL_180;
-                MainV2.comPort.setParam("COMPASS_EXTERNAL", 0);
-            }
+            catch (Exception) { CustomMessageBox.Show(Strings.ErrorSettingParameter,Strings.ERROR); }
         }
     }
 }

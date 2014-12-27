@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MissionPlanner.Controls;
+using System.IO;
 
 namespace MissionPlanner.Wizard
 {
     public partial class _5AccelCalib : MyUserControl, IWizard
     {
         byte count = 0;
+        static bool busy = false;
 
         public _5AccelCalib()
         {
@@ -21,18 +23,28 @@ namespace MissionPlanner.Wizard
 
         public int WizardValidate()
         {
-                return 1;
+            return 1;
         }
 
+        public bool WizardBusy()
+        {
+            return busy;
+        }
 
         private void BUT_start_Click(object sender, EventArgs e)
         {
             ((MyButton)sender).Enabled = false;
             BUT_continue.Enabled = true;
 
-            // start the process off
-            MainV2.comPort.doCommand(MAVLink.MAV_CMD.PREFLIGHT_CALIBRATION, 0, 0, 0, 0, 1, 0, 0);
-            MainV2.comPort.giveComport = true;
+            busy = true;
+
+            try
+            {
+                // start the process off
+                MainV2.comPort.doCommand(MAVLink.MAV_CMD.PREFLIGHT_CALIBRATION, 0, 0, 0, 0, 1, 0, 0);
+                MainV2.comPort.giveComport = true;
+            }
+            catch { busy = false; CustomMessageBox.Show(Strings.ErrorNoResponce, Strings.ERROR); return; }
 
             // start thread to update display
             System.Threading.ThreadPool.QueueUserWorkItem(readmessage, this);
@@ -54,7 +66,8 @@ namespace MissionPlanner.Wizard
                 {
                     System.Threading.Thread.Sleep(10);
                     // read the message
-                    MainV2.comPort.readPacket();
+                    if (MainV2.comPort.BaseStream.BytesToRead > 4)
+                        MainV2.comPort.readPacket();
                     // update cs with the message
                     MainV2.comPort.MAV.cs.UpdateCurrentSettings(null);
                     // update user display
@@ -62,6 +75,8 @@ namespace MissionPlanner.Wizard
                 }
                 catch { break; }
             }
+
+            busy = false;
 
             MainV2.comPort.giveComport = false;
 
@@ -120,6 +135,8 @@ namespace MissionPlanner.Wizard
                     imageLabel1.Image = MissionPlanner.Properties.Resources.calibration01;
                     imageLabel1.Text = MainV2.comPort.MAV.cs.message;
                 }
+
+                imageLabel1.Refresh();
             });
         }
 
@@ -127,7 +144,11 @@ namespace MissionPlanner.Wizard
         {
             count++;
 
-            MainV2.comPort.sendPacket(new MAVLink.mavlink_command_ack_t() { command = 1, result = count });
+            try
+            {
+                MainV2.comPort.sendPacket(new MAVLink.mavlink_command_ack_t() { command = 1, result = count });
+            }
+            catch (Exception ex) { CustomMessageBox.Show(Strings.CommandFailed + ex); Wizard.instance.Close(); }
         }
     }
 }
