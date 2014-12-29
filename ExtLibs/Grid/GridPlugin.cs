@@ -43,6 +43,9 @@ namespace MissionPlanner
             but = new ToolStripMenuItem(temp);
             but.Click += but_Click;
 
+            //Code for Survey(Grid) Button -DC
+            MainV2.instance.FlightPlanner.ButtonSurvey.Click += but_Click;
+
             bool hit = false;
             ToolStripItemCollection col = Host.FPMenuMap.Items;
             int index = col.Count;
@@ -64,6 +67,29 @@ namespace MissionPlanner
         }
 
         void but_Click(object sender, EventArgs e)
+        {
+            var gridui = new GridUI(this);
+            MissionPlanner.Utilities.ThemeManager.ApplyThemeTo(gridui);
+
+            if (Host.FPDrawnPolygon != null && Host.FPDrawnPolygon.Points.Count > 2)
+            {
+                gridui.ShowDialog();
+            }
+            else
+            {
+                if (CustomMessageBox.Show("No polygon defined. Load a file?", "Load File", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    gridui.LoadGrid();
+                    gridui.ShowDialog();
+                }
+                else
+                {
+                    CustomMessageBox.Show("Please define a polygon.", "Error");
+                }
+            }
+        }
+
+        private void BUT_Survey_Click_1(object sender, EventArgs e)
         {
             var gridui = new GridUI(this);
             MissionPlanner.Utilities.ThemeManager.ApplyThemeTo(gridui);
