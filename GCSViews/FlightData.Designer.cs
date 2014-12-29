@@ -8,8 +8,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlightData));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contextMenuStripMap = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.goHereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flyToHereAltToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,6 +43,7 @@
             this.quickView3 = new MissionPlanner.Controls.QuickView();
             this.quickView2 = new MissionPlanner.Controls.QuickView();
             this.quickView1 = new MissionPlanner.Controls.QuickView();
+            this.tabpreflight = new System.Windows.Forms.TabPage();
             this.tabActions = new System.Windows.Forms.TabPage();
             this.CMB_mountmode = new System.Windows.Forms.ComboBox();
             this.BUT_mountmode = new MissionPlanner.Controls.MyButton();
@@ -146,6 +147,40 @@
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Messagetabtimer = new System.Windows.Forms.Timer(this.components);
             this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
+            this.lblGPS = new System.Windows.Forms.Label();
+            this.lblTelemetry = new System.Windows.Forms.Label();
+            this.lblBattery = new System.Windows.Forms.Label();
+            this.lblRemote = new System.Windows.Forms.Label();
+            this.lblAltitude = new System.Windows.Forms.Label();
+            this.lblUserChecklist = new System.Windows.Forms.Label();
+            this.lblTailAndWings = new System.Windows.Forms.Label();
+            this.lblServosRC = new System.Windows.Forms.Label();
+            this.lblServosTilt = new System.Windows.Forms.Label();
+            this.lblCenterOfGravity = new System.Windows.Forms.Label();
+            this.lblServoLinkages = new System.Windows.Forms.Label();
+            this.lblCamera = new System.Windows.Forms.Label();
+            this.lbldataTailAndWings = new System.Windows.Forms.Label();
+            this.lbldataServosRC = new System.Windows.Forms.Label();
+            this.lbldataServosTilt = new System.Windows.Forms.Label();
+            this.lbldataCenterOfGravity = new System.Windows.Forms.Label();
+            this.lbldataServoLinkages = new System.Windows.Forms.Label();
+            this.lbldataCamera = new System.Windows.Forms.Label();
+            this.lbldataGPS = new System.Windows.Forms.Label();
+            this.lbldataTelemetry = new System.Windows.Forms.Label();
+            this.lbldataBattery = new System.Windows.Forms.Label();
+            this.lbldataRemote = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.chkGPS = new System.Windows.Forms.CheckBox();
+            this.chkTelemetry = new System.Windows.Forms.CheckBox();
+            this.chkBattery = new System.Windows.Forms.CheckBox();
+            this.chkRemote = new System.Windows.Forms.CheckBox();
+            this.chkAltitude = new System.Windows.Forms.CheckBox();
+            this.chkTailAndWings = new System.Windows.Forms.CheckBox();
+            this.chkServosRC = new System.Windows.Forms.CheckBox();
+            this.chkServosTilt = new System.Windows.Forms.CheckBox();
+            this.chkCenterOfGravity = new System.Windows.Forms.CheckBox();
+            this.chkServoLinkages = new System.Windows.Forms.CheckBox();
+            this.chkCamera = new System.Windows.Forms.CheckBox();
             this.contextMenuStripMap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainH)).BeginInit();
             this.MainH.Panel1.SuspendLayout();
@@ -162,6 +197,7 @@
             this.tabQuick.SuspendLayout();
             this.tableLayoutPanelQuick.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).BeginInit();
+            this.tabpreflight.SuspendLayout();
             this.tabActions.SuspendLayout();
             this.tabActionsSimple.SuspendLayout();
             this.tabGauges.SuspendLayout();
@@ -422,6 +458,7 @@
             // 
             this.tabControlactions.ContextMenuStrip = this.contextMenuStripactionstab;
             this.tabControlactions.Controls.Add(this.tabQuick);
+            this.tabControlactions.Controls.Add(this.tabpreflight);
             this.tabControlactions.Controls.Add(this.tabActions);
             this.tabControlactions.Controls.Add(this.tabActionsSimple);
             this.tabControlactions.Controls.Add(this.tabGauges);
@@ -434,6 +471,7 @@
             resources.ApplyResources(this.tabControlactions, "tabControlactions");
             this.tabControlactions.Name = "tabControlactions";
             this.tabControlactions.SelectedIndex = 0;
+            this.tabControlactions.Tag = "";
             this.tabControlactions.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
             this.tabControlactions.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -539,6 +577,46 @@
             this.quickView1.numberformat = "0.00";
             this.toolTip1.SetToolTip(this.quickView1, resources.GetString("quickView1.ToolTip"));
             this.quickView1.DoubleClick += new System.EventHandler(this.quickView_DoubleClick);
+            // 
+            // tabpreflight
+            // 
+            resources.ApplyResources(this.tabpreflight, "tabpreflight");
+            this.tabpreflight.Controls.Add(this.chkCamera);
+            this.tabpreflight.Controls.Add(this.chkServoLinkages);
+            this.tabpreflight.Controls.Add(this.chkCenterOfGravity);
+            this.tabpreflight.Controls.Add(this.chkServosTilt);
+            this.tabpreflight.Controls.Add(this.chkServosRC);
+            this.tabpreflight.Controls.Add(this.chkTailAndWings);
+            this.tabpreflight.Controls.Add(this.chkAltitude);
+            this.tabpreflight.Controls.Add(this.chkRemote);
+            this.tabpreflight.Controls.Add(this.chkBattery);
+            this.tabpreflight.Controls.Add(this.chkTelemetry);
+            this.tabpreflight.Controls.Add(this.chkGPS);
+            this.tabpreflight.Controls.Add(this.label7);
+            this.tabpreflight.Controls.Add(this.lbldataRemote);
+            this.tabpreflight.Controls.Add(this.lbldataBattery);
+            this.tabpreflight.Controls.Add(this.lbldataTelemetry);
+            this.tabpreflight.Controls.Add(this.lbldataGPS);
+            this.tabpreflight.Controls.Add(this.lbldataCamera);
+            this.tabpreflight.Controls.Add(this.lbldataServoLinkages);
+            this.tabpreflight.Controls.Add(this.lbldataCenterOfGravity);
+            this.tabpreflight.Controls.Add(this.lbldataServosTilt);
+            this.tabpreflight.Controls.Add(this.lbldataServosRC);
+            this.tabpreflight.Controls.Add(this.lbldataTailAndWings);
+            this.tabpreflight.Controls.Add(this.lblCamera);
+            this.tabpreflight.Controls.Add(this.lblServoLinkages);
+            this.tabpreflight.Controls.Add(this.lblCenterOfGravity);
+            this.tabpreflight.Controls.Add(this.lblServosTilt);
+            this.tabpreflight.Controls.Add(this.lblServosRC);
+            this.tabpreflight.Controls.Add(this.lblTailAndWings);
+            this.tabpreflight.Controls.Add(this.lblUserChecklist);
+            this.tabpreflight.Controls.Add(this.lblAltitude);
+            this.tabpreflight.Controls.Add(this.lblRemote);
+            this.tabpreflight.Controls.Add(this.lblBattery);
+            this.tabpreflight.Controls.Add(this.lblTelemetry);
+            this.tabpreflight.Controls.Add(this.lblGPS);
+            this.tabpreflight.Name = "tabpreflight";
+            this.tabpreflight.UseVisualStyleBackColor = true;
             // 
             // tabActions
             // 
@@ -1793,8 +1871,8 @@
             // 
             // dataGridViewImageColumn1
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle3;
             resources.ApplyResources(this.dataGridViewImageColumn1, "dataGridViewImageColumn1");
             this.dataGridViewImageColumn1.Image = global::MissionPlanner.Properties.Resources.up;
             this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -1802,8 +1880,8 @@
             // 
             // dataGridViewImageColumn2
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle4;
             resources.ApplyResources(this.dataGridViewImageColumn2, "dataGridViewImageColumn2");
             this.dataGridViewImageColumn2.Image = global::MissionPlanner.Properties.Resources.down;
             this.dataGridViewImageColumn2.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -1817,6 +1895,209 @@
             // bindingSourceStatusTab
             // 
             this.bindingSourceStatusTab.DataSource = typeof(MissionPlanner.CurrentState);
+            // 
+            // lblGPS
+            // 
+            resources.ApplyResources(this.lblGPS, "lblGPS");
+            this.lblGPS.Name = "lblGPS";
+            // 
+            // lblTelemetry
+            // 
+            resources.ApplyResources(this.lblTelemetry, "lblTelemetry");
+            this.lblTelemetry.Name = "lblTelemetry";
+            // 
+            // lblBattery
+            // 
+            resources.ApplyResources(this.lblBattery, "lblBattery");
+            this.lblBattery.Name = "lblBattery";
+            // 
+            // lblRemote
+            // 
+            resources.ApplyResources(this.lblRemote, "lblRemote");
+            this.lblRemote.Name = "lblRemote";
+            // 
+            // lblAltitude
+            // 
+            resources.ApplyResources(this.lblAltitude, "lblAltitude");
+            this.lblAltitude.Name = "lblAltitude";
+            // 
+            // lblUserChecklist
+            // 
+            resources.ApplyResources(this.lblUserChecklist, "lblUserChecklist");
+            this.lblUserChecklist.Name = "lblUserChecklist";
+            // 
+            // lblTailAndWings
+            // 
+            resources.ApplyResources(this.lblTailAndWings, "lblTailAndWings");
+            this.lblTailAndWings.Name = "lblTailAndWings";
+            // 
+            // lblServosRC
+            // 
+            resources.ApplyResources(this.lblServosRC, "lblServosRC");
+            this.lblServosRC.Name = "lblServosRC";
+            // 
+            // lblServosTilt
+            // 
+            resources.ApplyResources(this.lblServosTilt, "lblServosTilt");
+            this.lblServosTilt.Name = "lblServosTilt";
+            // 
+            // lblCenterOfGravity
+            // 
+            resources.ApplyResources(this.lblCenterOfGravity, "lblCenterOfGravity");
+            this.lblCenterOfGravity.Name = "lblCenterOfGravity";
+            // 
+            // lblServoLinkages
+            // 
+            resources.ApplyResources(this.lblServoLinkages, "lblServoLinkages");
+            this.lblServoLinkages.Name = "lblServoLinkages";
+            // 
+            // lblCamera
+            // 
+            resources.ApplyResources(this.lblCamera, "lblCamera");
+            this.lblCamera.Name = "lblCamera";
+            // 
+            // lbldataTailAndWings
+            // 
+            this.lbldataTailAndWings.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataTailAndWings, "lbldataTailAndWings");
+            this.lbldataTailAndWings.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataTailAndWings.Name = "lbldataTailAndWings";
+            // 
+            // lbldataServosRC
+            // 
+            this.lbldataServosRC.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataServosRC, "lbldataServosRC");
+            this.lbldataServosRC.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataServosRC.Name = "lbldataServosRC";
+            // 
+            // lbldataServosTilt
+            // 
+            this.lbldataServosTilt.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataServosTilt, "lbldataServosTilt");
+            this.lbldataServosTilt.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataServosTilt.Name = "lbldataServosTilt";
+            // 
+            // lbldataCenterOfGravity
+            // 
+            this.lbldataCenterOfGravity.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataCenterOfGravity, "lbldataCenterOfGravity");
+            this.lbldataCenterOfGravity.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataCenterOfGravity.Name = "lbldataCenterOfGravity";
+            // 
+            // lbldataServoLinkages
+            // 
+            this.lbldataServoLinkages.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataServoLinkages, "lbldataServoLinkages");
+            this.lbldataServoLinkages.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataServoLinkages.Name = "lbldataServoLinkages";
+            // 
+            // lbldataCamera
+            // 
+            this.lbldataCamera.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataCamera, "lbldataCamera");
+            this.lbldataCamera.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataCamera.Name = "lbldataCamera";
+            // 
+            // lbldataGPS
+            // 
+            this.lbldataGPS.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataGPS, "lbldataGPS");
+            this.lbldataGPS.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataGPS.Name = "lbldataGPS";
+            // 
+            // lbldataTelemetry
+            // 
+            this.lbldataTelemetry.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataTelemetry, "lbldataTelemetry");
+            this.lbldataTelemetry.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataTelemetry.Name = "lbldataTelemetry";
+            // 
+            // lbldataBattery
+            // 
+            this.lbldataBattery.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataBattery, "lbldataBattery");
+            this.lbldataBattery.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataBattery.Name = "lbldataBattery";
+            // 
+            // lbldataRemote
+            // 
+            this.lbldataRemote.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataRemote, "lbldataRemote");
+            this.lbldataRemote.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataRemote.Name = "lbldataRemote";
+            // 
+            // label7
+            // 
+            this.label7.BackColor = System.Drawing.Color.Green;
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label7.Name = "label7";
+            // 
+            // chkGPS
+            // 
+            resources.ApplyResources(this.chkGPS, "chkGPS");
+            this.chkGPS.Name = "chkGPS";
+            this.chkGPS.UseVisualStyleBackColor = true;
+            // 
+            // chkTelemetry
+            // 
+            resources.ApplyResources(this.chkTelemetry, "chkTelemetry");
+            this.chkTelemetry.Name = "chkTelemetry";
+            this.chkTelemetry.UseVisualStyleBackColor = true;
+            // 
+            // chkBattery
+            // 
+            resources.ApplyResources(this.chkBattery, "chkBattery");
+            this.chkBattery.Name = "chkBattery";
+            this.chkBattery.UseVisualStyleBackColor = true;
+            // 
+            // chkRemote
+            // 
+            resources.ApplyResources(this.chkRemote, "chkRemote");
+            this.chkRemote.Name = "chkRemote";
+            this.chkRemote.UseVisualStyleBackColor = true;
+            // 
+            // chkAltitude
+            // 
+            resources.ApplyResources(this.chkAltitude, "chkAltitude");
+            this.chkAltitude.Name = "chkAltitude";
+            this.chkAltitude.UseVisualStyleBackColor = true;
+            // 
+            // chkTailAndWings
+            // 
+            resources.ApplyResources(this.chkTailAndWings, "chkTailAndWings");
+            this.chkTailAndWings.Name = "chkTailAndWings";
+            this.chkTailAndWings.UseVisualStyleBackColor = true;
+            // 
+            // chkServosRC
+            // 
+            resources.ApplyResources(this.chkServosRC, "chkServosRC");
+            this.chkServosRC.Name = "chkServosRC";
+            this.chkServosRC.UseVisualStyleBackColor = true;
+            // 
+            // chkServosTilt
+            // 
+            resources.ApplyResources(this.chkServosTilt, "chkServosTilt");
+            this.chkServosTilt.Name = "chkServosTilt";
+            this.chkServosTilt.UseVisualStyleBackColor = true;
+            // 
+            // chkCenterOfGravity
+            // 
+            resources.ApplyResources(this.chkCenterOfGravity, "chkCenterOfGravity");
+            this.chkCenterOfGravity.Name = "chkCenterOfGravity";
+            this.chkCenterOfGravity.UseVisualStyleBackColor = true;
+            // 
+            // chkServoLinkages
+            // 
+            resources.ApplyResources(this.chkServoLinkages, "chkServoLinkages");
+            this.chkServoLinkages.Name = "chkServoLinkages";
+            this.chkServoLinkages.UseVisualStyleBackColor = true;
+            // 
+            // chkCamera
+            // 
+            resources.ApplyResources(this.chkCamera, "chkCamera");
+            this.chkCamera.Name = "chkCamera";
+            this.chkCamera.UseVisualStyleBackColor = true;
             // 
             // FlightData
             // 
@@ -1845,6 +2126,8 @@
             this.tabQuick.ResumeLayout(false);
             this.tableLayoutPanelQuick.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).EndInit();
+            this.tabpreflight.ResumeLayout(false);
+            this.tabpreflight.PerformLayout();
             this.tabActions.ResumeLayout(false);
             this.tabActionsSimple.ResumeLayout(false);
             this.tabGauges.ResumeLayout(false);
@@ -1888,19 +2171,7 @@
         private System.Windows.Forms.SplitContainer SubMainLeft;
         private System.Windows.Forms.ToolStripMenuItem goHereToolStripMenuItem;
         private Controls.HUD hud1;
-        private Controls.MyButton BUT_clear_track;
         private System.Windows.Forms.CheckBox CB_tuning;
-        private Controls.MyButton BUT_RAWSensor;
-        private Controls.MyButton BUTactiondo;
-        private Controls.MyButton BUTrestartmission;
-        private System.Windows.Forms.ComboBox CMB_action;
-        private Controls.MyButton BUT_Homealt;
-        private System.Windows.Forms.TrackBar tracklog;
-        private Controls.MyButton BUT_playlog;
-        private Controls.MyButton BUT_loadtelem;
-        private AGaugeApp.AGauge Galt;
-        private AGaugeApp.AGauge Gspeed;
-        private AGaugeApp.AGauge Gvspeed;
         private System.Windows.Forms.TableLayoutPanel tableMap;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.NumericUpDown Zoomlevel;
@@ -1908,86 +2179,28 @@
         private System.Windows.Forms.CheckBox CHK_autopan;
         private Controls.myGMAP gMapControl1;
         private ZedGraph.ZedGraphControl zg1;
-        private System.Windows.Forms.TabControl tabControlactions;
-        private System.Windows.Forms.TabPage tabGauges;
-        private System.Windows.Forms.TabPage tabStatus;
-        private System.Windows.Forms.TabPage tabActions;
-        private System.Windows.Forms.TabPage tabTLogs;
-        private System.Windows.Forms.ComboBox CMB_modes;
-        private Controls.MyButton BUT_setmode;
-        private System.Windows.Forms.ComboBox CMB_setwp;
-        private Controls.MyButton BUT_setwp;
-        private Controls.MyButton BUT_quickmanual;
-        private Controls.MyButton BUT_quickrtl;
-        private Controls.MyButton BUT_quickauto;
-        private Controls.MyButton BUT_log2kml;
-        private Controls.MyButton BUT_joystick;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolStripMenuItem recordHudToAVIToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stopRecordToolStripMenuItem;
-        private Controls.MyLabel lbl_logpercent;
         private System.Windows.Forms.ToolStripMenuItem pointCameraHereToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private Controls.MyLabel lbl_hdop;
         private Controls.MyLabel lbl_sats;
-        private Controls.HSI Gheading;
-        private Controls.MyLabel lbl_playbackspeed;
         private System.Windows.Forms.ToolStripMenuItem setMJPEGSourceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setAspectRatioToolStripMenuItem;
-        private System.Windows.Forms.TabPage tabQuick;
-        private Controls.QuickView quickView3;
-        private Controls.QuickView quickView2;
-        private Controls.QuickView quickView1;
-        private Controls.QuickView quickView4;
-        private Controls.QuickView quickView6;
-        private Controls.QuickView quickView5;
         private System.Windows.Forms.ToolStripMenuItem flyToHereAltToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem flightPlannerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem userItemsToolStripMenuItem;
         //private Crom.Controls.Docking.DockContainer dockContainer1;
-        private Controls.MyButton BUT_ARM;
-        private Controls.ModifyandSet modifyandSetAlt;
-        private Controls.ModifyandSet modifyandSetSpeed;
         private System.Windows.Forms.ToolStripMenuItem triggerCameraToolStripMenuItem;
         private Controls.MyTrackBar TRK_zoom;
-        private Controls.MyLabel LBL_logfn;
-        private System.Windows.Forms.TabPage tabServo;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelServos;
-        private Controls.ServoOptions servoOptions1;
-        private Controls.ServoOptions servoOptions2;
-        private Controls.ServoOptions servoOptions3;
-        private Controls.ServoOptions servoOptions4;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPaneltlogs;
-        private Controls.ServoOptions servoOptions5;
-        private Controls.ServoOptions servoOptions6;
-        private Controls.ServoOptions servoOptions7;
         private System.Windows.Forms.BindingSource bindingSourceHud;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelQuick;
-        private System.Windows.Forms.Panel panel2;
-        private Controls.MyButton BUT_speed10;
-        private Controls.MyButton BUT_speed5;
-        private Controls.MyButton BUT_speed2;
-        private Controls.MyButton BUT_speed1;
-        private Controls.MyButton BUT_speed1_2;
-        private Controls.MyButton BUT_speed1_4;
-        private Controls.MyButton BUT_speed1_10;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TabPage tablogbrowse;
-        private Controls.MyButton BUT_logbrowse;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TabPage tabScripts;
-        private Controls.MyButton BUT_edit_selected;
-        private System.Windows.Forms.Label labelSelectedScript;
-        private Controls.MyButton BUT_run_script;
-        private Controls.MyButton BUT_abort_script;
-        private System.Windows.Forms.Label labelScriptStatus;
-        private Controls.MyButton BUT_select_script;
         private System.Windows.Forms.OpenFileDialog openScriptDialog;
         private System.Windows.Forms.Timer scriptChecker;
-        private System.Windows.Forms.CheckBox checkBoxRedirectOutput;
         private System.Windows.Forms.ToolStripMenuItem russianHudToolStripMenuItem;
         public System.Windows.Forms.ContextMenuStrip contextMenuStripMap;
         public System.Windows.Forms.ContextMenuStrip contextMenuStripHud;
@@ -1996,27 +2209,132 @@
         private System.Windows.Forms.BindingSource bindingSourceGaugesTab;
         private System.Windows.Forms.ToolStripMenuItem setHomeHereToolStripMenuItem;
         private MissionPlanner.Controls.Coords coords1;
-        private Controls.MyButton BUT_matlab;
-        private System.Windows.Forms.ComboBox CMB_mountmode;
-        private Controls.MyButton BUT_mountmode;
         private Controls.WindDir windDir1;
-        private Controls.MyButton but_bintolog;
-        private Controls.MyButton but_dflogtokml;
-        private Controls.MyButton BUT_DFMavlink;
-        private System.Windows.Forms.TabPage tabPagemessages;
-        private System.Windows.Forms.TextBox txt_messagebox;
         private System.Windows.Forms.Timer Messagetabtimer;
-        private System.Windows.Forms.TabPage tabActionsSimple;
-        private Controls.MyButton myButton1;
-        private Controls.MyButton myButton2;
-        private Controls.MyButton myButton3;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripactionstab;
         private System.Windows.Forms.ToolStripMenuItem dropOutToolStripMenuItem;
-        private Controls.MyButton BUT_loganalysis;
         private System.Windows.Forms.ToolStripMenuItem addPoiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveFileToolStripMenuItem;
         private Controls.DistanceBar distanceBar1;
+        private System.Windows.Forms.TabControl tabControlactions;
+        private System.Windows.Forms.TabPage tabQuick;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelQuick;
+        private Controls.QuickView quickView6;
+        private Controls.QuickView quickView5;
+        private Controls.QuickView quickView4;
+        private Controls.QuickView quickView3;
+        private Controls.QuickView quickView2;
+        private Controls.QuickView quickView1;
+        private System.Windows.Forms.TabPage tabpreflight;
+        private System.Windows.Forms.TabPage tabActions;
+        private System.Windows.Forms.ComboBox CMB_mountmode;
+        private Controls.MyButton BUT_mountmode;
+        private Controls.ModifyandSet modifyandSetSpeed;
+        private Controls.ModifyandSet modifyandSetAlt;
+        private Controls.MyButton BUT_ARM;
+        private Controls.MyButton BUT_joystick;
+        private Controls.MyButton BUT_quickmanual;
+        private Controls.MyButton BUT_quickrtl;
+        private Controls.MyButton BUT_quickauto;
+        private System.Windows.Forms.ComboBox CMB_setwp;
+        private Controls.MyButton BUT_setwp;
+        private System.Windows.Forms.ComboBox CMB_modes;
+        private Controls.MyButton BUT_setmode;
+        private Controls.MyButton BUT_clear_track;
+        private System.Windows.Forms.ComboBox CMB_action;
+        private Controls.MyButton BUT_Homealt;
+        private Controls.MyButton BUT_RAWSensor;
+        private Controls.MyButton BUTrestartmission;
+        private Controls.MyButton BUTactiondo;
+        private System.Windows.Forms.TabPage tabActionsSimple;
+        private Controls.MyButton myButton1;
+        private Controls.MyButton myButton2;
+        private Controls.MyButton myButton3;
+        private System.Windows.Forms.TabPage tabGauges;
+        private AGaugeApp.AGauge Gvspeed;
+        private Controls.HSI Gheading;
+        private AGaugeApp.AGauge Galt;
+        private AGaugeApp.AGauge Gspeed;
+        private System.Windows.Forms.TabPage tabStatus;
+        private System.Windows.Forms.TabPage tabServo;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelServos;
+        private Controls.ServoOptions servoOptions1;
+        private Controls.ServoOptions servoOptions2;
+        private Controls.ServoOptions servoOptions3;
+        private Controls.ServoOptions servoOptions4;
+        private Controls.ServoOptions servoOptions5;
+        private Controls.ServoOptions servoOptions6;
+        private Controls.ServoOptions servoOptions7;
+        private System.Windows.Forms.TabPage tabTLogs;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPaneltlogs;
+        private Controls.MyButton BUT_loadtelem;
+        private Controls.MyLabel lbl_playbackspeed;
+        private Controls.MyLabel lbl_logpercent;
+        private System.Windows.Forms.TrackBar tracklog;
+        private Controls.MyLabel LBL_logfn;
+        private Controls.MyButton BUT_log2kml;
+        private Controls.MyButton BUT_playlog;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label2;
+        private Controls.MyButton BUT_speed10;
+        private Controls.MyButton BUT_speed5;
+        private Controls.MyButton BUT_speed2;
+        private Controls.MyButton BUT_speed1;
+        private Controls.MyButton BUT_speed1_2;
+        private Controls.MyButton BUT_speed1_4;
+        private Controls.MyButton BUT_speed1_10;
+        private System.Windows.Forms.TabPage tablogbrowse;
+        private Controls.MyButton BUT_loganalysis;
+        private Controls.MyButton BUT_DFMavlink;
+        private Controls.MyButton but_dflogtokml;
+        private Controls.MyButton but_bintolog;
+        private Controls.MyButton BUT_matlab;
+        private Controls.MyButton BUT_logbrowse;
+        private System.Windows.Forms.TabPage tabScripts;
+        private System.Windows.Forms.CheckBox checkBoxRedirectOutput;
+        private Controls.MyButton BUT_edit_selected;
+        private System.Windows.Forms.Label labelSelectedScript;
+        private Controls.MyButton BUT_run_script;
+        private Controls.MyButton BUT_abort_script;
+        private System.Windows.Forms.Label labelScriptStatus;
+        private Controls.MyButton BUT_select_script;
+        private System.Windows.Forms.TabPage tabPagemessages;
+        private System.Windows.Forms.TextBox txt_messagebox;
+        private System.Windows.Forms.Label lblTelemetry;
+        private System.Windows.Forms.Label lblGPS;
+        private System.Windows.Forms.Label lblServoLinkages;
+        private System.Windows.Forms.Label lblCenterOfGravity;
+        private System.Windows.Forms.Label lblServosTilt;
+        private System.Windows.Forms.Label lblServosRC;
+        private System.Windows.Forms.Label lblTailAndWings;
+        private System.Windows.Forms.Label lblUserChecklist;
+        private System.Windows.Forms.Label lblAltitude;
+        private System.Windows.Forms.Label lblRemote;
+        private System.Windows.Forms.Label lblBattery;
+        private System.Windows.Forms.Label lblCamera;
+        private System.Windows.Forms.Label lbldataCenterOfGravity;
+        private System.Windows.Forms.Label lbldataServosTilt;
+        private System.Windows.Forms.Label lbldataServosRC;
+        private System.Windows.Forms.Label lbldataTailAndWings;
+        private System.Windows.Forms.Label lbldataBattery;
+        private System.Windows.Forms.Label lbldataTelemetry;
+        private System.Windows.Forms.Label lbldataGPS;
+        private System.Windows.Forms.Label lbldataCamera;
+        private System.Windows.Forms.Label lbldataServoLinkages;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lbldataRemote;
+        private System.Windows.Forms.CheckBox chkCamera;
+        private System.Windows.Forms.CheckBox chkServoLinkages;
+        private System.Windows.Forms.CheckBox chkCenterOfGravity;
+        private System.Windows.Forms.CheckBox chkServosTilt;
+        private System.Windows.Forms.CheckBox chkServosRC;
+        private System.Windows.Forms.CheckBox chkTailAndWings;
+        private System.Windows.Forms.CheckBox chkAltitude;
+        private System.Windows.Forms.CheckBox chkRemote;
+        private System.Windows.Forms.CheckBox chkBattery;
+        private System.Windows.Forms.CheckBox chkTelemetry;
+        private System.Windows.Forms.CheckBox chkGPS;
 
     }
 }
