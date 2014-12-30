@@ -2147,39 +2147,16 @@ namespace MissionPlanner.GCSViews
         
         private void BUT_AddPolygon_Click_1(object sender, EventArgs e)
         {
-            //code identical to right click add polygon function -DC
             if (polygongridmode == false)
             {
                 CustomMessageBox.Show("You will remain in polygon mode until you clear the polygon or create a grid/upload a fence");
             }
 
             polygongridmode = true;
-
-            List<PointLatLng> polygonPoints = new List<PointLatLng>();
-            if (drawnpolygonsoverlay.Polygons.Count == 0)
-            {
-                drawnpolygon.Points.Clear();
-                drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
-            }
-
-            drawnpolygon.Fill = Brushes.Transparent;
-
-            // remove full loop is exists
-            if (drawnpolygon.Points.Count > 1 && drawnpolygon.Points[0] == drawnpolygon.Points[drawnpolygon.Points.Count - 1])
-                drawnpolygon.Points.RemoveAt(drawnpolygon.Points.Count - 1); // unmake a full loop
-
-            drawnpolygon.Points.Add(new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng));
-
-            addpolygonmarkergrid(drawnpolygon.Points.Count.ToString(), MouseDownStart.Lng, MouseDownStart.Lat, 0);
-
-            MainMap.UpdatePolygonLocalPosition(drawnpolygon);
-
-            MainMap.Invalidate();
         }
 
         private void BUT_ClearPolygon_Click_1(object sender, EventArgs e)
         {
-            //code identical to right click clear polygon function -DC
             polygongridmode = false;
             if (drawnpolygon == null)
                 return;
@@ -2189,11 +2166,6 @@ namespace MissionPlanner.GCSViews
 
             writeKML();
         }
-
-        //private void BUT_Survey_Click_1(object sender, EventArgs e)
-        //{
-
-        //}
 
         private void BUT_ElevationGraph_Click(object sender, EventArgs e)
         {
