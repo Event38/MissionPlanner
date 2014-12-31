@@ -1275,10 +1275,13 @@ namespace MissionPlanner.GCSViews
         }
 
         DateTime lastscreenupdate = DateTime.Now;
+        DateTime TimeReached50Meters = DateTime.Now;
+
+        public bool CameraClosed;
+        public bool Reached50M;
 
         private void updateBindingSource()
-        {
-            //bool CameraClosed = false; //assume camera is open
+        {        
             //  run at 25 hz.
             if (lastscreenupdate.AddMilliseconds(40) < DateTime.Now)
             {
@@ -1287,6 +1290,33 @@ namespace MissionPlanner.GCSViews
                 {
                     try
                     {
+                        //check to see when fifty meters is reached
+                        if(MainV2.comPort.MAV.cs.alt > 24 && MainV2.comPort.MAV.cs.alt < 25)
+                        {
+                            TimeReached50Meters = DateTime.Now;
+                        }
+                        if(MainV2.comPort.MAV.cs.alt > 27)
+                        {
+                            Reached50M = true;
+                        }
+
+                        //how long has it been at 50 meters
+                        System.TimeSpan TimeAbove50Meters = (DateTime.Now - TimeReached50Meters);
+
+                        //close camera lens based on parameters
+                        if (MainV2.comPort.MAV.cs.connected && MainV2.comPort.MAV.cs.alt < 26 && CameraClosed == false && Reached50M == true) //&& TimeAbove50Meters.TotalSeconds > 3) //& if camera is open & has been flying above 50M for at least 30 seconds
+                        {
+                            if (File.Exists("ShutCamtrig.py"))
+                            {
+                                CameraClosed = true;
+                                Script script = new Script();
+                                script.runScript("ShutCamtrig.py");
+                                MessageBox.Show("Camera lens closed because of low altitude!!!");
+
+                            }
+                            else
+                                MessageBox.Show("ERROR in BUT_CloseLens function (ShutCamtrig.py file was not found)");
+                        }
 
                         if (this.Visible)
                         {
@@ -1303,26 +1333,6 @@ namespace MissionPlanner.GCSViews
                             else if (tabControlactions.SelectedTab == tabQuick)
                             {
                                 MainV2.comPort.MAV.cs.UpdateCurrentSettings(bindingSourceQuickTab);
-                                
-                                //if (MainV2.comPort.MAV.cs.alt < 100 && CameraClosed == false)
-                                //{
-                                //    CameraClosed = true;
-                                //    if (File.Exists("ShutCamtrig.py"))
-                                //    {
-                                //        MessageBox.Show("Lens Closed because of low altitude");
-                                //        string closeLens = File.ReadAllText("ShutCamtrig.py");
-                                //        Script script = new Script();
-                                //        //MessageBox.Show(closeLens); //--test code
-                                //        script.runScript("ShutCamtrig.py");
-                                        
-                                //    }
-                                //    else
-                                //        MessageBox.Show("ERROR in BUT_CloseLens function (ShutCamtrig.py file was not found)");
-                                //}
-                                //else
-                                //{
-                                //    CameraClosed = false;
-                                //}
                             }
                             else if (tabControlactions.SelectedTab == tabGauges)
                             {
