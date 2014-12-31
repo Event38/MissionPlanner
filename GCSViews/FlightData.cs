@@ -870,6 +870,7 @@ namespace MissionPlanner.GCSViews
                     //Console.WriteLine(DateTime.Now.Millisecond);
                     //int fixme;
                     updateBindingSource();
+                    updateCameraHatch(); //-- DC
                     // Console.WriteLine(DateTime.Now.Millisecond + " done ");
 
                     // battery warning.
@@ -1274,12 +1275,33 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        DateTime lastscreenupdate = DateTime.Now;
-        DateTime TimeReached50Meters = DateTime.Now;
-
         public bool CameraClosed;
         public bool Reached50M;
 
+        private void updateCameraHatch()
+        {
+            if (CHK_AutoHatch.Checked)
+            {
+                CHK_AutoHatch.Text = "Auto Hatch Enabled";
+                CHK_AutoHatch.BackColor = Color.DarkGreen;
+                if (MainV2.comPort.MAV.cs.alt > 3)
+                {
+                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //open hatch
+                }
+                else
+                {
+                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //cose hatch
+                }
+            }
+            else
+            {
+                CHK_AutoHatch.Text = "Auto Hatch Disabled";
+                CHK_AutoHatch.BackColor = Color.Red;
+            }
+        }
+
+
+        DateTime lastscreenupdate = DateTime.Now;
         private void updateBindingSource()
         {        
             //  run at 25 hz.
@@ -1290,21 +1312,14 @@ namespace MissionPlanner.GCSViews
                 {
                     try
                     {
-                        //check to see when fifty meters is reached
-                        if(MainV2.comPort.MAV.cs.alt > 24 && MainV2.comPort.MAV.cs.alt < 25)
-                        {
-                            TimeReached50Meters = DateTime.Now;
-                        }
-                        if(MainV2.comPort.MAV.cs.alt > 27)
+                        //check to see if 50 meters has been reached
+                        if (MainV2.comPort.MAV.cs.alt > 50)
                         {
                             Reached50M = true;
                         }
 
-                        //how long has it been at 50 meters
-                        System.TimeSpan TimeAbove50Meters = (DateTime.Now - TimeReached50Meters);
-
                         //close camera lens based on parameters
-                        if (MainV2.comPort.MAV.cs.connected && MainV2.comPort.MAV.cs.alt < 26 && CameraClosed == false && Reached50M == true) //&& TimeAbove50Meters.TotalSeconds > 3) //& if camera is open & has been flying above 50M for at least 30 seconds
+                        if (MainV2.comPort.MAV.cs.connected && MainV2.comPort.MAV.cs.alt < 20 && CameraClosed == false && Reached50M == true) //&& TimeAbove50Meters.TotalSeconds > 3) //& if camera is open & has been flying above 50M for at least 30 seconds
                         {
                             if (File.Exists("ShutCamtrig.py"))
                             {
@@ -3234,6 +3249,18 @@ namespace MissionPlanner.GCSViews
             }
             else
                 MessageBox.Show("ERROR in BUT_CloseLens function (ShutCamtrig.py file was not found)");
+        }
+
+        private void BUT_OpenHatch_Click(object sender, EventArgs e)
+        {
+            CHK_AutoHatch.Checked = false;
+            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //toggle servo 7 low
+        }
+
+        private void BUT_CloseHatch_Click(object sender, EventArgs e)
+        {
+            CHK_AutoHatch.Checked = false;
+            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //toggle servo 7 high
         }
 
         private void dropOutToolStripMenuItem_Click(object sender, EventArgs e)
