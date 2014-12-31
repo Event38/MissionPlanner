@@ -1275,16 +1275,19 @@ namespace MissionPlanner.GCSViews
             }
         }
 
+        DateTime lastscreenupdate = DateTime.Now;
+
         public bool CameraClosed;
         public bool Reached50M;
 
         private void updateCameraHatch()
         {
+            if (lastscreenupdate.AddMilliseconds(1000) < DateTime.Now)
             if (CHK_AutoHatch.Checked)
             {
                 CHK_AutoHatch.Text = "Auto Hatch Enabled";
-                CHK_AutoHatch.BackColor = Color.DarkGreen;
-                if (MainV2.comPort.MAV.cs.alt > 3)
+                CHK_AutoHatch.BackColor = Color.Green;
+                if (MainV2.comPort.MAV.cs.alt > 30)
                 {
                     MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //open hatch
                 }
@@ -1300,8 +1303,6 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-
-        DateTime lastscreenupdate = DateTime.Now;
         private void updateBindingSource()
         {        
             //  run at 25 hz.
