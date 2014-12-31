@@ -2750,6 +2750,9 @@
     <Content Include="ChangeLog.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ShutCamtrig.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Drivers\ArduinoMEGA2560.inf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

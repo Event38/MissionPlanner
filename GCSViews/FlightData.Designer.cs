@@ -8,8 +8,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlightData));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contextMenuStripMap = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.goHereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flyToHereAltToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -30,25 +30,56 @@
             this.setAspectRatioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userItemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.russianHudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.tabControlactions = new System.Windows.Forms.TabControl();
             this.contextMenuStripactionstab = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.dropOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabQuick = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelQuick = new System.Windows.Forms.TableLayoutPanel();
             this.quickView6 = new MissionPlanner.Controls.QuickView();
-            this.bindingSourceQuickTab = new System.Windows.Forms.BindingSource(this.components);
             this.quickView5 = new MissionPlanner.Controls.QuickView();
             this.quickView4 = new MissionPlanner.Controls.QuickView();
             this.quickView3 = new MissionPlanner.Controls.QuickView();
             this.quickView2 = new MissionPlanner.Controls.QuickView();
             this.quickView1 = new MissionPlanner.Controls.QuickView();
             this.tabpreflight = new System.Windows.Forms.TabPage();
+            this.chkCamera = new System.Windows.Forms.CheckBox();
+            this.chkServoLinkages = new System.Windows.Forms.CheckBox();
+            this.chkCenterOfGravity = new System.Windows.Forms.CheckBox();
+            this.chkServosTilt = new System.Windows.Forms.CheckBox();
+            this.chkServosRC = new System.Windows.Forms.CheckBox();
+            this.chkTailAndWings = new System.Windows.Forms.CheckBox();
+            this.chkAltitude = new System.Windows.Forms.CheckBox();
+            this.chkRemote = new System.Windows.Forms.CheckBox();
+            this.chkBattery = new System.Windows.Forms.CheckBox();
+            this.chkTelemetry = new System.Windows.Forms.CheckBox();
+            this.chkGPS = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lbldataRemote = new System.Windows.Forms.Label();
+            this.lbldataBattery = new System.Windows.Forms.Label();
+            this.lbldataTelemetry = new System.Windows.Forms.Label();
+            this.lbldataGPS = new System.Windows.Forms.Label();
+            this.lbldataCamera = new System.Windows.Forms.Label();
+            this.lbldataServoLinkages = new System.Windows.Forms.Label();
+            this.lbldataCenterOfGravity = new System.Windows.Forms.Label();
+            this.lbldataServosTilt = new System.Windows.Forms.Label();
+            this.lbldataServosRC = new System.Windows.Forms.Label();
+            this.lbldataTailAndWings = new System.Windows.Forms.Label();
+            this.lblCamera = new System.Windows.Forms.Label();
+            this.lblServoLinkages = new System.Windows.Forms.Label();
+            this.lblCenterOfGravity = new System.Windows.Forms.Label();
+            this.lblServosTilt = new System.Windows.Forms.Label();
+            this.lblServosRC = new System.Windows.Forms.Label();
+            this.lblTailAndWings = new System.Windows.Forms.Label();
+            this.lblUserChecklist = new System.Windows.Forms.Label();
+            this.lblAltitude = new System.Windows.Forms.Label();
+            this.lblRemote = new System.Windows.Forms.Label();
+            this.lblBattery = new System.Windows.Forms.Label();
+            this.lblTelemetry = new System.Windows.Forms.Label();
+            this.lblGPS = new System.Windows.Forms.Label();
             this.tabActions = new System.Windows.Forms.TabPage();
+            this.BUT_CloseLens = new MissionPlanner.Controls.MyButton();
             this.CMB_mountmode = new System.Windows.Forms.ComboBox();
             this.BUT_mountmode = new MissionPlanner.Controls.MyButton();
-            this.modifyandSetSpeed = new MissionPlanner.Controls.ModifyandSet();
-            this.modifyandSetAlt = new MissionPlanner.Controls.ModifyandSet();
             this.BUT_ARM = new MissionPlanner.Controls.MyButton();
             this.BUT_joystick = new MissionPlanner.Controls.MyButton();
             this.BUT_quickmanual = new MissionPlanner.Controls.MyButton();
@@ -70,20 +101,12 @@
             this.myButton3 = new MissionPlanner.Controls.MyButton();
             this.tabGauges = new System.Windows.Forms.TabPage();
             this.Gvspeed = new AGaugeApp.AGauge();
-            this.bindingSourceGaugesTab = new System.Windows.Forms.BindingSource(this.components);
             this.Gheading = new MissionPlanner.Controls.HSI();
             this.Galt = new AGaugeApp.AGauge();
             this.Gspeed = new AGaugeApp.AGauge();
             this.tabStatus = new System.Windows.Forms.TabPage();
             this.tabServo = new System.Windows.Forms.TabPage();
             this.flowLayoutPanelServos = new System.Windows.Forms.FlowLayoutPanel();
-            this.servoOptions1 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions2 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions3 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions4 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions5 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions6 = new MissionPlanner.Controls.ServoOptions();
-            this.servoOptions7 = new MissionPlanner.Controls.ServoOptions();
             this.tabTLogs = new System.Windows.Forms.TabPage();
             this.tableLayoutPaneltlogs = new System.Windows.Forms.TableLayoutPanel();
             this.BUT_loadtelem = new MissionPlanner.Controls.MyButton();
@@ -122,9 +145,7 @@
             this.tableMap = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.zg1 = new ZedGraph.ZedGraphControl();
-            this.distanceBar1 = new MissionPlanner.Controls.DistanceBar();
             this.windDir1 = new MissionPlanner.Controls.WindDir();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -146,41 +167,21 @@
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Messagetabtimer = new System.Windows.Forms.Timer(this.components);
+            this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingSourceQuickTab = new System.Windows.Forms.BindingSource(this.components);
+            this.modifyandSetSpeed = new MissionPlanner.Controls.ModifyandSet();
+            this.modifyandSetAlt = new MissionPlanner.Controls.ModifyandSet();
+            this.servoOptions1 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions2 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions3 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions4 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions5 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions6 = new MissionPlanner.Controls.ServoOptions();
+            this.servoOptions7 = new MissionPlanner.Controls.ServoOptions();
+            this.distanceBar1 = new MissionPlanner.Controls.DistanceBar();
+            this.bindingSourceGaugesTab = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
-            this.lblGPS = new System.Windows.Forms.Label();
-            this.lblTelemetry = new System.Windows.Forms.Label();
-            this.lblBattery = new System.Windows.Forms.Label();
-            this.lblRemote = new System.Windows.Forms.Label();
-            this.lblAltitude = new System.Windows.Forms.Label();
-            this.lblUserChecklist = new System.Windows.Forms.Label();
-            this.lblTailAndWings = new System.Windows.Forms.Label();
-            this.lblServosRC = new System.Windows.Forms.Label();
-            this.lblServosTilt = new System.Windows.Forms.Label();
-            this.lblCenterOfGravity = new System.Windows.Forms.Label();
-            this.lblServoLinkages = new System.Windows.Forms.Label();
-            this.lblCamera = new System.Windows.Forms.Label();
-            this.lbldataTailAndWings = new System.Windows.Forms.Label();
-            this.lbldataServosRC = new System.Windows.Forms.Label();
-            this.lbldataServosTilt = new System.Windows.Forms.Label();
-            this.lbldataCenterOfGravity = new System.Windows.Forms.Label();
-            this.lbldataServoLinkages = new System.Windows.Forms.Label();
-            this.lbldataCamera = new System.Windows.Forms.Label();
-            this.lbldataGPS = new System.Windows.Forms.Label();
-            this.lbldataTelemetry = new System.Windows.Forms.Label();
-            this.lbldataBattery = new System.Windows.Forms.Label();
-            this.lbldataRemote = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.chkGPS = new System.Windows.Forms.CheckBox();
-            this.chkTelemetry = new System.Windows.Forms.CheckBox();
-            this.chkBattery = new System.Windows.Forms.CheckBox();
-            this.chkRemote = new System.Windows.Forms.CheckBox();
-            this.chkAltitude = new System.Windows.Forms.CheckBox();
-            this.chkTailAndWings = new System.Windows.Forms.CheckBox();
-            this.chkServosRC = new System.Windows.Forms.CheckBox();
-            this.chkServosTilt = new System.Windows.Forms.CheckBox();
-            this.chkCenterOfGravity = new System.Windows.Forms.CheckBox();
-            this.chkServoLinkages = new System.Windows.Forms.CheckBox();
-            this.chkCamera = new System.Windows.Forms.CheckBox();
             this.contextMenuStripMap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainH)).BeginInit();
             this.MainH.Panel1.SuspendLayout();
@@ -191,17 +192,14 @@
             this.SubMainLeft.Panel2.SuspendLayout();
             this.SubMainLeft.SuspendLayout();
             this.contextMenuStripHud.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
             this.tabControlactions.SuspendLayout();
             this.contextMenuStripactionstab.SuspendLayout();
             this.tabQuick.SuspendLayout();
             this.tableLayoutPanelQuick.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).BeginInit();
             this.tabpreflight.SuspendLayout();
             this.tabActions.SuspendLayout();
             this.tabActionsSimple.SuspendLayout();
             this.tabGauges.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).BeginInit();
             this.tabServo.SuspendLayout();
             this.flowLayoutPanelServos.SuspendLayout();
             this.tabTLogs.SuspendLayout();
@@ -216,10 +214,13 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).BeginInit();
             this.SuspendLayout();
             // 
@@ -450,10 +451,6 @@
             resources.ApplyResources(this.russianHudToolStripMenuItem, "russianHudToolStripMenuItem");
             this.russianHudToolStripMenuItem.Click += new System.EventHandler(this.russianHudToolStripMenuItem_Click);
             // 
-            // bindingSourceHud
-            // 
-            this.bindingSourceHud.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
             // tabControlactions
             // 
             this.tabControlactions.ContextMenuStrip = this.contextMenuStripactionstab;
@@ -517,10 +514,6 @@
             this.quickView6.numberColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(252)))));
             this.quickView6.numberformat = "0.00";
             this.quickView6.DoubleClick += new System.EventHandler(this.quickView_DoubleClick);
-            // 
-            // bindingSourceQuickTab
-            // 
-            this.bindingSourceQuickTab.DataSource = typeof(MissionPlanner.CurrentState);
             // 
             // quickView5
             // 
@@ -618,12 +611,215 @@
             this.tabpreflight.Name = "tabpreflight";
             this.tabpreflight.UseVisualStyleBackColor = true;
             // 
+            // chkCamera
+            // 
+            resources.ApplyResources(this.chkCamera, "chkCamera");
+            this.chkCamera.Name = "chkCamera";
+            this.chkCamera.UseVisualStyleBackColor = true;
+            // 
+            // chkServoLinkages
+            // 
+            resources.ApplyResources(this.chkServoLinkages, "chkServoLinkages");
+            this.chkServoLinkages.Name = "chkServoLinkages";
+            this.chkServoLinkages.UseVisualStyleBackColor = true;
+            // 
+            // chkCenterOfGravity
+            // 
+            resources.ApplyResources(this.chkCenterOfGravity, "chkCenterOfGravity");
+            this.chkCenterOfGravity.Name = "chkCenterOfGravity";
+            this.chkCenterOfGravity.UseVisualStyleBackColor = true;
+            // 
+            // chkServosTilt
+            // 
+            resources.ApplyResources(this.chkServosTilt, "chkServosTilt");
+            this.chkServosTilt.Name = "chkServosTilt";
+            this.chkServosTilt.UseVisualStyleBackColor = true;
+            // 
+            // chkServosRC
+            // 
+            resources.ApplyResources(this.chkServosRC, "chkServosRC");
+            this.chkServosRC.Name = "chkServosRC";
+            this.chkServosRC.UseVisualStyleBackColor = true;
+            // 
+            // chkTailAndWings
+            // 
+            resources.ApplyResources(this.chkTailAndWings, "chkTailAndWings");
+            this.chkTailAndWings.Name = "chkTailAndWings";
+            this.chkTailAndWings.UseVisualStyleBackColor = true;
+            // 
+            // chkAltitude
+            // 
+            resources.ApplyResources(this.chkAltitude, "chkAltitude");
+            this.chkAltitude.Name = "chkAltitude";
+            this.chkAltitude.UseVisualStyleBackColor = true;
+            // 
+            // chkRemote
+            // 
+            resources.ApplyResources(this.chkRemote, "chkRemote");
+            this.chkRemote.Name = "chkRemote";
+            this.chkRemote.UseVisualStyleBackColor = true;
+            // 
+            // chkBattery
+            // 
+            resources.ApplyResources(this.chkBattery, "chkBattery");
+            this.chkBattery.Name = "chkBattery";
+            this.chkBattery.UseVisualStyleBackColor = true;
+            // 
+            // chkTelemetry
+            // 
+            resources.ApplyResources(this.chkTelemetry, "chkTelemetry");
+            this.chkTelemetry.Name = "chkTelemetry";
+            this.chkTelemetry.UseVisualStyleBackColor = true;
+            // 
+            // chkGPS
+            // 
+            resources.ApplyResources(this.chkGPS, "chkGPS");
+            this.chkGPS.Name = "chkGPS";
+            this.chkGPS.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.BackColor = System.Drawing.Color.Green;
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label7.Name = "label7";
+            // 
+            // lbldataRemote
+            // 
+            this.lbldataRemote.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataRemote, "lbldataRemote");
+            this.lbldataRemote.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataRemote.Name = "lbldataRemote";
+            // 
+            // lbldataBattery
+            // 
+            this.lbldataBattery.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataBattery, "lbldataBattery");
+            this.lbldataBattery.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataBattery.Name = "lbldataBattery";
+            // 
+            // lbldataTelemetry
+            // 
+            this.lbldataTelemetry.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataTelemetry, "lbldataTelemetry");
+            this.lbldataTelemetry.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataTelemetry.Name = "lbldataTelemetry";
+            // 
+            // lbldataGPS
+            // 
+            this.lbldataGPS.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataGPS, "lbldataGPS");
+            this.lbldataGPS.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataGPS.Name = "lbldataGPS";
+            // 
+            // lbldataCamera
+            // 
+            this.lbldataCamera.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataCamera, "lbldataCamera");
+            this.lbldataCamera.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataCamera.Name = "lbldataCamera";
+            // 
+            // lbldataServoLinkages
+            // 
+            this.lbldataServoLinkages.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataServoLinkages, "lbldataServoLinkages");
+            this.lbldataServoLinkages.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataServoLinkages.Name = "lbldataServoLinkages";
+            // 
+            // lbldataCenterOfGravity
+            // 
+            this.lbldataCenterOfGravity.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataCenterOfGravity, "lbldataCenterOfGravity");
+            this.lbldataCenterOfGravity.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataCenterOfGravity.Name = "lbldataCenterOfGravity";
+            // 
+            // lbldataServosTilt
+            // 
+            this.lbldataServosTilt.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataServosTilt, "lbldataServosTilt");
+            this.lbldataServosTilt.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataServosTilt.Name = "lbldataServosTilt";
+            // 
+            // lbldataServosRC
+            // 
+            this.lbldataServosRC.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataServosRC, "lbldataServosRC");
+            this.lbldataServosRC.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataServosRC.Name = "lbldataServosRC";
+            // 
+            // lbldataTailAndWings
+            // 
+            this.lbldataTailAndWings.BackColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.lbldataTailAndWings, "lbldataTailAndWings");
+            this.lbldataTailAndWings.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lbldataTailAndWings.Name = "lbldataTailAndWings";
+            // 
+            // lblCamera
+            // 
+            resources.ApplyResources(this.lblCamera, "lblCamera");
+            this.lblCamera.Name = "lblCamera";
+            // 
+            // lblServoLinkages
+            // 
+            resources.ApplyResources(this.lblServoLinkages, "lblServoLinkages");
+            this.lblServoLinkages.Name = "lblServoLinkages";
+            // 
+            // lblCenterOfGravity
+            // 
+            resources.ApplyResources(this.lblCenterOfGravity, "lblCenterOfGravity");
+            this.lblCenterOfGravity.Name = "lblCenterOfGravity";
+            // 
+            // lblServosTilt
+            // 
+            resources.ApplyResources(this.lblServosTilt, "lblServosTilt");
+            this.lblServosTilt.Name = "lblServosTilt";
+            // 
+            // lblServosRC
+            // 
+            resources.ApplyResources(this.lblServosRC, "lblServosRC");
+            this.lblServosRC.Name = "lblServosRC";
+            // 
+            // lblTailAndWings
+            // 
+            resources.ApplyResources(this.lblTailAndWings, "lblTailAndWings");
+            this.lblTailAndWings.Name = "lblTailAndWings";
+            // 
+            // lblUserChecklist
+            // 
+            resources.ApplyResources(this.lblUserChecklist, "lblUserChecklist");
+            this.lblUserChecklist.Name = "lblUserChecklist";
+            // 
+            // lblAltitude
+            // 
+            resources.ApplyResources(this.lblAltitude, "lblAltitude");
+            this.lblAltitude.Name = "lblAltitude";
+            // 
+            // lblRemote
+            // 
+            resources.ApplyResources(this.lblRemote, "lblRemote");
+            this.lblRemote.Name = "lblRemote";
+            // 
+            // lblBattery
+            // 
+            resources.ApplyResources(this.lblBattery, "lblBattery");
+            this.lblBattery.Name = "lblBattery";
+            // 
+            // lblTelemetry
+            // 
+            resources.ApplyResources(this.lblTelemetry, "lblTelemetry");
+            this.lblTelemetry.Name = "lblTelemetry";
+            // 
+            // lblGPS
+            // 
+            resources.ApplyResources(this.lblGPS, "lblGPS");
+            this.lblGPS.Name = "lblGPS";
+            // 
             // tabActions
             // 
+            resources.ApplyResources(this.tabActions, "tabActions");
+            this.tabActions.Controls.Add(this.BUT_CloseLens);
             this.tabActions.Controls.Add(this.CMB_mountmode);
             this.tabActions.Controls.Add(this.BUT_mountmode);
-            this.tabActions.Controls.Add(this.modifyandSetSpeed);
-            this.tabActions.Controls.Add(this.modifyandSetAlt);
             this.tabActions.Controls.Add(this.BUT_ARM);
             this.tabActions.Controls.Add(this.BUT_joystick);
             this.tabActions.Controls.Add(this.BUT_quickmanual);
@@ -639,9 +835,18 @@
             this.tabActions.Controls.Add(this.BUT_RAWSensor);
             this.tabActions.Controls.Add(this.BUTrestartmission);
             this.tabActions.Controls.Add(this.BUTactiondo);
-            resources.ApplyResources(this.tabActions, "tabActions");
+            this.tabActions.Controls.Add(this.modifyandSetSpeed);
+            this.tabActions.Controls.Add(this.modifyandSetAlt);
             this.tabActions.Name = "tabActions";
             this.tabActions.UseVisualStyleBackColor = true;
+            // 
+            // BUT_CloseLens
+            // 
+            resources.ApplyResources(this.BUT_CloseLens, "BUT_CloseLens");
+            this.BUT_CloseLens.Name = "BUT_CloseLens";
+            this.toolTip1.SetToolTip(this.BUT_CloseLens, resources.GetString("BUT_CloseLens.ToolTip"));
+            this.BUT_CloseLens.UseVisualStyleBackColor = true;
+            this.BUT_CloseLens.Click += new System.EventHandler(this.BUT_CloseLens_Click);
             // 
             // CMB_mountmode
             // 
@@ -657,31 +862,6 @@
             this.toolTip1.SetToolTip(this.BUT_mountmode, resources.GetString("BUT_mountmode.ToolTip"));
             this.BUT_mountmode.UseVisualStyleBackColor = true;
             this.BUT_mountmode.Click += new System.EventHandler(this.BUT_mountmode_Click);
-            // 
-            // modifyandSetSpeed
-            // 
-            this.modifyandSetSpeed.ButtonText = "Change Speed";
-            resources.ApplyResources(this.modifyandSetSpeed, "modifyandSetSpeed");
-            this.modifyandSetSpeed.Name = "modifyandSetSpeed";
-            this.modifyandSetSpeed.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.modifyandSetSpeed.Click += new System.EventHandler(this.modifyandSetSpeed_Click);
-            this.modifyandSetSpeed.ParentChanged += new System.EventHandler(this.modifyandSetSpeed_ParentChanged);
-            // 
-            // modifyandSetAlt
-            // 
-            this.modifyandSetAlt.ButtonText = "Change Alt";
-            resources.ApplyResources(this.modifyandSetAlt, "modifyandSetAlt");
-            this.modifyandSetAlt.Name = "modifyandSetAlt";
-            this.modifyandSetAlt.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.modifyandSetAlt.Click += new System.EventHandler(this.modifyandSetAlt_Click);
             // 
             // BUT_ARM
             // 
@@ -991,10 +1171,6 @@
             this.Gvspeed.Value1 = 0F;
             this.Gvspeed.Value2 = 0F;
             this.Gvspeed.Value3 = 0F;
-            // 
-            // bindingSourceGaugesTab
-            // 
-            this.bindingSourceGaugesTab.DataSource = typeof(MissionPlanner.CurrentState);
             // 
             // Gheading
             // 
@@ -1322,48 +1498,6 @@
             this.flowLayoutPanelServos.Controls.Add(this.servoOptions7);
             this.flowLayoutPanelServos.Name = "flowLayoutPanelServos";
             // 
-            // servoOptions1
-            // 
-            resources.ApplyResources(this.servoOptions1, "servoOptions1");
-            this.servoOptions1.Name = "servoOptions1";
-            this.servoOptions1.thisservo = 5;
-            // 
-            // servoOptions2
-            // 
-            resources.ApplyResources(this.servoOptions2, "servoOptions2");
-            this.servoOptions2.Name = "servoOptions2";
-            this.servoOptions2.thisservo = 6;
-            // 
-            // servoOptions3
-            // 
-            resources.ApplyResources(this.servoOptions3, "servoOptions3");
-            this.servoOptions3.Name = "servoOptions3";
-            this.servoOptions3.thisservo = 7;
-            // 
-            // servoOptions4
-            // 
-            resources.ApplyResources(this.servoOptions4, "servoOptions4");
-            this.servoOptions4.Name = "servoOptions4";
-            this.servoOptions4.thisservo = 8;
-            // 
-            // servoOptions5
-            // 
-            resources.ApplyResources(this.servoOptions5, "servoOptions5");
-            this.servoOptions5.Name = "servoOptions5";
-            this.servoOptions5.thisservo = 9;
-            // 
-            // servoOptions6
-            // 
-            resources.ApplyResources(this.servoOptions6, "servoOptions6");
-            this.servoOptions6.Name = "servoOptions6";
-            this.servoOptions6.thisservo = 10;
-            // 
-            // servoOptions7
-            // 
-            resources.ApplyResources(this.servoOptions7, "servoOptions7");
-            this.servoOptions7.Name = "servoOptions7";
-            this.servoOptions7.thisservo = 11;
-            // 
             // tabTLogs
             // 
             this.tabTLogs.Controls.Add(this.tableLayoutPaneltlogs);
@@ -1675,27 +1809,15 @@
             this.zg1.ScrollMinY2 = 0D;
             this.zg1.DoubleClick += new System.EventHandler(this.zg1_DoubleClick);
             // 
-            // distanceBar1
-            // 
-            resources.ApplyResources(this.distanceBar1, "distanceBar1");
-            this.distanceBar1.BackColor = System.Drawing.Color.Transparent;
-            this.distanceBar1.Name = "distanceBar1";
-            this.distanceBar1.totaldist = 100F;
-            this.distanceBar1.traveleddist = 0F;
-            // 
             // windDir1
             // 
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 360D;
+            this.windDir1.Direction = 180D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
-            // 
-            // bindingSource1
-            // 
-            this.bindingSource1.DataSource = typeof(MissionPlanner.CurrentState);
             // 
             // label6
             // 
@@ -1871,8 +1993,8 @@
             // 
             // dataGridViewImageColumn1
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle1;
             resources.ApplyResources(this.dataGridViewImageColumn1, "dataGridViewImageColumn1");
             this.dataGridViewImageColumn1.Image = global::MissionPlanner.Properties.Resources.up;
             this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -1880,8 +2002,8 @@
             // 
             // dataGridViewImageColumn2
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle2;
             resources.ApplyResources(this.dataGridViewImageColumn2, "dataGridViewImageColumn2");
             this.dataGridViewImageColumn2.Image = global::MissionPlanner.Properties.Resources.down;
             this.dataGridViewImageColumn2.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -1892,212 +2014,100 @@
             this.Messagetabtimer.Interval = 200;
             this.Messagetabtimer.Tick += new System.EventHandler(this.Messagetabtimer_Tick);
             // 
+            // bindingSourceHud
+            // 
+            this.bindingSourceHud.DataSource = typeof(MissionPlanner.CurrentState);
+            // 
+            // bindingSourceQuickTab
+            // 
+            this.bindingSourceQuickTab.DataSource = typeof(MissionPlanner.CurrentState);
+            // 
+            // modifyandSetSpeed
+            // 
+            this.modifyandSetSpeed.ButtonText = "Change Speed";
+            resources.ApplyResources(this.modifyandSetSpeed, "modifyandSetSpeed");
+            this.modifyandSetSpeed.Name = "modifyandSetSpeed";
+            this.modifyandSetSpeed.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.modifyandSetSpeed.Click += new System.EventHandler(this.modifyandSetSpeed_Click);
+            this.modifyandSetSpeed.ParentChanged += new System.EventHandler(this.modifyandSetSpeed_ParentChanged);
+            // 
+            // modifyandSetAlt
+            // 
+            this.modifyandSetAlt.ButtonText = "Change Alt";
+            resources.ApplyResources(this.modifyandSetAlt, "modifyandSetAlt");
+            this.modifyandSetAlt.Name = "modifyandSetAlt";
+            this.modifyandSetAlt.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.modifyandSetAlt.Click += new System.EventHandler(this.modifyandSetAlt_Click);
+            // 
+            // servoOptions1
+            // 
+            resources.ApplyResources(this.servoOptions1, "servoOptions1");
+            this.servoOptions1.Name = "servoOptions1";
+            this.servoOptions1.thisservo = 5;
+            // 
+            // servoOptions2
+            // 
+            resources.ApplyResources(this.servoOptions2, "servoOptions2");
+            this.servoOptions2.Name = "servoOptions2";
+            this.servoOptions2.thisservo = 6;
+            // 
+            // servoOptions3
+            // 
+            resources.ApplyResources(this.servoOptions3, "servoOptions3");
+            this.servoOptions3.Name = "servoOptions3";
+            this.servoOptions3.thisservo = 7;
+            // 
+            // servoOptions4
+            // 
+            resources.ApplyResources(this.servoOptions4, "servoOptions4");
+            this.servoOptions4.Name = "servoOptions4";
+            this.servoOptions4.thisservo = 8;
+            // 
+            // servoOptions5
+            // 
+            resources.ApplyResources(this.servoOptions5, "servoOptions5");
+            this.servoOptions5.Name = "servoOptions5";
+            this.servoOptions5.thisservo = 9;
+            // 
+            // servoOptions6
+            // 
+            resources.ApplyResources(this.servoOptions6, "servoOptions6");
+            this.servoOptions6.Name = "servoOptions6";
+            this.servoOptions6.thisservo = 10;
+            // 
+            // servoOptions7
+            // 
+            resources.ApplyResources(this.servoOptions7, "servoOptions7");
+            this.servoOptions7.Name = "servoOptions7";
+            this.servoOptions7.thisservo = 11;
+            // 
+            // distanceBar1
+            // 
+            resources.ApplyResources(this.distanceBar1, "distanceBar1");
+            this.distanceBar1.BackColor = System.Drawing.Color.Transparent;
+            this.distanceBar1.Name = "distanceBar1";
+            this.distanceBar1.totaldist = 100F;
+            this.distanceBar1.traveleddist = 0F;
+            // 
+            // bindingSourceGaugesTab
+            // 
+            this.bindingSourceGaugesTab.DataSource = typeof(MissionPlanner.CurrentState);
+            // 
+            // bindingSource1
+            // 
+            this.bindingSource1.DataSource = typeof(MissionPlanner.CurrentState);
+            // 
             // bindingSourceStatusTab
             // 
             this.bindingSourceStatusTab.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
-            // lblGPS
-            // 
-            resources.ApplyResources(this.lblGPS, "lblGPS");
-            this.lblGPS.Name = "lblGPS";
-            // 
-            // lblTelemetry
-            // 
-            resources.ApplyResources(this.lblTelemetry, "lblTelemetry");
-            this.lblTelemetry.Name = "lblTelemetry";
-            // 
-            // lblBattery
-            // 
-            resources.ApplyResources(this.lblBattery, "lblBattery");
-            this.lblBattery.Name = "lblBattery";
-            // 
-            // lblRemote
-            // 
-            resources.ApplyResources(this.lblRemote, "lblRemote");
-            this.lblRemote.Name = "lblRemote";
-            // 
-            // lblAltitude
-            // 
-            resources.ApplyResources(this.lblAltitude, "lblAltitude");
-            this.lblAltitude.Name = "lblAltitude";
-            // 
-            // lblUserChecklist
-            // 
-            resources.ApplyResources(this.lblUserChecklist, "lblUserChecklist");
-            this.lblUserChecklist.Name = "lblUserChecklist";
-            // 
-            // lblTailAndWings
-            // 
-            resources.ApplyResources(this.lblTailAndWings, "lblTailAndWings");
-            this.lblTailAndWings.Name = "lblTailAndWings";
-            // 
-            // lblServosRC
-            // 
-            resources.ApplyResources(this.lblServosRC, "lblServosRC");
-            this.lblServosRC.Name = "lblServosRC";
-            // 
-            // lblServosTilt
-            // 
-            resources.ApplyResources(this.lblServosTilt, "lblServosTilt");
-            this.lblServosTilt.Name = "lblServosTilt";
-            // 
-            // lblCenterOfGravity
-            // 
-            resources.ApplyResources(this.lblCenterOfGravity, "lblCenterOfGravity");
-            this.lblCenterOfGravity.Name = "lblCenterOfGravity";
-            // 
-            // lblServoLinkages
-            // 
-            resources.ApplyResources(this.lblServoLinkages, "lblServoLinkages");
-            this.lblServoLinkages.Name = "lblServoLinkages";
-            // 
-            // lblCamera
-            // 
-            resources.ApplyResources(this.lblCamera, "lblCamera");
-            this.lblCamera.Name = "lblCamera";
-            // 
-            // lbldataTailAndWings
-            // 
-            this.lbldataTailAndWings.BackColor = System.Drawing.Color.Red;
-            resources.ApplyResources(this.lbldataTailAndWings, "lbldataTailAndWings");
-            this.lbldataTailAndWings.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lbldataTailAndWings.Name = "lbldataTailAndWings";
-            // 
-            // lbldataServosRC
-            // 
-            this.lbldataServosRC.BackColor = System.Drawing.Color.Red;
-            resources.ApplyResources(this.lbldataServosRC, "lbldataServosRC");
-            this.lbldataServosRC.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lbldataServosRC.Name = "lbldataServosRC";
-            // 
-            // lbldataServosTilt
-            // 
-            this.lbldataServosTilt.BackColor = System.Drawing.Color.Red;
-            resources.ApplyResources(this.lbldataServosTilt, "lbldataServosTilt");
-            this.lbldataServosTilt.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lbldataServosTilt.Name = "lbldataServosTilt";
-            // 
-            // lbldataCenterOfGravity
-            // 
-            this.lbldataCenterOfGravity.BackColor = System.Drawing.Color.Red;
-            resources.ApplyResources(this.lbldataCenterOfGravity, "lbldataCenterOfGravity");
-            this.lbldataCenterOfGravity.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lbldataCenterOfGravity.Name = "lbldataCenterOfGravity";
-            // 
-            // lbldataServoLinkages
-            // 
-            this.lbldataServoLinkages.BackColor = System.Drawing.Color.Red;
-            resources.ApplyResources(this.lbldataServoLinkages, "lbldataServoLinkages");
-            this.lbldataServoLinkages.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lbldataServoLinkages.Name = "lbldataServoLinkages";
-            // 
-            // lbldataCamera
-            // 
-            this.lbldataCamera.BackColor = System.Drawing.Color.Red;
-            resources.ApplyResources(this.lbldataCamera, "lbldataCamera");
-            this.lbldataCamera.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lbldataCamera.Name = "lbldataCamera";
-            // 
-            // lbldataGPS
-            // 
-            this.lbldataGPS.BackColor = System.Drawing.Color.Red;
-            resources.ApplyResources(this.lbldataGPS, "lbldataGPS");
-            this.lbldataGPS.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lbldataGPS.Name = "lbldataGPS";
-            // 
-            // lbldataTelemetry
-            // 
-            this.lbldataTelemetry.BackColor = System.Drawing.Color.Red;
-            resources.ApplyResources(this.lbldataTelemetry, "lbldataTelemetry");
-            this.lbldataTelemetry.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lbldataTelemetry.Name = "lbldataTelemetry";
-            // 
-            // lbldataBattery
-            // 
-            this.lbldataBattery.BackColor = System.Drawing.Color.Red;
-            resources.ApplyResources(this.lbldataBattery, "lbldataBattery");
-            this.lbldataBattery.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lbldataBattery.Name = "lbldataBattery";
-            // 
-            // lbldataRemote
-            // 
-            this.lbldataRemote.BackColor = System.Drawing.Color.Red;
-            resources.ApplyResources(this.lbldataRemote, "lbldataRemote");
-            this.lbldataRemote.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lbldataRemote.Name = "lbldataRemote";
-            // 
-            // label7
-            // 
-            this.label7.BackColor = System.Drawing.Color.Green;
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label7.Name = "label7";
-            // 
-            // chkGPS
-            // 
-            resources.ApplyResources(this.chkGPS, "chkGPS");
-            this.chkGPS.Name = "chkGPS";
-            this.chkGPS.UseVisualStyleBackColor = true;
-            // 
-            // chkTelemetry
-            // 
-            resources.ApplyResources(this.chkTelemetry, "chkTelemetry");
-            this.chkTelemetry.Name = "chkTelemetry";
-            this.chkTelemetry.UseVisualStyleBackColor = true;
-            // 
-            // chkBattery
-            // 
-            resources.ApplyResources(this.chkBattery, "chkBattery");
-            this.chkBattery.Name = "chkBattery";
-            this.chkBattery.UseVisualStyleBackColor = true;
-            // 
-            // chkRemote
-            // 
-            resources.ApplyResources(this.chkRemote, "chkRemote");
-            this.chkRemote.Name = "chkRemote";
-            this.chkRemote.UseVisualStyleBackColor = true;
-            // 
-            // chkAltitude
-            // 
-            resources.ApplyResources(this.chkAltitude, "chkAltitude");
-            this.chkAltitude.Name = "chkAltitude";
-            this.chkAltitude.UseVisualStyleBackColor = true;
-            // 
-            // chkTailAndWings
-            // 
-            resources.ApplyResources(this.chkTailAndWings, "chkTailAndWings");
-            this.chkTailAndWings.Name = "chkTailAndWings";
-            this.chkTailAndWings.UseVisualStyleBackColor = true;
-            // 
-            // chkServosRC
-            // 
-            resources.ApplyResources(this.chkServosRC, "chkServosRC");
-            this.chkServosRC.Name = "chkServosRC";
-            this.chkServosRC.UseVisualStyleBackColor = true;
-            // 
-            // chkServosTilt
-            // 
-            resources.ApplyResources(this.chkServosTilt, "chkServosTilt");
-            this.chkServosTilt.Name = "chkServosTilt";
-            this.chkServosTilt.UseVisualStyleBackColor = true;
-            // 
-            // chkCenterOfGravity
-            // 
-            resources.ApplyResources(this.chkCenterOfGravity, "chkCenterOfGravity");
-            this.chkCenterOfGravity.Name = "chkCenterOfGravity";
-            this.chkCenterOfGravity.UseVisualStyleBackColor = true;
-            // 
-            // chkServoLinkages
-            // 
-            resources.ApplyResources(this.chkServoLinkages, "chkServoLinkages");
-            this.chkServoLinkages.Name = "chkServoLinkages";
-            this.chkServoLinkages.UseVisualStyleBackColor = true;
-            // 
-            // chkCamera
-            // 
-            resources.ApplyResources(this.chkCamera, "chkCamera");
-            this.chkCamera.Name = "chkCamera";
-            this.chkCamera.UseVisualStyleBackColor = true;
             // 
             // FlightData
             // 
@@ -2120,18 +2130,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.SubMainLeft)).EndInit();
             this.SubMainLeft.ResumeLayout(false);
             this.contextMenuStripHud.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
             this.tabControlactions.ResumeLayout(false);
             this.contextMenuStripactionstab.ResumeLayout(false);
             this.tabQuick.ResumeLayout(false);
             this.tableLayoutPanelQuick.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).EndInit();
             this.tabpreflight.ResumeLayout(false);
             this.tabpreflight.PerformLayout();
             this.tabActions.ResumeLayout(false);
             this.tabActionsSimple.ResumeLayout(false);
             this.tabGauges.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).EndInit();
             this.tabServo.ResumeLayout(false);
             this.flowLayoutPanelServos.ResumeLayout(false);
             this.tabTLogs.ResumeLayout(false);
@@ -2151,11 +2158,14 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TRK_zoom)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Zoomlevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceHud)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceGaugesTab)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceStatusTab)).EndInit();
             this.ResumeLayout(false);
 
@@ -2335,6 +2345,7 @@
         private System.Windows.Forms.CheckBox chkBattery;
         private System.Windows.Forms.CheckBox chkTelemetry;
         private System.Windows.Forms.CheckBox chkGPS;
+        private Controls.MyButton BUT_CloseLens;
 
     }
 }

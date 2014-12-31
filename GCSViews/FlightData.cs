@@ -1278,6 +1278,7 @@ namespace MissionPlanner.GCSViews
 
         private void updateBindingSource()
         {
+            //bool CameraClosed = false; //assume camera is open
             //  run at 25 hz.
             if (lastscreenupdate.AddMilliseconds(40) < DateTime.Now)
             {
@@ -1302,6 +1303,26 @@ namespace MissionPlanner.GCSViews
                             else if (tabControlactions.SelectedTab == tabQuick)
                             {
                                 MainV2.comPort.MAV.cs.UpdateCurrentSettings(bindingSourceQuickTab);
+                                
+                                //if (MainV2.comPort.MAV.cs.alt < 100 && CameraClosed == false)
+                                //{
+                                //    CameraClosed = true;
+                                //    if (File.Exists("ShutCamtrig.py"))
+                                //    {
+                                //        MessageBox.Show("Lens Closed because of low altitude");
+                                //        string closeLens = File.ReadAllText("ShutCamtrig.py");
+                                //        Script script = new Script();
+                                //        //MessageBox.Show(closeLens); //--test code
+                                //        script.runScript("ShutCamtrig.py");
+                                        
+                                //    }
+                                //    else
+                                //        MessageBox.Show("ERROR in BUT_CloseLens function (ShutCamtrig.py file was not found)");
+                                //}
+                                //else
+                                //{
+                                //    CameraClosed = false;
+                                //}
                             }
                             else if (tabControlactions.SelectedTab == tabGauges)
                             {
@@ -3188,6 +3209,23 @@ namespace MissionPlanner.GCSViews
             }
         }
 
+        private void BUT_CloseLens_Click(object sender, EventArgs e)
+        {
+            //for(int index = 0; index < 2; index++)
+            //MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_DIGICAM_CONTROL, 0, 0, 0, 0, 0, 0, 0);
+            //MainV2.comPort.sendDigicamSignal();
+
+            if (File.Exists("ShutCamtrig.py"))
+            {
+                string closeLens = File.ReadAllText("ShutCamtrig.py");
+                Script script = new Script();
+                MessageBox.Show(closeLens); //--test code
+                script.runScript("ShutCamtrig.py");
+            }
+            else
+                MessageBox.Show("ERROR in BUT_CloseLens function (ShutCamtrig.py file was not found)");
+        }
+
         private void dropOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -3253,6 +3291,5 @@ namespace MissionPlanner.GCSViews
 
             //thisthread.Join();
         }
-
     }
 }
