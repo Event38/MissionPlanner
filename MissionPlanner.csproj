@@ -547,6 +547,11 @@
       <DependentUpon>PluginUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ConfigCameraStabModel.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="ScriptConsole.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1941,6 +1946,10 @@
     </Compile>
     <None Include="Properties\DataSources\MissionPlanner.GCSViews.InitialSetup.datasource" />
     <None Include="Properties\DataSources\MissionPlanner.GCSViews.SoftwareConfig.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="README.md" />
     <Compile Include="Splash.cs">
       <SubType>Form</SubType>

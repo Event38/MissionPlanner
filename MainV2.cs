@@ -274,7 +274,7 @@ namespace MissionPlanner
             if (Advanced == false)
             {
                 MenuTerminal.Visible = false;
-                MenuSimulation.Visible = false;
+                MenuSimulation.Visible = false;          
             }
             else
             {
