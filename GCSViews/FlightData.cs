@@ -447,18 +447,19 @@ namespace MissionPlanner.GCSViews
             {
                 if (!tabControlactions.TabPages.Contains(tabActionsSimple))
                     tabControlactions.TabPages.Add(tabActionsSimple);
-                //tabControlactions.TabPages.Remove(tabGauges);
+                tabControlactions.TabPages.Remove(tabGauges);
                 tabControlactions.TabPages.Remove(tabActions);
                 tabControlactions.TabPages.Remove(tabStatus);
                 tabControlactions.TabPages.Remove(tabServo);
                 tabControlactions.TabPages.Remove(tabScripts);
-
+                tabControlactions.TabPages.Remove(tabPagemessages);
                 tabControlactions.Invalidate();
             }
             else
             {
-                //tabControlactions.TabPages.Remove(tabGauges);
                 tabControlactions.TabPages.Remove(tabActionsSimple);
+                if (!tabControlactions.TabPages.Contains(tabGauges))
+                    tabControlactions.TabPages.Add(tabGauges);
                 if (!tabControlactions.TabPages.Contains(tabActions))
                     tabControlactions.TabPages.Add(tabActions);
                 if (!tabControlactions.TabPages.Contains(tabStatus))
@@ -467,6 +468,8 @@ namespace MissionPlanner.GCSViews
                     tabControlactions.TabPages.Add(tabServo);
                 if (!tabControlactions.TabPages.Contains(tabScripts))
                     tabControlactions.TabPages.Add(tabScripts);
+                if (!tabControlactions.TabPages.Contains(tabPagemessages))
+                    tabControlactions.TabPages.Add(tabPagemessages);
             }
         }
 
@@ -682,11 +685,6 @@ namespace MissionPlanner.GCSViews
         
         private void mainloop()
         {
-            //this is to manually hide the tabGauges tab when the application starts
-            //did this rather than delete the tab entirely in case we want the Gauges tab in the future
-            tabControlactions.TabPages.Remove(tabGauges);
-            //
-
             threadrun = true;
             EndPoint Remote = (EndPoint)(new IPEndPoint(IPAddress.Any, 0));
 
@@ -1287,25 +1285,51 @@ namespace MissionPlanner.GCSViews
 
         private void updateCameraHatch()
         {
-            if (lastscreenupdate.AddMilliseconds(1000) < DateTime.Now)
-            if (CHK_AutoHatch.Checked)
-            {
-                CHK_AutoHatch.Text = "Auto Hatch Enabled";
-                CHK_AutoHatch.BackColor = Color.Green;
-                if (MainV2.comPort.MAV.cs.alt > 30)
+            //if (lastscreenupdate.AddMilliseconds(1000) < DateTime.Now) //every second
+            //{
+                if (tabControlactions.TabPages.Contains(tabActions)) //if in advanced mode
                 {
-                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //open hatch
+                    if (CHK_AutoHatch.Checked)
+                    {
+                        CHK_AutoHatch.Text = "Auto Hatch Enabled";
+                        CHK_AutoHatch.BackColor = Color.Green;
+                        if (MainV2.comPort.MAV.cs.alt > 30)
+                        {
+                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //open hatch
+                        }
+                        else
+                        {
+                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //cose hatch
+                        }
+                    }
+                    else
+                    {
+                        CHK_AutoHatch.Text = "Auto Hatch Disabled";
+                        CHK_AutoHatch.BackColor = Color.Red;
+                    }
                 }
-                else
+                else if (tabControlactions.TabPages.Contains(tabActionsSimple)) //if not advanced mode
                 {
-                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //cose hatch
+                    if (CHK_AutoHatchSimple.Checked)
+                    {
+                        CHK_AutoHatchSimple.Text = "Auto Hatch Enabled";
+                        CHK_AutoHatchSimple.BackColor = Color.Green;
+                        if (MainV2.comPort.MAV.cs.alt > 30)
+                        {
+                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //open hatch
+                        }
+                        else
+                        {
+                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //cose hatch
+                        }
+                    }
+                    else
+                    {
+                        CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
+                        CHK_AutoHatchSimple.BackColor = Color.Red;
+                    }
                 }
-            }
-            else
-            {
-                CHK_AutoHatch.Text = "Auto Hatch Disabled";
-                CHK_AutoHatch.BackColor = Color.Red;
-            }
+            //}
         }
 
         private void updateBindingSource()
@@ -1810,17 +1834,21 @@ namespace MissionPlanner.GCSViews
             if (MainV2.comPort.MAV.param.ContainsKey("WP_SPEED_MAX"))
             {
                 modifyandSetSpeed.Value = (decimal)((float)MainV2.comPort.MAV.param["WP_SPEED_MAX"] / 100.0);
+                modifyandSetSpeedSimple.Value = (decimal)((float)MainV2.comPort.MAV.param["WP_SPEED_MAX"] / 100.0);
             } // plane with airspeed
             else if (MainV2.comPort.MAV.param.ContainsKey("TRIM_ARSPD_CM") && MainV2.comPort.MAV.param.ContainsKey("ARSPD_ENABLE")
                 && MainV2.comPort.MAV.param.ContainsKey("ARSPD_USE") && (float)MainV2.comPort.MAV.param["ARSPD_ENABLE"] == 1
                 && (float)MainV2.comPort.MAV.param["ARSPD_USE"] == 1)
             {
                 modifyandSetSpeed.Value = (decimal)((float)MainV2.comPort.MAV.param["TRIM_ARSPD_CM"] / 100.0);
+                modifyandSetSpeedSimple.Value = (decimal)((float)MainV2.comPort.MAV.param["TRIM_ARSPD_CM"] / 100.0);
+
             } // plane without airspeed
             else if (MainV2.comPort.MAV.param.ContainsKey("TRIM_THROTTLE") && MainV2.comPort.MAV.param.ContainsKey("ARSPD_USE")
                 && (float)MainV2.comPort.MAV.param["ARSPD_USE"] == 0)
             {
                 modifyandSetSpeed.Value = (decimal)(float)MainV2.comPort.MAV.param["TRIM_THROTTLE"]; // percent
+                modifyandSetSpeedSimple.Value = (decimal)(float)MainV2.comPort.MAV.param["TRIM_THROTTLE"]; // percent
             }
         }
 
@@ -2012,7 +2040,7 @@ namespace MissionPlanner.GCSViews
             MainV2.comPort.setMode(CMB_modes.Text);
         }
 
-        private void BUT_setwp_Click(object sender, EventArgs e)
+        private void BUT_setwp_Click(object sender, EventArgs e) 
         {
             try
             {
@@ -2023,6 +2051,51 @@ namespace MissionPlanner.GCSViews
             ((Button)sender).Enabled = true;
         }
 
+
+        private void BUT_SetWPSimple_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ((Button)sender).Enabled = false;
+                MainV2.comPort.setWPCurrent((ushort)CMB_setwpSimple.SelectedIndex); // set nav to
+            }
+            catch { CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR); }
+            ((Button)sender).Enabled = true;
+        } 
+
+        private void CMB_setwpSimple_Clicked(object sender, EventArgs e)
+        {
+            CMB_setwpSimple.Items.Clear();
+
+            CMB_setwpSimple.Items.Add("0 (Home)");
+
+            if (MainV2.comPort.MAV.param["CMD_TOTAL"] != null)
+            {
+                int wps = int.Parse(MainV2.comPort.MAV.param["CMD_TOTAL"].ToString());
+                for (int z = 1; z <= wps; z++)
+                {
+                    CMB_setwpSimple.Items.Add(z.ToString());
+                }
+            }
+
+            if (MainV2.comPort.MAV.param["WP_TOTAL"] != null)
+            {
+                int wps = int.Parse(MainV2.comPort.MAV.param["WP_TOTAL"].ToString());
+                for (int z = 1; z <= wps; z++)
+                {
+                    CMB_setwpSimple.Items.Add(z.ToString());
+                }
+            }
+
+            if (MainV2.comPort.MAV.param["MIS_TOTAL"] != null)
+            {
+                int wps = int.Parse(MainV2.comPort.MAV.param["MIS_TOTAL"].ToString());
+                for (int z = 1; z <= wps; z++)
+                {
+                    CMB_setwpSimple.Items.Add(z.ToString());
+                }
+            }
+        }
         private void CMB_setwp_Click(object sender, EventArgs e)
         {
             CMB_setwp.Items.Clear();
@@ -2990,6 +3063,38 @@ namespace MissionPlanner.GCSViews
             }
         }
 
+        private void modifyandSetSpeedSimple_Click(object sender, EventArgs e)
+        {
+            // QUAD
+            if (MainV2.comPort.MAV.param.ContainsKey("WP_SPEED_MAX"))
+            {
+                try
+                {
+                    MainV2.comPort.setParam("WP_SPEED_MAX", ((float)modifyandSetSpeedSimple.Value * 100.0f));
+                }
+                catch { CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, "WP_SPEED_MAX"), Strings.ERROR); }
+            } // plane with airspeed
+            else if (MainV2.comPort.MAV.param.ContainsKey("TRIM_ARSPD_CM") && MainV2.comPort.MAV.param.ContainsKey("ARSPD_ENABLE")
+                && MainV2.comPort.MAV.param.ContainsKey("ARSPD_USE") && (float)MainV2.comPort.MAV.param["ARSPD_ENABLE"] == 1
+                && (float)MainV2.comPort.MAV.param["ARSPD_USE"] == 1)
+            {
+                try
+                {
+                    MainV2.comPort.setParam("TRIM_ARSPD_CM", ((float)modifyandSetSpeedSimple.Value * 100.0f));
+                }
+                catch { CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, "TRIM_ARSPD_CM"), Strings.ERROR); }
+            } // plane without airspeed
+            else if (MainV2.comPort.MAV.param.ContainsKey("TRIM_THROTTLE") && MainV2.comPort.MAV.param.ContainsKey("ARSPD_USE")
+                && (float)MainV2.comPort.MAV.param["ARSPD_USE"] == 0)
+            {
+                try
+                {
+                    MainV2.comPort.setParam("TRIM_THROTTLE", (float)modifyandSetSpeedSimple.Value);
+                }
+                catch { CustomMessageBox.Show(String.Format(Strings.ErrorSetValueFailed, "TRIM_THROTTLE"), Strings.ERROR); }
+            }
+        }
+
         private void modifyandSetSpeed_ParentChanged(object sender, EventArgs e)
         {
 
@@ -3270,13 +3375,27 @@ namespace MissionPlanner.GCSViews
 
         private void BUT_OpenHatch_Click(object sender, EventArgs e)
         {
-            CHK_AutoHatch.Checked = false;
-            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //toggle servo 7 low
+            if (tabControlactions.TabPages.Contains(tabActions))
+            {
+                CHK_AutoHatch.Checked = false;
+            }
+            else if (tabControlactions.TabPages.Contains(tabActionsSimple))
+            {
+                CHK_AutoHatchSimple.Checked = false;
+            }
+                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //toggle servo 7 low
         }
 
         private void BUT_CloseHatch_Click(object sender, EventArgs e)
         {
-            CHK_AutoHatch.Checked = false;
+            if (tabControlactions.TabPages.Contains(tabActions))
+            {
+                CHK_AutoHatch.Checked = false;
+            }
+            else if (tabControlactions.TabPages.Contains(tabActionsSimple))
+            {
+                CHK_AutoHatchSimple.Checked = false;
+            }
             MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //toggle servo 7 high
         }
 

@@ -8,8 +8,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlightData));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contextMenuStripMap = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.goHereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flyToHereAltToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,6 +77,7 @@
             this.lblTelemetry = new System.Windows.Forms.Label();
             this.lblGPS = new System.Windows.Forms.Label();
             this.tabActions = new System.Windows.Forms.TabPage();
+            this.BUT_Auto = new MissionPlanner.Controls.MyButton();
             this.CHK_AutoHatch = new System.Windows.Forms.CheckBox();
             this.BUT_CloseHatch = new MissionPlanner.Controls.MyButton();
             this.BUT_OpenHatch = new MissionPlanner.Controls.MyButton();
@@ -99,9 +100,15 @@
             this.BUTrestartmission = new MissionPlanner.Controls.MyButton();
             this.BUTactiondo = new MissionPlanner.Controls.MyButton();
             this.tabActionsSimple = new System.Windows.Forms.TabPage();
-            this.myButton1 = new MissionPlanner.Controls.MyButton();
-            this.myButton2 = new MissionPlanner.Controls.MyButton();
-            this.myButton3 = new MissionPlanner.Controls.MyButton();
+            this.CMB_setwpSimple = new System.Windows.Forms.ComboBox();
+            this.BUT_RestartSimple = new MissionPlanner.Controls.MyButton();
+            this.BUT_SetWPSimple = new MissionPlanner.Controls.MyButton();
+            this.CHK_AutoHatchSimple = new System.Windows.Forms.CheckBox();
+            this.BUT_CloseHatchSimple = new MissionPlanner.Controls.MyButton();
+            this.BUT_OpenHatchSimple = new MissionPlanner.Controls.MyButton();
+            this.BUT_CloseLensSimple = new MissionPlanner.Controls.MyButton();
+            this.BUT_RTLSimple = new MissionPlanner.Controls.MyButton();
+            this.BUT_AutoSimple = new MissionPlanner.Controls.MyButton();
             this.tabGauges = new System.Windows.Forms.TabPage();
             this.Gvspeed = new AGaugeApp.AGauge();
             this.Gheading = new MissionPlanner.Controls.HSI();
@@ -170,11 +177,11 @@
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Messagetabtimer = new System.Windows.Forms.Timer(this.components);
-            this.BUT_Auto = new MissionPlanner.Controls.MyButton();
             this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSourceQuickTab = new System.Windows.Forms.BindingSource(this.components);
             this.modifyandSetSpeed = new MissionPlanner.Controls.ModifyandSet();
             this.modifyandSetAlt = new MissionPlanner.Controls.ModifyandSet();
+            this.modifyandSetSpeedSimple = new MissionPlanner.Controls.ModifyandSet();
             this.servoOptions1 = new MissionPlanner.Controls.ServoOptions();
             this.servoOptions2 = new MissionPlanner.Controls.ServoOptions();
             this.servoOptions3 = new MissionPlanner.Controls.ServoOptions();
@@ -848,6 +855,14 @@
             this.tabActions.Name = "tabActions";
             this.tabActions.UseVisualStyleBackColor = true;
             // 
+            // BUT_Auto
+            // 
+            resources.ApplyResources(this.BUT_Auto, "BUT_Auto");
+            this.BUT_Auto.Name = "BUT_Auto";
+            this.toolTip1.SetToolTip(this.BUT_Auto, resources.GetString("BUT_Auto.ToolTip"));
+            this.BUT_Auto.UseVisualStyleBackColor = true;
+            this.BUT_Auto.Click += new System.EventHandler(this.BUT_Auto_Click);
+            // 
             // CHK_AutoHatch
             // 
             resources.ApplyResources(this.CHK_AutoHatch, "CHK_AutoHatch");
@@ -1020,36 +1035,94 @@
             // 
             // tabActionsSimple
             // 
-            this.tabActionsSimple.Controls.Add(this.myButton1);
-            this.tabActionsSimple.Controls.Add(this.myButton2);
-            this.tabActionsSimple.Controls.Add(this.myButton3);
+            this.tabActionsSimple.Controls.Add(this.CMB_setwpSimple);
+            this.tabActionsSimple.Controls.Add(this.BUT_RestartSimple);
+            this.tabActionsSimple.Controls.Add(this.BUT_SetWPSimple);
+            this.tabActionsSimple.Controls.Add(this.CHK_AutoHatchSimple);
+            this.tabActionsSimple.Controls.Add(this.BUT_CloseHatchSimple);
+            this.tabActionsSimple.Controls.Add(this.BUT_OpenHatchSimple);
+            this.tabActionsSimple.Controls.Add(this.BUT_CloseLensSimple);
+            this.tabActionsSimple.Controls.Add(this.BUT_RTLSimple);
+            this.tabActionsSimple.Controls.Add(this.BUT_AutoSimple);
+            this.tabActionsSimple.Controls.Add(this.modifyandSetSpeedSimple);
             resources.ApplyResources(this.tabActionsSimple, "tabActionsSimple");
             this.tabActionsSimple.Name = "tabActionsSimple";
             this.tabActionsSimple.UseVisualStyleBackColor = true;
             // 
-            // myButton1
+            // CMB_setwpSimple
             // 
-            resources.ApplyResources(this.myButton1, "myButton1");
-            this.myButton1.Name = "myButton1";
-            this.toolTip1.SetToolTip(this.myButton1, resources.GetString("myButton1.ToolTip"));
-            this.myButton1.UseVisualStyleBackColor = true;
-            this.myButton1.Click += new System.EventHandler(this.BUT_quickmanual_Click);
+            this.CMB_setwpSimple.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CMB_setwpSimple.FormattingEnabled = true;
+            this.CMB_setwpSimple.Items.AddRange(new object[] {
+            resources.GetString("CMB_setwpSimple.Items")});
+            resources.ApplyResources(this.CMB_setwpSimple, "CMB_setwpSimple");
+            this.CMB_setwpSimple.Name = "CMB_setwpSimple";
+            this.CMB_setwpSimple.Click += new System.EventHandler(this.CMB_setwpSimple_Clicked);
             // 
-            // myButton2
+            // BUT_RestartSimple
             // 
-            resources.ApplyResources(this.myButton2, "myButton2");
-            this.myButton2.Name = "myButton2";
-            this.toolTip1.SetToolTip(this.myButton2, resources.GetString("myButton2.ToolTip"));
-            this.myButton2.UseVisualStyleBackColor = true;
-            this.myButton2.Click += new System.EventHandler(this.BUT_quickrtl_Click);
+            resources.ApplyResources(this.BUT_RestartSimple, "BUT_RestartSimple");
+            this.BUT_RestartSimple.Name = "BUT_RestartSimple";
+            this.toolTip1.SetToolTip(this.BUT_RestartSimple, resources.GetString("BUT_RestartSimple.ToolTip"));
+            this.BUT_RestartSimple.UseVisualStyleBackColor = true;
+            this.BUT_RestartSimple.Click += new System.EventHandler(this.BUTrestartmission_Click);
             // 
-            // myButton3
+            // BUT_SetWPSimple
             // 
-            resources.ApplyResources(this.myButton3, "myButton3");
-            this.myButton3.Name = "myButton3";
-            this.toolTip1.SetToolTip(this.myButton3, resources.GetString("myButton3.ToolTip"));
-            this.myButton3.UseVisualStyleBackColor = true;
-            this.myButton3.Click += new System.EventHandler(this.BUT_quickauto_Click);
+            resources.ApplyResources(this.BUT_SetWPSimple, "BUT_SetWPSimple");
+            this.BUT_SetWPSimple.Name = "BUT_SetWPSimple";
+            this.toolTip1.SetToolTip(this.BUT_SetWPSimple, resources.GetString("BUT_SetWPSimple.ToolTip"));
+            this.BUT_SetWPSimple.UseVisualStyleBackColor = true;
+            this.BUT_SetWPSimple.Click += new System.EventHandler(this.BUT_SetWPSimple_Click);
+            // 
+            // CHK_AutoHatchSimple
+            // 
+            resources.ApplyResources(this.CHK_AutoHatchSimple, "CHK_AutoHatchSimple");
+            this.CHK_AutoHatchSimple.Checked = true;
+            this.CHK_AutoHatchSimple.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CHK_AutoHatchSimple.Name = "CHK_AutoHatchSimple";
+            this.toolTip1.SetToolTip(this.CHK_AutoHatchSimple, resources.GetString("CHK_AutoHatchSimple.ToolTip"));
+            this.CHK_AutoHatchSimple.UseVisualStyleBackColor = true;
+            // 
+            // BUT_CloseHatchSimple
+            // 
+            resources.ApplyResources(this.BUT_CloseHatchSimple, "BUT_CloseHatchSimple");
+            this.BUT_CloseHatchSimple.Name = "BUT_CloseHatchSimple";
+            this.toolTip1.SetToolTip(this.BUT_CloseHatchSimple, resources.GetString("BUT_CloseHatchSimple.ToolTip"));
+            this.BUT_CloseHatchSimple.UseVisualStyleBackColor = true;
+            this.BUT_CloseHatchSimple.Click += new System.EventHandler(this.BUT_CloseHatch_Click);
+            // 
+            // BUT_OpenHatchSimple
+            // 
+            resources.ApplyResources(this.BUT_OpenHatchSimple, "BUT_OpenHatchSimple");
+            this.BUT_OpenHatchSimple.Name = "BUT_OpenHatchSimple";
+            this.toolTip1.SetToolTip(this.BUT_OpenHatchSimple, resources.GetString("BUT_OpenHatchSimple.ToolTip"));
+            this.BUT_OpenHatchSimple.UseVisualStyleBackColor = true;
+            this.BUT_OpenHatchSimple.Click += new System.EventHandler(this.BUT_OpenHatch_Click);
+            // 
+            // BUT_CloseLensSimple
+            // 
+            resources.ApplyResources(this.BUT_CloseLensSimple, "BUT_CloseLensSimple");
+            this.BUT_CloseLensSimple.Name = "BUT_CloseLensSimple";
+            this.toolTip1.SetToolTip(this.BUT_CloseLensSimple, resources.GetString("BUT_CloseLensSimple.ToolTip"));
+            this.BUT_CloseLensSimple.UseVisualStyleBackColor = true;
+            this.BUT_CloseLensSimple.Click += new System.EventHandler(this.BUT_CloseLens_Click);
+            // 
+            // BUT_RTLSimple
+            // 
+            resources.ApplyResources(this.BUT_RTLSimple, "BUT_RTLSimple");
+            this.BUT_RTLSimple.Name = "BUT_RTLSimple";
+            this.toolTip1.SetToolTip(this.BUT_RTLSimple, resources.GetString("BUT_RTLSimple.ToolTip"));
+            this.BUT_RTLSimple.UseVisualStyleBackColor = true;
+            this.BUT_RTLSimple.Click += new System.EventHandler(this.BUT_quickrtl_Click);
+            // 
+            // BUT_AutoSimple
+            // 
+            resources.ApplyResources(this.BUT_AutoSimple, "BUT_AutoSimple");
+            this.BUT_AutoSimple.Name = "BUT_AutoSimple";
+            this.toolTip1.SetToolTip(this.BUT_AutoSimple, resources.GetString("BUT_AutoSimple.ToolTip"));
+            this.BUT_AutoSimple.UseVisualStyleBackColor = true;
+            this.BUT_AutoSimple.Click += new System.EventHandler(this.BUT_quickauto_Click);
             // 
             // tabGauges
             // 
@@ -1847,7 +1920,7 @@
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 180D;
+            this.windDir1.Direction = 360D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -2026,8 +2099,8 @@
             // 
             // dataGridViewImageColumn1
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle3;
             resources.ApplyResources(this.dataGridViewImageColumn1, "dataGridViewImageColumn1");
             this.dataGridViewImageColumn1.Image = global::MissionPlanner.Properties.Resources.up;
             this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -2035,8 +2108,8 @@
             // 
             // dataGridViewImageColumn2
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle4;
             resources.ApplyResources(this.dataGridViewImageColumn2, "dataGridViewImageColumn2");
             this.dataGridViewImageColumn2.Image = global::MissionPlanner.Properties.Resources.down;
             this.dataGridViewImageColumn2.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -2046,14 +2119,6 @@
             // 
             this.Messagetabtimer.Interval = 200;
             this.Messagetabtimer.Tick += new System.EventHandler(this.Messagetabtimer_Tick);
-            // 
-            // BUT_Auto
-            // 
-            resources.ApplyResources(this.BUT_Auto, "BUT_Auto");
-            this.BUT_Auto.Name = "BUT_Auto";
-            this.toolTip1.SetToolTip(this.BUT_Auto, resources.GetString("BUT_Auto.ToolTip"));
-            this.BUT_Auto.UseVisualStyleBackColor = true;
-            this.BUT_Auto.Click += new System.EventHandler(this.BUT_Auto_Click);
             // 
             // bindingSourceHud
             // 
@@ -2084,6 +2149,19 @@
             0,
             0,
             0});
+            // 
+            // modifyandSetSpeedSimple
+            // 
+            this.modifyandSetSpeedSimple.ButtonText = "Change Speed";
+            resources.ApplyResources(this.modifyandSetSpeedSimple, "modifyandSetSpeedSimple");
+            this.modifyandSetSpeedSimple.Name = "modifyandSetSpeedSimple";
+            this.modifyandSetSpeedSimple.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.modifyandSetSpeedSimple.Click += new System.EventHandler(this.modifyandSetSpeed_Click);
+            this.modifyandSetSpeedSimple.ParentChanged += new System.EventHandler(this.modifyandSetSpeed_ParentChanged);
             // 
             // servoOptions1
             // 
@@ -2177,6 +2255,7 @@
             this.tabActions.ResumeLayout(false);
             this.tabActions.PerformLayout();
             this.tabActionsSimple.ResumeLayout(false);
+            this.tabActionsSimple.PerformLayout();
             this.tabGauges.ResumeLayout(false);
             this.tabServo.ResumeLayout(false);
             this.flowLayoutPanelServos.ResumeLayout(false);
@@ -2291,9 +2370,8 @@
         private Controls.MyButton BUTrestartmission;
         private Controls.MyButton BUTactiondo;
         private System.Windows.Forms.TabPage tabActionsSimple;
-        private Controls.MyButton myButton1;
-        private Controls.MyButton myButton2;
-        private Controls.MyButton myButton3;
+        private Controls.MyButton BUT_RTLSimple;
+        private Controls.MyButton BUT_AutoSimple;
         private System.Windows.Forms.TabPage tabGauges;
         private AGaugeApp.AGauge Gvspeed;
         private Controls.HSI Gheading;
@@ -2389,6 +2467,14 @@
         private Controls.MyButton BUT_quickmanual;
         private Controls.MyButton BUT_Homealt;
         private Controls.MyButton BUT_Auto;
+        private Controls.MyButton BUT_RestartSimple;
+        private Controls.MyButton BUT_SetWPSimple;
+        private System.Windows.Forms.CheckBox CHK_AutoHatchSimple;
+        private Controls.MyButton BUT_CloseHatchSimple;
+        private Controls.MyButton BUT_OpenHatchSimple;
+        private Controls.MyButton BUT_CloseLensSimple;
+        private Controls.ModifyandSet modifyandSetSpeedSimple;
+        private System.Windows.Forms.ComboBox CMB_setwpSimple;
 
     }
 }
