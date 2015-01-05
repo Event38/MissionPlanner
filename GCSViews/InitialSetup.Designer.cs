@@ -220,11 +220,11 @@
             // 
             // backstageViewPageaccelquad
             // 
-            this.backstageViewPageaccelquad.Advanced = true;
+            this.backstageViewPageaccelquad.Advanced = false;
             this.backstageViewPageaccelquad.DataBindings.Add(new System.Windows.Forms.Binding("Show", this.initialSetupBindingSource, "isCopter", true));
             this.backstageViewPageaccelquad.LinkText = "Accel Calibration";
             this.backstageViewPageaccelquad.Page = this.configAccelerometerCalibrationQuad1;
-            this.backstageViewPageaccelquad.Parent = this.backstageViewPagemand;
+            this.backstageViewPageaccelquad.Parent = null;
             this.backstageViewPageaccelquad.Show = true;
             this.backstageViewPageaccelquad.Spacing = 30;
             resources.ApplyResources(this.backstageViewPageaccelquad, "backstageViewPageaccelquad");
@@ -236,11 +236,11 @@
             // 
             // backstageViewPageaccelplane
             // 
-            this.backstageViewPageaccelplane.Advanced = true;
+            this.backstageViewPageaccelplane.Advanced = false;
             this.backstageViewPageaccelplane.DataBindings.Add(new System.Windows.Forms.Binding("Show", this.initialSetupBindingSource, "isPlane", true));
             this.backstageViewPageaccelplane.LinkText = "Accel Calibration";
             this.backstageViewPageaccelplane.Page = this.configAccelerometerCalibrationPlane1;
-            this.backstageViewPageaccelplane.Parent = this.backstageViewPagemand;
+            this.backstageViewPageaccelplane.Parent = null;
             this.backstageViewPageaccelplane.Show = true;
             this.backstageViewPageaccelplane.Spacing = 30;
             resources.ApplyResources(this.backstageViewPageaccelplane, "backstageViewPageaccelplane");

@@ -8,8 +8,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlightData));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contextMenuStripMap = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.goHereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flyToHereAltToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,6 +77,9 @@
             this.lblTelemetry = new System.Windows.Forms.Label();
             this.lblGPS = new System.Windows.Forms.Label();
             this.tabActions = new System.Windows.Forms.TabPage();
+            this.CHK_AutoHatch = new System.Windows.Forms.CheckBox();
+            this.BUT_CloseHatch = new MissionPlanner.Controls.MyButton();
+            this.BUT_OpenHatch = new MissionPlanner.Controls.MyButton();
             this.BUT_CloseLens = new MissionPlanner.Controls.MyButton();
             this.CMB_mountmode = new System.Windows.Forms.ComboBox();
             this.BUT_mountmode = new MissionPlanner.Controls.MyButton();
@@ -167,9 +170,7 @@
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Messagetabtimer = new System.Windows.Forms.Timer(this.components);
-            this.BUT_OpenHatch = new MissionPlanner.Controls.MyButton();
-            this.BUT_CloseHatch = new MissionPlanner.Controls.MyButton();
-            this.CHK_AutoHatch = new System.Windows.Forms.CheckBox();
+            this.BUT_Auto = new MissionPlanner.Controls.MyButton();
             this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSourceQuickTab = new System.Windows.Forms.BindingSource(this.components);
             this.modifyandSetSpeed = new MissionPlanner.Controls.ModifyandSet();
@@ -820,8 +821,7 @@
             // tabActions
             // 
             resources.ApplyResources(this.tabActions, "tabActions");
-            this.tabActions.Controls.Add(this.modifyandSetSpeed);
-            this.tabActions.Controls.Add(this.modifyandSetAlt);
+            this.tabActions.Controls.Add(this.BUT_Auto);
             this.tabActions.Controls.Add(this.CHK_AutoHatch);
             this.tabActions.Controls.Add(this.BUT_CloseHatch);
             this.tabActions.Controls.Add(this.BUT_OpenHatch);
@@ -843,8 +843,35 @@
             this.tabActions.Controls.Add(this.BUT_RAWSensor);
             this.tabActions.Controls.Add(this.BUTrestartmission);
             this.tabActions.Controls.Add(this.BUTactiondo);
+            this.tabActions.Controls.Add(this.modifyandSetSpeed);
+            this.tabActions.Controls.Add(this.modifyandSetAlt);
             this.tabActions.Name = "tabActions";
             this.tabActions.UseVisualStyleBackColor = true;
+            // 
+            // CHK_AutoHatch
+            // 
+            resources.ApplyResources(this.CHK_AutoHatch, "CHK_AutoHatch");
+            this.CHK_AutoHatch.Checked = true;
+            this.CHK_AutoHatch.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CHK_AutoHatch.Name = "CHK_AutoHatch";
+            this.toolTip1.SetToolTip(this.CHK_AutoHatch, resources.GetString("CHK_AutoHatch.ToolTip"));
+            this.CHK_AutoHatch.UseVisualStyleBackColor = true;
+            // 
+            // BUT_CloseHatch
+            // 
+            resources.ApplyResources(this.BUT_CloseHatch, "BUT_CloseHatch");
+            this.BUT_CloseHatch.Name = "BUT_CloseHatch";
+            this.toolTip1.SetToolTip(this.BUT_CloseHatch, resources.GetString("BUT_CloseHatch.ToolTip"));
+            this.BUT_CloseHatch.UseVisualStyleBackColor = true;
+            this.BUT_CloseHatch.Click += new System.EventHandler(this.BUT_CloseHatch_Click);
+            // 
+            // BUT_OpenHatch
+            // 
+            resources.ApplyResources(this.BUT_OpenHatch, "BUT_OpenHatch");
+            this.BUT_OpenHatch.Name = "BUT_OpenHatch";
+            this.toolTip1.SetToolTip(this.BUT_OpenHatch, resources.GetString("BUT_OpenHatch.ToolTip"));
+            this.BUT_OpenHatch.UseVisualStyleBackColor = true;
+            this.BUT_OpenHatch.Click += new System.EventHandler(this.BUT_OpenHatch_Click);
             // 
             // BUT_CloseLens
             // 
@@ -1820,7 +1847,7 @@
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 360D;
+            this.windDir1.Direction = 180D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -1999,8 +2026,8 @@
             // 
             // dataGridViewImageColumn1
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle1;
             resources.ApplyResources(this.dataGridViewImageColumn1, "dataGridViewImageColumn1");
             this.dataGridViewImageColumn1.Image = global::MissionPlanner.Properties.Resources.up;
             this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -2008,8 +2035,8 @@
             // 
             // dataGridViewImageColumn2
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle2;
             resources.ApplyResources(this.dataGridViewImageColumn2, "dataGridViewImageColumn2");
             this.dataGridViewImageColumn2.Image = global::MissionPlanner.Properties.Resources.down;
             this.dataGridViewImageColumn2.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -2020,30 +2047,13 @@
             this.Messagetabtimer.Interval = 200;
             this.Messagetabtimer.Tick += new System.EventHandler(this.Messagetabtimer_Tick);
             // 
-            // BUT_OpenHatch
+            // BUT_Auto
             // 
-            resources.ApplyResources(this.BUT_OpenHatch, "BUT_OpenHatch");
-            this.BUT_OpenHatch.Name = "BUT_OpenHatch";
-            this.toolTip1.SetToolTip(this.BUT_OpenHatch, resources.GetString("BUT_OpenHatch.ToolTip"));
-            this.BUT_OpenHatch.UseVisualStyleBackColor = true;
-            this.BUT_OpenHatch.Click += new System.EventHandler(this.BUT_OpenHatch_Click);
-            // 
-            // BUT_CloseHatch
-            // 
-            resources.ApplyResources(this.BUT_CloseHatch, "BUT_CloseHatch");
-            this.BUT_CloseHatch.Name = "BUT_CloseHatch";
-            this.toolTip1.SetToolTip(this.BUT_CloseHatch, resources.GetString("BUT_CloseHatch.ToolTip"));
-            this.BUT_CloseHatch.UseVisualStyleBackColor = true;
-            this.BUT_CloseHatch.Click += new System.EventHandler(this.BUT_CloseHatch_Click);
-            // 
-            // CHK_AutoHatch
-            // 
-            resources.ApplyResources(this.CHK_AutoHatch, "CHK_AutoHatch");
-            this.CHK_AutoHatch.Checked = true;
-            this.CHK_AutoHatch.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CHK_AutoHatch.Name = "CHK_AutoHatch";
-            this.toolTip1.SetToolTip(this.CHK_AutoHatch, resources.GetString("CHK_AutoHatch.ToolTip"));
-            this.CHK_AutoHatch.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.BUT_Auto, "BUT_Auto");
+            this.BUT_Auto.Name = "BUT_Auto";
+            this.toolTip1.SetToolTip(this.BUT_Auto, resources.GetString("BUT_Auto.ToolTip"));
+            this.BUT_Auto.UseVisualStyleBackColor = true;
+            this.BUT_Auto.Click += new System.EventHandler(this.BUT_Auto_Click);
             // 
             // bindingSourceHud
             // 
@@ -2268,10 +2278,7 @@
         private System.Windows.Forms.TabPage tabpreflight;
         private System.Windows.Forms.TabPage tabActions;
         private System.Windows.Forms.ComboBox CMB_mountmode;
-        private Controls.MyButton BUT_mountmode;
-        private Controls.MyButton BUT_ARM;
         private Controls.MyButton BUT_joystick;
-        private Controls.MyButton BUT_quickmanual;
         private Controls.MyButton BUT_quickrtl;
         private Controls.MyButton BUT_quickauto;
         private System.Windows.Forms.ComboBox CMB_setwp;
@@ -2280,7 +2287,6 @@
         private Controls.MyButton BUT_setmode;
         private Controls.MyButton BUT_clear_track;
         private System.Windows.Forms.ComboBox CMB_action;
-        private Controls.MyButton BUT_Homealt;
         private Controls.MyButton BUT_RAWSensor;
         private Controls.MyButton BUTrestartmission;
         private Controls.MyButton BUTactiondo;
@@ -2378,6 +2384,11 @@
         private Controls.MyButton BUT_OpenHatch;
         private Controls.ModifyandSet modifyandSetSpeed;
         private Controls.ModifyandSet modifyandSetAlt;
+        private Controls.MyButton BUT_mountmode;
+        private Controls.MyButton BUT_ARM;
+        private Controls.MyButton BUT_quickmanual;
+        private Controls.MyButton BUT_Homealt;
+        private Controls.MyButton BUT_Auto;
 
     }
 }

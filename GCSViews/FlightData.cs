@@ -679,9 +679,14 @@ namespace MissionPlanner.GCSViews
         {
             POI.UpdateOverlay(poioverlay);
         }
-
+        
         private void mainloop()
         {
+            //this is to manually hide the tabGauges tab when the application starts
+            //did this rather than delete the tab entirely in case we want the Gauges tab in the future
+            tabControlactions.TabPages.Remove(tabGauges);
+            //
+
             threadrun = true;
             EndPoint Remote = (EndPoint)(new IPEndPoint(IPAddress.Any, 0));
 
@@ -2069,6 +2074,17 @@ namespace MissionPlanner.GCSViews
             {
                 ((Button)sender).Enabled = false;
                 MainV2.comPort.setMode("RTL");
+            }
+            catch { CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR); }
+            ((Button)sender).Enabled = true;
+        }
+
+        private void BUT_Auto_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ((Button)sender).Enabled = false;
+                MainV2.comPort.setMode("Auto");
             }
             catch { CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR); }
             ((Button)sender).Enabled = true;
