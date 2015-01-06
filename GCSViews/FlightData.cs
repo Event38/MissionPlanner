@@ -873,8 +873,8 @@ namespace MissionPlanner.GCSViews
                 {
                     //Console.WriteLine(DateTime.Now.Millisecond);
                     //int fixme;
-                    updateBindingSource();         
-                    updateCameraHatch(); //--DC
+                    updateBindingSource();
+                    updateCameraHatch();
                     // Console.WriteLine(DateTime.Now.Millisecond + " done ");
 
                     // battery warning.
@@ -1280,21 +1280,20 @@ namespace MissionPlanner.GCSViews
         }
 
         DateTime lastscreenupdate = DateTime.Now;
-
         public bool CameraClosed;
         public bool Reached50M;
 
+        int count = 0;
         private void updateCameraHatch()
         {
-            DateTime LastUpdate;
-            if(DateTime.Now.AddSeconds(3) < DateTime.Now) //update every three seconds
+            count = count + 1;
+            if(count > 20)
             {
-                //if (tabControlactions.TabPages.Contains(tabActions)) //if in advanced mode
-                //{
+                count = 0;
+                if (tabControlactions.TabPages.Contains(tabActions)) //if in advanced mode
+                {
                     if (CHK_AutoHatch.Checked)
                     {
-                //        CHK_AutoHatch.Text = "Auto Hatch Enabled";
-                //        CHK_AutoHatch.BackColor = Color.Green;
                         if (MainV2.comPort.MAV.cs.alt > 30)
                         {
                             MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //open hatch
@@ -1304,35 +1303,23 @@ namespace MissionPlanner.GCSViews
                             MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //close hatch
                         }
                     }
-                //    else
-                //    {
-                //        CHK_AutoHatch.Text = "Auto Hatch Disabled";
-                //        CHK_AutoHatch.BackColor = Color.Red;
-                //    }
-                //}
-                //else if (tabControlactions.TabPages.Contains(tabActionsSimple)) //if not advanced mode
-                //{
-                //    if (CHK_AutoHatchSimple.Checked)
-                //    {
-                //        CHK_AutoHatchSimple.Text = "Auto Hatch Enabled";
-                //        CHK_AutoHatchSimple.BackColor = Color.Green;
-                        //if (MainV2.comPort.MAV.cs.alt > 30)
-                        //{
-                        //    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //open hatch
-                        //}
-                        //else
-                        //{
-                        //    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //cose hatch
-                        //}
-            //        }
-            //        else
-            //        {
-            //            CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
-            //            CHK_AutoHatchSimple.BackColor = Color.Red;
-            //        }
-            //    }
+                }
+                else if (tabControlactions.TabPages.Contains(tabActionsSimple)) //if not advanced mode
+                {
+                    if (CHK_AutoHatchSimple.Checked)
+                    {        
+                        if (MainV2.comPort.MAV.cs.alt > 30)
+                        {
+                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //open hatch
+                        }
+                        else
+                        {
+                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //cose hatch
+                        }
+                    }
+                    
+                }
             }
-            LastUpdate = DateTime.Now;
         }
 
         private void updateBindingSource()
