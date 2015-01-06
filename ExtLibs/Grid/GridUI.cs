@@ -606,6 +606,7 @@ namespace MissionPlanner
             {
                 // Area
                 float area = (float)calcpolygonarea(list) * 10.7639f; // Calculate the area in square feet
+                //MissionPlanner.GCSViews.FlightPlanner.lbl_distance.Text = "";
                 lbl_area.Text = area.ToString("#") + " ft^2";
                 if (area < 21780f)
                 {

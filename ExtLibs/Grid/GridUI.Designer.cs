@@ -1073,11 +1073,8 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label lbl_distance;
-        private System.Windows.Forms.Label lbl_area;
         private System.Windows.Forms.Label lbl_spacing;
         private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label lbl_grndres;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label lbl_distbetweenlines;
         private System.Windows.Forms.Label label25;
@@ -1170,5 +1167,8 @@
         private System.Windows.Forms.TextBox TXT_headinghold;
         private System.Windows.Forms.Button BUT_headingholdminus;
         private System.Windows.Forms.Button BUT_headingholdplus;
+        private System.Windows.Forms.Label lbl_area;
+        public System.Windows.Forms.Label lbl_distance;
+        public System.Windows.Forms.Label lbl_grndres;
     }
 }

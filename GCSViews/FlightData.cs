@@ -682,9 +682,10 @@ namespace MissionPlanner.GCSViews
         {
             POI.UpdateOverlay(poioverlay);
         }
-        
+
         private void mainloop()
         {
+
             threadrun = true;
             EndPoint Remote = (EndPoint)(new IPEndPoint(IPAddress.Any, 0));
 
@@ -872,8 +873,8 @@ namespace MissionPlanner.GCSViews
                 {
                     //Console.WriteLine(DateTime.Now.Millisecond);
                     //int fixme;
-                    updateBindingSource();
-                    updateCameraHatch(); //-- DC
+                    updateBindingSource();         
+                    updateCameraHatch(); //--DC
                     // Console.WriteLine(DateTime.Now.Millisecond + " done ");
 
                     // battery warning.
@@ -1285,51 +1286,53 @@ namespace MissionPlanner.GCSViews
 
         private void updateCameraHatch()
         {
-            //if (lastscreenupdate.AddMilliseconds(1000) < DateTime.Now) //every second
-            //{
-                if (tabControlactions.TabPages.Contains(tabActions)) //if in advanced mode
-                {
+            DateTime LastUpdate;
+            if(DateTime.Now.AddSeconds(3) < DateTime.Now) //update every three seconds
+            {
+                //if (tabControlactions.TabPages.Contains(tabActions)) //if in advanced mode
+                //{
                     if (CHK_AutoHatch.Checked)
                     {
-                        CHK_AutoHatch.Text = "Auto Hatch Enabled";
-                        CHK_AutoHatch.BackColor = Color.Green;
+                //        CHK_AutoHatch.Text = "Auto Hatch Enabled";
+                //        CHK_AutoHatch.BackColor = Color.Green;
                         if (MainV2.comPort.MAV.cs.alt > 30)
                         {
                             MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //open hatch
                         }
                         else
                         {
-                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //cose hatch
+                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //close hatch
                         }
                     }
-                    else
-                    {
-                        CHK_AutoHatch.Text = "Auto Hatch Disabled";
-                        CHK_AutoHatch.BackColor = Color.Red;
-                    }
-                }
-                else if (tabControlactions.TabPages.Contains(tabActionsSimple)) //if not advanced mode
-                {
-                    if (CHK_AutoHatchSimple.Checked)
-                    {
-                        CHK_AutoHatchSimple.Text = "Auto Hatch Enabled";
-                        CHK_AutoHatchSimple.BackColor = Color.Green;
-                        if (MainV2.comPort.MAV.cs.alt > 30)
-                        {
-                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //open hatch
-                        }
-                        else
-                        {
-                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //cose hatch
-                        }
-                    }
-                    else
-                    {
-                        CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
-                        CHK_AutoHatchSimple.BackColor = Color.Red;
-                    }
-                }
-            //}
+                //    else
+                //    {
+                //        CHK_AutoHatch.Text = "Auto Hatch Disabled";
+                //        CHK_AutoHatch.BackColor = Color.Red;
+                //    }
+                //}
+                //else if (tabControlactions.TabPages.Contains(tabActionsSimple)) //if not advanced mode
+                //{
+                //    if (CHK_AutoHatchSimple.Checked)
+                //    {
+                //        CHK_AutoHatchSimple.Text = "Auto Hatch Enabled";
+                //        CHK_AutoHatchSimple.BackColor = Color.Green;
+                        //if (MainV2.comPort.MAV.cs.alt > 30)
+                        //{
+                        //    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //open hatch
+                        //}
+                        //else
+                        //{
+                        //    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //cose hatch
+                        //}
+            //        }
+            //        else
+            //        {
+            //            CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
+            //            CHK_AutoHatchSimple.BackColor = Color.Red;
+            //        }
+            //    }
+            }
+            LastUpdate = DateTime.Now;
         }
 
         private void updateBindingSource()
@@ -3364,9 +3367,9 @@ namespace MissionPlanner.GCSViews
 
             if (File.Exists("ShutCamtrig.py"))
             {
-                string closeLens = File.ReadAllText("ShutCamtrig.py");
+                //string closeLens = File.ReadAllText("ShutCamtrig.py");
                 Script script = new Script();
-                MessageBox.Show(closeLens); //--test code
+                //MessageBox.Show(closeLens); //--test code
                 script.runScript("ShutCamtrig.py");
             }
             else
@@ -3378,10 +3381,14 @@ namespace MissionPlanner.GCSViews
             if (tabControlactions.TabPages.Contains(tabActions))
             {
                 CHK_AutoHatch.Checked = false;
+                CHK_AutoHatch.Text = "Auto Hatch Disabled";
+                CHK_AutoHatch.BackColor = Color.Red;
             }
             else if (tabControlactions.TabPages.Contains(tabActionsSimple))
             {
                 CHK_AutoHatchSimple.Checked = false;
+                CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
+                CHK_AutoHatchSimple.BackColor = Color.Red;
             }
                 MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //toggle servo 7 low
         }
@@ -3391,12 +3398,50 @@ namespace MissionPlanner.GCSViews
             if (tabControlactions.TabPages.Contains(tabActions))
             {
                 CHK_AutoHatch.Checked = false;
+                CHK_AutoHatch.Text = "Auto Hatch Disabled";
+                CHK_AutoHatch.BackColor = Color.Red;
             }
             else if (tabControlactions.TabPages.Contains(tabActionsSimple))
             {
                 CHK_AutoHatchSimple.Checked = false;
+                CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
+                CHK_AutoHatchSimple.BackColor = Color.Red;
             }
             MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //toggle servo 7 high
+        }
+
+        private void CHK_AutoHatchSimple_CheckedChanged(object sender, EventArgs e)
+        {    
+            if (tabControlactions.TabPages.Contains(tabActionsSimple))
+            {
+                if (CHK_AutoHatchSimple.Checked)
+                {
+                    CHK_AutoHatchSimple.Text = "Auto Hatch Enabled";
+                    CHK_AutoHatchSimple.BackColor = Color.LimeGreen;
+                }
+                else
+                {
+                    CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
+                    CHK_AutoHatchSimple.BackColor = Color.Red;
+                }
+            }
+        }
+
+        private void CHK_AutoHatch_CheckedChanged(object sender, EventArgs e)
+        {
+            if (tabControlactions.TabPages.Contains(tabActions))
+            {
+                if (CHK_AutoHatch.Checked)
+                {
+                    CHK_AutoHatch.Text = "Auto Hatch Enabled";
+                    CHK_AutoHatch.BackColor = Color.LimeGreen;
+                }
+                else
+                {
+                    CHK_AutoHatch.Text = "Auto Hatch Disabled";
+                    CHK_AutoHatch.BackColor = Color.Red;
+                }
+            }
         }
 
         private void dropOutToolStripMenuItem_Click(object sender, EventArgs e)
