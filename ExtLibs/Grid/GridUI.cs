@@ -606,7 +606,6 @@ namespace MissionPlanner
             {
                 // Area
                 float area = (float)calcpolygonarea(list) * 10.7639f; // Calculate the area in square feet
-                //MissionPlanner.GCSViews.FlightPlanner.lbl_distance.Text = "";
                 lbl_area.Text = area.ToString("#") + " ft^2";
                 if (area < 21780f)
                 {
@@ -652,6 +651,7 @@ namespace MissionPlanner
                 lbl_grndres.Text = TXT_cmpixel.Text;
                 lbl_distbetweenlines.Text = NUM_Distance.Value.ToString("0.##") + " m";
                 lbl_footprint.Text = TXT_fovH.Text + " x " + TXT_fovV.Text + " m";
+
             }
 
             double flyspeedms = CurrentState.fromSpeedDisplayUnit((double)NUM_UpDownFlySpeed.Value);
@@ -668,6 +668,12 @@ namespace MissionPlanner
                 map.ZoomAndCenterMarkers("routes");
 
             CalcHeadingHold();
+
+            //for the main Flight Planner Stats screen
+            MainV2.instance.FlightPlanner.lbl_FlightTimeMainData.Text = lbl_flighttime.Text;
+            MainV2.instance.FlightPlanner.lbl_DistMainData.Text = lbl_distance.Text;
+            MainV2.instance.FlightPlanner.lbl_ResolutionMainData.Text = lbl_grndres.Text;
+            MainV2.instance.FlightPlanner.lbl_PhotoEveryMainData.Text = lbl_photoevery.Text;
         }
 
         private void AddWP(double Lng, double Lat, double Alt)

@@ -3757,6 +3757,8 @@ namespace MissionPlanner.GCSViews
                 MainMap.UpdatePolygonLocalPosition(geofencepolygon);
                 MainMap.UpdateMarkerLocalPosition(geofenceoverlay.Markers[0]);
 
+
+
                 MainMap.Invalidate();
             }
             catch (Exception ex)
