@@ -3541,10 +3541,6 @@ namespace MissionPlanner.GCSViews
                     addpolygonmarker("Guided Mode", MainV2.comPort.MAV.GuidedMode.y, MainV2.comPort.MAV.GuidedMode.x, (int)MainV2.comPort.MAV.GuidedMode.z, Color.Blue, routesoverlay);
                 }
 
-                //update Stats
-                this.lbl_ResolutionMainData.Text = "";
-
-
                 //autopan
                 if (autopan)
                 {

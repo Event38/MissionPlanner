@@ -874,7 +874,11 @@ namespace MissionPlanner.GCSViews
                     //Console.WriteLine(DateTime.Now.Millisecond);
                     //int fixme;
                     updateBindingSource();
+
+                    //open or close camera hatch automatically --DC
                     updateCameraHatch();
+
+
                     // Console.WriteLine(DateTime.Now.Millisecond + " done ");
 
                     // battery warning.
@@ -1287,13 +1291,15 @@ namespace MissionPlanner.GCSViews
         private void updateCameraHatch()
         {
             count = count + 1;
-            if(count > 20)
+            if(count > 40) //only run this code every 40th time. Prevents slow parameter retrieval on initial connection.
             {
                 count = 0;
                 if (tabControlactions.TabPages.Contains(tabActions)) //if in advanced mode
                 {
                     if (CHK_AutoHatch.Checked)
                     {
+                        CHK_AutoHatch.BackColor = Color.LimeGreen;
+
                         if (MainV2.comPort.MAV.cs.alt > 30)
                         {
                             MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //open hatch
@@ -1307,7 +1313,8 @@ namespace MissionPlanner.GCSViews
                 else if (tabControlactions.TabPages.Contains(tabActionsSimple)) //if not advanced mode
                 {
                     if (CHK_AutoHatchSimple.Checked)
-                    {        
+                    {
+                        CHK_AutoHatchSimple.BackColor = Color.LimeGreen;
                         if (MainV2.comPort.MAV.cs.alt > 30)
                         {
                             MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //open hatch
@@ -1346,11 +1353,11 @@ namespace MissionPlanner.GCSViews
                                 CameraClosed = true;
                                 Script script = new Script();
                                 script.runScript("ShutCamtrig.py");
-                                MessageBox.Show("Camera lens closed because of low altitude!!!");
+                                CustomMessageBox.Show("Camera lens closed because of low altitude!!!");
 
                             }
                             else
-                                MessageBox.Show("ERROR in BUT_CloseLens function (ShutCamtrig.py file was not found)");
+                                CustomMessageBox.Show("ERROR in BUT_CloseLens function (ShutCamtrig.py file was not found)");
                         }
 
                         if (this.Visible)
@@ -3348,70 +3355,88 @@ namespace MissionPlanner.GCSViews
 
         private void BUT_CloseLens_Click(object sender, EventArgs e)
         {
-            //for(int index = 0; index < 2; index++)
-            //MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_DIGICAM_CONTROL, 0, 0, 0, 0, 0, 0, 0);
-            //MainV2.comPort.sendDigicamSignal();
-
-            if (File.Exists("ShutCamtrig.py"))
+            if (!MainV2.comPort.MAV.cs.connected)
             {
-                //string closeLens = File.ReadAllText("ShutCamtrig.py");
-                Script script = new Script();
-                //MessageBox.Show(closeLens); //--test code
-                script.runScript("ShutCamtrig.py");
+                CustomMessageBox.Show("Please connect first");
             }
             else
-                MessageBox.Show("ERROR in BUT_CloseLens function (ShutCamtrig.py file was not found)");
+            {
+                if (File.Exists("ShutCamtrig.py"))
+                {
+                    //string closeLens = File.ReadAllText("ShutCamtrig.py");
+                    Script script = new Script();
+                    //MessageBox.Show(closeLens); //--test code
+                    script.runScript("ShutCamtrig.py");
+                }
+                else
+                    CustomMessageBox.Show("ERROR in BUT_CloseLens function (ShutCamtrig.py file was not found)");
+            }
         }
 
         private void BUT_OpenHatch_Click(object sender, EventArgs e)
         {
-            if (tabControlactions.TabPages.Contains(tabActions))
+            if (!MainV2.comPort.MAV.cs.connected)
             {
-                CHK_AutoHatch.Checked = false;
-                CHK_AutoHatch.Text = "Auto Hatch Disabled";
-                CHK_AutoHatch.BackColor = Color.Red;
+                CustomMessageBox.Show("Please connect first");
             }
-            else if (tabControlactions.TabPages.Contains(tabActionsSimple))
+            else 
             {
-                CHK_AutoHatchSimple.Checked = false;
-                CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
-                CHK_AutoHatchSimple.BackColor = Color.Red;
-            }
+                if (tabControlactions.TabPages.Contains(tabActions))
+                {
+                    CHK_AutoHatch.Checked = false;
+                    CHK_AutoHatch.Text = "Auto Hatch Disabled";
+                    CHK_AutoHatch.BackColor = Color.Red;
+                }
+                else if (tabControlactions.TabPages.Contains(tabActionsSimple))
+                {
+                    CHK_AutoHatchSimple.Checked = false;
+                    CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
+                    CHK_AutoHatchSimple.BackColor = Color.Red;
+                }
                 MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //toggle servo 7 low
+            }
         }
 
         private void BUT_CloseHatch_Click(object sender, EventArgs e)
         {
-            if (tabControlactions.TabPages.Contains(tabActions))
+            if (!MainV2.comPort.MAV.cs.connected)
             {
-                CHK_AutoHatch.Checked = false;
-                CHK_AutoHatch.Text = "Auto Hatch Disabled";
-                CHK_AutoHatch.BackColor = Color.Red;
+                CustomMessageBox.Show("Please connect first");
             }
-            else if (tabControlactions.TabPages.Contains(tabActionsSimple))
+            else
             {
-                CHK_AutoHatchSimple.Checked = false;
-                CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
-                CHK_AutoHatchSimple.BackColor = Color.Red;
-            }
-            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //toggle servo 7 high
-        }
-
-        private void CHK_AutoHatchSimple_CheckedChanged(object sender, EventArgs e)
-        {    
-            if (tabControlactions.TabPages.Contains(tabActionsSimple))
-            {
-                if (CHK_AutoHatchSimple.Checked)
+                if (tabControlactions.TabPages.Contains(tabActions))
                 {
-                    CHK_AutoHatchSimple.Text = "Auto Hatch Enabled";
-                    CHK_AutoHatchSimple.BackColor = Color.LimeGreen;
+                    CHK_AutoHatch.Checked = false;
+                    CHK_AutoHatch.Text = "Auto Hatch Disabled";
+                    CHK_AutoHatch.BackColor = Color.Red;
                 }
-                else
+                else if (tabControlactions.TabPages.Contains(tabActionsSimple))
                 {
+                    CHK_AutoHatchSimple.Checked = false;
                     CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
                     CHK_AutoHatchSimple.BackColor = Color.Red;
                 }
+                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //toggle servo 7 high
             }
+        }
+
+        private void CHK_AutoHatchSimple_CheckedChanged(object sender, EventArgs e)
+        {
+            
+                if (tabControlactions.TabPages.Contains(tabActionsSimple))
+                {
+                    if (CHK_AutoHatchSimple.Checked)
+                    {
+                        CHK_AutoHatchSimple.Text = "Auto Hatch Enabled";
+                        CHK_AutoHatchSimple.BackColor = Color.LimeGreen;
+                    }
+                    else
+                    {
+                        CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
+                        CHK_AutoHatchSimple.BackColor = Color.Red;
+                    }
+                }
         }
 
         private void CHK_AutoHatch_CheckedChanged(object sender, EventArgs e)
