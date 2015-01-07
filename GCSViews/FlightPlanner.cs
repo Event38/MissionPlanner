@@ -2162,6 +2162,9 @@ namespace MissionPlanner.GCSViews
                 return;
             drawnpolygon.Points.Clear();
             drawnpolygonsoverlay.Markers.Clear();
+            drawnpolygonsoverlay.Routes.Clear();
+            drawnpolygon.Overlay.Clear();
+            drawnpolygon.Clear();
             MainMap.Invalidate();
 
             writeKML();

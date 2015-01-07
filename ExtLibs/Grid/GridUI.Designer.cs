@@ -830,7 +830,7 @@
             0});
             this.NUM_UpDownFlySpeed.Name = "NUM_UpDownFlySpeed";
             this.NUM_UpDownFlySpeed.Value = new decimal(new int[] {
-            5,
+            12,
             0,
             0,
             0});
@@ -919,8 +919,6 @@
             // CHK_advanced
             // 
             resources.ApplyResources(this.CHK_advanced, "CHK_advanced");
-            this.CHK_advanced.Checked = true;
-            this.CHK_advanced.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CHK_advanced.Name = "CHK_advanced";
             this.CHK_advanced.UseVisualStyleBackColor = true;
             this.CHK_advanced.CheckedChanged += new System.EventHandler(this.CHK_advanced_CheckedChanged);

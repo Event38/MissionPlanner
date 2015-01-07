@@ -1291,7 +1291,7 @@ namespace MissionPlanner.GCSViews
         private void updateCameraHatch()
         {
             count = count + 1;
-            if(count > 40 && !playingLog) //only run this code every 40th time. Prevents slow parameter retrieval on initial connection.
+            if(count > 40 && !playingLog && MainV2.comPort.MAV.cs.connected) //only run this code every 40th time. Prevents slow parameter retrieval on initial connection.
             {
                 count = 0;
                 if (tabControlactions.TabPages.Contains(tabActions)) //if in advanced mode
