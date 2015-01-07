@@ -55,7 +55,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             else if (MainV2.comPort.MAV.cs.battery_voltage >= 14.5 && MainV2.comPort.MAV.cs.battery_voltage <= 15.98)
             {
                 lblBattery.Text = "Voltage between 14.5 and 15.98";
-                lblBattery.BackColor = Color.Yellow;
+                lblBattery.BackColor = Color.Gold;
                 chBoxBattery.Checked = true;
             }
             else

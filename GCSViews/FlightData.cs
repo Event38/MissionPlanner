@@ -871,6 +871,8 @@ namespace MissionPlanner.GCSViews
 
                 try
                 {
+                    CheckAndBindPreFlightData();
+
                     //Console.WriteLine(DateTime.Now.Millisecond);
                     //int fixme;
                     updateBindingSource();
@@ -2275,6 +2277,11 @@ namespace MissionPlanner.GCSViews
                 }
             }
 
+        }
+
+        private void CheckAndBindPreFlightData()
+        {
+            preFlightChecklist1.BindData();
         }
 
         private void Gspeed_DoubleClick(object sender, EventArgs e)

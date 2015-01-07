@@ -267,6 +267,7 @@
             // lblTel
             // 
             this.lblTel.AutoSize = true;
+            this.lblTel.BackColor = System.Drawing.SystemColors.Control;
             this.lblTel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lblTel.Location = new System.Drawing.Point(158, 39);

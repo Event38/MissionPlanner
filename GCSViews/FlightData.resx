@@ -558,1134 +558,26 @@
   <data name="tabpreflight.AutoScrollMargin" type="System.Drawing.Size, System.Drawing">
     <value>0, 25</value>
   </data>
-  <data name="chkCamera.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="preFlightChecklist1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
-  <data name="chkCamera.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="preFlightChecklist1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>330, 550</value>
   </data>
-  <data name="chkCamera.Location" type="System.Drawing.Point, System.Drawing">
-    <value>302, 539</value>
-  </data>
-  <data name="chkCamera.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 10, 10, 10</value>
-  </data>
-  <data name="chkCamera.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="chkCamera.TabIndex" type="System.Int32, mscorlib">
-    <value>33</value>
-  </data>
-  <data name="&gt;&gt;chkCamera.Name" xml:space="preserve">
-    <value>chkCamera</value>
-  </data>
-  <data name="&gt;&gt;chkCamera.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkCamera.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;chkCamera.ZOrder" xml:space="preserve">
+  <data name="preFlightChecklist1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="chkServoLinkages.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;preFlightChecklist1.Name" xml:space="preserve">
+    <value>preFlightChecklist1</value>
   </data>
-  <data name="chkServoLinkages.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="&gt;&gt;preFlightChecklist1.Type" xml:space="preserve">
+    <value>MissionPlanner.GCSViews.ConfigurationView.PreFlightChecklist, MissionPlanner, Version=1.1.5485.23504, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="chkServoLinkages.Location" type="System.Drawing.Point, System.Drawing">
-    <value>302, 482</value>
-  </data>
-  <data name="chkServoLinkages.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 10, 10, 10</value>
-  </data>
-  <data name="chkServoLinkages.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="chkServoLinkages.TabIndex" type="System.Int32, mscorlib">
-    <value>32</value>
-  </data>
-  <data name="&gt;&gt;chkServoLinkages.Name" xml:space="preserve">
-    <value>chkServoLinkages</value>
-  </data>
-  <data name="&gt;&gt;chkServoLinkages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkServoLinkages.Parent" xml:space="preserve">
+  <data name="&gt;&gt;preFlightChecklist1.Parent" xml:space="preserve">
     <value>tabpreflight</value>
   </data>
-  <data name="&gt;&gt;chkServoLinkages.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="chkCenterOfGravity.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkCenterOfGravity.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkCenterOfGravity.Location" type="System.Drawing.Point, System.Drawing">
-    <value>302, 430</value>
-  </data>
-  <data name="chkCenterOfGravity.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 10, 10, 10</value>
-  </data>
-  <data name="chkCenterOfGravity.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="chkCenterOfGravity.TabIndex" type="System.Int32, mscorlib">
-    <value>31</value>
-  </data>
-  <data name="&gt;&gt;chkCenterOfGravity.Name" xml:space="preserve">
-    <value>chkCenterOfGravity</value>
-  </data>
-  <data name="&gt;&gt;chkCenterOfGravity.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkCenterOfGravity.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;chkCenterOfGravity.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="chkServosTilt.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkServosTilt.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkServosTilt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>302, 378</value>
-  </data>
-  <data name="chkServosTilt.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 10, 10, 10</value>
-  </data>
-  <data name="chkServosTilt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="chkServosTilt.TabIndex" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="&gt;&gt;chkServosTilt.Name" xml:space="preserve">
-    <value>chkServosTilt</value>
-  </data>
-  <data name="&gt;&gt;chkServosTilt.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkServosTilt.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;chkServosTilt.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="chkServosRC.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkServosRC.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkServosRC.Location" type="System.Drawing.Point, System.Drawing">
-    <value>302, 326</value>
-  </data>
-  <data name="chkServosRC.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 10, 10, 10</value>
-  </data>
-  <data name="chkServosRC.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="chkServosRC.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="&gt;&gt;chkServosRC.Name" xml:space="preserve">
-    <value>chkServosRC</value>
-  </data>
-  <data name="&gt;&gt;chkServosRC.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkServosRC.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;chkServosRC.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="chkTailAndWings.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkTailAndWings.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkTailAndWings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>302, 274</value>
-  </data>
-  <data name="chkTailAndWings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 10, 10, 10</value>
-  </data>
-  <data name="chkTailAndWings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="chkTailAndWings.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="&gt;&gt;chkTailAndWings.Name" xml:space="preserve">
-    <value>chkTailAndWings</value>
-  </data>
-  <data name="&gt;&gt;chkTailAndWings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkTailAndWings.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;chkTailAndWings.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="chkAltitude.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkAltitude.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkAltitude.Location" type="System.Drawing.Point, System.Drawing">
-    <value>302, 186</value>
-  </data>
-  <data name="chkAltitude.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 10, 10, 10</value>
-  </data>
-  <data name="chkAltitude.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="chkAltitude.TabIndex" type="System.Int32, mscorlib">
-    <value>27</value>
-  </data>
-  <data name="&gt;&gt;chkAltitude.Name" xml:space="preserve">
-    <value>chkAltitude</value>
-  </data>
-  <data name="&gt;&gt;chkAltitude.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkAltitude.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;chkAltitude.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="chkRemote.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkRemote.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkRemote.Location" type="System.Drawing.Point, System.Drawing">
-    <value>302, 144</value>
-  </data>
-  <data name="chkRemote.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 10, 10, 10</value>
-  </data>
-  <data name="chkRemote.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="chkRemote.TabIndex" type="System.Int32, mscorlib">
-    <value>26</value>
-  </data>
-  <data name="&gt;&gt;chkRemote.Name" xml:space="preserve">
-    <value>chkRemote</value>
-  </data>
-  <data name="&gt;&gt;chkRemote.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkRemote.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;chkRemote.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="chkBattery.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkBattery.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkBattery.Location" type="System.Drawing.Point, System.Drawing">
-    <value>302, 103</value>
-  </data>
-  <data name="chkBattery.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 10, 10, 10</value>
-  </data>
-  <data name="chkBattery.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="chkBattery.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
-  </data>
-  <data name="&gt;&gt;chkBattery.Name" xml:space="preserve">
-    <value>chkBattery</value>
-  </data>
-  <data name="&gt;&gt;chkBattery.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkBattery.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;chkBattery.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="chkTelemetry.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkTelemetry.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkTelemetry.Location" type="System.Drawing.Point, System.Drawing">
-    <value>302, 63</value>
-  </data>
-  <data name="chkTelemetry.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 10, 10, 10</value>
-  </data>
-  <data name="chkTelemetry.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="chkTelemetry.TabIndex" type="System.Int32, mscorlib">
-    <value>24</value>
-  </data>
-  <data name="&gt;&gt;chkTelemetry.Name" xml:space="preserve">
-    <value>chkTelemetry</value>
-  </data>
-  <data name="&gt;&gt;chkTelemetry.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkTelemetry.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;chkTelemetry.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="chkGPS.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="chkGPS.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="chkGPS.Location" type="System.Drawing.Point, System.Drawing">
-    <value>302, 18</value>
-  </data>
-  <data name="chkGPS.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 10, 10, 10</value>
-  </data>
-  <data name="chkGPS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>15, 14</value>
-  </data>
-  <data name="chkGPS.TabIndex" type="System.Int32, mscorlib">
-    <value>23</value>
-  </data>
-  <data name="&gt;&gt;chkGPS.Name" xml:space="preserve">
-    <value>chkGPS</value>
-  </data>
-  <data name="&gt;&gt;chkGPS.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkGPS.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;chkGPS.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8pt</value>
-  </data>
-  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 177</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 31</value>
-  </data>
-  <data name="label7.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
+  <data name="&gt;&gt;preFlightChecklist1.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="label7.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;label7.Name" xml:space="preserve">
-    <value>label7</value>
-  </data>
-  <data name="&gt;&gt;label7.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="lbldataRemote.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8pt</value>
-  </data>
-  <data name="lbldataRemote.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lbldataRemote.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 135</value>
-  </data>
-  <data name="lbldataRemote.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 31</value>
-  </data>
-  <data name="lbldataRemote.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="lbldataRemote.Text" xml:space="preserve">
-    <value>Unknown</value>
-  </data>
-  <data name="lbldataRemote.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;lbldataRemote.Name" xml:space="preserve">
-    <value>lbldataRemote</value>
-  </data>
-  <data name="&gt;&gt;lbldataRemote.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lbldataRemote.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lbldataRemote.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="lbldataBattery.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8pt</value>
-  </data>
-  <data name="lbldataBattery.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lbldataBattery.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 94</value>
-  </data>
-  <data name="lbldataBattery.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 31</value>
-  </data>
-  <data name="lbldataBattery.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="lbldataBattery.Text" xml:space="preserve">
-    <value>Voltage &lt; 14.5V</value>
-  </data>
-  <data name="lbldataBattery.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;lbldataBattery.Name" xml:space="preserve">
-    <value>lbldataBattery</value>
-  </data>
-  <data name="&gt;&gt;lbldataBattery.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lbldataBattery.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lbldataBattery.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="lbldataTelemetry.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8pt</value>
-  </data>
-  <data name="lbldataTelemetry.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lbldataTelemetry.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 54</value>
-  </data>
-  <data name="lbldataTelemetry.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 31</value>
-  </data>
-  <data name="lbldataTelemetry.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="lbldataTelemetry.Text" xml:space="preserve">
-    <value>Signal &lt; 95%</value>
-  </data>
-  <data name="lbldataTelemetry.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;lbldataTelemetry.Name" xml:space="preserve">
-    <value>lbldataTelemetry</value>
-  </data>
-  <data name="&gt;&gt;lbldataTelemetry.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lbldataTelemetry.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lbldataTelemetry.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="lbldataGPS.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8pt</value>
-  </data>
-  <data name="lbldataGPS.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lbldataGPS.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 9</value>
-  </data>
-  <data name="lbldataGPS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 31</value>
-  </data>
-  <data name="lbldataGPS.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="lbldataGPS.Text" xml:space="preserve">
-    <value>3D fix or satellites failed or both</value>
-  </data>
-  <data name="lbldataGPS.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;lbldataGPS.Name" xml:space="preserve">
-    <value>lbldataGPS</value>
-  </data>
-  <data name="&gt;&gt;lbldataGPS.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lbldataGPS.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lbldataGPS.ZOrder" xml:space="preserve">
-    <value>15</value>
-  </data>
-  <data name="lbldataCamera.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="lbldataCamera.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lbldataCamera.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 524</value>
-  </data>
-  <data name="lbldataCamera.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 40</value>
-  </data>
-  <data name="lbldataCamera.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="lbldataCamera.Text" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="lbldataCamera.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;lbldataCamera.Name" xml:space="preserve">
-    <value>lbldataCamera</value>
-  </data>
-  <data name="&gt;&gt;lbldataCamera.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lbldataCamera.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lbldataCamera.ZOrder" xml:space="preserve">
-    <value>16</value>
-  </data>
-  <data name="lbldataServoLinkages.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="lbldataServoLinkages.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lbldataServoLinkages.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 467</value>
-  </data>
-  <data name="lbldataServoLinkages.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 40</value>
-  </data>
-  <data name="lbldataServoLinkages.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="lbldataServoLinkages.Text" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="lbldataServoLinkages.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;lbldataServoLinkages.Name" xml:space="preserve">
-    <value>lbldataServoLinkages</value>
-  </data>
-  <data name="&gt;&gt;lbldataServoLinkages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lbldataServoLinkages.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lbldataServoLinkages.ZOrder" xml:space="preserve">
-    <value>17</value>
-  </data>
-  <data name="lbldataCenterOfGravity.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="lbldataCenterOfGravity.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lbldataCenterOfGravity.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 415</value>
-  </data>
-  <data name="lbldataCenterOfGravity.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 40</value>
-  </data>
-  <data name="lbldataCenterOfGravity.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="lbldataCenterOfGravity.Text" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="lbldataCenterOfGravity.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;lbldataCenterOfGravity.Name" xml:space="preserve">
-    <value>lbldataCenterOfGravity</value>
-  </data>
-  <data name="&gt;&gt;lbldataCenterOfGravity.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lbldataCenterOfGravity.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lbldataCenterOfGravity.ZOrder" xml:space="preserve">
-    <value>18</value>
-  </data>
-  <data name="lbldataServosTilt.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="lbldataServosTilt.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lbldataServosTilt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 363</value>
-  </data>
-  <data name="lbldataServosTilt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 40</value>
-  </data>
-  <data name="lbldataServosTilt.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="lbldataServosTilt.Text" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="lbldataServosTilt.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;lbldataServosTilt.Name" xml:space="preserve">
-    <value>lbldataServosTilt</value>
-  </data>
-  <data name="&gt;&gt;lbldataServosTilt.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lbldataServosTilt.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lbldataServosTilt.ZOrder" xml:space="preserve">
-    <value>19</value>
-  </data>
-  <data name="lbldataServosRC.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="lbldataServosRC.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lbldataServosRC.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 311</value>
-  </data>
-  <data name="lbldataServosRC.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 40</value>
-  </data>
-  <data name="lbldataServosRC.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="lbldataServosRC.Text" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="lbldataServosRC.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;lbldataServosRC.Name" xml:space="preserve">
-    <value>lbldataServosRC</value>
-  </data>
-  <data name="&gt;&gt;lbldataServosRC.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lbldataServosRC.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lbldataServosRC.ZOrder" xml:space="preserve">
-    <value>20</value>
-  </data>
-  <data name="lbldataTailAndWings.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="lbldataTailAndWings.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lbldataTailAndWings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 259</value>
-  </data>
-  <data name="lbldataTailAndWings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>128, 40</value>
-  </data>
-  <data name="lbldataTailAndWings.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="lbldataTailAndWings.Text" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="lbldataTailAndWings.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="&gt;&gt;lbldataTailAndWings.Name" xml:space="preserve">
-    <value>lbldataTailAndWings</value>
-  </data>
-  <data name="&gt;&gt;lbldataTailAndWings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lbldataTailAndWings.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lbldataTailAndWings.ZOrder" xml:space="preserve">
-    <value>21</value>
-  </data>
-  <data name="lblCamera.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblCamera.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="lblCamera.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblCamera.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 519</value>
-  </data>
-  <data name="lblCamera.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 40</value>
-  </data>
-  <data name="lblCamera.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="lblCamera.Text" xml:space="preserve">
-    <value>Camera is on and
-ready to fly</value>
-  </data>
-  <data name="lblCamera.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopCenter</value>
-  </data>
-  <data name="&gt;&gt;lblCamera.Name" xml:space="preserve">
-    <value>lblCamera</value>
-  </data>
-  <data name="&gt;&gt;lblCamera.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblCamera.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lblCamera.ZOrder" xml:space="preserve">
-    <value>22</value>
-  </data>
-  <data name="lblServoLinkages.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblServoLinkages.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="lblServoLinkages.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblServoLinkages.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 467</value>
-  </data>
-  <data name="lblServoLinkages.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 40</value>
-  </data>
-  <data name="lblServoLinkages.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="lblServoLinkages.Text" xml:space="preserve">
-    <value>Servo linkages are 
-secure</value>
-  </data>
-  <data name="lblServoLinkages.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopCenter</value>
-  </data>
-  <data name="&gt;&gt;lblServoLinkages.Name" xml:space="preserve">
-    <value>lblServoLinkages</value>
-  </data>
-  <data name="&gt;&gt;lblServoLinkages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblServoLinkages.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lblServoLinkages.ZOrder" xml:space="preserve">
-    <value>23</value>
-  </data>
-  <data name="lblCenterOfGravity.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblCenterOfGravity.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="lblCenterOfGravity.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblCenterOfGravity.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 415</value>
-  </data>
-  <data name="lblCenterOfGravity.Size" type="System.Drawing.Size, System.Drawing">
-    <value>142, 40</value>
-  </data>
-  <data name="lblCenterOfGravity.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="lblCenterOfGravity.Text" xml:space="preserve">
-    <value>Center of gravity at
-points indicated</value>
-  </data>
-  <data name="lblCenterOfGravity.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopCenter</value>
-  </data>
-  <data name="&gt;&gt;lblCenterOfGravity.Name" xml:space="preserve">
-    <value>lblCenterOfGravity</value>
-  </data>
-  <data name="&gt;&gt;lblCenterOfGravity.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblCenterOfGravity.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lblCenterOfGravity.ZOrder" xml:space="preserve">
-    <value>24</value>
-  </data>
-  <data name="lblServosTilt.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblServosTilt.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="lblServosTilt.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblServosTilt.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 363</value>
-  </data>
-  <data name="lblServosTilt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 40</value>
-  </data>
-  <data name="lblServosTilt.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="lblServosTilt.Text" xml:space="preserve">
-    <value>All servos respond
-to tilting the aircraft</value>
-  </data>
-  <data name="lblServosTilt.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopCenter</value>
-  </data>
-  <data name="&gt;&gt;lblServosTilt.Name" xml:space="preserve">
-    <value>lblServosTilt</value>
-  </data>
-  <data name="&gt;&gt;lblServosTilt.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblServosTilt.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lblServosTilt.ZOrder" xml:space="preserve">
-    <value>25</value>
-  </data>
-  <data name="lblServosRC.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblServosRC.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="lblServosRC.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblServosRC.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 311</value>
-  </data>
-  <data name="lblServosRC.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 40</value>
-  </data>
-  <data name="lblServosRC.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="lblServosRC.Text" xml:space="preserve">
-    <value>All servos respond
-to R/C stick inputs</value>
-  </data>
-  <data name="lblServosRC.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopCenter</value>
-  </data>
-  <data name="&gt;&gt;lblServosRC.Name" xml:space="preserve">
-    <value>lblServosRC</value>
-  </data>
-  <data name="&gt;&gt;lblServosRC.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblServosRC.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lblServosRC.ZOrder" xml:space="preserve">
-    <value>26</value>
-  </data>
-  <data name="lblTailAndWings.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblTailAndWings.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="lblTailAndWings.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblTailAndWings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 259</value>
-  </data>
-  <data name="lblTailAndWings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 40</value>
-  </data>
-  <data name="lblTailAndWings.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="lblTailAndWings.Text" xml:space="preserve">
-    <value>Tail and wings are
-secured to the body</value>
-  </data>
-  <data name="lblTailAndWings.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopCenter</value>
-  </data>
-  <data name="&gt;&gt;lblTailAndWings.Name" xml:space="preserve">
-    <value>lblTailAndWings</value>
-  </data>
-  <data name="&gt;&gt;lblTailAndWings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblTailAndWings.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lblTailAndWings.ZOrder" xml:space="preserve">
-    <value>27</value>
-  </data>
-  <data name="lblUserChecklist.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblUserChecklist.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 16pt</value>
-  </data>
-  <data name="lblUserChecklist.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblUserChecklist.Location" type="System.Drawing.Point, System.Drawing">
-    <value>84, 225</value>
-  </data>
-  <data name="lblUserChecklist.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 26</value>
-  </data>
-  <data name="lblUserChecklist.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="lblUserChecklist.Text" xml:space="preserve">
-    <value>User Checklist</value>
-  </data>
-  <data name="lblUserChecklist.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopCenter</value>
-  </data>
-  <data name="&gt;&gt;lblUserChecklist.Name" xml:space="preserve">
-    <value>lblUserChecklist</value>
-  </data>
-  <data name="&gt;&gt;lblUserChecklist.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblUserChecklist.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lblUserChecklist.ZOrder" xml:space="preserve">
-    <value>28</value>
-  </data>
-  <data name="lblAltitude.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblAltitude.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="lblAltitude.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblAltitude.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 177</value>
-  </data>
-  <data name="lblAltitude.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 20</value>
-  </data>
-  <data name="lblAltitude.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="lblAltitude.Text" xml:space="preserve">
-    <value>Check Altitude</value>
-  </data>
-  <data name="lblAltitude.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopCenter</value>
-  </data>
-  <data name="&gt;&gt;lblAltitude.Name" xml:space="preserve">
-    <value>lblAltitude</value>
-  </data>
-  <data name="&gt;&gt;lblAltitude.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblAltitude.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lblAltitude.ZOrder" xml:space="preserve">
-    <value>29</value>
-  </data>
-  <data name="lblRemote.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblRemote.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="lblRemote.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblRemote.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 135</value>
-  </data>
-  <data name="lblRemote.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 20</value>
-  </data>
-  <data name="lblRemote.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="lblRemote.Text" xml:space="preserve">
-    <value>Remote in FBWA</value>
-  </data>
-  <data name="lblRemote.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopCenter</value>
-  </data>
-  <data name="&gt;&gt;lblRemote.Name" xml:space="preserve">
-    <value>lblRemote</value>
-  </data>
-  <data name="&gt;&gt;lblRemote.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblRemote.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lblRemote.ZOrder" xml:space="preserve">
-    <value>30</value>
-  </data>
-  <data name="lblBattery.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblBattery.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="lblBattery.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblBattery.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 98</value>
-  </data>
-  <data name="lblBattery.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 20</value>
-  </data>
-  <data name="lblBattery.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="lblBattery.Text" xml:space="preserve">
-    <value>Battery Voltage</value>
-  </data>
-  <data name="lblBattery.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopCenter</value>
-  </data>
-  <data name="&gt;&gt;lblBattery.Name" xml:space="preserve">
-    <value>lblBattery</value>
-  </data>
-  <data name="&gt;&gt;lblBattery.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblBattery.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lblBattery.ZOrder" xml:space="preserve">
-    <value>31</value>
-  </data>
-  <data name="lblTelemetry.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblTelemetry.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="lblTelemetry.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblTelemetry.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 45</value>
-  </data>
-  <data name="lblTelemetry.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 40</value>
-  </data>
-  <data name="lblTelemetry.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="lblTelemetry.Text" xml:space="preserve">
-    <value>Verify Telemetry
-Signal</value>
-  </data>
-  <data name="lblTelemetry.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopCenter</value>
-  </data>
-  <data name="&gt;&gt;lblTelemetry.Name" xml:space="preserve">
-    <value>lblTelemetry</value>
-  </data>
-  <data name="&gt;&gt;lblTelemetry.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblTelemetry.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lblTelemetry.ZOrder" xml:space="preserve">
-    <value>32</value>
-  </data>
-  <data name="lblGPS.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblGPS.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 12pt</value>
-  </data>
-  <data name="lblGPS.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblGPS.Location" type="System.Drawing.Point, System.Drawing">
-    <value>19, 13</value>
-  </data>
-  <data name="lblGPS.Size" type="System.Drawing.Size, System.Drawing">
-    <value>87, 20</value>
-  </data>
-  <data name="lblGPS.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="lblGPS.Text" xml:space="preserve">
-    <value>Verify GPS</value>
-  </data>
-  <data name="&gt;&gt;lblGPS.Name" xml:space="preserve">
-    <value>lblGPS</value>
-  </data>
-  <data name="&gt;&gt;lblGPS.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblGPS.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;lblGPS.ZOrder" xml:space="preserve">
-    <value>33</value>
   </data>
   <data name="tabpreflight.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -2366,7 +1258,7 @@ Signal</value>
     <value>modifyandSetSpeed</value>
   </data>
   <data name="&gt;&gt;modifyandSetSpeed.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ModifyandSet, MissionPlanner, Version=1.1.5484.30469, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ModifyandSet, MissionPlanner, Version=1.1.5485.23504, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;modifyandSetSpeed.Parent" xml:space="preserve">
     <value>tabActions</value>
@@ -2387,7 +1279,7 @@ Signal</value>
     <value>modifyandSetAlt</value>
   </data>
   <data name="&gt;&gt;modifyandSetAlt.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ModifyandSet, MissionPlanner, Version=1.1.5484.30469, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ModifyandSet, MissionPlanner, Version=1.1.5485.23504, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;modifyandSetAlt.Parent" xml:space="preserve">
     <value>tabActions</value>
@@ -2702,7 +1594,7 @@ Signal</value>
     <value>modifyandSetSpeedSimple</value>
   </data>
   <data name="&gt;&gt;modifyandSetSpeedSimple.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ModifyandSet, MissionPlanner, Version=1.1.5484.30469, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ModifyandSet, MissionPlanner, Version=1.1.5485.23504, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;modifyandSetSpeedSimple.Parent" xml:space="preserve">
     <value>tabActionsSimple</value>
@@ -2933,7 +1825,7 @@ Signal</value>
     <value>servoOptions1</value>
   </data>
   <data name="&gt;&gt;servoOptions1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5484.30469, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5485.23504, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoOptions1.Parent" xml:space="preserve">
     <value>flowLayoutPanelServos</value>
@@ -2954,7 +1846,7 @@ Signal</value>
     <value>servoOptions2</value>
   </data>
   <data name="&gt;&gt;servoOptions2.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5484.30469, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5485.23504, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoOptions2.Parent" xml:space="preserve">
     <value>flowLayoutPanelServos</value>
@@ -2975,7 +1867,7 @@ Signal</value>
     <value>servoOptions3</value>
   </data>
   <data name="&gt;&gt;servoOptions3.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5484.30469, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5485.23504, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoOptions3.Parent" xml:space="preserve">
     <value>flowLayoutPanelServos</value>
@@ -2996,7 +1888,7 @@ Signal</value>
     <value>servoOptions4</value>
   </data>
   <data name="&gt;&gt;servoOptions4.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5484.30469, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5485.23504, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoOptions4.Parent" xml:space="preserve">
     <value>flowLayoutPanelServos</value>
@@ -3017,7 +1909,7 @@ Signal</value>
     <value>servoOptions5</value>
   </data>
   <data name="&gt;&gt;servoOptions5.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5484.30469, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5485.23504, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoOptions5.Parent" xml:space="preserve">
     <value>flowLayoutPanelServos</value>
@@ -3038,7 +1930,7 @@ Signal</value>
     <value>servoOptions6</value>
   </data>
   <data name="&gt;&gt;servoOptions6.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5484.30469, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5485.23504, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoOptions6.Parent" xml:space="preserve">
     <value>flowLayoutPanelServos</value>
@@ -3059,7 +1951,7 @@ Signal</value>
     <value>servoOptions7</value>
   </data>
   <data name="&gt;&gt;servoOptions7.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5484.30469, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5485.23504, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoOptions7.Parent" xml:space="preserve">
     <value>flowLayoutPanelServos</value>
@@ -4253,7 +3145,7 @@ Signal</value>
     <value>distanceBar1</value>
   </data>
   <data name="&gt;&gt;distanceBar1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.DistanceBar, MissionPlanner, Version=1.1.5484.30469, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.DistanceBar, MissionPlanner, Version=1.1.5485.23504, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;distanceBar1.Parent" xml:space="preserve">
     <value>splitContainer1.Panel2</value>
@@ -4850,7 +3742,7 @@ Signal</value>
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>70</value>
+    <value>112</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
@@ -4951,35 +3843,11 @@ Signal</value>
   <data name="&gt;&gt;russianHudToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;bindingSourceHud.Name" xml:space="preserve">
-    <value>bindingSourceHud</value>
-  </data>
-  <data name="&gt;&gt;bindingSourceHud.Type" xml:space="preserve">
-    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;dropOutToolStripMenuItem.Name" xml:space="preserve">
     <value>dropOutToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;dropOutToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bindingSourceQuickTab.Name" xml:space="preserve">
-    <value>bindingSourceQuickTab</value>
-  </data>
-  <data name="&gt;&gt;bindingSourceQuickTab.Type" xml:space="preserve">
-    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bindingSourceGaugesTab.Name" xml:space="preserve">
-    <value>bindingSourceGaugesTab</value>
-  </data>
-  <data name="&gt;&gt;bindingSourceGaugesTab.Type" xml:space="preserve">
-    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bindingSource1.Name" xml:space="preserve">
-    <value>bindingSource1</value>
-  </data>
-  <data name="&gt;&gt;bindingSource1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ZedGraphTimer.Name" xml:space="preserve">
     <value>ZedGraphTimer</value>
@@ -5022,6 +3890,30 @@ Signal</value>
   </data>
   <data name="&gt;&gt;Messagetabtimer.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bindingSourceHud.Name" xml:space="preserve">
+    <value>bindingSourceHud</value>
+  </data>
+  <data name="&gt;&gt;bindingSourceHud.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bindingSourceQuickTab.Name" xml:space="preserve">
+    <value>bindingSourceQuickTab</value>
+  </data>
+  <data name="&gt;&gt;bindingSourceQuickTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bindingSourceGaugesTab.Name" xml:space="preserve">
+    <value>bindingSourceGaugesTab</value>
+  </data>
+  <data name="&gt;&gt;bindingSourceGaugesTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bindingSource1.Name" xml:space="preserve">
+    <value>bindingSource1</value>
+  </data>
+  <data name="&gt;&gt;bindingSource1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;bindingSourceStatusTab.Name" xml:space="preserve">
     <value>bindingSourceStatusTab</value>
