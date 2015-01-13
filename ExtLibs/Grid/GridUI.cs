@@ -140,6 +140,11 @@ namespace MissionPlanner
 
             loadsettings();
 
+            CHK_toandland.Checked = false;
+            CHK_toandland_RTL.Checked = false;
+            CHK_advanced.Checked = true;
+
+
             //CHK_advanced_CheckedChanged(null, null);
 
             TRK_zoom.Value = (float)map.Zoom;
@@ -212,12 +217,13 @@ namespace MissionPlanner
 
             CMB_startfrom.Text = griddata.startfrom;
 
-            CHK_toandland.Checked = griddata.autotakeoff;
-            CHK_toandland_RTL.Checked = griddata.autotakeoff_RTL;
+            //don't load these automatically
+            //CHK_toandland.Checked = griddata.autotakeoff;
+            //CHK_toandland_RTL.Checked = griddata.autotakeoff_RTL;
+            //CHK_advanced.Checked = griddata.advanced;
 
             CHK_internals.Checked = griddata.internals;
             CHK_footprints.Checked = griddata.footprints;
-            CHK_advanced.Checked = griddata.advanced;
 
             rad_trigdist.Checked = griddata.trigdist;
             rad_digicam.Checked = griddata.digicam;
@@ -250,12 +256,13 @@ namespace MissionPlanner
 
             griddata.startfrom = CMB_startfrom.Text;
 
-            griddata.autotakeoff = CHK_toandland.Checked;
-            griddata.autotakeoff_RTL = CHK_toandland_RTL.Checked;
+            //don't save these settings automatically
+            //griddata.autotakeoff = CHK_toandland.Checked;
+            //griddata.autotakeoff_RTL = CHK_toandland_RTL.Checked;
+            //griddata.advanced = CHK_advanced.Checked;
 
             griddata.internals = CHK_internals.Checked;
             griddata.footprints = CHK_footprints.Checked;
-            griddata.advanced = CHK_advanced.Checked;
 
             griddata.trigdist = rad_trigdist.Checked;
             griddata.digicam = rad_digicam.Checked;
@@ -289,12 +296,14 @@ namespace MissionPlanner
 
                 loadsetting("grid_startfrom", CMB_startfrom);
 
-                loadsetting("grid_autotakeoff", CHK_toandland);
-                loadsetting("grid_autotakeoff_RTL", CHK_toandland_RTL);
+                //don't load these automatically
+                //loadsetting("grid_autotakeoff", CHK_toandland);
+                //loadsetting("grid_autotakeoff_RTL", CHK_toandland_RTL);
+                //loadsetting("grid_advanced", CHK_advanced);
 
                 loadsetting("grid_internals", CHK_internals);
                 loadsetting("grid_footprints", CHK_footprints);
-                loadsetting("grid_advanced", CHK_advanced);
+
 
                 // Should probably be saved as one setting, and us logic
                 loadsetting("grid_trigdist", rad_trigdist);
@@ -356,12 +365,13 @@ namespace MissionPlanner
 
             plugin.Host.config["grid_startfrom"] = CMB_startfrom.Text;
 
-            plugin.Host.config["grid_autotakeoff"] = CHK_toandland.Checked.ToString();
-            plugin.Host.config["grid_autotakeoff_RTL"] = CHK_toandland_RTL.Checked.ToString();
+            //don't save these settings automatically
+            //plugin.Host.config["grid_autotakeoff"] = CHK_toandland.Checked.ToString();
+            //plugin.Host.config["grid_autotakeoff_RTL"] = CHK_toandland_RTL.Checked.ToString();
+            //plugin.Host.config["grid_advanced"] = CHK_advanced.Checked.ToString();
 
             plugin.Host.config["grid_internals"] = CHK_internals.Checked.ToString();
             plugin.Host.config["grid_footprints"] = CHK_footprints.Checked.ToString();
-            plugin.Host.config["grid_advanced"] = CHK_advanced.Checked.ToString();
 
             plugin.Host.config["grid_trigdist"] = rad_trigdist.Checked.ToString();
             plugin.Host.config["grid_digicam"] = rad_digicam.Checked.ToString();

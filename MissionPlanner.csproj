@@ -2779,6 +2779,11 @@
     <Content Include="ChangeLog.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Green_panel.png" />
+    <None Include="Resources\Green_panel1.png" />
+    <None Include="Resources\Red_panel.png" />
+    <None Include="Resources\Red_panel1.png" />
+    <None Include="Resources\Yellow_panel.png" />
     <Content Include="ShutCamtrig.py">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

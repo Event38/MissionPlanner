@@ -22,26 +22,26 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             //Need to add one more condition
             if (MainV2.comPort.MAV.cs.satcount >= 5 && MainV2.comPort.MAV.cs.gpsstatus >= 3)
             {
-                lblGPS.BackColor = Color.Green;
+                lblGPS.Image = MissionPlanner.Properties.Resources.Green_panel1;
                 chBoxGPS.Checked = true;
                 lblGPS.Text = "3D fix and 5 or more satellites connected";
             }
             else
             {
-                lblGPS.BackColor = Color.Red;
+                lblGPS.Image = MissionPlanner.Properties.Resources.Red_panel;
                 chBoxGPS.Checked = false;
                 lblGPS.Text = "3D fix or satellites failed or both";
             }
 
             if (MainV2.comPort.MAV.cs.linkqualitygcs >= 95)
             {
-                lblTel.BackColor = Color.Green;
+                lblTel.Image = MissionPlanner.Properties.Resources.Green_panel1;
                 lblTel.Text = "signal >= 95%";
                 chBoxTel.Checked = true;
             }
             else
             {
-                lblTel.BackColor = Color.Red;
+                lblTel.Image = MissionPlanner.Properties.Resources.Red_panel;
                 lblTel.Text = "signal < 95%";
                 chBoxTel.Checked = false;
             }
@@ -49,45 +49,45 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             if (MainV2.comPort.MAV.cs.battery_voltage >= 15.99)
             {
                 lblBattery.Text = "Voltage > 15.99";
-                lblBattery.BackColor = Color.Green;
+                lblBattery.Image = MissionPlanner.Properties.Resources.Green_panel1;
                 chBoxBattery.Checked = true;
             }
             else if (MainV2.comPort.MAV.cs.battery_voltage >= 14.5 && MainV2.comPort.MAV.cs.battery_voltage <= 15.98)
             {
                 lblBattery.Text = "Voltage between 14.5 and 15.98";
-                lblBattery.BackColor = Color.Gold;
+                lblBattery.Image = MissionPlanner.Properties.Resources.Yellow_panel;
                 chBoxBattery.Checked = true;
             }
             else
             {
                 lblBattery.Text = "Voltage less than 14.5";
-                lblBattery.BackColor = Color.Red;
+                lblBattery.Image = MissionPlanner.Properties.Resources.Red_panel;
                 chBoxBattery.Checked = false;
             }
 
             if (MainV2.comPort.MAV.cs.mode.Equals("FBWA", StringComparison.OrdinalIgnoreCase))
             {
                 lblRemote.Text = MainV2.comPort.MAV.cs.mode;
-                lblRemote.BackColor = Color.Green;
+                lblRemote.Image = MissionPlanner.Properties.Resources.Green_panel1;
                 chBoxRemote.Checked = true;
             }
             else
             {
                 lblRemote.Text = MainV2.comPort.MAV.cs.mode;
-                lblRemote.BackColor = Color.Red;
+                lblRemote.Image = MissionPlanner.Properties.Resources.Red_panel;
                 chBoxRemote.Checked = false;
             }
 
             if (MainV2.comPort.MAV.cs.alt <= 10)
             {
                 lblAltitude.Text = MainV2.comPort.MAV.cs.alt.ToString();
-                lblAltitude.BackColor = Color.Green;
+                lblAltitude.Image = MissionPlanner.Properties.Resources.Green_panel1;
                 chBoxAltitude.Checked = true;
             }
             else
             {
                 lblAltitude.Text = MainV2.comPort.MAV.cs.alt.ToString();
-                lblAltitude.BackColor = Color.Red;
+                lblAltitude.Image = MissionPlanner.Properties.Resources.Red_panel;
                 chBoxAltitude.Checked = false;
             }
 
@@ -137,12 +137,12 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             if (chBox.Checked)
             {
-                lbl.BackColor = Color.Green;
+                lbl.Image = MissionPlanner.Properties.Resources.Green_panel1;
                 lbl.Text = "Yes";
             }
             else
             {
-                lbl.BackColor = Color.Red;
+                lbl.Image = MissionPlanner.Properties.Resources.Red_panel;
                 lbl.Text = "No";
             }
         }
