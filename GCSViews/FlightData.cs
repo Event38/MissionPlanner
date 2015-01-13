@@ -685,7 +685,7 @@ namespace MissionPlanner.GCSViews
 
         private void mainloop()
         {
-
+            
             threadrun = true;
             EndPoint Remote = (EndPoint)(new IPEndPoint(IPAddress.Any, 0));
 
@@ -877,7 +877,7 @@ namespace MissionPlanner.GCSViews
                     //int fixme;
                     updateBindingSource();
 
-                    ////open or close camera hatch automatically --DC
+                    //open or close camera hatch automatically --DC
                     updateCameraHatch();
 
 

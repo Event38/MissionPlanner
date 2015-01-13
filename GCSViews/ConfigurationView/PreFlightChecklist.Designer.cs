@@ -110,30 +110,30 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 24;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.396808F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 7.67617F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.171575F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 6.810013F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.745948F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.097611F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.283619F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.903565F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.267597F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.691576F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.963513F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.691576F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 8.333332F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(330, 550);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -144,7 +144,7 @@
             this.chBoxGPS.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.chBoxGPS.Location = new System.Drawing.Point(313, 3);
             this.chBoxGPS.Name = "chBoxGPS";
-            this.chBoxGPS.Size = new System.Drawing.Size(14, 28);
+            this.chBoxGPS.Size = new System.Drawing.Size(14, 31);
             this.chBoxGPS.TabIndex = 28;
             this.chBoxGPS.UseVisualStyleBackColor = true;
             // 
@@ -153,9 +153,9 @@
             this.chBoxTel.AutoSize = true;
             this.chBoxTel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chBoxTel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.chBoxTel.Location = new System.Drawing.Point(313, 42);
+            this.chBoxTel.Location = new System.Drawing.Point(313, 48);
             this.chBoxTel.Name = "chBoxTel";
-            this.chBoxTel.Size = new System.Drawing.Size(14, 35);
+            this.chBoxTel.Size = new System.Drawing.Size(14, 31);
             this.chBoxTel.TabIndex = 29;
             this.chBoxTel.UseVisualStyleBackColor = true;
             // 
@@ -164,9 +164,9 @@
             this.chBoxBattery.AutoSize = true;
             this.chBoxBattery.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chBoxBattery.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.chBoxBattery.Location = new System.Drawing.Point(313, 88);
+            this.chBoxBattery.Location = new System.Drawing.Point(313, 93);
             this.chBoxBattery.Name = "chBoxBattery";
-            this.chBoxBattery.Size = new System.Drawing.Size(14, 27);
+            this.chBoxBattery.Size = new System.Drawing.Size(14, 31);
             this.chBoxBattery.TabIndex = 30;
             this.chBoxBattery.UseVisualStyleBackColor = true;
             // 
@@ -175,9 +175,9 @@
             this.chBoxRemote.AutoSize = true;
             this.chBoxRemote.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chBoxRemote.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.chBoxRemote.Location = new System.Drawing.Point(313, 126);
+            this.chBoxRemote.Location = new System.Drawing.Point(313, 138);
             this.chBoxRemote.Name = "chBoxRemote";
-            this.chBoxRemote.Size = new System.Drawing.Size(14, 30);
+            this.chBoxRemote.Size = new System.Drawing.Size(14, 31);
             this.chBoxRemote.TabIndex = 31;
             this.chBoxRemote.UseVisualStyleBackColor = true;
             // 
@@ -186,9 +186,9 @@
             this.chBoxAltitude.AutoSize = true;
             this.chBoxAltitude.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chBoxAltitude.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.chBoxAltitude.Location = new System.Drawing.Point(313, 167);
+            this.chBoxAltitude.Location = new System.Drawing.Point(313, 183);
             this.chBoxAltitude.Name = "chBoxAltitude";
-            this.chBoxAltitude.Size = new System.Drawing.Size(14, 25);
+            this.chBoxAltitude.Size = new System.Drawing.Size(14, 31);
             this.chBoxAltitude.TabIndex = 32;
             this.chBoxAltitude.UseVisualStyleBackColor = true;
             // 
@@ -198,9 +198,9 @@
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label9.Font = new System.Drawing.Font("Arial", 12F);
             this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label9.Location = new System.Drawing.Point(3, 85);
+            this.label9.Location = new System.Drawing.Point(3, 90);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(149, 33);
+            this.label9.Size = new System.Drawing.Size(149, 37);
             this.label9.TabIndex = 22;
             this.label9.Text = "Battery Voltage";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -210,9 +210,9 @@
             this.lblBattery.AutoSize = true;
             this.lblBattery.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblBattery.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblBattery.Location = new System.Drawing.Point(158, 85);
+            this.lblBattery.Location = new System.Drawing.Point(158, 90);
             this.lblBattery.Name = "lblBattery";
-            this.lblBattery.Size = new System.Drawing.Size(149, 33);
+            this.lblBattery.Size = new System.Drawing.Size(149, 37);
             this.lblBattery.TabIndex = 23;
             this.lblBattery.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -222,9 +222,9 @@
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label10.Font = new System.Drawing.Font("Arial", 12F);
             this.label10.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label10.Location = new System.Drawing.Point(3, 123);
+            this.label10.Location = new System.Drawing.Point(3, 135);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(149, 36);
+            this.label10.Size = new System.Drawing.Size(149, 37);
             this.label10.TabIndex = 24;
             this.label10.Text = "Remote in FBWA";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -234,9 +234,9 @@
             this.lblRemote.AutoSize = true;
             this.lblRemote.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblRemote.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblRemote.Location = new System.Drawing.Point(158, 123);
+            this.lblRemote.Location = new System.Drawing.Point(158, 135);
             this.lblRemote.Name = "lblRemote";
-            this.lblRemote.Size = new System.Drawing.Size(149, 36);
+            this.lblRemote.Size = new System.Drawing.Size(149, 37);
             this.lblRemote.TabIndex = 25;
             this.lblRemote.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -246,9 +246,9 @@
             this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label11.Font = new System.Drawing.Font("Arial", 12F);
             this.label11.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label11.Location = new System.Drawing.Point(3, 164);
+            this.label11.Location = new System.Drawing.Point(3, 180);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(149, 31);
+            this.label11.Size = new System.Drawing.Size(149, 37);
             this.label11.TabIndex = 26;
             this.label11.Text = "Check Altitude";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -258,9 +258,9 @@
             this.lblAltitude.AutoSize = true;
             this.lblAltitude.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblAltitude.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblAltitude.Location = new System.Drawing.Point(158, 164);
+            this.lblAltitude.Location = new System.Drawing.Point(158, 180);
             this.lblAltitude.Name = "lblAltitude";
-            this.lblAltitude.Size = new System.Drawing.Size(149, 31);
+            this.lblAltitude.Size = new System.Drawing.Size(149, 37);
             this.lblAltitude.TabIndex = 27;
             this.lblAltitude.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -270,9 +270,9 @@
             this.lblTel.BackColor = System.Drawing.SystemColors.Control;
             this.lblTel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblTel.Location = new System.Drawing.Point(158, 39);
+            this.lblTel.Location = new System.Drawing.Point(158, 45);
             this.lblTel.Name = "lblTel";
-            this.lblTel.Size = new System.Drawing.Size(149, 41);
+            this.lblTel.Size = new System.Drawing.Size(149, 37);
             this.lblTel.TabIndex = 15;
             this.lblTel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -282,9 +282,9 @@
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label8.Font = new System.Drawing.Font("Arial", 12F);
             this.label8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label8.Location = new System.Drawing.Point(3, 39);
+            this.label8.Location = new System.Drawing.Point(3, 45);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(149, 41);
+            this.label8.Size = new System.Drawing.Size(149, 37);
             this.label8.TabIndex = 14;
             this.label8.Text = "Verify Telemetry Signal";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -296,7 +296,7 @@
             this.lblGPS.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lblGPS.Location = new System.Drawing.Point(158, 0);
             this.lblGPS.Name = "lblGPS";
-            this.lblGPS.Size = new System.Drawing.Size(149, 34);
+            this.lblGPS.Size = new System.Drawing.Size(149, 37);
             this.lblGPS.TabIndex = 13;
             this.lblGPS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -308,7 +308,7 @@
             this.label7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label7.Location = new System.Drawing.Point(3, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(149, 34);
+            this.label7.Size = new System.Drawing.Size(149, 37);
             this.label7.TabIndex = 9;
             this.label7.Text = "Verify GPS";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -319,9 +319,9 @@
             this.tableLayoutPanel1.SetColumnSpan(this.label1, 3);
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 200);
+            this.label1.Location = new System.Drawing.Point(3, 225);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(324, 27);
+            this.label1.Size = new System.Drawing.Size(324, 37);
             this.label1.TabIndex = 33;
             this.label1.Text = "User Checklist";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -331,9 +331,9 @@
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(3, 281);
+            this.label2.Location = new System.Drawing.Point(3, 315);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(149, 48);
+            this.label2.Size = new System.Drawing.Size(149, 37);
             this.label2.TabIndex = 34;
             this.label2.Text = "All servos respond to R/C stick inputs";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -344,9 +344,9 @@
             this.lblURcStick.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblURcStick.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblURcStick.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblURcStick.Location = new System.Drawing.Point(158, 281);
+            this.lblURcStick.Location = new System.Drawing.Point(158, 315);
             this.lblURcStick.Name = "lblURcStick";
-            this.lblURcStick.Size = new System.Drawing.Size(149, 48);
+            this.lblURcStick.Size = new System.Drawing.Size(149, 37);
             this.lblURcStick.TabIndex = 35;
             this.lblURcStick.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -354,9 +354,9 @@
             // 
             this.chBoxURCIn.AutoSize = true;
             this.chBoxURCIn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chBoxURCIn.Location = new System.Drawing.Point(313, 284);
+            this.chBoxURCIn.Location = new System.Drawing.Point(313, 318);
             this.chBoxURCIn.Name = "chBoxURCIn";
-            this.chBoxURCIn.Size = new System.Drawing.Size(14, 42);
+            this.chBoxURCIn.Size = new System.Drawing.Size(14, 31);
             this.chBoxURCIn.TabIndex = 36;
             this.chBoxURCIn.Text = "checkBox1";
             this.chBoxURCIn.UseVisualStyleBackColor = true;
@@ -367,9 +367,9 @@
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 334);
+            this.label3.Location = new System.Drawing.Point(3, 360);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(149, 44);
+            this.label3.Size = new System.Drawing.Size(149, 37);
             this.label3.TabIndex = 37;
             this.label3.Text = "All servos respond to tilting the aircraft";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -380,9 +380,9 @@
             this.lblUtilt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblUtilt.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUtilt.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblUtilt.Location = new System.Drawing.Point(158, 334);
+            this.lblUtilt.Location = new System.Drawing.Point(158, 360);
             this.lblUtilt.Name = "lblUtilt";
-            this.lblUtilt.Size = new System.Drawing.Size(149, 44);
+            this.lblUtilt.Size = new System.Drawing.Size(149, 37);
             this.lblUtilt.TabIndex = 38;
             this.lblUtilt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -390,9 +390,9 @@
             // 
             this.chBoxUTilt.AutoSize = true;
             this.chBoxUTilt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chBoxUTilt.Location = new System.Drawing.Point(313, 337);
+            this.chBoxUTilt.Location = new System.Drawing.Point(313, 363);
             this.chBoxUTilt.Name = "chBoxUTilt";
-            this.chBoxUTilt.Size = new System.Drawing.Size(14, 38);
+            this.chBoxUTilt.Size = new System.Drawing.Size(14, 31);
             this.chBoxUTilt.TabIndex = 39;
             this.chBoxUTilt.Text = "checkBox1";
             this.chBoxUTilt.UseVisualStyleBackColor = true;
@@ -403,9 +403,9 @@
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 383);
+            this.label4.Location = new System.Drawing.Point(3, 405);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(149, 46);
+            this.label4.Size = new System.Drawing.Size(149, 37);
             this.label4.TabIndex = 40;
             this.label4.Text = "Center of gravity at points indicated ";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -416,9 +416,9 @@
             this.lblUCent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblUCent.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUCent.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblUCent.Location = new System.Drawing.Point(158, 383);
+            this.lblUCent.Location = new System.Drawing.Point(158, 405);
             this.lblUCent.Name = "lblUCent";
-            this.lblUCent.Size = new System.Drawing.Size(149, 46);
+            this.lblUCent.Size = new System.Drawing.Size(149, 37);
             this.lblUCent.TabIndex = 41;
             this.lblUCent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -426,9 +426,9 @@
             // 
             this.chBoxUCent.AutoSize = true;
             this.chBoxUCent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chBoxUCent.Location = new System.Drawing.Point(313, 386);
+            this.chBoxUCent.Location = new System.Drawing.Point(313, 408);
             this.chBoxUCent.Name = "chBoxUCent";
-            this.chBoxUCent.Size = new System.Drawing.Size(14, 40);
+            this.chBoxUCent.Size = new System.Drawing.Size(14, 31);
             this.chBoxUCent.TabIndex = 42;
             this.chBoxUCent.Text = "checkBox1";
             this.chBoxUCent.UseVisualStyleBackColor = true;
@@ -439,9 +439,9 @@
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(3, 492);
+            this.label5.Location = new System.Drawing.Point(3, 495);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(149, 46);
+            this.label5.Size = new System.Drawing.Size(149, 37);
             this.label5.TabIndex = 43;
             this.label5.Text = "Camera is on and ready to fly";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -452,9 +452,9 @@
             this.lblUCam.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblUCam.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUCam.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblUCam.Location = new System.Drawing.Point(158, 492);
+            this.lblUCam.Location = new System.Drawing.Point(158, 495);
             this.lblUCam.Name = "lblUCam";
-            this.lblUCam.Size = new System.Drawing.Size(149, 46);
+            this.lblUCam.Size = new System.Drawing.Size(149, 37);
             this.lblUCam.TabIndex = 44;
             this.lblUCam.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -462,9 +462,9 @@
             // 
             this.chBoxUCam.AutoSize = true;
             this.chBoxUCam.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chBoxUCam.Location = new System.Drawing.Point(313, 495);
+            this.chBoxUCam.Location = new System.Drawing.Point(313, 498);
             this.chBoxUCam.Name = "chBoxUCam";
-            this.chBoxUCam.Size = new System.Drawing.Size(14, 40);
+            this.chBoxUCam.Size = new System.Drawing.Size(14, 31);
             this.chBoxUCam.TabIndex = 45;
             this.chBoxUCam.Text = "checkBox1";
             this.chBoxUCam.UseVisualStyleBackColor = true;
@@ -475,9 +475,9 @@
             this.label6.AutoSize = true;
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(3, 434);
+            this.label6.Location = new System.Drawing.Point(3, 450);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(149, 53);
+            this.label6.Size = new System.Drawing.Size(149, 37);
             this.label6.TabIndex = 46;
             this.label6.Text = "Servo linkages are secure";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -488,9 +488,9 @@
             this.lblUServo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblUServo.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUServo.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblUServo.Location = new System.Drawing.Point(158, 434);
+            this.lblUServo.Location = new System.Drawing.Point(158, 450);
             this.lblUServo.Name = "lblUServo";
-            this.lblUServo.Size = new System.Drawing.Size(149, 53);
+            this.lblUServo.Size = new System.Drawing.Size(149, 37);
             this.lblUServo.TabIndex = 47;
             this.lblUServo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -498,9 +498,9 @@
             // 
             this.chBoxUServo.AutoSize = true;
             this.chBoxUServo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chBoxUServo.Location = new System.Drawing.Point(313, 437);
+            this.chBoxUServo.Location = new System.Drawing.Point(313, 453);
             this.chBoxUServo.Name = "chBoxUServo";
-            this.chBoxUServo.Size = new System.Drawing.Size(14, 47);
+            this.chBoxUServo.Size = new System.Drawing.Size(14, 31);
             this.chBoxUServo.TabIndex = 48;
             this.chBoxUServo.Text = "checkBox1";
             this.chBoxUServo.UseVisualStyleBackColor = true;
@@ -511,9 +511,9 @@
             this.label12.AutoSize = true;
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label12.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(3, 232);
+            this.label12.Location = new System.Drawing.Point(3, 270);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(149, 44);
+            this.label12.Size = new System.Drawing.Size(149, 37);
             this.label12.TabIndex = 49;
             this.label12.Text = "Tail and wings are secured to the body";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -524,9 +524,9 @@
             this.lblUWing.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblUWing.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUWing.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblUWing.Location = new System.Drawing.Point(158, 232);
+            this.lblUWing.Location = new System.Drawing.Point(158, 270);
             this.lblUWing.Name = "lblUWing";
-            this.lblUWing.Size = new System.Drawing.Size(149, 44);
+            this.lblUWing.Size = new System.Drawing.Size(149, 37);
             this.lblUWing.TabIndex = 50;
             this.lblUWing.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -534,9 +534,9 @@
             // 
             this.chBoxUWing.AutoSize = true;
             this.chBoxUWing.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chBoxUWing.Location = new System.Drawing.Point(313, 235);
+            this.chBoxUWing.Location = new System.Drawing.Point(313, 273);
             this.chBoxUWing.Name = "chBoxUWing";
-            this.chBoxUWing.Size = new System.Drawing.Size(14, 38);
+            this.chBoxUWing.Size = new System.Drawing.Size(14, 31);
             this.chBoxUWing.TabIndex = 51;
             this.chBoxUWing.Text = "checkBox1";
             this.chBoxUWing.UseVisualStyleBackColor = true;

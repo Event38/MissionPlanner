@@ -453,24 +453,29 @@ namespace MissionPlanner
                 MainV2.instance.EnableADSB = bool.Parse(config["enableadsb"].ToString());
             }
 
-            // load this before the other screens get loaded
-            if (MainV2.config["advancedview"] != null)
-            {
-                MainV2.Advanced = bool.Parse(config["advancedview"].ToString());
-            }
-            else
-            {
-                // existing user - enable advanced view
-                if (MainV2.config.Count > 3)
-                {
-                    config["advancedview"] = true.ToString();
-                    MainV2.Advanced = true;
-                }
-                else
-                {
-                    config["advancedview"] = false.ToString();
-                }
-            }
+            
+            //commented out code below that loads advanced view based on previous configuration
+            //instead the program will always default to non-advanced view - D Cironi (2014-01-12)
+            MainV2.Advanced = false;
+
+            //// load this before the other screens get loaded
+            //if (MainV2.config["advancedview"] != null)
+            //{
+            //    MainV2.Advanced = bool.Parse(config["advancedview"].ToString());
+            //}
+            //else
+            //{
+            //    // existing user - enable advanced view
+            //    if (MainV2.config.Count > 3)
+            //    {
+            //        config["advancedview"] = true.ToString();
+            //        MainV2.Advanced = true;
+            //    }
+            //    else
+            //    {
+            //        config["advancedview"] = false.ToString();
+            //    }
+            //}
 
 
             try
@@ -1268,7 +1273,7 @@ namespace MissionPlanner
                 if (comPort.BaseStream.IsOpen)
                     comPort.Close();
             }
-            catch { } // i get alot of these errors, the port is still open, but not valid - user has unpluged usb
+            catch { } // i get a lot of these errors, the port is still open, but not valid - user has unpluged usb
 
             // save config
             xmlconfig(true);
@@ -1530,11 +1535,12 @@ namespace MissionPlanner
         /// <summary>
         /// Used to fix the icon status for unexpected unplugs etc...
         /// </summary>
-        private void UpdateConnectIcon()
+        public void UpdateConnectIcon()
         {
             if ((DateTime.Now - connectButtonUpdate).Milliseconds > 500)
             {
                 //                        Console.WriteLine(DateTime.Now.Millisecond);
+
                 if (comPort.BaseStream.IsOpen)
                 {
                     if ((string)this.MenuConnect.Image.Tag != "Disconnect")

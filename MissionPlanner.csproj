@@ -1309,6 +1309,7 @@
     </None>
     <EmbeddedResource Include="Antenna\Tracker.it-IT.resx">
       <DependentUpon>Tracker.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ConnectionControl.resx">
       <DependentUpon>ConnectionControl.cs</DependentUpon>
@@ -1978,9 +1979,11 @@
     <Compile Include="Utilities\ParameterMetaDataRepository.cs" />
     <EmbeddedResource Include="Antenna\Tracker.de-DE.resx">
       <DependentUpon>Tracker.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Antenna\Tracker.fr.resx">
       <DependentUpon>Tracker.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Antenna\Tracker.resx">
       <DependentUpon>Tracker.cs</DependentUpon>
@@ -1988,6 +1991,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Antenna\Tracker.zh-Hans.resx">
       <DependentUpon>Tracker.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ConnectionStats.resx">
       <DependentUpon>ConnectionStats.cs</DependentUpon>
@@ -2770,6 +2774,7 @@
     </Content>
     <Content Include="camerasBuiltin.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="ChangeLog.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
