@@ -1300,7 +1300,7 @@ namespace MissionPlanner.GCSViews
                 {
                     if (CHK_AutoHatch.Checked)
                     {
-                        CHK_AutoHatch.BackColor = Color.LimeGreen;
+                        CHK_AutoHatch.BackgroundImage = MissionPlanner.Properties.Resources.Green_panel1;
 
                         if (MainV2.comPort.MAV.cs.alt > 30)
                         {
@@ -1316,7 +1316,7 @@ namespace MissionPlanner.GCSViews
                 {
                     if (CHK_AutoHatchSimple.Checked)
                     {
-                        CHK_AutoHatchSimple.BackColor = Color.LimeGreen;
+                        CHK_AutoHatchSimple.BackgroundImage = MissionPlanner.Properties.Resources.Green_panel1;
                         if (MainV2.comPort.MAV.cs.alt > 30)
                         {
                             MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //open hatch
@@ -3392,13 +3392,13 @@ namespace MissionPlanner.GCSViews
                 {
                     CHK_AutoHatch.Checked = false;
                     CHK_AutoHatch.Text = "Auto Hatch Disabled";
-                    CHK_AutoHatch.BackColor = Color.Red;
+                    CHK_AutoHatch.BackgroundImage = MissionPlanner.Properties.Resources.Red_panel;
                 }
                 else if (tabControlactions.TabPages.Contains(tabActionsSimple))
                 {
                     CHK_AutoHatchSimple.Checked = false;
                     CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
-                    CHK_AutoHatchSimple.BackColor = Color.Red;
+                    CHK_AutoHatchSimple.BackgroundImage = MissionPlanner.Properties.Resources.Red_panel;
                 }
                 MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //toggle servo 7 low
             }
@@ -3416,13 +3416,13 @@ namespace MissionPlanner.GCSViews
                 {
                     CHK_AutoHatch.Checked = false;
                     CHK_AutoHatch.Text = "Auto Hatch Disabled";
-                    CHK_AutoHatch.BackColor = Color.Red;
+                    CHK_AutoHatch.BackgroundImage = MissionPlanner.Properties.Resources.Red_panel;
                 }
                 else if (tabControlactions.TabPages.Contains(tabActionsSimple))
                 {
                     CHK_AutoHatchSimple.Checked = false;
                     CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
-                    CHK_AutoHatchSimple.BackColor = Color.Red;
+                    CHK_AutoHatchSimple.BackgroundImage = MissionPlanner.Properties.Resources.Red_panel;
                 }
                 MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //toggle servo 7 high
             }
@@ -3436,12 +3436,13 @@ namespace MissionPlanner.GCSViews
                     if (CHK_AutoHatchSimple.Checked)
                     {
                         CHK_AutoHatchSimple.Text = "Auto Hatch Enabled";
-                        CHK_AutoHatchSimple.BackColor = Color.LimeGreen;
+                        CHK_AutoHatchSimple.BackgroundImage = MissionPlanner.Properties.Resources.Green_panel1;
+
                     }
                     else
                     {
                         CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
-                        CHK_AutoHatchSimple.BackColor = Color.Red;
+                        CHK_AutoHatchSimple.BackgroundImage = MissionPlanner.Properties.Resources.Red_panel;
                     }
                 }
         }
@@ -3453,12 +3454,12 @@ namespace MissionPlanner.GCSViews
                 if (CHK_AutoHatch.Checked)
                 {
                     CHK_AutoHatch.Text = "Auto Hatch Enabled";
-                    CHK_AutoHatch.BackColor = Color.LimeGreen;
+                    CHK_AutoHatch.BackgroundImage = MissionPlanner.Properties.Resources.Green_panel1;
                 }
                 else
                 {
                     CHK_AutoHatch.Text = "Auto Hatch Disabled";
-                    CHK_AutoHatch.BackColor = Color.Red;
+                    CHK_AutoHatch.BackgroundImage = MissionPlanner.Properties.Resources.Red_panel;
                 }
             }
         }

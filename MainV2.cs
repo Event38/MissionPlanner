@@ -839,6 +839,12 @@ namespace MissionPlanner
             // decide if this is a connect or disconnect
             if (comPort.BaseStream.IsOpen)
             {
+                //fix for not recognizing when USB is pulled out - D Cironi
+                if (MenuConnect.Text == "DISCONNECT")
+                {
+                    comPort.Close();
+                }
+
                 log.Info("We are disconnecting");
                 try
                 {
