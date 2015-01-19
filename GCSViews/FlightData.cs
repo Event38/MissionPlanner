@@ -1304,11 +1304,11 @@ namespace MissionPlanner.GCSViews
 
                         if (MainV2.comPort.MAV.cs.alt > 30)
                         {
-                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //open hatch
+                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, int.Parse(servoOptions3.TXT_pwm_low.Text), 0, 0, 0, 0, 0); //open hatch
                         }
                         else
                         {
-                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //close hatch
+                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, int.Parse(servoOptions3.TXT_pwm_high.Text), 0, 0, 0, 0, 0); //close hatch
                         }
                     }
                 }
@@ -1319,11 +1319,11 @@ namespace MissionPlanner.GCSViews
                         CHK_AutoHatchSimple.BackgroundImage = MissionPlanner.Properties.Resources.Green_panel1;
                         if (MainV2.comPort.MAV.cs.alt > 30)
                         {
-                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //open hatch
+                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, int.Parse(servoOptions3.TXT_pwm_low.Text), 0, 0, 0, 0, 0); //open hatch
                         }
                         else
                         {
-                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //cose hatch
+                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, int.Parse(servoOptions3.TXT_pwm_high.Text), 0, 0, 0, 0, 0); //cose hatch
                         }
                     }
                     
@@ -3402,7 +3402,7 @@ namespace MissionPlanner.GCSViews
                     CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
                     CHK_AutoHatchSimple.BackgroundImage = MissionPlanner.Properties.Resources.Red_panel;
                 }
-                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1150, 0, 0, 0, 0, 0); //toggle servo 7 low
+                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, int.Parse(servoOptions3.TXT_pwm_low.Text), 0, 0, 0, 0, 0); //toggle servo 7 low
             }
         }
 
@@ -3426,7 +3426,7 @@ namespace MissionPlanner.GCSViews
                     CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
                     CHK_AutoHatchSimple.BackgroundImage = MissionPlanner.Properties.Resources.Red_panel;
                 }
-                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, 1850, 0, 0, 0, 0, 0); //toggle servo 7 high
+                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, int.Parse(servoOptions3.TXT_pwm_high.Text), 0, 0, 0, 0, 0); //toggle servo 7 high
             }
         }
 

@@ -892,6 +892,9 @@
     <value>NOTE: The Configuration Tab will NOT display these units, as those are raw values.
 </value>
   </data>
+  <data name="label99.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;label99.Name" xml:space="preserve">
     <value>label99</value>
   </data>
@@ -918,6 +921,9 @@
   </data>
   <data name="label98.Text" xml:space="preserve">
     <value>Speed Units</value>
+  </data>
+  <data name="label98.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;label98.Name" xml:space="preserve">
     <value>label98</value>
@@ -946,6 +952,9 @@
   <data name="label97.Text" xml:space="preserve">
     <value>Dist Units</value>
   </data>
+  <data name="label97.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;label97.Name" xml:space="preserve">
     <value>label97</value>
   </data>
@@ -967,6 +976,9 @@
   <data name="CMB_speedunits.TabIndex" type="System.Int32, mscorlib">
     <value>60</value>
   </data>
+  <data name="CMB_speedunits.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;CMB_speedunits.Name" xml:space="preserve">
     <value>CMB_speedunits</value>
   </data>
@@ -987,6 +999,9 @@
   </data>
   <data name="CMB_distunits.TabIndex" type="System.Int32, mscorlib">
     <value>61</value>
+  </data>
+  <data name="CMB_distunits.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;CMB_distunits.Name" xml:space="preserve">
     <value>CMB_distunits</value>
@@ -1501,87 +1516,6 @@
   <data name="&gt;&gt;CHK_disttohomeflightdata.ZOrder" xml:space="preserve">
     <value>18</value>
   </data>
-  <data name="BUT_Joystick.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="BUT_Joystick.Location" type="System.Drawing.Point, System.Drawing">
-    <value>124, 139</value>
-  </data>
-  <data name="BUT_Joystick.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 23</value>
-  </data>
-  <data name="BUT_Joystick.TabIndex" type="System.Int32, mscorlib">
-    <value>76</value>
-  </data>
-  <data name="BUT_Joystick.Text" xml:space="preserve">
-    <value>Joystick Setup</value>
-  </data>
-  <data name="&gt;&gt;BUT_Joystick.Name" xml:space="preserve">
-    <value>BUT_Joystick</value>
-  </data>
-  <data name="&gt;&gt;BUT_Joystick.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;BUT_Joystick.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;BUT_Joystick.ZOrder" xml:space="preserve">
-    <value>63</value>
-  </data>
-  <data name="BUT_videostop.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="BUT_videostop.Location" type="System.Drawing.Point, System.Drawing">
-    <value>456, 6</value>
-  </data>
-  <data name="BUT_videostop.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="BUT_videostop.TabIndex" type="System.Int32, mscorlib">
-    <value>77</value>
-  </data>
-  <data name="BUT_videostop.Text" xml:space="preserve">
-    <value>Stop</value>
-  </data>
-  <data name="&gt;&gt;BUT_videostop.Name" xml:space="preserve">
-    <value>BUT_videostop</value>
-  </data>
-  <data name="&gt;&gt;BUT_videostop.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;BUT_videostop.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;BUT_videostop.ZOrder" xml:space="preserve">
-    <value>64</value>
-  </data>
-  <data name="BUT_videostart.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="BUT_videostart.Location" type="System.Drawing.Point, System.Drawing">
-    <value>375, 6</value>
-  </data>
-  <data name="BUT_videostart.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="BUT_videostart.TabIndex" type="System.Int32, mscorlib">
-    <value>78</value>
-  </data>
-  <data name="BUT_videostart.Text" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="&gt;&gt;BUT_videostart.Name" xml:space="preserve">
-    <value>BUT_videostart</value>
-  </data>
-  <data name="&gt;&gt;BUT_videostart.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;BUT_videostart.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;BUT_videostart.ZOrder" xml:space="preserve">
-    <value>65</value>
-  </data>
   <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1629,33 +1563,6 @@
   </data>
   <data name="&gt;&gt;txt_log_dir.ZOrder" xml:space="preserve">
     <value>15</value>
-  </data>
-  <data name="BUT_logdirbrowse.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="BUT_logdirbrowse.Location" type="System.Drawing.Point, System.Drawing">
-    <value>513, 366</value>
-  </data>
-  <data name="BUT_logdirbrowse.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="BUT_logdirbrowse.TabIndex" type="System.Int32, mscorlib">
-    <value>95</value>
-  </data>
-  <data name="BUT_logdirbrowse.Text" xml:space="preserve">
-    <value>Browse</value>
-  </data>
-  <data name="&gt;&gt;BUT_logdirbrowse.Name" xml:space="preserve">
-    <value>BUT_logdirbrowse</value>
-  </data>
-  <data name="&gt;&gt;BUT_logdirbrowse.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;BUT_logdirbrowse.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;BUT_logdirbrowse.ZOrder" xml:space="preserve">
-    <value>14</value>
   </data>
   <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1705,30 +1612,6 @@
   <data name="&gt;&gt;CMB_theme.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
-  <data name="BUT_themecustom.Location" type="System.Drawing.Point, System.Drawing">
-    <value>266, 394</value>
-  </data>
-  <data name="BUT_themecustom.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 20</value>
-  </data>
-  <data name="BUT_themecustom.TabIndex" type="System.Int32, mscorlib">
-    <value>98</value>
-  </data>
-  <data name="BUT_themecustom.Text" xml:space="preserve">
-    <value>Custom</value>
-  </data>
-  <data name="&gt;&gt;BUT_themecustom.Name" xml:space="preserve">
-    <value>BUT_themecustom</value>
-  </data>
-  <data name="&gt;&gt;BUT_themecustom.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;BUT_themecustom.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;BUT_themecustom.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
   <data name="CHK_speecharmdisarm.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1761,33 +1644,6 @@
   </data>
   <data name="&gt;&gt;CHK_speecharmdisarm.ZOrder" xml:space="preserve">
     <value>10</value>
-  </data>
-  <data name="BUT_Vario.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="BUT_Vario.Location" type="System.Drawing.Point, System.Drawing">
-    <value>124, 421</value>
-  </data>
-  <data name="BUT_Vario.Size" type="System.Drawing.Size, System.Drawing">
-    <value>99, 20</value>
-  </data>
-  <data name="BUT_Vario.TabIndex" type="System.Int32, mscorlib">
-    <value>100</value>
-  </data>
-  <data name="BUT_Vario.Text" xml:space="preserve">
-    <value>Start/Stop Vario</value>
-  </data>
-  <data name="&gt;&gt;BUT_Vario.Name" xml:space="preserve">
-    <value>BUT_Vario</value>
-  </data>
-  <data name="&gt;&gt;BUT_Vario.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;BUT_Vario.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;BUT_Vario.ZOrder" xml:space="preserve">
-    <value>9</value>
   </data>
   <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2058,6 +1914,168 @@
   </data>
   <data name="&gt;&gt;chk_tfr.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="BUT_Vario.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_Vario.Location" type="System.Drawing.Point, System.Drawing">
+    <value>124, 421</value>
+  </data>
+  <data name="BUT_Vario.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 20</value>
+  </data>
+  <data name="BUT_Vario.TabIndex" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="BUT_Vario.Text" xml:space="preserve">
+    <value>Start/Stop Vario</value>
+  </data>
+  <data name="&gt;&gt;BUT_Vario.Name" xml:space="preserve">
+    <value>BUT_Vario</value>
+  </data>
+  <data name="&gt;&gt;BUT_Vario.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUT_Vario.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;BUT_Vario.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="BUT_themecustom.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_themecustom.Location" type="System.Drawing.Point, System.Drawing">
+    <value>266, 394</value>
+  </data>
+  <data name="BUT_themecustom.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 20</value>
+  </data>
+  <data name="BUT_themecustom.TabIndex" type="System.Int32, mscorlib">
+    <value>98</value>
+  </data>
+  <data name="BUT_themecustom.Text" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="&gt;&gt;BUT_themecustom.Name" xml:space="preserve">
+    <value>BUT_themecustom</value>
+  </data>
+  <data name="&gt;&gt;BUT_themecustom.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUT_themecustom.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;BUT_themecustom.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="BUT_logdirbrowse.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_logdirbrowse.Location" type="System.Drawing.Point, System.Drawing">
+    <value>513, 366</value>
+  </data>
+  <data name="BUT_logdirbrowse.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="BUT_logdirbrowse.TabIndex" type="System.Int32, mscorlib">
+    <value>95</value>
+  </data>
+  <data name="BUT_logdirbrowse.Text" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="&gt;&gt;BUT_logdirbrowse.Name" xml:space="preserve">
+    <value>BUT_logdirbrowse</value>
+  </data>
+  <data name="&gt;&gt;BUT_logdirbrowse.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUT_logdirbrowse.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;BUT_logdirbrowse.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="BUT_Joystick.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_Joystick.Location" type="System.Drawing.Point, System.Drawing">
+    <value>124, 139</value>
+  </data>
+  <data name="BUT_Joystick.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 23</value>
+  </data>
+  <data name="BUT_Joystick.TabIndex" type="System.Int32, mscorlib">
+    <value>76</value>
+  </data>
+  <data name="BUT_Joystick.Text" xml:space="preserve">
+    <value>Joystick Setup</value>
+  </data>
+  <data name="&gt;&gt;BUT_Joystick.Name" xml:space="preserve">
+    <value>BUT_Joystick</value>
+  </data>
+  <data name="&gt;&gt;BUT_Joystick.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUT_Joystick.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;BUT_Joystick.ZOrder" xml:space="preserve">
+    <value>63</value>
+  </data>
+  <data name="BUT_videostop.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_videostop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>456, 6</value>
+  </data>
+  <data name="BUT_videostop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="BUT_videostop.TabIndex" type="System.Int32, mscorlib">
+    <value>77</value>
+  </data>
+  <data name="BUT_videostop.Text" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="&gt;&gt;BUT_videostop.Name" xml:space="preserve">
+    <value>BUT_videostop</value>
+  </data>
+  <data name="&gt;&gt;BUT_videostop.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUT_videostop.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;BUT_videostop.ZOrder" xml:space="preserve">
+    <value>64</value>
+  </data>
+  <data name="BUT_videostart.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_videostart.Location" type="System.Drawing.Point, System.Drawing">
+    <value>375, 6</value>
+  </data>
+  <data name="BUT_videostart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="BUT_videostart.TabIndex" type="System.Int32, mscorlib">
+    <value>78</value>
+  </data>
+  <data name="BUT_videostart.Text" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="&gt;&gt;BUT_videostart.Name" xml:space="preserve">
+    <value>BUT_videostart</value>
+  </data>
+  <data name="&gt;&gt;BUT_videostart.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUT_videostart.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;BUT_videostart.ZOrder" xml:space="preserve">
+    <value>65</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

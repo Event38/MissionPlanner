@@ -334,7 +334,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             if (startup)
                 return;
-            MainV2.config["distunits"] = CMB_distunits.Text;
+            MainV2.config["distunits"] = "m"; //default to always be meters //CMB_distunits.Text;
             MainV2.instance.ChangeUnits();
         }
 
@@ -342,7 +342,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             if (startup)
                 return;
-            MainV2.config["speedunits"] = CMB_speedunits.Text;
+            MainV2.config["speedunits"] = "m/s"; //default to always be meters/second //CMB_speedunits.Text;
             MainV2.instance.ChangeUnits();
         }
 

@@ -75,17 +75,11 @@
             this.CHK_maprotation = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.CHK_disttohomeflightdata = new System.Windows.Forms.CheckBox();
-            this.BUT_Joystick = new MissionPlanner.Controls.MyButton();
-            this.BUT_videostop = new MissionPlanner.Controls.MyButton();
-            this.BUT_videostart = new MissionPlanner.Controls.MyButton();
             this.label3 = new System.Windows.Forms.Label();
             this.txt_log_dir = new System.Windows.Forms.TextBox();
-            this.BUT_logdirbrowse = new MissionPlanner.Controls.MyButton();
             this.label4 = new System.Windows.Forms.Label();
             this.CMB_theme = new System.Windows.Forms.ComboBox();
-            this.BUT_themecustom = new MissionPlanner.Controls.MyButton();
             this.CHK_speecharmdisarm = new System.Windows.Forms.CheckBox();
-            this.BUT_Vario = new MissionPlanner.Controls.MyButton();
             this.label5 = new System.Windows.Forms.Label();
             this.chk_analytics = new System.Windows.Forms.CheckBox();
             this.CHK_beta = new System.Windows.Forms.CheckBox();
@@ -95,6 +89,12 @@
             this.CHK_showairports = new System.Windows.Forms.CheckBox();
             this.chk_ADSB = new System.Windows.Forms.CheckBox();
             this.chk_tfr = new System.Windows.Forms.CheckBox();
+            this.BUT_Vario = new MissionPlanner.Controls.MyButton();
+            this.BUT_themecustom = new MissionPlanner.Controls.MyButton();
+            this.BUT_logdirbrowse = new MissionPlanner.Controls.MyButton();
+            this.BUT_Joystick = new MissionPlanner.Controls.MyButton();
+            this.BUT_videostop = new MissionPlanner.Controls.MyButton();
+            this.BUT_videostart = new MissionPlanner.Controls.MyButton();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).BeginInit();
             this.SuspendLayout();
             // 
@@ -477,27 +477,6 @@
             this.CHK_disttohomeflightdata.UseVisualStyleBackColor = true;
             this.CHK_disttohomeflightdata.CheckedChanged += new System.EventHandler(this.CHK_disttohomeflightdata_CheckedChanged);
             // 
-            // BUT_Joystick
-            // 
-            resources.ApplyResources(this.BUT_Joystick, "BUT_Joystick");
-            this.BUT_Joystick.Name = "BUT_Joystick";
-            this.BUT_Joystick.UseVisualStyleBackColor = true;
-            this.BUT_Joystick.Click += new System.EventHandler(this.BUT_Joystick_Click);
-            // 
-            // BUT_videostop
-            // 
-            resources.ApplyResources(this.BUT_videostop, "BUT_videostop");
-            this.BUT_videostop.Name = "BUT_videostop";
-            this.BUT_videostop.UseVisualStyleBackColor = true;
-            this.BUT_videostop.Click += new System.EventHandler(this.BUT_videostop_Click);
-            // 
-            // BUT_videostart
-            // 
-            resources.ApplyResources(this.BUT_videostart, "BUT_videostart");
-            this.BUT_videostart.Name = "BUT_videostart";
-            this.BUT_videostart.UseVisualStyleBackColor = true;
-            this.BUT_videostart.Click += new System.EventHandler(this.BUT_videostart_Click);
-            // 
             // label3
             // 
             resources.ApplyResources(this.label3, "label3");
@@ -507,13 +486,6 @@
             // 
             resources.ApplyResources(this.txt_log_dir, "txt_log_dir");
             this.txt_log_dir.Name = "txt_log_dir";
-            // 
-            // BUT_logdirbrowse
-            // 
-            resources.ApplyResources(this.BUT_logdirbrowse, "BUT_logdirbrowse");
-            this.BUT_logdirbrowse.Name = "BUT_logdirbrowse";
-            this.BUT_logdirbrowse.UseVisualStyleBackColor = true;
-            this.BUT_logdirbrowse.Click += new System.EventHandler(this.BUT_logdirbrowse_Click);
             // 
             // label4
             // 
@@ -528,26 +500,12 @@
             this.CMB_theme.Name = "CMB_theme";
             this.CMB_theme.SelectedIndexChanged += new System.EventHandler(this.CMB_theme_SelectedIndexChanged);
             // 
-            // BUT_themecustom
-            // 
-            resources.ApplyResources(this.BUT_themecustom, "BUT_themecustom");
-            this.BUT_themecustom.Name = "BUT_themecustom";
-            this.BUT_themecustom.UseVisualStyleBackColor = true;
-            this.BUT_themecustom.Click += new System.EventHandler(this.BUT_themecustom_Click);
-            // 
             // CHK_speecharmdisarm
             // 
             resources.ApplyResources(this.CHK_speecharmdisarm, "CHK_speecharmdisarm");
             this.CHK_speecharmdisarm.Name = "CHK_speecharmdisarm";
             this.CHK_speecharmdisarm.UseVisualStyleBackColor = true;
             this.CHK_speecharmdisarm.CheckedChanged += new System.EventHandler(this.CHK_speecharmdisarm_CheckedChanged);
-            // 
-            // BUT_Vario
-            // 
-            resources.ApplyResources(this.BUT_Vario, "BUT_Vario");
-            this.BUT_Vario.Name = "BUT_Vario";
-            this.BUT_Vario.UseVisualStyleBackColor = true;
-            this.BUT_Vario.Click += new System.EventHandler(this.BUT_Vario_Click);
             // 
             // label5
             // 
@@ -613,6 +571,48 @@
             this.chk_tfr.Name = "chk_tfr";
             this.chk_tfr.UseVisualStyleBackColor = true;
             this.chk_tfr.CheckedChanged += new System.EventHandler(this.chk_tfr_CheckedChanged);
+            // 
+            // BUT_Vario
+            // 
+            resources.ApplyResources(this.BUT_Vario, "BUT_Vario");
+            this.BUT_Vario.Name = "BUT_Vario";
+            this.BUT_Vario.UseVisualStyleBackColor = true;
+            this.BUT_Vario.Click += new System.EventHandler(this.BUT_Vario_Click);
+            // 
+            // BUT_themecustom
+            // 
+            resources.ApplyResources(this.BUT_themecustom, "BUT_themecustom");
+            this.BUT_themecustom.Name = "BUT_themecustom";
+            this.BUT_themecustom.UseVisualStyleBackColor = true;
+            this.BUT_themecustom.Click += new System.EventHandler(this.BUT_themecustom_Click);
+            // 
+            // BUT_logdirbrowse
+            // 
+            resources.ApplyResources(this.BUT_logdirbrowse, "BUT_logdirbrowse");
+            this.BUT_logdirbrowse.Name = "BUT_logdirbrowse";
+            this.BUT_logdirbrowse.UseVisualStyleBackColor = true;
+            this.BUT_logdirbrowse.Click += new System.EventHandler(this.BUT_logdirbrowse_Click);
+            // 
+            // BUT_Joystick
+            // 
+            resources.ApplyResources(this.BUT_Joystick, "BUT_Joystick");
+            this.BUT_Joystick.Name = "BUT_Joystick";
+            this.BUT_Joystick.UseVisualStyleBackColor = true;
+            this.BUT_Joystick.Click += new System.EventHandler(this.BUT_Joystick_Click);
+            // 
+            // BUT_videostop
+            // 
+            resources.ApplyResources(this.BUT_videostop, "BUT_videostop");
+            this.BUT_videostop.Name = "BUT_videostop";
+            this.BUT_videostop.UseVisualStyleBackColor = true;
+            this.BUT_videostop.Click += new System.EventHandler(this.BUT_videostop_Click);
+            // 
+            // BUT_videostart
+            // 
+            resources.ApplyResources(this.BUT_videostart, "BUT_videostart");
+            this.BUT_videostart.Name = "BUT_videostart";
+            this.BUT_videostart.UseVisualStyleBackColor = true;
+            this.BUT_videostart.Click += new System.EventHandler(this.BUT_videostart_Click);
             // 
             // ConfigPlanner
             // 
