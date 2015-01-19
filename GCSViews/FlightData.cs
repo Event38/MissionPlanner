@@ -3345,6 +3345,8 @@ namespace MissionPlanner.GCSViews
             var form = new Log.LogDownloadMavLink();
 
             form.Show();
+            form.Hide();
+            //form.Close();
         }
 
         int messagecount = 0;

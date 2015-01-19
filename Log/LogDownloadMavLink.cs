@@ -79,6 +79,17 @@ namespace MissionPlanner.Log
                 {
                     TXT_seriallog.AppendText("No logs to download");
                 }
+
+                status = serialstatus.Done;
+
+                BUT_DLall.PerformClick();
+
+                
+
+                //System.Threading.Thread.Sleep(3000);
+
+                
+
             }
             catch { CustomMessageBox.Show(Strings.ErrorLogList, Strings.ERROR); this.Close(); }
 
@@ -87,22 +98,22 @@ namespace MissionPlanner.Log
 
         void genchkcombo(int logcount)
         {
-            MethodInvoker m = delegate()
-            {
+            //MethodInvoker m = delegate()
+            //{
                 //CHK_logs.Items.Clear();
                 //for (int a = 1; a <= logcount; a++)
                 if (!CHK_logs.Items.Contains(logcount))
                 {
                     CHK_logs.Items.Add(logcount);
                 }
-            };
-            try
-            {
-                BeginInvoke(m);
-            }
-            catch
-            {
-            }
+            //};
+            //try
+            //{
+            //    BeginInvoke(m);
+            //}
+            //catch
+            //{
+            //}
         }
 
         void updateDisplay()
@@ -128,7 +139,7 @@ namespace MissionPlanner.Log
         private void BUT_DLall_Click(object sender, EventArgs e)
         {
             if (status == serialstatus.Done)
-            {
+            {                
                 if (CHK_logs.Items.Count == 0)
                 {
                     CustomMessageBox.Show("Nothing to download");
@@ -249,9 +260,12 @@ namespace MissionPlanner.Log
                 }
 
                 status = serialstatus.Done;
+
                 updateDisplay();
 
                 Console.Beep();
+                CustomMessageBox.Show(CHK_logs.Items.Count + " data flash logs downloaded");
+                MainV2.comPort.EraseLog();
             }
             catch (Exception ex) { CustomMessageBox.Show(ex.Message, "Error in log " + currentlog); }
         }
@@ -292,8 +306,8 @@ namespace MissionPlanner.Log
 
         private void BUT_clearlogs_Click(object sender, EventArgs e)
         {
-            if (CustomMessageBox.Show("Are you sure?", "sure", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-            {
+            //if (CustomMessageBox.Show("Are you sure?", "sure", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            //{
                 try
                 {
                     MainV2.comPort.EraseLog();
@@ -303,7 +317,7 @@ namespace MissionPlanner.Log
                     CHK_logs.Items.Clear();
                 }
                 catch (Exception ex) { CustomMessageBox.Show(ex.Message, Strings.ERROR); }
-            }
+            //}
         }
 
         private void BUT_redokml_Click(object sender, EventArgs e)
@@ -345,7 +359,6 @@ namespace MissionPlanner.Log
                 }
             }
         }
-
 
         private void BUT_firstperson_Click(object sender, EventArgs e)
         {
@@ -408,6 +421,11 @@ namespace MissionPlanner.Log
                     BinaryLog.ConvertBin(ofd.FileName, sfd.FileName);
                 }
             }
+        }
+
+        private void LogDownloadMavLink_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
         }
     }
 }

@@ -3009,12 +3009,31 @@ Please check the following
             log.Info("id "+entry1.id + " lastllogno " + entry1.last_log_num + " #logs " + entry1.num_logs + " size " + entry1.size);
             //ans.Add(entry1);
 
-            for (ushort a = (ushort)(entry1.last_log_num - entry1.num_logs + 1); a <= entry1.last_log_num; a++)
+            //this gets all the logs, we do not want this, instead we want just the three most recent as programmed below
+            //for (ushort a = (ushort)(entry1.last_log_num - entry1.num_logs + 1); a <= entry1.last_log_num; a++)
+            //{
+            //    mavlink_log_entry_t entry = GetLogEntry(a, a);
+            //    ans.Add(entry);
+            //}
+
+            //only get the three latest logs
+            if (entry1.num_logs >= 3)
             {
-                mavlink_log_entry_t entry = GetLogEntry(a, a);
-                ans.Add(entry);
+                for (ushort a = (ushort)(entry1.last_log_num - 2); a <= entry1.last_log_num; a++)   //get latest three
+                {
+                    mavlink_log_entry_t entry = GetLogEntry(a, a);
+                    ans.Add(entry);
+                }
             }
 
+            else
+            {
+                for (ushort a = (ushort)(entry1.last_log_num - entry1.num_logs + 1); a <= entry1.last_log_num; a++)   //get however many are available
+                {
+                    mavlink_log_entry_t entry = GetLogEntry(a, a);
+                    ans.Add(entry);
+                }
+            }
             return ans;
         }
 

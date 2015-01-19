@@ -116,6 +116,8 @@
             this.Controls.Add(this.BUT_DLall);
             this.Controls.Add(this.TXT_seriallog);
             this.Name = "LogDownloadMavLink";
+            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LogDownloadMavLink_FormClosing);
             this.Load += new System.EventHandler(this.Log_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -2076,24 +2076,26 @@ namespace MissionPlanner
 
             Program.Splash.Close();
 
-            try
-            {
-                // single update check per day - in a seperate thread
-                if (getConfig("update_check") != DateTime.Now.ToShortDateString())
-                {
-                    System.Threading.ThreadPool.QueueUserWorkItem(checkupdate);
-                    config["update_check"] = DateTime.Now.ToShortDateString();
-                }
-                else if (getConfig("beta_updates") == "True")
-                {
-                    MissionPlanner.Utilities.Update.dobeta = true;
-                    System.Threading.ThreadPool.QueueUserWorkItem(checkupdate);
-                }
-            }
-            catch (Exception ex)
-            {
-                log.Error("Update check failed", ex);
-            }
+
+            //do not check for updates in our version -D Cironi 2015-01-19
+            //try
+            //{
+            //    // single update check per day - in a seperate thread
+            //    if (getConfig("update_check") != DateTime.Now.ToShortDateString())
+            //    {
+            //        System.Threading.ThreadPool.QueueUserWorkItem(checkupdate);
+            //        config["update_check"] = DateTime.Now.ToShortDateString();
+            //    }
+            //    else if (getConfig("beta_updates") == "True")
+            //    {
+            //        MissionPlanner.Utilities.Update.dobeta = true;
+            //        System.Threading.ThreadPool.QueueUserWorkItem(checkupdate);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    log.Error("Update check failed", ex);
+            //}
 
             try
             {

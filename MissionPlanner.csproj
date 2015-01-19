@@ -967,7 +967,9 @@
       <LastGenOutput>Strings.zh-Hans.Designer.cs</LastGenOutput>
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="Utilities\UpdateT.resx" />
+    <EmbeddedResource Include="Utilities\UpdateT.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Utilities\UpdateT.zh-Hans.resx" />
     <EmbeddedResource Include="Warnings\WarningControl.resx">
       <DependentUpon>WarningControl.cs</DependentUpon>
@@ -2679,7 +2681,7 @@
     <None Include="Resources\Welcome_to_Michael_Oborne.rtf" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="acsimplepids.xml">
+    <Content Include="Wizard\acsimplepids.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="aircraft.xml">

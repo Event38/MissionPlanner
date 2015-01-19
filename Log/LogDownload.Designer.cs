@@ -109,7 +109,7 @@
             this.BUT_bintolog.UseVisualStyleBackColor = true;
             this.BUT_bintolog.Click += new System.EventHandler(this.BUT_bintolog_Click);
             // 
-            // Log
+            // LogDownload
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -123,7 +123,7 @@
             this.Controls.Add(this.BUT_DLthese);
             this.Controls.Add(this.BUT_DLall);
             this.Controls.Add(this.TXT_seriallog);
-            this.Name = "Log";
+            this.Name = "LogDownload";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Log_FormClosing);
             this.Load += new System.EventHandler(this.Log_Load);
             this.ResumeLayout(false);
@@ -133,9 +133,7 @@
 
         #endregion
 
-        private Controls.MyButton BUT_DLall;
         private Controls.MyButton BUT_DLthese;
-        private Controls.MyButton BUT_clearlogs;
         private System.Windows.Forms.CheckedListBox CHK_logs;
         private System.Windows.Forms.TextBox TXT_status;
         private Controls.MyButton BUT_redokml;
@@ -143,5 +141,7 @@
         private Controls.MyButton BUT_firstperson;
         private Controls.MyButton BUT_dumpdf;
         private Controls.MyButton BUT_bintolog;
+        public Controls.MyButton BUT_DLall;
+        public Controls.MyButton BUT_clearlogs;
     }
 }
