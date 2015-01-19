@@ -211,8 +211,6 @@ namespace MissionPlanner
             NUM_Distance.Value = griddata.dist;
             NUM_overshoot.Value = griddata.overshoot1;
             NUM_overshoot2.Value = griddata.overshoot2;
-            num_overlap.Value = griddata.overlap;
-            num_sidelap.Value = griddata.sidelap;
             NUM_spacing.Value = griddata.spacing;
 
             CMB_startfrom.Text = griddata.startfrom;
@@ -221,6 +219,8 @@ namespace MissionPlanner
             //CHK_toandland.Checked = griddata.autotakeoff;
             //CHK_toandland_RTL.Checked = griddata.autotakeoff_RTL;
             //CHK_advanced.Checked = griddata.advanced;
+            //num_overlap.Value = griddata.overlap;
+            //num_sidelap.Value = griddata.sidelap;
 
             CHK_internals.Checked = griddata.internals;
             CHK_footprints.Checked = griddata.footprints;
@@ -250,8 +250,6 @@ namespace MissionPlanner
             griddata.dist = NUM_Distance.Value;
             griddata.overshoot1 = NUM_overshoot.Value;
             griddata.overshoot2 = NUM_overshoot2.Value;
-            griddata.overlap = num_overlap.Value;
-            griddata.sidelap = num_sidelap.Value;
             griddata.spacing = NUM_spacing.Value;
 
             griddata.startfrom = CMB_startfrom.Text;
@@ -260,6 +258,8 @@ namespace MissionPlanner
             //griddata.autotakeoff = CHK_toandland.Checked;
             //griddata.autotakeoff_RTL = CHK_toandland_RTL.Checked;
             //griddata.advanced = CHK_advanced.Checked;
+            //griddata.overlap = num_overlap.Value;
+            //griddata.sidelap = num_sidelap.Value;
 
             griddata.internals = CHK_internals.Checked;
             griddata.footprints = CHK_footprints.Checked;
@@ -290,8 +290,7 @@ namespace MissionPlanner
                 loadsetting("grid_dist", NUM_Distance);
                 loadsetting("grid_overshoot1", NUM_overshoot);
                 loadsetting("grid_overshoot2", NUM_overshoot2);
-                loadsetting("grid_overlap", num_overlap);
-                loadsetting("grid_sidelap", num_sidelap);
+                
                 loadsetting("grid_spacing", NUM_spacing);
 
                 loadsetting("grid_startfrom", CMB_startfrom);
@@ -300,6 +299,8 @@ namespace MissionPlanner
                 //loadsetting("grid_autotakeoff", CHK_toandland);
                 //loadsetting("grid_autotakeoff_RTL", CHK_toandland_RTL);
                 //loadsetting("grid_advanced", CHK_advanced);
+                //loadsetting("grid_overlap", num_overlap);
+                //loadsetting("grid_sidelap", num_sidelap);
 
                 loadsetting("grid_internals", CHK_internals);
                 loadsetting("grid_footprints", CHK_footprints);
@@ -359,8 +360,6 @@ namespace MissionPlanner
             plugin.Host.config["grid_dist"] = NUM_Distance.Value.ToString();
             plugin.Host.config["grid_overshoot1"] = NUM_overshoot.Value.ToString();
             plugin.Host.config["grid_overshoot2"] = NUM_overshoot2.Value.ToString();
-            plugin.Host.config["grid_overlap"] = num_overlap.Value.ToString();
-            plugin.Host.config["grid_sidelap"] = num_sidelap.Value.ToString();
             plugin.Host.config["grid_spacing"] = NUM_spacing.Value.ToString();
 
             plugin.Host.config["grid_startfrom"] = CMB_startfrom.Text;
@@ -369,6 +368,8 @@ namespace MissionPlanner
             //plugin.Host.config["grid_autotakeoff"] = CHK_toandland.Checked.ToString();
             //plugin.Host.config["grid_autotakeoff_RTL"] = CHK_toandland_RTL.Checked.ToString();
             //plugin.Host.config["grid_advanced"] = CHK_advanced.Checked.ToString();
+            //plugin.Host.config["grid_overlap"] = num_overlap.Value.ToString();
+            //plugin.Host.config["grid_sidelap"] = num_sidelap.Value.ToString();
 
             plugin.Host.config["grid_internals"] = CHK_internals.Checked.ToString();
             plugin.Host.config["grid_footprints"] = CHK_footprints.Checked.ToString();
@@ -1450,6 +1451,71 @@ namespace MissionPlanner
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void lbl_photoevery_TextChanged(object sender, EventArgs e)
+        {
+            double flyspeedms = CurrentState.fromSpeedDisplayUnit((double)NUM_UpDownFlySpeed.Value);
+
+            if(CMB_camera.Text == "Canon S110")
+            {
+                if ((double)NUM_spacing.Value / flyspeedms < 3.1)
+                {
+                    LBL_PhotoEveryWarning.Text = "Time between pictures exceeds camera's reload time. Please reduce overlap or fly higher";
+                    LBL_PhotoEveryWarning.ForeColor = Color.Red;
+                    LBL_PhotoEveryWarning.Visible = true;
+                }
+                else if ((double)NUM_spacing.Value / flyspeedms < 3.73)
+                {  
+                    LBL_PhotoEveryWarning.Text = "A strong tail wind may cause the camera to skip shots. Please reduce overlap, fly perpendicular to prevailing wind, or fly higher";
+                    LBL_PhotoEveryWarning.ForeColor = Color.Yellow;
+                    LBL_PhotoEveryWarning.Visible = true;
+                }
+                else
+                {
+                    LBL_PhotoEveryWarning.Visible = false;
+                }
+            }
+
+            else if (CMB_camera.Text == "Canon SX260")
+            {
+                if ((double)NUM_spacing.Value / flyspeedms < 4.1)
+                {
+                    LBL_PhotoEveryWarning.Text = "If using Intellishoot: Time between pictures exceeds camera's reload time. Please reduce overlap or fly higher";
+                    LBL_PhotoEveryWarning.ForeColor = Color.Red;
+                    LBL_PhotoEveryWarning.Visible = true;
+                }
+                else if ((double)NUM_spacing.Value / flyspeedms < 4.72)
+                {
+                    LBL_PhotoEveryWarning.Text = "If using Intellishoot: A strong tail wind may cause the camera to skip shots. Please reduce overlap, fly perpendicular to prevailing wind, or fly higher";
+                    LBL_PhotoEveryWarning.ForeColor = Color.Yellow;
+                    LBL_PhotoEveryWarning.Visible = true;
+                }
+                else
+                {
+                    LBL_PhotoEveryWarning.Visible = false;
+                }
+            }
+
+            else if (CMB_camera.Text == "NX1100")
+            {
+                if ((double)NUM_spacing.Value / flyspeedms < .84)
+                {
+                    LBL_PhotoEveryWarning.Text = "Time between pictures exceeds camera's reload time. Please reduce overlap or fly higher";
+                    LBL_PhotoEveryWarning.ForeColor = Color.Red;
+                    LBL_PhotoEveryWarning.Visible = true;
+                }
+                else if ((double)NUM_spacing.Value / flyspeedms < .97)
+                {
+                    LBL_PhotoEveryWarning.Text = "A strong tail wind may cause the camera to skip shots. Please reduce overlap, fly perpendicular to prevailing wind, or fly higher";
+                    LBL_PhotoEveryWarning.ForeColor = Color.Yellow;
+                    LBL_PhotoEveryWarning.Visible = true;
+                }
+                else
+                {
+                    LBL_PhotoEveryWarning.Visible = false;
+                }
+            }
         }
     }
 }

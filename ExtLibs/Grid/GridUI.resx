@@ -2220,6 +2220,36 @@
   <data name="&gt;&gt;tabGrid.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="LBL_PhotoEveryWarning.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="LBL_PhotoEveryWarning.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 406</value>
+  </data>
+  <data name="LBL_PhotoEveryWarning.Size" type="System.Drawing.Size, System.Drawing">
+    <value>227, 62</value>
+  </data>
+  <data name="LBL_PhotoEveryWarning.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="LBL_PhotoEveryWarning.Text" xml:space="preserve">
+    <value>Placeholder for "Photo Every" warning</value>
+  </data>
+  <data name="LBL_PhotoEveryWarning.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;LBL_PhotoEveryWarning.Name" xml:space="preserve">
+    <value>LBL_PhotoEveryWarning</value>
+  </data>
+  <data name="&gt;&gt;LBL_PhotoEveryWarning.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LBL_PhotoEveryWarning.Parent" xml:space="preserve">
+    <value>tabSimple</value>
+  </data>
+  <data name="&gt;&gt;LBL_PhotoEveryWarning.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="CHK_usespeed.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2237,6 +2267,9 @@
   </data>
   <data name="CHK_usespeed.Text" xml:space="preserve">
     <value>Use speed for this mission</value>
+  </data>
+  <data name="CHK_usespeed.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;CHK_usespeed.Name" xml:space="preserve">
     <value>CHK_usespeed</value>
@@ -2334,6 +2367,9 @@
   <data name="label24.Text" xml:space="preserve">
     <value>Flying Speed (est)</value>
   </data>
+  <data name="label24.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;label24.Name" xml:space="preserve">
     <value>label24</value>
   </data>
@@ -2354,6 +2390,9 @@
   </data>
   <data name="NUM_UpDownFlySpeed.TabIndex" type="System.Int32, mscorlib">
     <value>61</value>
+  </data>
+  <data name="NUM_UpDownFlySpeed.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;NUM_UpDownFlySpeed.Name" xml:space="preserve">
     <value>NUM_UpDownFlySpeed</value>
@@ -2572,7 +2611,7 @@
     <value>tabSimple</value>
   </data>
   <data name="&gt;&gt;groupBox6.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="CHK_advanced.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2776,7 +2815,7 @@
     <value>tabSimple</value>
   </data>
   <data name="&gt;&gt;groupBox4.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="BUT_Accept.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -2806,7 +2845,7 @@
     <value>tabSimple</value>
   </data>
   <data name="&gt;&gt;BUT_Accept.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="tabSimple.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
