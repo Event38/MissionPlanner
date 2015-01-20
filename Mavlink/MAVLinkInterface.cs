@@ -3017,6 +3017,7 @@ Please check the following
             //}
 
             //only get the three latest logs
+
             if (entry1.num_logs >= 3)
             {
                 for (ushort a = (ushort)(entry1.last_log_num - 2); a <= entry1.last_log_num; a++)   //get latest three

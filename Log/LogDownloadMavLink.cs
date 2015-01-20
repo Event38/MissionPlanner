@@ -70,9 +70,16 @@ namespace MissionPlanner.Log
 
                 foreach (var item in list)
                 {
-                    genchkcombo(item.id);
+                    
 
                     TXT_seriallog.AppendText(item.id + "\t" + new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(item.time_utc).ToLocalTime() + "\test size:\t" + item.size +"\r\n");
+
+                    if(item.size > 5000) //is it's at least 5 kB
+                    {
+                        genchkcombo(item.id); //add to list of downloads
+                    }
+                    else
+                    { }
                 }
 
                 if (list.Count == 0)
@@ -80,16 +87,20 @@ namespace MissionPlanner.Log
                     TXT_seriallog.AppendText("No logs to download");
                 }
 
-                status = serialstatus.Done;
+                for (int i = 0; i < CHK_logs.Items.Count; i ++) //check all the logs in the list
+                {
+                    CHK_logs.SetItemChecked(i, true);
+                }
 
-                BUT_DLall.PerformClick();
 
-                
+                    status = serialstatus.Done;
 
-                //System.Threading.Thread.Sleep(3000);
+               
 
-                
+                BUT_DLthese.PerformClick(); //download the checked items
 
+
+                // BUT_DLall.PerformClick();
             }
             catch { CustomMessageBox.Show(Strings.ErrorLogList, Strings.ERROR); this.Close(); }
 
@@ -230,6 +241,7 @@ namespace MissionPlanner.Log
 
             LogOutput lo = new LogOutput();
 
+
             while (tr.Peek() != -1)
             {
                 lo.processLine(tr.ReadLine());
@@ -290,6 +302,8 @@ namespace MissionPlanner.Log
                 updateDisplay();
 
                 Console.Beep();
+                CustomMessageBox.Show(CHK_logs.Items.Count + " data flash logs downloaded");
+                MainV2.comPort.EraseLog();
             }
             catch (Exception ex) { CustomMessageBox.Show(ex.Message, "Error in log " + currentlog); }
         }
