@@ -3345,8 +3345,6 @@ namespace MissionPlanner.GCSViews
             var form = new Log.LogDownloadMavLink();
 
             form.Show();
-            form.Hide();
-            //form.Close();
         }
 
         int messagecount = 0;
@@ -3530,6 +3528,201 @@ namespace MissionPlanner.GCSViews
             // you cannot call join on the main thread, and invoke on the thread. as it just hangs on the invoke.
 
             //thisthread.Join();
+        }
+
+
+        string logfile = "";
+
+        private void BUT_DL3Logs_Click(object sender, EventArgs e)
+        {
+            if (!MainV2.comPort.BaseStream.IsOpen)
+            {
+                this.Close();
+                CustomMessageBox.Show("Please Connect");
+                return;
+            }
+
+            try
+            {
+                LBL_Downloading.Text = "Downloading...";
+                LBL_Downloading.Show();
+
+                var list = MainV2.comPort.GetLatest3LogList();
+
+                long listSize = 0; //total bytes to download
+
+                foreach (var item in list)
+                {
+                    
+                    if (item.size < 5000) //if it's less than 5 kB
+                    {
+                        list.Remove(item); //don't download it
+                    }
+                    else
+                    { 
+                        listSize = item.size + listSize; //add each item to total size
+                    }
+                }
+
+                long downloadedSize = 0;
+
+                //download
+                for (int i = 0; i < list.Count; ++i)
+                {
+                    var a = list[i].id;
+                    var logname = GetLog((ushort)a);
+                    downloadedSize = list[i].size + downloadedSize;
+                    
+                    CreateLog(logname);
+
+                    LBL_Downloading.Text = "Downloading: " + downloadedSize + " / " + listSize + " Bytes";
+                }
+
+                CustomMessageBox.Show(list.Count + " data flash logs downloaded");
+                MainV2.comPort.EraseLog();
+
+                LBL_Downloading.Hide();
+                LBL_DownloadingAdvanced.Hide();
+            }
+
+            catch  //if there are no logs then "GetLogList" will fail
+            {
+                CustomMessageBox.Show("No logs to download");
+                LBL_Downloading.Hide();
+                LBL_DownloadingAdvanced.Hide();
+            }
+        }
+
+        private void BUT_DL3LogsAdvanced_Click(object sender, EventArgs e)
+        {
+            if (!MainV2.comPort.BaseStream.IsOpen)
+            {
+                this.Close();
+                CustomMessageBox.Show("Please Connect");
+                return;
+            }
+
+            try
+            {
+                LBL_DownloadingAdvanced.Text = "Downloading...";
+                LBL_DownloadingAdvanced.Show();
+
+                var list = MainV2.comPort.GetLatest3LogList();
+
+                long listSize = 0; //total bytes to download
+
+                foreach (var item in list)
+                {
+
+                    if (item.size < 5000) //if it's less than 5 kB
+                    {
+                        list.Remove(item); //don't download it
+                    }
+                    else
+                    {
+                        listSize = item.size + listSize; //add each item to total size
+                    }
+                }
+
+                long downloadedSize = 0;
+                //download
+                for (int i = 0; i < list.Count; ++i)
+                {
+                    var a = list[i].id;
+                    var logname = GetLog((ushort)a);
+                    downloadedSize = list[i].size + downloadedSize;
+
+                    CreateLog(logname);
+
+                    LBL_DownloadingAdvanced.Text = "Downloading: " + downloadedSize + " / " + listSize + " Bytes";
+                }
+
+                CustomMessageBox.Show(list.Count + " data flash logs downloaded");
+                MainV2.comPort.EraseLog();
+
+                LBL_DownloadingAdvanced.Hide();
+                LBL_Downloading.Hide();
+            }
+
+            catch  //if there are no logs then "GetLogList" will fail
+            {
+                CustomMessageBox.Show("No logs to download");
+                LBL_DownloadingAdvanced.Hide();
+                LBL_Downloading.Hide();
+            }
+        }
+
+        string GetLog(ushort no)
+        {
+
+            // get df log from mav
+            var ms = MainV2.comPort.GetLog(no);
+
+            // set log fn
+            byte[] hbpacket = MainV2.comPort.getHeartBeat();
+
+            MAVLink.mavlink_heartbeat_t hb = (MAVLink.mavlink_heartbeat_t)MainV2.comPort.DebugPacket(hbpacket);
+
+            logfile = MainV2.LogDir + Path.DirectorySeparatorChar
+             + MainV2.comPort.MAV.aptype.ToString() + Path.DirectorySeparatorChar
+             + hbpacket[3] + Path.DirectorySeparatorChar + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + " " + no + ".bin";
+
+            // make log dir
+            Directory.CreateDirectory(Path.GetDirectoryName(logfile));
+
+            // save memorystream to file
+            using (BinaryWriter bw = new BinaryWriter(File.OpenWrite(logfile)))
+            {
+                bw.Write(ms.ToArray());
+            }
+
+            // create ascii log
+            BinaryLog.ConvertBin(logfile, logfile + ".log");
+
+            //update the new filename
+            logfile = logfile + ".log";
+
+            // get gps time of assci log
+            DateTime logtime = DFLog.GetFirstGpsTime(logfile);
+
+            // rename log is we have a valid gps time
+            if (logtime != DateTime.MinValue)
+            {
+                string newlogfilename = MainV2.LogDir + Path.DirectorySeparatorChar
+             + MainV2.comPort.MAV.aptype.ToString() + Path.DirectorySeparatorChar
+             + hbpacket[3] + Path.DirectorySeparatorChar + logtime.ToString("yyyy-MM-dd HH-mm-ss") + ".log";
+                try
+                {
+                    File.Move(logfile, newlogfilename);
+                    // rename bin as well
+                    File.Move(logfile.Replace(".log", ""), newlogfilename.Replace(".log", ".bin"));
+                    logfile = newlogfilename;
+                }
+                catch { CustomMessageBox.Show(Strings.ErrorRenameFile + " " + logfile + "\nto " + newlogfilename, Strings.ERROR); }
+            }
+
+            return logfile;
+        }
+
+        void CreateLog(string logfile)
+        {
+            TextReader tr = new StreamReader(logfile);
+            //
+
+            LogOutput lo = new LogOutput();
+
+            while (tr.Peek() != -1)
+            {
+                lo.processLine(tr.ReadLine());
+            }
+
+            tr.Close();
+
+            try
+            {
+                lo.writeKML(logfile + ".kml");
+            }
+            catch { } // usualy invalid lat long error
         }
     }
 }

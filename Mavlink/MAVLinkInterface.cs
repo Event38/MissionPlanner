@@ -3007,20 +3007,53 @@ Please check the following
             mavlink_log_entry_t entry1 = GetLogEntry(0, ushort.MaxValue);
 
             log.Info("id "+entry1.id + " lastllogno " + entry1.last_log_num + " #logs " + entry1.num_logs + " size " + entry1.size);
-            //ans.Add(entry1);
+            ans.Add(entry1);
 
-            //this gets all the logs, we do not want this, instead we want just the three most recent as programmed below
-            //for (ushort a = (ushort)(entry1.last_log_num - entry1.num_logs + 1); a <= entry1.last_log_num; a++)
-            //{
-            //    mavlink_log_entry_t entry = GetLogEntry(a, a);
-            //    ans.Add(entry);
-            //}
-
-            //only get the three latest logs
-
-            if (entry1.num_logs >= 3)
+            for (ushort a = (ushort)(entry1.last_log_num - entry1.num_logs + 1); a <= entry1.last_log_num; a++)
             {
-                for (ushort a = (ushort)(entry1.last_log_num - 2); a <= entry1.last_log_num; a++)   //get latest three
+                mavlink_log_entry_t entry = GetLogEntry(a, a);
+                ans.Add(entry);
+            }
+
+            return ans;
+        }
+
+        public List<mavlink_log_entry_t> GetLatest3LogList()
+        {
+            int numDownloadsRequested = 0;
+
+            //based on user input
+            if(MainV2.Advanced == true)
+            {
+                numDownloadsRequested = Convert.ToInt16(MissionPlanner.GCSViews.FlightData.instance.TXT_NumLogsforDLAdv.Text);
+            }
+            else
+            {
+                numDownloadsRequested = Convert.ToInt16(MissionPlanner.GCSViews.FlightData.instance.TXT_NumLogsforDL.Text);
+            }
+
+            if (numDownloadsRequested == null)
+            {
+                CustomMessageBox.Show("Please specify how many logs to download");
+            }
+
+           
+            List<mavlink_log_entry_t> ans = new List<mavlink_log_entry_t>();
+
+            mavlink_log_entry_t entry1 = GetLogEntry(0, ushort.MaxValue);
+
+            log.Info("id " + entry1.id + " lastllogno " + entry1.last_log_num + " #logs " + entry1.num_logs + " size " + entry1.size);
+
+
+
+            if(entry1.num_logs < numDownloadsRequested)
+            {
+                numDownloadsRequested = entry1.num_logs; //keep them from trying to download more logs than there are
+            }
+
+            if (entry1.num_logs > numDownloadsRequested)
+            {
+                for (ushort a = (ushort)(entry1.last_log_num - (numDownloadsRequested-1)); a <= entry1.last_log_num; a++)   //get latest three
                 {
                     mavlink_log_entry_t entry = GetLogEntry(a, a);
                     ans.Add(entry);

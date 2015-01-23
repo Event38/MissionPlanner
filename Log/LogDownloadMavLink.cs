@@ -70,16 +70,19 @@ namespace MissionPlanner.Log
 
                 foreach (var item in list)
                 {
-                    
 
-                    TXT_seriallog.AppendText(item.id + "\t" + new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(item.time_utc).ToLocalTime() + "\test size:\t" + item.size +"\r\n");
+                    genchkcombo(item.id);
 
-                    if(item.size > 5000) //is it's at least 5 kB
-                    {
-                        genchkcombo(item.id); //add to list of downloads
-                    }
-                    else
-                    { }
+                    TXT_seriallog.AppendText(item.id + "\t" + new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(item.time_utc).ToLocalTime() + "\test size:\t" + item.size + "\r\n");
+                   
+                    //TXT_seriallog.AppendText(item.id + "\t" + new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(item.time_utc).ToLocalTime() + "\test size:\t" + item.size +"\r\n");
+
+                    //if(item.size > 5000) //i it's at least 5 kB
+                    //{
+                    //    genchkcombo(item.id); //add to list of downloads
+                    //}
+                    //else
+                    //{ }
                 }
 
                 if (list.Count == 0)
@@ -87,17 +90,17 @@ namespace MissionPlanner.Log
                     TXT_seriallog.AppendText("No logs to download");
                 }
 
-                for (int i = 0; i < CHK_logs.Items.Count; i ++) //check all the logs in the list
-                {
-                    CHK_logs.SetItemChecked(i, true);
-                }
+                //for (int i = 0; i < CHK_logs.Items.Count; i ++) //check all the logs in the list
+                //{
+                //    CHK_logs.SetItemChecked(i, true);
+                //}
 
 
-                    status = serialstatus.Done;
+                //    status = serialstatus.Done;
 
                
 
-                BUT_DLthese.PerformClick(); //download the checked items
+                //BUT_DLthese.PerformClick(); //download the checked items
 
 
                 // BUT_DLall.PerformClick();
@@ -109,22 +112,22 @@ namespace MissionPlanner.Log
 
         void genchkcombo(int logcount)
         {
-            //MethodInvoker m = delegate()
-            //{
+            MethodInvoker m = delegate()
+            {
                 //CHK_logs.Items.Clear();
                 //for (int a = 1; a <= logcount; a++)
                 if (!CHK_logs.Items.Contains(logcount))
                 {
                     CHK_logs.Items.Add(logcount);
                 }
-            //};
-            //try
-            //{
-            //    BeginInvoke(m);
-            //}
-            //catch
-            //{
-            //}
+            };
+            try
+            {
+                BeginInvoke(m);
+            }
+            catch
+            {
+            }
         }
 
         void updateDisplay()
@@ -272,12 +275,9 @@ namespace MissionPlanner.Log
                 }
 
                 status = serialstatus.Done;
-
                 updateDisplay();
 
                 Console.Beep();
-                CustomMessageBox.Show(CHK_logs.Items.Count + " data flash logs downloaded");
-                MainV2.comPort.EraseLog();
             }
             catch (Exception ex) { CustomMessageBox.Show(ex.Message, "Error in log " + currentlog); }
         }
@@ -302,8 +302,6 @@ namespace MissionPlanner.Log
                 updateDisplay();
 
                 Console.Beep();
-                CustomMessageBox.Show(CHK_logs.Items.Count + " data flash logs downloaded");
-                MainV2.comPort.EraseLog();
             }
             catch (Exception ex) { CustomMessageBox.Show(ex.Message, "Error in log " + currentlog); }
         }
@@ -320,8 +318,8 @@ namespace MissionPlanner.Log
 
         private void BUT_clearlogs_Click(object sender, EventArgs e)
         {
-            //if (CustomMessageBox.Show("Are you sure?", "sure", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-            //{
+            if (CustomMessageBox.Show("Are you sure?", "sure", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            {
                 try
                 {
                     MainV2.comPort.EraseLog();
@@ -331,7 +329,7 @@ namespace MissionPlanner.Log
                     CHK_logs.Items.Clear();
                 }
                 catch (Exception ex) { CustomMessageBox.Show(ex.Message, Strings.ERROR); }
-            //}
+            }
         }
 
         private void BUT_redokml_Click(object sender, EventArgs e)
