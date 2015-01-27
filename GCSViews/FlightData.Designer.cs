@@ -8,8 +8,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlightData));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contextMenuStripMap = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.goHereToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flyToHereAltToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,6 +43,14 @@
             this.quickView1 = new MissionPlanner.Controls.QuickView();
             this.tabpreflight = new System.Windows.Forms.TabPage();
             this.tabActions = new System.Windows.Forms.TabPage();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.TXT_high_PWM_Adv = new System.Windows.Forms.TextBox();
+            this.TXT_low_PWM_Adv = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.TXT_NumLogsforDLAdv = new System.Windows.Forms.TextBox();
             this.LBL_DownloadingAdvanced = new System.Windows.Forms.Label();
             this.BUT_DL3LogsAdvanced = new MissionPlanner.Controls.MyButton();
@@ -69,6 +77,12 @@
             this.BUTrestartmission = new MissionPlanner.Controls.MyButton();
             this.BUTactiondo = new MissionPlanner.Controls.MyButton();
             this.tabActionsSimple = new System.Windows.Forms.TabPage();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.TXT_pwm_high = new System.Windows.Forms.TextBox();
+            this.TXT_pwm_low = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.TXT_NumLogsforDL = new System.Windows.Forms.TextBox();
@@ -151,10 +165,6 @@
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Messagetabtimer = new System.Windows.Forms.Timer(this.components);
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSourceQuickTab = new System.Windows.Forms.BindingSource(this.components);
             this.preFlightChecklist1 = new MissionPlanner.GCSViews.ConfigurationView.PreFlightChecklist();
@@ -571,6 +581,11 @@
             // tabActions
             // 
             resources.ApplyResources(this.tabActions, "tabActions");
+            this.tabActions.Controls.Add(this.label16);
+            this.tabActions.Controls.Add(this.label15);
+            this.tabActions.Controls.Add(this.label14);
+            this.tabActions.Controls.Add(this.TXT_high_PWM_Adv);
+            this.tabActions.Controls.Add(this.TXT_low_PWM_Adv);
             this.tabActions.Controls.Add(this.label10);
             this.tabActions.Controls.Add(this.label11);
             this.tabActions.Controls.Add(this.label12);
@@ -603,6 +618,48 @@
             this.tabActions.Controls.Add(this.modifyandSetAlt);
             this.tabActions.Name = "tabActions";
             this.tabActions.UseVisualStyleBackColor = true;
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
+            // 
+            // label15
+            // 
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.Name = "label15";
+            // 
+            // label14
+            // 
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.Name = "label14";
+            // 
+            // TXT_high_PWM_Adv
+            // 
+            resources.ApplyResources(this.TXT_high_PWM_Adv, "TXT_high_PWM_Adv");
+            this.TXT_high_PWM_Adv.Name = "TXT_high_PWM_Adv";
+            this.TXT_high_PWM_Adv.Leave += new System.EventHandler(this.TXT_high_PWM_Adv_Leave);
+            // 
+            // TXT_low_PWM_Adv
+            // 
+            resources.ApplyResources(this.TXT_low_PWM_Adv, "TXT_low_PWM_Adv");
+            this.TXT_low_PWM_Adv.Name = "TXT_low_PWM_Adv";
+            this.TXT_low_PWM_Adv.Leave += new System.EventHandler(this.TXT_low_PWM_Adv_Leave);
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
             // 
             // TXT_NumLogsforDLAdv
             // 
@@ -804,6 +861,11 @@
             // 
             // tabActionsSimple
             // 
+            this.tabActionsSimple.Controls.Add(this.label18);
+            this.tabActionsSimple.Controls.Add(this.label17);
+            this.tabActionsSimple.Controls.Add(this.label13);
+            this.tabActionsSimple.Controls.Add(this.TXT_pwm_high);
+            this.tabActionsSimple.Controls.Add(this.TXT_pwm_low);
             this.tabActionsSimple.Controls.Add(this.label9);
             this.tabActionsSimple.Controls.Add(this.label8);
             this.tabActionsSimple.Controls.Add(this.label7);
@@ -823,6 +885,38 @@
             resources.ApplyResources(this.tabActionsSimple, "tabActionsSimple");
             this.tabActionsSimple.Name = "tabActionsSimple";
             this.tabActionsSimple.UseVisualStyleBackColor = true;
+            // 
+            // label18
+            // 
+            resources.ApplyResources(this.label18, "label18");
+            this.label18.Name = "label18";
+            // 
+            // label17
+            // 
+            resources.ApplyResources(this.label17, "label17");
+            this.label17.Name = "label17";
+            // 
+            // label13
+            // 
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Name = "label13";
+            // 
+            // TXT_pwm_high
+            // 
+            resources.ApplyResources(this.TXT_pwm_high, "TXT_pwm_high");
+            this.TXT_pwm_high.Name = "TXT_pwm_high";
+            this.TXT_pwm_high.Leave += new System.EventHandler(this.TXT_pwm_high_Leave);
+            // 
+            // TXT_pwm_low
+            // 
+            resources.ApplyResources(this.TXT_pwm_low, "TXT_pwm_low");
+            this.TXT_pwm_low.Name = "TXT_pwm_low";
+            this.TXT_pwm_low.Leave += new System.EventHandler(this.TXT_pwm_low_Leave);
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
             // 
             // label8
             // 
@@ -1727,7 +1821,7 @@
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 180D;
+            this.windDir1.Direction = 720D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -1906,8 +2000,8 @@
             // 
             // dataGridViewImageColumn1
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle17;
             resources.ApplyResources(this.dataGridViewImageColumn1, "dataGridViewImageColumn1");
             this.dataGridViewImageColumn1.Image = global::MissionPlanner.Properties.Resources.up;
             this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -1915,8 +2009,8 @@
             // 
             // dataGridViewImageColumn2
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle18;
             resources.ApplyResources(this.dataGridViewImageColumn2, "dataGridViewImageColumn2");
             this.dataGridViewImageColumn2.Image = global::MissionPlanner.Properties.Resources.down;
             this.dataGridViewImageColumn2.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -1926,26 +2020,6 @@
             // 
             this.Messagetabtimer.Interval = 200;
             this.Messagetabtimer.Tick += new System.EventHandler(this.Messagetabtimer_Tick);
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
-            // 
-            // label11
-            // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = "label11";
-            // 
-            // label12
-            // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = "label12";
             // 
             // bindingSourceHud
             // 
@@ -2285,6 +2359,16 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
+        public System.Windows.Forms.TextBox TXT_pwm_low;
+        public System.Windows.Forms.TextBox TXT_pwm_high;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        public System.Windows.Forms.TextBox TXT_high_PWM_Adv;
+        public System.Windows.Forms.TextBox TXT_low_PWM_Adv;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
 
     }
 }

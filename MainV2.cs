@@ -273,7 +273,7 @@ namespace MissionPlanner
         {
             if (Advanced == false)
             {
-                MenuTerminal.Visible = false;
+                //MenuTerminal.Visible = false; //keep terminal open in both advanced and simple view D Cironi (2015-01-26)
                 MenuSimulation.Visible = false;          
             }
             else

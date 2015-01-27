@@ -3723,6 +3723,26 @@ namespace MissionPlanner.GCSViews
                 lo.writeKML(logfile + ".kml");
             }
             catch { } // usualy invalid lat long error
+        }       
+
+        private void TXT_pwm_low_Leave(object sender, EventArgs e)
+        {
+            servoOptions3.TXT_pwm_low.Text = TXT_pwm_low.Text;
+        }
+
+        private void TXT_pwm_high_Leave(object sender, EventArgs e)
+        {
+            servoOptions3.TXT_pwm_high.Text = TXT_high_PWM_Adv.Text;
+        }
+
+        private void TXT_low_PWM_Adv_Leave(object sender, EventArgs e)
+        {
+            servoOptions3.TXT_pwm_low.Text = TXT_low_PWM_Adv.Text;
+        }
+
+        private void TXT_high_PWM_Adv_Leave(object sender, EventArgs e)
+        {
+            servoOptions3.TXT_pwm_high.Text = TXT_high_PWM_Adv.Text;
         }
     }
 }

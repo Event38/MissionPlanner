@@ -130,11 +130,23 @@ namespace MissionPlanner.Controls
         private void TXT_pwm_low_TextChanged(object sender, EventArgs e)
         {
             MainV2.config["Servo" + thisservo + "_low"] = TXT_pwm_low.Text;
+            if(ServoOptions.servo == 12) //servo 7
+            {
+                MissionPlanner.GCSViews.FlightData.instance.TXT_low_PWM_Adv.Text = TXT_pwm_low.Text;
+                MissionPlanner.GCSViews.FlightData.instance.TXT_pwm_low.Text = TXT_pwm_high.Text;
+
+            }
         }
 
         private void TXT_pwm_high_TextChanged(object sender, EventArgs e)
         {
             MainV2.config["Servo" + thisservo + "_high"] = TXT_pwm_high.Text;
+            if(servo == 12) //servo 7s
+            {
+                MissionPlanner.GCSViews.FlightData.instance.TXT_high_PWM_Adv.Text = TXT_pwm_high.Text;
+                MissionPlanner.GCSViews.FlightData.instance.TXT_pwm_high.Text = TXT_pwm_high.Text;
+
+            }
         }
 
         private void renameToolStripMenuItem_Click(object sender, EventArgs e)
