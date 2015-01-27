@@ -133,8 +133,7 @@ namespace MissionPlanner.Controls
             if(ServoOptions.servo == 12) //servo 7
             {
                 MissionPlanner.GCSViews.FlightData.instance.TXT_low_PWM_Adv.Text = TXT_pwm_low.Text;
-                MissionPlanner.GCSViews.FlightData.instance.TXT_pwm_low.Text = TXT_pwm_high.Text;
-
+                MissionPlanner.GCSViews.FlightData.instance.TXT_pwm_low.Text = TXT_pwm_low.Text;
             }
         }
 

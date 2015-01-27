@@ -654,6 +654,11 @@ namespace MissionPlanner.GCSViews
             thisthread.Name = "FD Mainloop";
             thisthread.IsBackground = true;
             thisthread.Start();
+
+            TXT_pwm_high.Text = servoOptions3.TXT_pwm_high.Text;
+            TXT_pwm_low.Text = servoOptions3.TXT_pwm_low.Text;
+            TXT_high_PWM_Adv.Text = servoOptions3.TXT_pwm_high.Text;
+            TXT_low_PWM_Adv.Text = servoOptions3.TXT_pwm_low.Text;
         }
 
         void tfr_GotTFRs(object sender, EventArgs e)
@@ -3725,22 +3730,22 @@ namespace MissionPlanner.GCSViews
             catch { } // usualy invalid lat long error
         }       
 
-        private void TXT_pwm_low_Leave(object sender, EventArgs e)
+        private void TXT_pwm_low_Leave(object sender, EventArgs e) //simple PWM low
         {
             servoOptions3.TXT_pwm_low.Text = TXT_pwm_low.Text;
         }
 
-        private void TXT_pwm_high_Leave(object sender, EventArgs e)
+        private void TXT_pwm_high_Leave(object sender, EventArgs e) //simple PWM high
         {
-            servoOptions3.TXT_pwm_high.Text = TXT_high_PWM_Adv.Text;
+            servoOptions3.TXT_pwm_high.Text = TXT_pwm_high.Text;
         }
 
-        private void TXT_low_PWM_Adv_Leave(object sender, EventArgs e)
+        private void TXT_low_PWM_Adv_Leave(object sender, EventArgs e) //advanced PWM low
         {
             servoOptions3.TXT_pwm_low.Text = TXT_low_PWM_Adv.Text;
         }
 
-        private void TXT_high_PWM_Adv_Leave(object sender, EventArgs e)
+        private void TXT_high_PWM_Adv_Leave(object sender, EventArgs e) //advanced PWM high
         {
             servoOptions3.TXT_pwm_high.Text = TXT_high_PWM_Adv.Text;
         }

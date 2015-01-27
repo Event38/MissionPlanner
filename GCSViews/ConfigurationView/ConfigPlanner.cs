@@ -458,6 +458,10 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             startup = true;
 
+            if(MainV2.Advanced)
+            {
+                CHK_advancedview.Checked = true;
+            }
 
             startup = false;
         }
