@@ -26,7 +26,7 @@ namespace MissionPlanner.Utilities
 
         public static int GetAirportCount { get { return airports.Count; } }
 
-        static PointLatLngAlt currentcenter = PointLatLngAlt.Zero;
+        public static PointLatLngAlt currentcenter = PointLatLngAlt.Zero; //made public D Cironi
 
         static object locker = new object();
 

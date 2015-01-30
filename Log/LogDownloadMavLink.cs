@@ -78,7 +78,7 @@ namespace MissionPlanner.Log
                     //TXT_seriallog.AppendText(item.id + "\t" + new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(item.time_utc).ToLocalTime() + "\test size:\t" + item.size +"\r\n");
 
                     //if(item.size > 5000) //i it's at least 5 kB
-                    //{
+                    //{mi
                     //    genchkcombo(item.id); //add to list of downloads
                     //}
                     //else

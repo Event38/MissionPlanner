@@ -133,11 +133,26 @@ namespace MissionPlanner.GCSViews
             {
                 selectedrow = int.Parse(pointno) - 1;
                 Commands.CurrentCell = Commands[1, selectedrow];
+
             }
             catch
             {
                 return;
             }
+
+            //
+            List<PointLatLngAlt> currentAirports = Airports.getAirports(currentMarker.Position);
+
+            foreach (PointLatLngAlt item in currentAirports)
+            {
+                if (MainV2.WPinAirports == false && item.GetDistance(currentMarker.Position) < 5555) //check to make sure waypoint is not within airport range D Cironi (2015-01-29)
+                {
+                    CustomMessageBox.Show("Cannot place waypoint within airport operating range! \n \n" + item.Tag);
+                    setfromMap(MouseDownStart.Lat, MouseDownStart.Lng, (int)float.Parse(TXT_DefaultAlt.Text));
+                    return;
+                }
+            }
+            // 
 
             setfromMap(lat, lng, alt);
         }
@@ -308,6 +323,17 @@ namespace MissionPlanner.GCSViews
         /// <param name="alt"></param>
         public void AddWPToMap(double lat, double lng, int alt)
         {
+            List<PointLatLngAlt> currentAirports = Airports.getAirports(currentMarker.Position);
+
+            foreach (PointLatLngAlt item in currentAirports)
+            {
+                if (MainV2.WPinAirports == false && item.GetDistance(currentMarker.Position) < 5555) //check to make sure waypoint is not within airport range D Cironi (2015-01-29)
+                {
+                    CustomMessageBox.Show("Cannot place waypoint within airport operating range! \n \n" + item.Tag);
+                    return;
+                }
+            }
+
             if (polygongridmode)
             {
                 addPolygonPointToolStripMenuItem_Click(null, null);
@@ -2157,17 +2183,20 @@ namespace MissionPlanner.GCSViews
 
         private void BUT_ClearPolygon_Click_1(object sender, EventArgs e)
         {
-            polygongridmode = false;
-            if (drawnpolygon == null)
-                return;
-            drawnpolygon.Points.Clear();
-            drawnpolygonsoverlay.Markers.Clear();
-            drawnpolygonsoverlay.Routes.Clear();
-            drawnpolygon.Overlay.Clear();
-            drawnpolygon.Clear();
-            MainMap.Invalidate();
+            if (drawnpolygon.Overlay != null)
+            {
+                polygongridmode = false;
+                if (drawnpolygon == null)
+                    return;
+                drawnpolygon.Points.Clear();
+                drawnpolygonsoverlay.Markers.Clear();
+                drawnpolygonsoverlay.Routes.Clear();
+                drawnpolygon.Overlay.Clear();
+                drawnpolygon.Clear();
+                MainMap.Invalidate();
 
-            writeKML();
+                writeKML();
+            }
         }
 
         private void BUT_ElevationGraph_Click(object sender, EventArgs e)
@@ -2721,7 +2750,17 @@ namespace MissionPlanner.GCSViews
 
             if (e.Button == MouseButtons.Right) // ignore right clicks
             {
-                return;
+                List<PointLatLngAlt> currentAirports = Airports.getAirports(currentMarker.Position);
+
+                foreach (PointLatLngAlt item in currentAirports)
+                {
+                    if (MainV2.WPinAirports == false && item.GetDistance(currentMarker.Position) < 5555) //check to make sure waypoint is not within airport range D Cironi (2015-01-29)
+                    {
+                        CustomMessageBox.Show("Cannot perform actions within airport operating range! \n \n" + item.Tag);
+                        return;
+                    }
+                }
+                //return;
             }
 
             if (isMouseDown) // mouse down on some other object and dragged to here.
@@ -2749,6 +2788,17 @@ namespace MissionPlanner.GCSViews
                         {
                             try
                             {
+                                List<PointLatLngAlt> currentAirports = Airports.getAirports(currentMarker.Position);
+
+                                foreach (PointLatLngAlt item in currentAirports)
+                                {
+                                    if (MainV2.WPinAirports == false && item.GetDistance(currentMarker.Position) < 5555) //check to make sure waypoint is not within airport range D Cironi (2015-01-29)
+                                    {
+                                        CustomMessageBox.Show("Cannot place polygon point within airport operating range! \n \n" + item.Tag);
+                                        return;
+                                    }
+                                }
+
                                 drawnpolygon.Points[int.Parse(CurentRectMarker.InnerMarker.Tag.ToString().Replace("grid", "")) - 1] = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
                                 MainMap.UpdatePolygonLocalPosition(drawnpolygon);
                                 MainMap.Invalidate();
@@ -2758,6 +2808,7 @@ namespace MissionPlanner.GCSViews
                         else
                         {
                             callMeDrag(CurentRectMarker.InnerMarker.Tag.ToString(), currentMarker.Position.Lat, currentMarker.Position.Lng, -1);
+
                         }
                         CurentRectMarker = null;
                     }

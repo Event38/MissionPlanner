@@ -48,7 +48,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.TXT_high_PWM_Adv = new System.Windows.Forms.TextBox();
             this.TXT_low_PWM_Adv = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.TXT_NumLogsforDLAdv = new System.Windows.Forms.TextBox();
@@ -82,7 +81,6 @@
             this.label13 = new System.Windows.Forms.Label();
             this.TXT_pwm_high = new System.Windows.Forms.TextBox();
             this.TXT_pwm_low = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.TXT_NumLogsforDL = new System.Windows.Forms.TextBox();
@@ -586,7 +584,6 @@
             this.tabActions.Controls.Add(this.label14);
             this.tabActions.Controls.Add(this.TXT_high_PWM_Adv);
             this.tabActions.Controls.Add(this.TXT_low_PWM_Adv);
-            this.tabActions.Controls.Add(this.label10);
             this.tabActions.Controls.Add(this.label11);
             this.tabActions.Controls.Add(this.label12);
             this.tabActions.Controls.Add(this.TXT_NumLogsforDLAdv);
@@ -645,11 +642,6 @@
             resources.ApplyResources(this.TXT_low_PWM_Adv, "TXT_low_PWM_Adv");
             this.TXT_low_PWM_Adv.Name = "TXT_low_PWM_Adv";
             this.TXT_low_PWM_Adv.Leave += new System.EventHandler(this.TXT_low_PWM_Adv_Leave);
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
             // 
             // label11
             // 
@@ -866,7 +858,6 @@
             this.tabActionsSimple.Controls.Add(this.label13);
             this.tabActionsSimple.Controls.Add(this.TXT_pwm_high);
             this.tabActionsSimple.Controls.Add(this.TXT_pwm_low);
-            this.tabActionsSimple.Controls.Add(this.label9);
             this.tabActionsSimple.Controls.Add(this.label8);
             this.tabActionsSimple.Controls.Add(this.label7);
             this.tabActionsSimple.Controls.Add(this.TXT_NumLogsforDL);
@@ -912,11 +903,6 @@
             resources.ApplyResources(this.TXT_pwm_low, "TXT_pwm_low");
             this.TXT_pwm_low.Name = "TXT_pwm_low";
             this.TXT_pwm_low.Leave += new System.EventHandler(this.TXT_pwm_low_Leave);
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
             // 
             // label8
             // 
@@ -1821,7 +1807,7 @@
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 720D;
+            this.windDir1.Direction = 360D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -2355,8 +2341,6 @@
         public System.Windows.Forms.TextBox TXT_NumLogsforDL;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         public System.Windows.Forms.TextBox TXT_pwm_low;

@@ -3006,8 +3006,8 @@ Please check the following
 
             mavlink_log_entry_t entry1 = GetLogEntry(0, ushort.MaxValue);
 
-            log.Info("id "+entry1.id + " lastllogno " + entry1.last_log_num + " #logs " + entry1.num_logs + " size " + entry1.size);
-            ans.Add(entry1);
+            log.Info("id " + entry1.id + " lastllogno " + entry1.last_log_num + " #logs " + entry1.num_logs + " size " + entry1.size);
+            //ans.Add(entry1);
 
             for (ushort a = (ushort)(entry1.last_log_num - entry1.num_logs + 1); a <= entry1.last_log_num; a++)
             {
@@ -3048,15 +3048,19 @@ Please check the following
 
             if(entry1.num_logs < numDownloadsRequested)
             {
-                numDownloadsRequested = entry1.num_logs; //keep them from trying to download more logs than there are
+                numDownloadsRequested = entry1.num_logs; //keep them from trying to download more logs than there are available
             }
 
             if (entry1.num_logs > numDownloadsRequested)
             {
-                for (ushort a = (ushort)(entry1.last_log_num - (numDownloadsRequested-1)); a <= entry1.last_log_num; a++)   //get latest three
+                for (ushort a = (ushort)(entry1.last_log_num - (numDownloadsRequested-1)); a <= entry1.last_log_num; a++)   //get latest logs (user specifies number)
                 {
                     mavlink_log_entry_t entry = GetLogEntry(a, a);
                     ans.Add(entry);
+                    if(entry.size < 5000)
+                    {
+                        numDownloadsRequested++; //if there is a small log, add to the number of requested so the user always gets how many they specified, even after removing small logs
+                    }                            //the small log will be removed later in the code
                 }
             }
 
@@ -3066,6 +3070,10 @@ Please check the following
                 {
                     mavlink_log_entry_t entry = GetLogEntry(a, a);
                     ans.Add(entry);
+                    if(entry.size < 5000)
+                    {
+                        numDownloadsRequested++;
+                    }
                 }
             }
             return ans;

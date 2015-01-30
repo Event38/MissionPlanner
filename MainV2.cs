@@ -111,6 +111,8 @@ namespace MissionPlanner
         public static bool ShowAirports { get; set; }
         public static bool ShowTFR { get; set; }
 
+        public static bool WPinAirports = false;  //D Cironi
+
         private Utilities.adsb _adsb;
         public bool EnableADSB
         {

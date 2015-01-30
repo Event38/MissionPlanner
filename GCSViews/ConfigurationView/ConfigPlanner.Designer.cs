@@ -95,6 +95,7 @@
             this.BUT_Joystick = new MissionPlanner.Controls.MyButton();
             this.BUT_videostop = new MissionPlanner.Controls.MyButton();
             this.BUT_videostart = new MissionPlanner.Controls.MyButton();
+            this.CHK_WPinAirports = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).BeginInit();
             this.SuspendLayout();
             // 
@@ -614,10 +615,18 @@
             this.BUT_videostart.UseVisualStyleBackColor = true;
             this.BUT_videostart.Click += new System.EventHandler(this.BUT_videostart_Click);
             // 
+            // CHK_WPinAirports
+            // 
+            resources.ApplyResources(this.CHK_WPinAirports, "CHK_WPinAirports");
+            this.CHK_WPinAirports.Name = "CHK_WPinAirports";
+            this.CHK_WPinAirports.UseVisualStyleBackColor = true;
+            this.CHK_WPinAirports.Click += new System.EventHandler(this.CHK_WPinAirports_Click);
+            // 
             // ConfigPlanner
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.CHK_WPinAirports);
             this.Controls.Add(this.chk_tfr);
             this.Controls.Add(this.chk_ADSB);
             this.Controls.Add(this.CHK_showairports);
@@ -760,5 +769,6 @@
         private System.Windows.Forms.CheckBox CHK_showairports;
         private System.Windows.Forms.CheckBox chk_ADSB;
         private System.Windows.Forms.CheckBox chk_tfr;
+        public System.Windows.Forms.CheckBox CHK_WPinAirports;
     }
 }

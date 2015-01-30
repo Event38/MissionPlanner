@@ -458,9 +458,15 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             startup = true;
 
+            //keep settings 
             if(MainV2.Advanced)
             {
                 CHK_advancedview.Checked = true;
+            }
+
+            if(MainV2.WPinAirports)
+            {
+                CHK_WPinAirports.Checked = true;
             }
 
             startup = false;
@@ -813,6 +819,19 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             MainV2.config["showtfr"] = chk_tfr.Checked.ToString();
             MainV2.ShowTFR = chk_tfr.Checked;
+        }
+
+        private void CHK_WPinAirports_Click(object sender, EventArgs e)
+        {
+            if (CHK_WPinAirports.Checked == true)
+            {
+                CustomMessageBox.Show("WARNING: \n You must obtain permission from the airport operator and control tower before flying in an airport's airspace!");
+                MainV2.WPinAirports = true; //allow waypoints in airports
+            }
+            else
+            {
+                MainV2.WPinAirports = false;
+            }
         }
     }
 }

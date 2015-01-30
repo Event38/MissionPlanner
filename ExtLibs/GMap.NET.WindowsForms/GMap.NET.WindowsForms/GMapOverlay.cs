@@ -134,9 +134,9 @@ namespace GMap.NET.WindowsForms
 
       public void Clear()
       {
-         Markers.Clear();
-         Routes.Clear();
-         Polygons.Clear();
+          Markers.Clear();
+          Routes.Clear();
+          Polygons.Clear();
       }
 
       void Polygons_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

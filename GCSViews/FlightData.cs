@@ -3584,7 +3584,7 @@ namespace MissionPlanner.GCSViews
                 }
 
                 CustomMessageBox.Show(list.Count + " data flash logs downloaded");
-                MainV2.comPort.EraseLog();
+                //MainV2.comPort.EraseLog(); no longer erase logs after download
 
                 LBL_Downloading.Hide();
                 LBL_DownloadingAdvanced.Hide();
