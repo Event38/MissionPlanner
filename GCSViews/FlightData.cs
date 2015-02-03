@@ -3556,18 +3556,18 @@ namespace MissionPlanner.GCSViews
 
                 long listSize = 0; //total bytes to download
 
-                foreach (var item in list)
-                {
+                //foreach (var item in list)
+                //{
                     
-                    if (item.size < 5000) //if it's less than 5 kB
-                    {
-                        list.Remove(item); //don't download it
-                    }
-                    else
-                    { 
-                        listSize = item.size + listSize; //add each item to total size
-                    }
-                }
+                //    if (item.size < 5000) //if it's less than 5 kB
+                //    {
+                //        list.Remove(item); //don't download it
+                //    }
+                //    else
+                //    { 
+                //        listSize = item.size + listSize; //add each item to total size
+                //    }
+                //}
 
                 long downloadedSize = 0;
 

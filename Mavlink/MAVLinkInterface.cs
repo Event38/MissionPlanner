@@ -3025,17 +3025,22 @@ Please check the following
             //based on user input
             if(MainV2.Advanced == true)
             {
+                if (MissionPlanner.GCSViews.FlightData.instance.TXT_NumLogsforDLAdv.Text == string.Empty)
+                {
+                    CustomMessageBox.Show("Please specify how many logs to download");
+                }
+
                 numDownloadsRequested = Convert.ToInt16(MissionPlanner.GCSViews.FlightData.instance.TXT_NumLogsforDLAdv.Text);
             }
             else
             {
+                if (MissionPlanner.GCSViews.FlightData.instance.TXT_NumLogsforDL.Text == string.Empty)
+                {
+                    CustomMessageBox.Show("Please specify how many logs to download");
+                }
                 numDownloadsRequested = Convert.ToInt16(MissionPlanner.GCSViews.FlightData.instance.TXT_NumLogsforDL.Text);
             }
 
-            if (numDownloadsRequested == null)
-            {
-                CustomMessageBox.Show("Please specify how many logs to download");
-            }
 
            
             List<mavlink_log_entry_t> ans = new List<mavlink_log_entry_t>();
@@ -3057,10 +3062,6 @@ Please check the following
                 {
                     mavlink_log_entry_t entry = GetLogEntry(a, a);
                     ans.Add(entry);
-                    if(entry.size < 5000)
-                    {
-                        numDownloadsRequested++; //if there is a small log, add to the number of requested so the user always gets how many they specified, even after removing small logs
-                    }                            //the small log will be removed later in the code
                 }
             }
 
@@ -3070,10 +3071,6 @@ Please check the following
                 {
                     mavlink_log_entry_t entry = GetLogEntry(a, a);
                     ans.Add(entry);
-                    if(entry.size < 5000)
-                    {
-                        numDownloadsRequested++;
-                    }
                 }
             }
             return ans;

@@ -2181,6 +2181,7 @@ namespace MissionPlanner.GCSViews
             polygongridmode = true;
         }
 
+
         private void BUT_ClearPolygon_Click_1(object sender, EventArgs e)
         {
             if (drawnpolygon.Overlay != null)
@@ -2795,12 +2796,33 @@ namespace MissionPlanner.GCSViews
                                     if (MainV2.WPinAirports == false && item.GetDistance(currentMarker.Position) < 5555) //check to make sure waypoint is not within airport range D Cironi (2015-01-29)
                                     {
                                         CustomMessageBox.Show("Cannot place polygon point within airport operating range! \n \n" + item.Tag);
+                                        
+                                        CurrentGMapMarker.Position = MouseDownStart; //put the marker back where it was dragged from
+                                        drawnpolygon.Points[int.Parse(CurentRectMarker.InnerMarker.Tag.ToString().Replace("grid", "")) - 1] = new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng);
+                                        MainMap.UpdatePolygonLocalPosition(drawnpolygon);
+
+
+
+                                        MainMap.UpdateMarkerLocalPosition(currentMarker);
+                                        MainMap.UpdateRouteLocalPosition(route);
+                                        MainMap.Invalidate();
+
+                                       // RegeneratePolygon();
+
+                                      
+
+                                        CurentRectMarker = null;
                                         return;
                                     }
                                 }
 
                                 drawnpolygon.Points[int.Parse(CurentRectMarker.InnerMarker.Tag.ToString().Replace("grid", "")) - 1] = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
                                 MainMap.UpdatePolygonLocalPosition(drawnpolygon);
+
+                                
+                                
+                                MainMap.UpdateMarkerLocalPosition(currentMarker);
+                                MainMap.UpdateRouteLocalPosition(route);
                                 MainMap.Invalidate();
                             }
                             catch { }
@@ -4882,7 +4904,7 @@ namespace MissionPlanner.GCSViews
         private void takeoffToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // altitude
-            string alt = "10";
+            string alt = "100";
 
             if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Altitude", "Please enter your takeoff altitude", ref alt))
                 return;
@@ -4900,7 +4922,7 @@ namespace MissionPlanner.GCSViews
 
             if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx)
             {
-                string top = "15";
+                string top = "35";
 
                 if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Takeoff Pitch", "Please enter your takeoff pitch", ref top))
                     return;
@@ -5935,6 +5957,54 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     CustomMessageBox.Show(Strings.ERROR + "\n" + ex.ToString(), Strings.ERROR);
                 }
             }
+        }
+
+        private void BUT_AddTakeoffWP_Click(object sender, EventArgs e)
+        {
+            // same exact function as right click toolstrip menu
+            
+            // altitude
+            string alt = "100";
+
+            if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Altitude", "Please enter your takeoff altitude", ref alt))
+                return;
+
+            int alti = -1;
+
+            if (!int.TryParse(alt, out alti))
+            {
+                MessageBox.Show("Bad Alt");
+                return;
+            }
+
+            // take off pitch
+            int topi = 0;
+
+            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx)
+            {
+                string top = "35";
+
+                if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Takeoff Pitch", "Please enter your takeoff pitch", ref top))
+                    return;
+
+                if (!int.TryParse(top, out topi))
+                {
+                    MessageBox.Show("Bad Takeoff pitch");
+                    return;
+                }
+            }
+
+            selectedrow = Commands.Rows.Add();
+
+            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
+
+            Commands.Rows[selectedrow].Cells[Param1.Index].Value = topi;
+
+            Commands.Rows[selectedrow].Cells[Alt.Index].Value = alti;
+
+            ChangeColumnHeader(MAVLink.MAV_CMD.TAKEOFF.ToString());
+
+            writeKML();
         }
     }
 }
