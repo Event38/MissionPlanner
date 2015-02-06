@@ -1350,6 +1350,8 @@ namespace MissionPlanner.GCSViews
                         if (MainV2.comPort.MAV.cs.alt > 50)
                         {
                             Reached50M = true;
+                            CameraClosed = false; //assume the camera is open anytime above 50m.
+                                                   //Fixes the issue of the camera not closing on any flight after the first because the program already thinks it is closed.
                         }
 
                         //close camera lens based on parameters
