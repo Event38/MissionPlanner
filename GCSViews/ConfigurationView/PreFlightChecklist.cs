@@ -131,6 +131,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             //else
             //    lblUWing.BackColor = Color.Red;
             SetColorAndTextOnState(lblUWing, chBoxUWing);
+
+            SetColorAndTextOnState(lblWPCheck, CHK_WPCheck);
         }
 
         private void SetColorAndTextOnState(Label lbl, CheckBox chBox)
@@ -178,6 +180,11 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         }
 
         private void chBoxURub_CheckedChanged(object sender, EventArgs e)
+        {
+            BindUserCheckList();
+        }
+
+        private void CHK_WPCheck_CheckedChanged(object sender, EventArgs e)
         {
             BindUserCheckList();
         }

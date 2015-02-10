@@ -214,8 +214,9 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     CMB_fmode3.SelectedValue = int.Parse(MainV2.comPort.MAV.param["FLTMODE3"].ToString());
                     CMB_fmode4.SelectedValue = int.Parse(MainV2.comPort.MAV.param["FLTMODE4"].ToString());
                     CMB_fmode5.SelectedValue = int.Parse(MainV2.comPort.MAV.param["FLTMODE5"].ToString());
-                    CMB_fmode6.Text = "Manual";
-                    CMB_fmode6.Enabled = false;
+                    CMB_fmode6.SelectedValue = int.Parse(MainV2.comPort.MAV.param["FLTMODE6"].ToString());
+                    //CMB_fmode6.Text = "Manual";
+                    //CMB_fmode6.Enabled = false;
                 }
                 catch { }
             }
@@ -251,8 +252,9 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     CMB_fmode3.SelectedValue = int.Parse(MainV2.comPort.MAV.param["MODE3"].ToString());
                     CMB_fmode4.SelectedValue = int.Parse(MainV2.comPort.MAV.param["MODE4"].ToString());
                     CMB_fmode5.SelectedValue = int.Parse(MainV2.comPort.MAV.param["MODE5"].ToString());
-                    CMB_fmode6.Text = "Manual";
-                    CMB_fmode6.Enabled = false;
+                    CMB_fmode6.SelectedValue = int.Parse(MainV2.comPort.MAV.param["MODE6"].ToString());
+                    //CMB_fmode6.Text = "Manual";
+                    //CMB_fmode6.Enabled = false;
                 }
                 catch { }
             }

@@ -1,4 +1,9 @@
-﻿* Mission Planner 1.3.5 for Event 38 -Daniel Cironi (2015-02-06)
+﻿* Mission Planner 1.3.6 for Event 38 -Daniel Cironi (2015-02-09)
+Can now change the flight mode for PWM value 1750+
+Chnaged standard flight modes to Auto, RTL, FBWA
+Added user checklist item to check waypoints
+
+* Mission Planner 1.3.5 for Event 38 -Daniel Cironi (2015-02-06)
 Can no longer place waypoints or polygon points within airports by default
 Camera lens will auto close if user flies up to 50 meters then below 30 meters
 Camera hatch will open above 30 meters and close below 30 meters
