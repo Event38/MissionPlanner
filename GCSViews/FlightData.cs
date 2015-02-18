@@ -3751,5 +3751,18 @@ namespace MissionPlanner.GCSViews
         {
             servoOptions3.TXT_pwm_high.Text = TXT_high_PWM_Adv.Text;
         }
+
+        private void BUT_EraseDFLogs_Click(object sender, EventArgs e)
+        {
+            if (CustomMessageBox.Show("Are you sure?", "sure", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            {
+                try
+                {
+                    MainV2.comPort.EraseLog();
+                    CustomMessageBox.Show("Dataflash logs erased");
+                }
+                catch (Exception ex) { CustomMessageBox.Show(ex.Message, Strings.ERROR); }
+            }
+        }
     }
 }
