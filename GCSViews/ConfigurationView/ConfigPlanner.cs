@@ -833,5 +833,13 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 MainV2.WPinAirports = false;
             }
         }
+
+        private void BUT_ChangeUserSetup_Click(object sender, EventArgs e)
+        {
+            GCSViews.UserSetup UserSetup = new UserSetup();
+
+            UserSetup.ShowDialog();
+
+        }
     }
 }

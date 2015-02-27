@@ -392,6 +392,12 @@
     <Compile Include="GCSViews\FlightData2.Designer.cs">
       <DependentUpon>FlightData2.cs</DependentUpon>
     </Compile>
+    <Compile Include="GCSViews\UserSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GCSViews\UserSetup.Designer.cs">
+      <DependentUpon>UserSetup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Joystick\Joy_Do_Repeat_Servo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -889,6 +895,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GCSViews\Terminal.zh-TW.resx">
       <DependentUpon>Terminal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCSViews\UserSetup.resx">
+      <DependentUpon>UserSetup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="georefimage.zh-Hant.resx">
       <DependentUpon>georefimage.cs</DependentUpon>
@@ -2764,6 +2773,7 @@
     </Content>
     <Content Include="aircraft\Rascal\Systems\110-autopilot.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="aircraft\Rascal\Systems\electrical.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

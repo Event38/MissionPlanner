@@ -102,6 +102,8 @@ namespace MissionPlanner.GCSViews
         public SplitContainer MainHcopy = null;
 
         public static FlightData instance;
+        //declare an instance of usersetup
+        public static UserSetup UserSetup = new GCSViews.UserSetup();
 
         //The file path of the selected script
         string selectedscript = "";
@@ -617,6 +619,7 @@ namespace MissionPlanner.GCSViews
 
         private void FlightData_Load(object sender, EventArgs e)
         {
+
             POI.POIModified += POI_POIModified;
 
             tfr.GotTFRs += tfr_GotTFRs;
@@ -655,10 +658,21 @@ namespace MissionPlanner.GCSViews
             thisthread.IsBackground = true;
             thisthread.Start();
 
+
             TXT_pwm_high.Text = servoOptions3.TXT_pwm_high.Text;
             TXT_pwm_low.Text = servoOptions3.TXT_pwm_low.Text;
             TXT_high_PWM_Adv.Text = servoOptions3.TXT_pwm_high.Text;
             TXT_low_PWM_Adv.Text = servoOptions3.TXT_pwm_low.Text;
+
+            if (MainV2.instance.SaveUserSetup == false)
+            {
+                UserSetup.ShowDialog();
+            }
+            else
+            {
+                MainV2.instance.updateUserSetup();
+            }
+
         }
 
         void tfr_GotTFRs(object sender, EventArgs e)

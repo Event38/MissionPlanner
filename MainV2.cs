@@ -31,6 +31,7 @@ using System.Collections.ObjectModel;
 
 namespace MissionPlanner
 {
+
     public partial class MainV2 : Form
     {
         private static readonly ILog log =
@@ -256,9 +257,13 @@ namespace MissionPlanner
         /// <summary>
         /// declared here if i want a "single" instance of the form
         /// ie configuration gets reloaded on every click
+        /// 
         /// </summary>
         public GCSViews.FlightData FlightData;
         public GCSViews.FlightPlanner FlightPlanner;
+
+        public GCSViews.UserSetup UserSetup = new GCSViews.UserSetup();
+
         GCSViews.Simulation Simulation;
 
         private Form connectionStatsForm;
@@ -282,6 +287,121 @@ namespace MissionPlanner
             {
                 MenuTerminal.Visible = true;
                 MenuSimulation.Visible = true;
+            }
+        }
+
+        //variables for user setup, will be set when xml config file is read
+        public string UserCamera;
+        public string UserModel;
+        public bool SaveUserSetup;
+
+
+        public void updateUserSetup() //hides certain GUI elements based on model,camera,etc. -D Cironi 2015-02-26
+        {
+            if (SaveUserSetup == true)
+            {
+
+                if (!config.Contains("UserCamera"))
+                    config.Add("UserCamera", UserCamera);
+                else
+                    config["UserCamera"] = UserCamera;
+
+
+                if (!config.ContainsKey("UserModel"))
+                    config.Add("UserModel", UserModel);
+                else
+                    config["UserModel"] = UserModel;
+            }
+
+            if (!config.ContainsKey("SaveUserSetup"))
+                config.Add("SaveUserSetup", Convert.ToString(SaveUserSetup));
+            else
+                config["SaveUserSetup"] = SaveUserSetup;
+
+            if (UserCamera == "Canon S110" || UserCamera == "Canon SX260")
+            {
+                //hide hatch buttons
+                FlightData.BUT_CloseHatch.Visible = false;
+                FlightData.BUT_CloseHatchSimple.Visible = false;
+                FlightData.BUT_OpenHatch.Visible = false;
+                FlightData.BUT_OpenHatchSimple.Visible = false;
+                FlightData.CHK_AutoHatch.Visible = false;
+                FlightData.CHK_AutoHatchSimple.Visible = false;
+
+                //hide the hatch servo stuff
+                FlightData.label13.Visible = false;
+                FlightData.label14.Visible = false;
+                FlightData.label15.Visible = false;
+                FlightData.label16.Visible = false;
+                FlightData.label17.Visible = false;
+                FlightData.label18.Visible = false;
+                FlightData.TXT_high_PWM_Adv.Visible = false;
+                FlightData.TXT_low_PWM_Adv.Visible = false;
+                FlightData.TXT_pwm_high.Visible = false;
+                FlightData.TXT_pwm_low.Visible = false;
+
+                //show lens control
+                FlightData.BUT_CloseLens.Visible = true;
+                FlightData.BUT_CloseLensSimple.Visible = true;
+            }
+            else if(UserCamera == "Samsung NX1100")
+            {
+                //show hatch buttons
+                FlightData.BUT_CloseHatch.Visible = true;
+                FlightData.BUT_CloseHatchSimple.Visible = true;
+                FlightData.BUT_OpenHatch.Visible = true;
+                FlightData.BUT_OpenHatchSimple.Visible = true;
+                FlightData.CHK_AutoHatch.Visible = true;
+                FlightData.CHK_AutoHatchSimple.Visible = true;
+
+                //show the hatch servo stuff
+                FlightData.label13.Visible = true;
+                FlightData.label14.Visible = true;
+                FlightData.label15.Visible = true;
+                FlightData.label16.Visible = true;
+                FlightData.label17.Visible = true;
+                FlightData.label18.Visible = true;
+                FlightData.TXT_high_PWM_Adv.Visible = true;
+                FlightData.TXT_low_PWM_Adv.Visible = true;
+                FlightData.TXT_pwm_high.Visible = true;
+                FlightData.TXT_pwm_low.Visible = true;
+
+                //hide lens control
+                FlightData.BUT_CloseLens.Visible = false;
+                FlightData.BUT_CloseLensSimple.Visible = false;
+
+            }
+            else //just show nothing
+            {
+                FlightData.BUT_CloseHatch.Visible = false;
+                FlightData.BUT_CloseHatchSimple.Visible = false;
+                FlightData.BUT_OpenHatch.Visible = false;
+                FlightData.BUT_OpenHatchSimple.Visible = false;
+                FlightData.CHK_AutoHatch.Visible = false;
+                FlightData.CHK_AutoHatchSimple.Visible = false;
+
+                FlightData.BUT_CloseLens.Visible = false;
+                FlightData.BUT_CloseLensSimple.Visible = false;
+
+                FlightData.label13.Visible = false;
+                FlightData.label14.Visible = false;
+                FlightData.label15.Visible = false;
+                FlightData.label16.Visible = false;
+                FlightData.label17.Visible = false;
+                FlightData.label18.Visible = false;
+                FlightData.TXT_high_PWM_Adv.Visible = false;
+                FlightData.TXT_low_PWM_Adv.Visible = false;
+                FlightData.TXT_pwm_high.Visible = false;
+                FlightData.TXT_pwm_low.Visible = false;
+            }
+
+            if(UserSetup.CHK_RememberSetup.Checked == true)
+            {
+                SaveUserSetup = true;
+            }
+            else if(UserSetup.CHK_RememberSetup.Checked == false)
+            {
+                SaveUserSetup = false;
             }
         }
 
@@ -1406,6 +1526,23 @@ namespace MissionPlanner
                                         break;
                                     case "xml":
                                         break;
+
+                                    case "UserCamera":
+                                        string temp4 = xmlreader.ReadString();
+                                        UserCamera = temp4;
+                                        break;
+
+                                    case "UserModel":
+                                        string temp5 = xmlreader.ReadString();
+                                        UserModel = temp5;
+                                        break;
+
+                                    case "SaveUserSetup":
+                                        string temp6 = xmlreader.ReadString();
+                                        SaveUserSetup = Convert.ToBoolean(temp6);
+                                        break;
+
+
                                     default:
                                         if (xmlreader.Name == "") // line feeds
                                             break;
@@ -1421,6 +1558,7 @@ namespace MissionPlanner
                         }
                     }
                 }
+
                 catch (Exception ex)
                 {
                     log.Error("Bad Config File", ex);
@@ -2767,7 +2905,5 @@ namespace MissionPlanner
         {
             MainV2.comPort.ReadOnly = readonlyToolStripMenuItem.Checked;
         }
-
-
     }
 }

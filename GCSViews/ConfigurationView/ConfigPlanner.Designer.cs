@@ -96,6 +96,8 @@
             this.BUT_videostop = new MissionPlanner.Controls.MyButton();
             this.BUT_videostart = new MissionPlanner.Controls.MyButton();
             this.CHK_WPinAirports = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.BUT_ChangeUserSetup = new MissionPlanner.Controls.MyButton();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).BeginInit();
             this.SuspendLayout();
             // 
@@ -622,10 +624,24 @@
             this.CHK_WPinAirports.UseVisualStyleBackColor = true;
             this.CHK_WPinAirports.Click += new System.EventHandler(this.CHK_WPinAirports_Click);
             // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
+            // BUT_ChangeUserSetup
+            // 
+            resources.ApplyResources(this.BUT_ChangeUserSetup, "BUT_ChangeUserSetup");
+            this.BUT_ChangeUserSetup.Name = "BUT_ChangeUserSetup";
+            this.BUT_ChangeUserSetup.UseVisualStyleBackColor = true;
+            this.BUT_ChangeUserSetup.Click += new System.EventHandler(this.BUT_ChangeUserSetup_Click);
+            // 
             // ConfigPlanner
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.BUT_ChangeUserSetup);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.CHK_WPinAirports);
             this.Controls.Add(this.chk_tfr);
             this.Controls.Add(this.chk_ADSB);
@@ -770,5 +786,7 @@
         private System.Windows.Forms.CheckBox chk_ADSB;
         private System.Windows.Forms.CheckBox chk_tfr;
         public System.Windows.Forms.CheckBox CHK_WPinAirports;
+        private System.Windows.Forms.Label label6;
+        private Controls.MyButton BUT_ChangeUserSetup;
     }
 }
