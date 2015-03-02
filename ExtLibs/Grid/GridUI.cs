@@ -312,7 +312,8 @@ namespace MissionPlanner
                 loadsetting("grid_repeatservo", rad_repeatservo);
 
                 // camera last to it invokes a reload
-                loadsetting("grid_camera", CMB_camera);
+                //loadsetting("grid_camera", CMB_camera);
+                loadsetting("UserCamera", CMB_camera); //use the UserCamera variable from UserSetup instead -D Cironi 2015-03-02
 
                 // Copter Settings
                 loadsetting("grid_copter_delay", NUM_copter_delay);
@@ -350,7 +351,8 @@ namespace MissionPlanner
 
         void savesettings()
         {
-            plugin.Host.config["grid_camera"] = CMB_camera.Text;
+            //plugin.Host.config["grid_camera"] = CMB_camera.Text;
+            //don't save the camera setting, use the UserCamera variable from UserSetup instead -D Cironi 2015-03-02
             plugin.Host.config["grid_alt"] = NUM_altitude.Value.ToString();
             plugin.Host.config["grid_angle"] = NUM_angle.Value.ToString();
             plugin.Host.config["grid_camdir"] = CHK_camdirection.Checked.ToString();

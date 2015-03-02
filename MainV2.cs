@@ -300,7 +300,6 @@ namespace MissionPlanner
         {
             if (SaveUserSetup == true)
             {
-
                 if (!config.Contains("UserCamera"))
                     config.Add("UserCamera", UserCamera);
                 else
@@ -2215,6 +2214,17 @@ namespace MissionPlanner
             ThreadPool.QueueUserWorkItem(BGCreateMaps);
 
             Program.Splash.Close();
+
+            //Show User Setup Screen -D Cironi 2015-02-27
+            if (SaveUserSetup == false)
+            {
+                UserSetup.ShowDialog();
+            }
+            else
+            {
+                updateUserSetup();
+            }
+
 
 
             //do not check for updates in our version -D Cironi 2015-01-19

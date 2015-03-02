@@ -663,16 +663,6 @@ namespace MissionPlanner.GCSViews
             TXT_pwm_low.Text = servoOptions3.TXT_pwm_low.Text;
             TXT_high_PWM_Adv.Text = servoOptions3.TXT_pwm_high.Text;
             TXT_low_PWM_Adv.Text = servoOptions3.TXT_pwm_low.Text;
-
-            if (MainV2.instance.SaveUserSetup == false)
-            {
-                UserSetup.ShowDialog();
-            }
-            else
-            {
-                MainV2.instance.updateUserSetup();
-            }
-
         }
 
         void tfr_GotTFRs(object sender, EventArgs e)
