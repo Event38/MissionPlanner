@@ -659,10 +659,11 @@ namespace MissionPlanner.GCSViews
             thisthread.Start();
 
 
-            TXT_pwm_high.Text = servoOptions3.TXT_pwm_high.Text;
+            //TXT_pwm_high.Text = servoOptions3.TXT_pwm_high.Text;
             TXT_pwm_low.Text = servoOptions3.TXT_pwm_low.Text;
             TXT_high_PWM_Adv.Text = servoOptions3.TXT_pwm_high.Text;
             TXT_low_PWM_Adv.Text = servoOptions3.TXT_pwm_low.Text;
+
         }
 
         void tfr_GotTFRs(object sender, EventArgs e)
@@ -879,16 +880,15 @@ namespace MissionPlanner.GCSViews
                 }
 
                 try
-                {
+                { 
                     CheckAndBindPreFlightData();
 
                     //Console.WriteLine(DateTime.Now.Millisecond);
                     //int fixme;
                     updateBindingSource();
 
-                    //open or close camera hatch automatically --DC
+                    //open or close camera hatch automatically --D Cironi
                     updateCameraHatch();
-
 
                     // Console.WriteLine(DateTime.Now.Millisecond + " done ");
 
@@ -3736,6 +3736,8 @@ namespace MissionPlanner.GCSViews
             catch { } // usualy invalid lat long error
         }       
 
+
+        //these events handle updating the servo text boxes when the action tab boxes are changed -D Cironi 
         private void TXT_pwm_low_Leave(object sender, EventArgs e) //simple PWM low
         {
             servoOptions3.TXT_pwm_low.Text = TXT_pwm_low.Text;
@@ -3756,6 +3758,19 @@ namespace MissionPlanner.GCSViews
             servoOptions3.TXT_pwm_high.Text = TXT_high_PWM_Adv.Text;
         }
 
+        public void PhotoTakenLabelVisible(bool input)
+        {
+            if (input == true)
+            {
+                LBL_PhotoTaken.Visible = true;
+            }
+            if (input == false)
+            {
+                LBL_PhotoTaken.Visible = false;
+            }
+        }
+
+        //forcefully erase all data flash logs from APM -D Cironi
         private void BUT_EraseDFLogs_Click(object sender, EventArgs e)
         {
             if (CustomMessageBox.Show("Are you sure?", "sure", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)

@@ -74,13 +74,13 @@
             // 
             resources.ApplyResources(this.TXT_pwm_low, "TXT_pwm_low");
             this.TXT_pwm_low.Name = "TXT_pwm_low";
-            this.TXT_pwm_low.TextChanged += new System.EventHandler(this.TXT_pwm_low_TextChanged);
+            this.TXT_pwm_low.Leave += new System.EventHandler(this.TXT_pwm_low_Leave);
             // 
             // TXT_pwm_high
             // 
             resources.ApplyResources(this.TXT_pwm_high, "TXT_pwm_high");
             this.TXT_pwm_high.Name = "TXT_pwm_high";
-            this.TXT_pwm_high.TextChanged += new System.EventHandler(this.TXT_pwm_high_TextChanged);
+            this.TXT_pwm_high.Leave += new System.EventHandler(this.TXT_pwm_high_Leave);
             // 
             // BUT_Repeat
             // 

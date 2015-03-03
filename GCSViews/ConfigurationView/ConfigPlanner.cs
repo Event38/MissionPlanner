@@ -825,7 +825,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             if (CHK_WPinAirports.Checked == true)
             {
-                CustomMessageBox.Show("WARNING: \n You must obtain permission from the airport operator and control tower before flying in an airport's airspace!");
+                CustomMessageBox.Show("WARNING:\nYou must obtain permission from the airport operator and control tower before flying in an airport's airspace!");
                 MainV2.WPinAirports = true; //allow waypoints in airports
             }
             else

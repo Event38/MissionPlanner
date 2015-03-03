@@ -162,6 +162,12 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 {
                     MainV2.comPort.setParam(value, (float)_changes[value]);
 
+                    //if you change the hatch parameters be sure to update them on the servo screen -D Cironi 2015-03-03
+                    if(value == "RC7_MAX")
+                        MainV2.instance.FlightData.servoOptions3.TXT_pwm_high.Text = MainV2.comPort.GetParam("RC7_MAX").ToString();
+                    if(value == "RC7_MIN")
+                        MainV2.instance.FlightData.servoOptions3.TXT_pwm_low.Text = MainV2.comPort.GetParam("RC7_MIN").ToString();
+
                     try
                     {
                         // set control as well

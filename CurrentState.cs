@@ -17,6 +17,10 @@ namespace MissionPlanner
 
         internal MAVState parent;
 
+        //camera
+        public int previousPictureNumber = 0;
+        DateTime photoTime;
+
         // multipliers
         public static float multiplierdist = 1;
         public static string DistanceUnit = "";
@@ -590,6 +594,8 @@ namespace MissionPlanner
             UpdateCurrentSettings(bs, updatenow, mavinterface, mavinterface.MAV);
         }
 
+        public delegate void PhotoTakenLabelVisible(bool input);
+
         public void UpdateCurrentSettings(System.Windows.Forms.BindingSource bs, bool updatenow, MAVLinkInterface mavinterface, MAVState MAV)
         {
             lock (this)
@@ -697,6 +703,39 @@ namespace MissionPlanner
                         campointb = status.pointing_b / 100.0f;
                         campointc = status.pointing_c / 100.0f;
                     }
+
+
+
+                    bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.CAMERA_FEEDBACK];
+
+                    if (bytearray != null)
+                    {
+                        var status = bytearray.ByteArrayToStructure<MAVLink.mavlink_camera_feedback_t>(6);
+
+                        if (status.img_idx > previousPictureNumber)
+                        {
+                            MainV2.instance.FlightData.BeginInvoke(new System.Windows.Forms.MethodInvoker(delegate
+                            {
+                                MainV2.instance.FlightData.PhotoTakenLabelVisible(true);
+                                photoTime = DateTime.Now; //time picture was taken
+                            }));
+
+                            previousPictureNumber = status.img_idx;
+                        }
+                        else
+                        {
+                            if (photoTime.AddSeconds(1) < DateTime.Now) //only hide message after 2 seconds
+                            {
+                                MainV2.instance.FlightData.BeginInvoke(new System.Windows.Forms.MethodInvoker(delegate
+                                {
+                                    MainV2.instance.FlightData.PhotoTakenLabelVisible(false);
+                                }));
+                            }
+                        }
+
+                    }
+                    
+
 
                     bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.AIRSPEED_AUTOCAL];
 
@@ -1365,6 +1404,8 @@ namespace MissionPlanner
                 }
             }
         }
+
+        public bool pictureTaken { get; set; }
 
         public float campointa { get; set; }
 

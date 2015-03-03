@@ -140,6 +140,7 @@ namespace MissionPlanner
 
             loadsettings();
 
+            CHK_camdirection.Checked = false;
             CHK_toandland.Checked = false;
             CHK_toandland_RTL.Checked = false;
             CHK_advanced.Checked = true;
@@ -204,7 +205,7 @@ namespace MissionPlanner
             CMB_camera.Text = griddata.camera;
             NUM_altitude.Value = griddata.alt;
             NUM_angle.Value = griddata.angle;
-            CHK_camdirection.Checked = griddata.camdir;
+            
 
             CHK_usespeed.Checked = griddata.usespeed;
 
@@ -221,6 +222,7 @@ namespace MissionPlanner
             //CHK_advanced.Checked = griddata.advanced;
             //num_overlap.Value = griddata.overlap;
             //num_sidelap.Value = griddata.sidelap;
+            //CHK_camdirection.Checked = griddata.camdir;
 
             CHK_internals.Checked = griddata.internals;
             CHK_footprints.Checked = griddata.footprints;
@@ -243,7 +245,7 @@ namespace MissionPlanner
             griddata.camera = CMB_camera.Text;
             griddata.alt = NUM_altitude.Value;
             griddata.angle = NUM_angle.Value;
-            griddata.camdir = CHK_camdirection.Checked;
+            
 
             griddata.usespeed = CHK_usespeed.Checked;
 
@@ -260,6 +262,7 @@ namespace MissionPlanner
             //griddata.advanced = CHK_advanced.Checked;
             //griddata.overlap = num_overlap.Value;
             //griddata.sidelap = num_sidelap.Value;
+            //griddata.camdir = CHK_camdirection.Checked;
 
             griddata.internals = CHK_internals.Checked;
             griddata.footprints = CHK_footprints.Checked;
@@ -282,8 +285,7 @@ namespace MissionPlanner
             {
 
                 loadsetting("grid_alt", NUM_altitude);
-                //  loadsetting("grid_angle", NUM_angle);
-                loadsetting("grid_camdir", CHK_camdirection);
+                
 
                 loadsetting("grid_usespeed", CHK_usespeed);
 
@@ -301,6 +303,8 @@ namespace MissionPlanner
                 //loadsetting("grid_advanced", CHK_advanced);
                 //loadsetting("grid_overlap", num_overlap);
                 //loadsetting("grid_sidelap", num_sidelap);
+                //loadsetting("grid_angle", NUM_angle);
+                //loadsetting("grid_camdir", CHK_camdirection);
 
                 loadsetting("grid_internals", CHK_internals);
                 loadsetting("grid_footprints", CHK_footprints);
@@ -355,7 +359,6 @@ namespace MissionPlanner
             //don't save the camera setting, use the UserCamera variable from UserSetup instead -D Cironi 2015-03-02
             plugin.Host.config["grid_alt"] = NUM_altitude.Value.ToString();
             plugin.Host.config["grid_angle"] = NUM_angle.Value.ToString();
-            plugin.Host.config["grid_camdir"] = CHK_camdirection.Checked.ToString();
 
             plugin.Host.config["grid_usespeed"] = CHK_usespeed.Checked.ToString();
 
@@ -372,6 +375,7 @@ namespace MissionPlanner
             //plugin.Host.config["grid_advanced"] = CHK_advanced.Checked.ToString();
             //plugin.Host.config["grid_overlap"] = num_overlap.Value.ToString();
             //plugin.Host.config["grid_sidelap"] = num_sidelap.Value.ToString();
+            //plugin.Host.config["grid_camdir"] = CHK_camdirection.Checked.ToString();
 
             plugin.Host.config["grid_internals"] = CHK_internals.Checked.ToString();
             plugin.Host.config["grid_footprints"] = CHK_footprints.Checked.ToString();

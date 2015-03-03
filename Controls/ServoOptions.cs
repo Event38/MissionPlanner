@@ -127,27 +127,6 @@ namespace MissionPlanner.Controls
             // MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, int.Parse(TXT_rcchannel.Text), int.Parse(TXT_pwm_high.Text), 10, 1000, 0, 0, 0);         
         }
 
-        private void TXT_pwm_low_TextChanged(object sender, EventArgs e)
-        {
-            MainV2.config["Servo" + thisservo + "_low"] = TXT_pwm_low.Text;
-            if(ServoOptions.servo == 12) //servo 7
-            {
-                MissionPlanner.GCSViews.FlightData.instance.TXT_low_PWM_Adv.Text = TXT_pwm_low.Text;
-                MissionPlanner.GCSViews.FlightData.instance.TXT_pwm_low.Text = TXT_pwm_low.Text;
-            }
-        }
-
-        private void TXT_pwm_high_TextChanged(object sender, EventArgs e)
-        {
-            MainV2.config["Servo" + thisservo + "_high"] = TXT_pwm_high.Text;
-            if(servo == 12) //servo 7s
-            {
-                MissionPlanner.GCSViews.FlightData.instance.TXT_high_PWM_Adv.Text = TXT_pwm_high.Text;
-                MissionPlanner.GCSViews.FlightData.instance.TXT_pwm_high.Text = TXT_pwm_high.Text;
-
-            }
-        }
-
         private void renameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Control sourcectl = ((ContextMenuStrip)renameToolStripMenuItem.Owner).SourceControl;
@@ -169,5 +148,35 @@ namespace MissionPlanner.Controls
                 MainV2.config["Servo" + thisservo + "_desc"] = desc;
             }
         }
+
+
+        //handles changing these values throughout mission planner when a user changes them -D Cironi 2015-03-02
+        private void TXT_pwm_high_Leave(object sender, EventArgs e)
+        {
+            MainV2.config["Servo" + thisservo + "_low"] = TXT_pwm_low.Text;
+            if (ServoOptions.servo == 12) //servo 7
+            {
+                MissionPlanner.GCSViews.FlightData.instance.TXT_low_PWM_Adv.Text = TXT_pwm_low.Text;
+                MissionPlanner.GCSViews.FlightData.instance.TXT_pwm_low.Text = TXT_pwm_low.Text;
+
+                //update the parameter file (RC_7 MAX)
+                //MainV2.comPort.setParam("RC_MAX", Convert.ToInt32(TXT_pwm_low.Text));
+            }
+        }
+
+        private void TXT_pwm_low_Leave(object sender, EventArgs e)
+        {
+            MainV2.config["Servo" + thisservo + "_low"] = TXT_pwm_low.Text;
+            if (ServoOptions.servo == 12) //servo 7
+            {
+                MissionPlanner.GCSViews.FlightData.instance.TXT_low_PWM_Adv.Text = TXT_pwm_low.Text;
+                MissionPlanner.GCSViews.FlightData.instance.TXT_pwm_low.Text = TXT_pwm_low.Text;
+
+                //update the parameter file (RC_7 MAX)
+                //MainV2.comPort.setParam("RC_MIN", Convert.ToInt32(TXT_pwm_low.Text));
+            }
+        }
+
+
     }
 }
