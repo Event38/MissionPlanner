@@ -2690,6 +2690,10 @@
     <None Include="Resources\Welcome_to_Michael_Oborne.rtf" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\CamIconBad.png" />
+    <None Include="Resources\CamIconGood.png" />
+    <None Include="Resources\CamIconGreen.png" />
+    <None Include="Resources\CamIconYellow.png" />
     <Content Include="Wizard\acsimplepids.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

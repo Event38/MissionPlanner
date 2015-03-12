@@ -1146,6 +1146,7 @@ namespace MissionPlanner
                     comPort.getParamList();
 
                     //set hatch servo values based on parameter file -D Cironi 2015-03-02
+                   
                     FlightData.servoOptions3.TXT_pwm_high.Text = comPort.GetParam("RC7_MAX").ToString();
                     FlightData.servoOptions3.TXT_pwm_low.Text = comPort.GetParam("RC7_MIN").ToString();
 

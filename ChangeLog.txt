@@ -1,4 +1,15 @@
-﻿* Mission Planner 1.3.6 for Event 38 -Daniel Cironi (2015-02-09)
+﻿* Mission Planner 1.3.7 for Event 38 -Daniel Cironi (2015-03-12)
+Added a simple user setup screen that allows users to select camera and model and adjust the GUI based on their choices
+Camera face forward is no longer default in GridUI
+Added a button that allows users to force dataflash logs to erase
+Hatch Servo values are hidden in simple view
+The servo values for RC7 (Hatch) are now stored in the parameter file and read from there on connection
+Added small notification on bottom of flight data screen for when the camera triggers a picture
+Added icons for when a picture is taken. Green is good, yellow is bad (35 degree roll)
+Checkbox to hide camera icons and button to clear them
+
+
+* Mission Planner 1.3.6 for Event 38 -Daniel Cironi (2015-02-09)
 Can now change the flight mode for PWM value 1750+
 Chnaged standard flight modes to Auto, RTL, FBWA
 Added user checklist item to check waypoints

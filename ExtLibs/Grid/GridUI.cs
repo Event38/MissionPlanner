@@ -33,7 +33,7 @@ namespace MissionPlanner
         private GridPlugin plugin;
         static public Object thisLock = new Object();
 
-        GMapOverlay routesOverlay;
+        public GMapOverlay routesOverlay;
         List<PointLatLngAlt> list = new List<PointLatLngAlt>();
         List<PointLatLngAlt> grid;
 
@@ -355,8 +355,8 @@ namespace MissionPlanner
 
         void savesettings()
         {
-            //plugin.Host.config["grid_camera"] = CMB_camera.Text;
-            //don't save the camera setting, use the UserCamera variable from UserSetup instead -D Cironi 2015-03-02
+            plugin.Host.config["grid_camera"] = MainV2.instance.UserCamera.ToString();
+            //don't save the camera setting from GridUI, use the UserCamera variable from UserSetup instead -D Cironi 2015-03-02
             plugin.Host.config["grid_alt"] = NUM_altitude.Value.ToString();
             plugin.Host.config["grid_angle"] = NUM_angle.Value.ToString();
 
@@ -369,13 +369,14 @@ namespace MissionPlanner
 
             plugin.Host.config["grid_startfrom"] = CMB_startfrom.Text;
 
-            //don't save these settings automatically
-            //plugin.Host.config["grid_autotakeoff"] = CHK_toandland.Checked.ToString();
-            //plugin.Host.config["grid_autotakeoff_RTL"] = CHK_toandland_RTL.Checked.ToString();
-            //plugin.Host.config["grid_advanced"] = CHK_advanced.Checked.ToString();
-            //plugin.Host.config["grid_overlap"] = num_overlap.Value.ToString();
-            //plugin.Host.config["grid_sidelap"] = num_sidelap.Value.ToString();
-            //plugin.Host.config["grid_camdir"] = CHK_camdirection.Checked.ToString();
+            //save these settings automatically, but they aren't loaded automatically
+            plugin.Host.config["grid_autotakeoff"] = CHK_toandland.Checked.ToString();
+            plugin.Host.config["grid_autotakeoff_RTL"] = CHK_toandland_RTL.Checked.ToString();
+            plugin.Host.config["grid_advanced"] = CHK_advanced.Checked.ToString();
+            plugin.Host.config["grid_overlap"] = num_overlap.Value.ToString();
+            plugin.Host.config["grid_sidelap"] = num_sidelap.Value.ToString();
+            plugin.Host.config["grid_camdir"] = CHK_camdirection.Checked.ToString();
+            //
 
             plugin.Host.config["grid_internals"] = CHK_internals.Checked.ToString();
             plugin.Host.config["grid_footprints"] = CHK_footprints.Checked.ToString();
@@ -588,6 +589,13 @@ namespace MissionPlanner
                             poly.Fill = new SolidBrush(Color.FromArgb(40, Color.Purple));
                             if (CHK_footprints.Checked)
                                 routesOverlay.Polygons.Add(poly);
+                                
+                                //add all the footprints to the ovverlay  in flightData
+                                foreach(var thing in routesOverlay.Polygons)
+                                {
+                                    MainV2.instance.FlightData.FootprintPolyHidden.Polygons.Add(thing);
+                                }
+                                
                         }
                     }
                     catch { }

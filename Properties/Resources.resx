@@ -151,6 +151,9 @@
   <data name="new-3DR-04" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\new-3DR-04.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CamIconBad" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CamIconBad.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="light_terminal_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\light_terminal_icon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -165,6 +168,9 @@
   </data>
   <data name="up" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\up.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="quadhover_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\quadhover_12.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dark_flightdata_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dark_flightdata_icon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -217,11 +223,11 @@
   <data name="quadframesnormal_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\quadframesnormal_06.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="FW icons 2013+logos-02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\FW icons 2013+logos-02.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="marker_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\marker_03.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="quadframesnormal_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\quadframesnormal_03.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="quadicon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\quad2.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -253,8 +259,8 @@
   <data name="quadframesnormal_05" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\quadframesnormal_05.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="hilheli" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\new frames-13.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="heli" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\heli.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="airspeed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BR-0004-03-2.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -265,8 +271,8 @@
   <data name="apmp6" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\apmp6.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Hframelight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Hframelight.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="FW icons 2013+logos-02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FW icons 2013+logos-02.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FW icons 2013+logos-06" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FW icons 2013+logos-06.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -276,9 +282,6 @@
   </data>
   <data name="light_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\light_06.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="apm2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\apm2.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="calibration07" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\calibration07.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -292,8 +295,8 @@
   <data name="hil" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\new frames-10.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="quadhover_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\quadhover_12.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Red_panel1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Red_panel1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="apmp4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\apmp4.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -334,6 +337,9 @@
   <data name="quadhover_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\quadhover_06.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="PlusFrames_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PlusFrames_02.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="PlusFrames_06" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PlusFrames_06.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -361,14 +367,14 @@
   <data name="attocurrent" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\09028-01.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Yellow_panel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Yellow_panel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="FW icons 2013+logos-03" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FW icons 2013+logos-03.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="donate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\donate.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Green_panel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Green_panel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PlusFramesGreen_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PlusFramesGreen_04.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -385,14 +391,17 @@
   <data name="light_initialsetup_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\light_initialsetup_icon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CamIconGood" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CamIconGood.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="light_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\light_03.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="quadhover_11" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\quadhover_11.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="heli" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\heli.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="y6a" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\y6.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Hframe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Hframe.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -446,9 +455,6 @@ Please visit {\field{\*\fldinst{HYPERLINK "www.diydrones.com"}}{\fldrslt{\ul\cf2
   <data name="dark_initialsetup_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dark_initialsetup_icon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="y6a" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\y6.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="FW icons 2013+logos-13" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FW icons 2013+logos-13.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -494,6 +500,9 @@ Please visit {\field{\*\fldinst{HYPERLINK "www.diydrones.com"}}{\fldrslt{\ul\cf2
   <data name="y6b" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FW icons Y6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="hilheli" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\new frames-13.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="tri" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\frames-05.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -509,8 +518,8 @@ Please visit {\field{\*\fldinst{HYPERLINK "www.diydrones.com"}}{\fldrslt{\ul\cf2
   <data name="quadhover_14" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\quadhover_14.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="quadframesnormal_03" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\quadframesnormal_03.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Green_panel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Green_panel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cameraGimalYaw" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cameraGimalYaw.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -530,14 +539,14 @@ Please visit {\field{\*\fldinst{HYPERLINK "www.diydrones.com"}}{\fldrslt{\ul\cf2
   <data name="FW icons 2013+logos-01" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FW icons 2013+logos-01.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dark_tuningconfig_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dark_tuningconfig_icon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="apm2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\apm2.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Green_panel1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Green_panel1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PlusFrames_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PlusFrames_02.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="dark_tuningconfig_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dark_tuningconfig_icon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Shutter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Shutter.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -548,9 +557,6 @@ Please visit {\field{\*\fldinst{HYPERLINK "www.diydrones.com"}}{\fldrslt{\ul\cf2
   <data name="quadframesnormal_11" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\quadframesnormal_11.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Red_panel1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Red_panel1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="marker_01" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\marker_01.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -559,6 +565,9 @@ Please visit {\field{\*\fldinst{HYPERLINK "www.diydrones.com"}}{\fldrslt{\ul\cf2
   </data>
   <data name="bgdark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bgdark.jpg;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Hframelight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hframelight.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="APM_airframes_08" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\APM_airframes-08.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1649,7 +1658,10 @@ Please visit {\field{\*\fldinst{HYPERLINK "www.diydrones.com"}}{\fldrslt{\ul\cf2
   <data name="FW icons 2013+logos-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FW icons 2013+logos-16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Yellow_panel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Yellow_panel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="CamIconGreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CamIconGreen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CamIconYellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CamIconYellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

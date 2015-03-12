@@ -293,6 +293,15 @@ namespace MissionPlanner.GCSViews
 
             gMapControl1.Overlays.Add(poioverlay);
 
+            CamPoints = new GMapOverlay("CamPoints");
+            gMapControl1.Overlays.Add(CamPoints);
+
+            FootprintPolyHidden = new GMapOverlay("FootprintPolyHidden");
+
+            FootprintPolyVisible = new GMapOverlay("FootprintPolyVisible");
+            gMapControl1.Overlays.Add(FootprintPolyVisible);
+
+
             try
             {
                 if (MainV2.getConfig("GspeedMAX") != "")
@@ -1456,7 +1465,7 @@ namespace MissionPlanner.GCSViews
             });
         }
 
-        private void addpolygonmarker(string tag, double lng, double lat, int alt, Color? color, GMapOverlay overlay)
+        public void addpolygonmarker(string tag, double lng, double lat, int alt, Color? color, GMapOverlay overlay)
         {
             try
             {
@@ -1553,6 +1562,9 @@ namespace MissionPlanner.GCSViews
 
         }
 
+        public GMapOverlay FootprintPolyHidden;
+        public GMapOverlay FootprintPolyVisible;
+        public GMapOverlay CamPoints;
         GMapOverlay polygons;
         GMapOverlay routes;
         GMapRoute route;
@@ -3781,6 +3793,25 @@ namespace MissionPlanner.GCSViews
                     CustomMessageBox.Show("Dataflash logs erased");
                 }
                 catch (Exception ex) { CustomMessageBox.Show(ex.Message, Strings.ERROR); }
+            }
+        }
+
+        private void BUT_ClrCamIcons_Click(object sender, EventArgs e)
+        {
+            CamPoints.Polygons.Clear();
+            CamPoints.Markers.Clear();
+            FootprintPolyVisible.Clear();
+        }
+
+        private void CHK_CamIcons_CheckedChanged(object sender, EventArgs e)
+        {
+            if(CHK_CamIcons.Checked == true)
+            {
+                CamPoints.IsVisibile = true;
+            }
+            if(CHK_CamIcons.Checked == false)
+            {
+                CamPoints.IsVisibile = false;
             }
         }
     }

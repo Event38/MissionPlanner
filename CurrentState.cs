@@ -8,6 +8,12 @@ using log4net;
 using MissionPlanner.Attributes;
 using MissionPlanner;
 using System.Collections;
+using GMap.NET.WindowsForms.Markers;
+using GMap.NET.WindowsForms;
+using GMap.NET;
+using System.Drawing;
+using System.Windows.Forms;
+using MissionPlanner.Plugin;
 
 namespace MissionPlanner
 {
@@ -18,7 +24,7 @@ namespace MissionPlanner
         internal MAVState parent;
 
         //camera
-        public int previousPictureNumber = 0;
+        public int previousPictureNumber = -1;
         DateTime photoTime;
 
         // multipliers
@@ -536,7 +542,7 @@ namespace MissionPlanner
             _lastcurrent = DateTime.MinValue;
             distTraveled = 0;
             timeInAir = 0;
-            KIndexstatic = -1;
+            KIndexstatic = 0;
         }
 
         const float rad2deg = (float)(180 / Math.PI);
@@ -705,7 +711,6 @@ namespace MissionPlanner
                     }
 
 
-
                     bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.CAMERA_FEEDBACK];
 
                     if (bytearray != null)
@@ -718,6 +723,33 @@ namespace MissionPlanner
                             {
                                 MainV2.instance.FlightData.PhotoTakenLabelVisible(true);
                                 photoTime = DateTime.Now; //time picture was taken
+
+                                double CamLatDbl = status.lat * 1E-7;
+                                double CamLngDbl = status.lng * 1E-7;
+
+                                Bitmap GoodCamIcon = new Bitmap(MissionPlanner.Properties.Resources.CamIconGreen, 40, 40);
+                                Bitmap BadCamIcon = new Bitmap(MissionPlanner.Properties.Resources.CamIconYellow, 40, 40);
+
+
+                                PointLatLng CamMessagePoint = new PointLatLng(CamLatDbl, CamLngDbl);
+                                GMarkerGoogle CamPoint = new GMarkerGoogle(CamMessagePoint, GMarkerGoogleType.none);
+                                //drop red (bad) icon if roll is above 35 degrees
+                                if(status.roll > 35 || status.roll < -35)
+                                {
+                                    CamPoint = new GMarkerGoogle(CamMessagePoint, BadCamIcon);
+                                }
+
+                                //otheriwse drop green icon
+                                else
+                                {
+                                    CamPoint = new GMarkerGoogle(CamMessagePoint, GoodCamIcon);             
+                                }
+
+                                MainV2.instance.FlightData.CamPoints.Markers.Add(CamPoint);
+
+                                //draw the footprint for the images -- not ready yet
+                                //MainV2.instance.FlightData.FootprintPolyVisible.Polygons.Add(MainV2.instance.FlightData.FootprintPolyHidden.Polygons[status.img_idx]);
+
                             }));
 
                             previousPictureNumber = status.img_idx;
@@ -1404,6 +1436,7 @@ namespace MissionPlanner
                 }
             }
         }
+
 
         public bool pictureTaken { get; set; }
 
