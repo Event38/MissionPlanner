@@ -1363,20 +1363,22 @@ namespace MissionPlanner.GCSViews
                         if (MainV2.comPort.MAV.cs.alt > 50)
                         {
                             Reached50M = true;
-                            CameraClosed = false; //assume the camera is open anytime above 50m.
-                                                   //Fixes the issue of the camera not closing on any flight after the first because the program already thinks it is closed.
+                            CameraClosed = false; //assume the camera is open anytime above 50m..
+                                                  //...fixes the issue of the camera not closing on any flight after the first because the program already thinks it is closed.
                         }
 
                         //close camera lens based on parameters
-                        if (MainV2.comPort.MAV.cs.connected && MainV2.comPort.MAV.cs.alt < 20 && CameraClosed == false && Reached50M == true) //&& TimeAbove50Meters.TotalSeconds > 3) //& if camera is open & has been flying above 50M for at least 30 seconds
+                        if (MainV2.comPort.MAV.cs.connected && MainV2.comPort.MAV.cs.alt < 20 
+                            && CameraClosed == false && Reached50M == true 
+                            && MainV2.instance.UserCamera.ToString() != "NX1100"
+                            && playingLog == false)
                         {
                             if (File.Exists("ShutCamtrig.py"))
                             {
                                 CameraClosed = true;
                                 Script script = new Script();
                                 script.runScript("ShutCamtrig.py");
-                                CustomMessageBox.Show("Camera lens closed because of low altitude!!!");
-
+                                //CustomMessageBox.Show("Camera lens closed because of low altitude!!!");
                             }
                             else
                                 CustomMessageBox.Show("ERROR in BUT_CloseLens function (ShutCamtrig.py file was not found)");

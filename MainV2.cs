@@ -328,16 +328,16 @@ namespace MissionPlanner
                 FlightData.CHK_AutoHatchSimple.Visible = false;
 
                 //hide the hatch servo stuff
-                FlightData.label13.Visible = false;
+                //FlightData.label13.Visible = false;
                 FlightData.label14.Visible = false;
                 FlightData.label15.Visible = false;
                 FlightData.label16.Visible = false;
-                FlightData.label17.Visible = false;
-                FlightData.label18.Visible = false;
+                //FlightData.label17.Visible = false;
+                //FlightData.label18.Visible = false;
                 FlightData.TXT_high_PWM_Adv.Visible = false;
                 FlightData.TXT_low_PWM_Adv.Visible = false;
-                FlightData.TXT_pwm_high.Visible = false;
-                FlightData.TXT_pwm_low.Visible = false;
+                //FlightData.TXT_pwm_high.Visible = false;
+                //FlightData.TXT_pwm_low.Visible = false;
 
                 //show lens control
                 FlightData.BUT_CloseLens.Visible = true;
@@ -354,16 +354,16 @@ namespace MissionPlanner
                 FlightData.CHK_AutoHatchSimple.Visible = true;
 
                 //show the hatch servo stuff
-                FlightData.label13.Visible = true;
+                //FlightData.label13.Visible = true; //never show simple hatch stuff
                 FlightData.label14.Visible = true;
                 FlightData.label15.Visible = true;
                 FlightData.label16.Visible = true;
-                FlightData.label17.Visible = true;
-                FlightData.label18.Visible = true;
+                //FlightData.label17.Visible = true;
+                //FlightData.label18.Visible = true;
                 FlightData.TXT_high_PWM_Adv.Visible = true;
                 FlightData.TXT_low_PWM_Adv.Visible = true;
-                FlightData.TXT_pwm_high.Visible = true;
-                FlightData.TXT_pwm_low.Visible = true;
+                //FlightData.TXT_pwm_high.Visible = true;
+                //FlightData.TXT_pwm_low.Visible = true;
 
                 //hide lens control
                 FlightData.BUT_CloseLens.Visible = false;

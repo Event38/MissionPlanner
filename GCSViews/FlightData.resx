@@ -325,7 +325,7 @@
     <value>preFlightChecklist1</value>
   </data>
   <data name="&gt;&gt;preFlightChecklist1.Type" xml:space="preserve">
-    <value>MissionPlanner.GCSViews.ConfigurationView.PreFlightChecklist, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.GCSViews.ConfigurationView.PreFlightChecklist, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;preFlightChecklist1.Parent" xml:space="preserve">
     <value>tabpreflight</value>
@@ -370,7 +370,7 @@
     <value>NoControl</value>
   </data>
   <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 182</value>
+    <value>191, 257</value>
   </data>
   <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
     <value>30, 13</value>
@@ -380,9 +380,6 @@
   </data>
   <data name="label16.Text" xml:space="preserve">
     <value>Low:</value>
-  </data>
-  <data name="label16.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="&gt;&gt;label16.Name" xml:space="preserve">
     <value>label16</value>
@@ -403,7 +400,7 @@
     <value>NoControl</value>
   </data>
   <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>268, 182</value>
+    <value>268, 257</value>
   </data>
   <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 13</value>
@@ -413,9 +410,6 @@
   </data>
   <data name="label15.Text" xml:space="preserve">
     <value>High:</value>
-  </data>
-  <data name="label15.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="&gt;&gt;label15.Name" xml:space="preserve">
     <value>label15</value>
@@ -439,7 +433,7 @@
     <value>NoControl</value>
   </data>
   <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 161</value>
+    <value>191, 236</value>
   </data>
   <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 13</value>
@@ -449,9 +443,6 @@
   </data>
   <data name="label14.Text" xml:space="preserve">
     <value>Servo Values</value>
-  </data>
-  <data name="label14.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="&gt;&gt;label14.Name" xml:space="preserve">
     <value>label14</value>
@@ -466,7 +457,7 @@
     <value>2</value>
   </data>
   <data name="TXT_high_PWM_Adv.Location" type="System.Drawing.Point, System.Drawing">
-    <value>306, 182</value>
+    <value>306, 257</value>
   </data>
   <data name="TXT_high_PWM_Adv.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 20</value>
@@ -476,9 +467,6 @@
   </data>
   <data name="TXT_high_PWM_Adv.Text" xml:space="preserve">
     <value>1900</value>
-  </data>
-  <data name="TXT_high_PWM_Adv.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="&gt;&gt;TXT_high_PWM_Adv.Name" xml:space="preserve">
     <value>TXT_high_PWM_Adv</value>
@@ -493,7 +481,7 @@
     <value>3</value>
   </data>
   <data name="TXT_low_PWM_Adv.Location" type="System.Drawing.Point, System.Drawing">
-    <value>225, 182</value>
+    <value>225, 257</value>
   </data>
   <data name="TXT_low_PWM_Adv.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 20</value>
@@ -503,9 +491,6 @@
   </data>
   <data name="TXT_low_PWM_Adv.Text" xml:space="preserve">
     <value>1100</value>
-  </data>
-  <data name="TXT_low_PWM_Adv.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="&gt;&gt;TXT_low_PWM_Adv.Name" xml:space="preserve">
     <value>TXT_low_PWM_Adv</value>
@@ -526,7 +511,7 @@
     <value>NoControl</value>
   </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 259</value>
+    <value>9, 164</value>
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 13</value>
@@ -559,7 +544,7 @@
     <value>NoControl</value>
   </data>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 230</value>
+    <value>9, 135</value>
   </data>
   <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
     <value>220, 17</value>
@@ -586,7 +571,7 @@
     <value>Microsoft Sans Serif, 10pt</value>
   </data>
   <data name="TXT_NumLogsforDLAdv.Location" type="System.Drawing.Point, System.Drawing">
-    <value>146, 259</value>
+    <value>146, 164</value>
   </data>
   <data name="TXT_NumLogsforDLAdv.Size" type="System.Drawing.Size, System.Drawing">
     <value>25, 23</value>
@@ -619,7 +604,7 @@
     <value>NoControl</value>
   </data>
   <data name="LBL_DownloadingAdvanced.Location" type="System.Drawing.Point, System.Drawing">
-    <value>143, 286</value>
+    <value>143, 191</value>
   </data>
   <data name="LBL_DownloadingAdvanced.Size" type="System.Drawing.Size, System.Drawing">
     <value>78, 13</value>
@@ -649,7 +634,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_DL3LogsAdvanced.Location" type="System.Drawing.Point, System.Drawing">
-    <value>177, 256</value>
+    <value>177, 161</value>
   </data>
   <data name="BUT_DL3LogsAdvanced.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 24</value>
@@ -718,7 +703,7 @@
     <value>NoControl</value>
   </data>
   <data name="CHK_AutoHatch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 189</value>
+    <value>12, 264</value>
   </data>
   <data name="CHK_AutoHatch.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 24</value>
@@ -748,7 +733,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_CloseHatch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>102, 161</value>
+    <value>102, 236</value>
   </data>
   <data name="BUT_CloseHatch.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 23</value>
@@ -778,7 +763,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_OpenHatch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 161</value>
+    <value>12, 236</value>
   </data>
   <data name="BUT_OpenHatch.Size" type="System.Drawing.Size, System.Drawing">
     <value>84, 23</value>
@@ -808,7 +793,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_CloseLens.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 132</value>
+    <value>12, 207</value>
   </data>
   <data name="BUT_CloseLens.Size" type="System.Drawing.Size, System.Drawing">
     <value>173, 23</value>
@@ -1327,7 +1312,7 @@
     <value>modifyandSetSpeed</value>
   </data>
   <data name="&gt;&gt;modifyandSetSpeed.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ModifyandSet, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ModifyandSet, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;modifyandSetSpeed.Parent" xml:space="preserve">
     <value>tabActions</value>
@@ -1348,7 +1333,7 @@
     <value>modifyandSetAlt</value>
   </data>
   <data name="&gt;&gt;modifyandSetAlt.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ModifyandSet, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ModifyandSet, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;modifyandSetAlt.Parent" xml:space="preserve">
     <value>tabActions</value>
@@ -1387,7 +1372,7 @@
     <value>NoControl</value>
   </data>
   <data name="label18.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 146</value>
+    <value>185, 199</value>
   </data>
   <data name="label18.Size" type="System.Drawing.Size, System.Drawing">
     <value>30, 13</value>
@@ -1420,7 +1405,7 @@
     <value>NoControl</value>
   </data>
   <data name="label17.Location" type="System.Drawing.Point, System.Drawing">
-    <value>263, 146</value>
+    <value>266, 199</value>
   </data>
   <data name="label17.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 13</value>
@@ -1456,7 +1441,7 @@
     <value>NoControl</value>
   </data>
   <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>182, 125</value>
+    <value>185, 178</value>
   </data>
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 13</value>
@@ -1483,7 +1468,7 @@
     <value>2</value>
   </data>
   <data name="TXT_pwm_high.Location" type="System.Drawing.Point, System.Drawing">
-    <value>301, 146</value>
+    <value>304, 199</value>
   </data>
   <data name="TXT_pwm_high.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 20</value>
@@ -1510,7 +1495,7 @@
     <value>3</value>
   </data>
   <data name="TXT_pwm_low.Location" type="System.Drawing.Point, System.Drawing">
-    <value>214, 146</value>
+    <value>217, 199</value>
   </data>
   <data name="TXT_pwm_low.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 20</value>
@@ -1543,7 +1528,7 @@
     <value>NoControl</value>
   </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 230</value>
+    <value>3, 106</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 13</value>
@@ -1576,7 +1561,7 @@
     <value>NoControl</value>
   </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 204</value>
+    <value>3, 80</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
     <value>220, 17</value>
@@ -1603,7 +1588,7 @@
     <value>Microsoft Sans Serif, 10pt</value>
   </data>
   <data name="TXT_NumLogsforDL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>133, 230</value>
+    <value>133, 106</value>
   </data>
   <data name="TXT_NumLogsforDL.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 23</value>
@@ -1639,7 +1624,7 @@
     <value>NoControl</value>
   </data>
   <data name="LBL_Downloading.Location" type="System.Drawing.Point, System.Drawing">
-    <value>130, 257</value>
+    <value>130, 133</value>
   </data>
   <data name="LBL_Downloading.Size" type="System.Drawing.Size, System.Drawing">
     <value>78, 13</value>
@@ -1669,7 +1654,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_DL3Logs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 227</value>
+    <value>161, 103</value>
   </data>
   <data name="BUT_DL3Logs.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 23</value>
@@ -1789,7 +1774,7 @@
     <value>NoControl</value>
   </data>
   <data name="CHK_AutoHatchSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 154</value>
+    <value>6, 207</value>
   </data>
   <data name="CHK_AutoHatchSimple.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 24</value>
@@ -1819,7 +1804,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_CloseHatchSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>93, 125</value>
+    <value>96, 178</value>
   </data>
   <data name="BUT_CloseHatchSimple.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 23</value>
@@ -1849,7 +1834,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_OpenHatchSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 125</value>
+    <value>6, 178</value>
   </data>
   <data name="BUT_OpenHatchSimple.Size" type="System.Drawing.Size, System.Drawing">
     <value>84, 23</value>
@@ -1879,7 +1864,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_CloseLensSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 84</value>
+    <value>6, 149</value>
   </data>
   <data name="BUT_CloseLensSimple.Size" type="System.Drawing.Size, System.Drawing">
     <value>173, 23</value>
@@ -1978,7 +1963,7 @@
     <value>modifyandSetSpeedSimple</value>
   </data>
   <data name="&gt;&gt;modifyandSetSpeedSimple.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ModifyandSet, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ModifyandSet, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;modifyandSetSpeedSimple.Parent" xml:space="preserve">
     <value>tabActionsSimple</value>
@@ -2805,9 +2790,6 @@
   <data name="&gt;&gt;quickView6.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="bindingSourceQuickTab.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1162, 18</value>
-  </metadata>
   <data name="quickView5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -2949,27 +2931,6 @@
   <data name="&gt;&gt;quickView1.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="preFlightChecklist1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="preFlightChecklist1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>330, 550</value>
-  </data>
-  <data name="preFlightChecklist1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;preFlightChecklist1.Name" xml:space="preserve">
-    <value>preFlightChecklist1</value>
-  </data>
-  <data name="&gt;&gt;preFlightChecklist1.Type" xml:space="preserve">
-    <value>MissionPlanner.GCSViews.ConfigurationView.PreFlightChecklist, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;preFlightChecklist1.Parent" xml:space="preserve">
-    <value>tabpreflight</value>
-  </data>
-  <data name="&gt;&gt;preFlightChecklist1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <metadata name="bindingSourceGaugesTab.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>154, 57</value>
   </metadata>
@@ -3003,9 +2964,6 @@
   <data name="&gt;&gt;Gvspeed.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="bindingSourceGaugesTab.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>154, 57</value>
-  </metadata>
   <data name="Gheading.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>Zoom</value>
   </data>
@@ -3106,7 +3064,7 @@
     <value>servoOptions1</value>
   </data>
   <data name="&gt;&gt;servoOptions1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoOptions1.Parent" xml:space="preserve">
     <value>flowLayoutPanelServos</value>
@@ -3118,7 +3076,7 @@
     <value>servoOptions2</value>
   </data>
   <data name="&gt;&gt;servoOptions2.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoOptions2.Parent" xml:space="preserve">
     <value>flowLayoutPanelServos</value>
@@ -3130,7 +3088,7 @@
     <value>servoOptions3</value>
   </data>
   <data name="&gt;&gt;servoOptions3.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoOptions3.Parent" xml:space="preserve">
     <value>flowLayoutPanelServos</value>
@@ -3142,7 +3100,7 @@
     <value>servoOptions4</value>
   </data>
   <data name="&gt;&gt;servoOptions4.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoOptions4.Parent" xml:space="preserve">
     <value>flowLayoutPanelServos</value>
@@ -3154,7 +3112,7 @@
     <value>servoOptions5</value>
   </data>
   <data name="&gt;&gt;servoOptions5.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoOptions5.Parent" xml:space="preserve">
     <value>flowLayoutPanelServos</value>
@@ -3166,7 +3124,7 @@
     <value>servoOptions6</value>
   </data>
   <data name="&gt;&gt;servoOptions6.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoOptions6.Parent" xml:space="preserve">
     <value>flowLayoutPanelServos</value>
@@ -3178,7 +3136,7 @@
     <value>servoOptions7</value>
   </data>
   <data name="&gt;&gt;servoOptions7.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;servoOptions7.Parent" xml:space="preserve">
     <value>flowLayoutPanelServos</value>
@@ -3209,153 +3167,6 @@
   </data>
   <data name="&gt;&gt;flowLayoutPanelServos.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="servoOptions1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="servoOptions1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 27</value>
-  </data>
-  <data name="servoOptions1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;servoOptions1.Name" xml:space="preserve">
-    <value>servoOptions1</value>
-  </data>
-  <data name="&gt;&gt;servoOptions1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;servoOptions1.Parent" xml:space="preserve">
-    <value>flowLayoutPanelServos</value>
-  </data>
-  <data name="&gt;&gt;servoOptions1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="servoOptions2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 36</value>
-  </data>
-  <data name="servoOptions2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 27</value>
-  </data>
-  <data name="servoOptions2.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;servoOptions2.Name" xml:space="preserve">
-    <value>servoOptions2</value>
-  </data>
-  <data name="&gt;&gt;servoOptions2.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;servoOptions2.Parent" xml:space="preserve">
-    <value>flowLayoutPanelServos</value>
-  </data>
-  <data name="&gt;&gt;servoOptions2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="servoOptions3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 69</value>
-  </data>
-  <data name="servoOptions3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 27</value>
-  </data>
-  <data name="servoOptions3.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;servoOptions3.Name" xml:space="preserve">
-    <value>servoOptions3</value>
-  </data>
-  <data name="&gt;&gt;servoOptions3.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;servoOptions3.Parent" xml:space="preserve">
-    <value>flowLayoutPanelServos</value>
-  </data>
-  <data name="&gt;&gt;servoOptions3.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="servoOptions4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 102</value>
-  </data>
-  <data name="servoOptions4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 27</value>
-  </data>
-  <data name="servoOptions4.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;servoOptions4.Name" xml:space="preserve">
-    <value>servoOptions4</value>
-  </data>
-  <data name="&gt;&gt;servoOptions4.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;servoOptions4.Parent" xml:space="preserve">
-    <value>flowLayoutPanelServos</value>
-  </data>
-  <data name="&gt;&gt;servoOptions4.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="servoOptions5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 135</value>
-  </data>
-  <data name="servoOptions5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 27</value>
-  </data>
-  <data name="servoOptions5.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;servoOptions5.Name" xml:space="preserve">
-    <value>servoOptions5</value>
-  </data>
-  <data name="&gt;&gt;servoOptions5.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;servoOptions5.Parent" xml:space="preserve">
-    <value>flowLayoutPanelServos</value>
-  </data>
-  <data name="&gt;&gt;servoOptions5.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="servoOptions6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 168</value>
-  </data>
-  <data name="servoOptions6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 27</value>
-  </data>
-  <data name="servoOptions6.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;servoOptions6.Name" xml:space="preserve">
-    <value>servoOptions6</value>
-  </data>
-  <data name="&gt;&gt;servoOptions6.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;servoOptions6.Parent" xml:space="preserve">
-    <value>flowLayoutPanelServos</value>
-  </data>
-  <data name="&gt;&gt;servoOptions6.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="servoOptions7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 201</value>
-  </data>
-  <data name="servoOptions7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>294, 27</value>
-  </data>
-  <data name="servoOptions7.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;servoOptions7.Name" xml:space="preserve">
-    <value>servoOptions7</value>
-  </data>
-  <data name="&gt;&gt;servoOptions7.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;servoOptions7.Parent" xml:space="preserve">
-    <value>flowLayoutPanelServos</value>
-  </data>
-  <data name="&gt;&gt;servoOptions7.ZOrder" xml:space="preserve">
-    <value>6</value>
   </data>
   <data name="tableLayoutPaneltlogs.ColumnCount" type="System.Int32, mscorlib">
     <value>3</value>
@@ -4489,7 +4300,7 @@
     <value>zg1</value>
   </data>
   <data name="&gt;&gt;zg1.Type" xml:space="preserve">
-    <value>ZedGraph.ZedGraphControl, ZedGraph, Version=5.1.5.16727, Culture=neutral, PublicKeyToken=null</value>
+    <value>ZedGraph.ZedGraphControl, ZedGraph, Version=5.1.5.17870, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;zg1.Parent" xml:space="preserve">
     <value>splitContainer1.Panel1</value>
@@ -4525,7 +4336,7 @@
     <value>distanceBar1</value>
   </data>
   <data name="&gt;&gt;distanceBar1.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.DistanceBar, MissionPlanner, Version=1.1.5549.16735, Culture=neutral, PublicKeyToken=null</value>
+    <value>MissionPlanner.Controls.DistanceBar, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;distanceBar1.Parent" xml:space="preserve">
     <value>splitContainer1.Panel2</value>
@@ -4851,9 +4662,6 @@
   <data name="&gt;&gt;splitContainer1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <metadata name="bindingSource1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>307, 17</value>
-  </metadata>
   <data name="&gt;&gt;CHK_CamIcons.Name" xml:space="preserve">
     <value>CHK_CamIcons</value>
   </data>
@@ -5256,6 +5064,183 @@
   <metadata name="Messagetabtimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>345, 57</value>
   </metadata>
+  <metadata name="bindingSourceQuickTab.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1162, 18</value>
+  </metadata>
+  <data name="preFlightChecklist1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="preFlightChecklist1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>330, 550</value>
+  </data>
+  <data name="preFlightChecklist1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;preFlightChecklist1.Name" xml:space="preserve">
+    <value>preFlightChecklist1</value>
+  </data>
+  <data name="&gt;&gt;preFlightChecklist1.Type" xml:space="preserve">
+    <value>MissionPlanner.GCSViews.ConfigurationView.PreFlightChecklist, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;preFlightChecklist1.Parent" xml:space="preserve">
+    <value>tabpreflight</value>
+  </data>
+  <data name="&gt;&gt;preFlightChecklist1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="servoOptions1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="servoOptions1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 27</value>
+  </data>
+  <data name="servoOptions1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;servoOptions1.Name" xml:space="preserve">
+    <value>servoOptions1</value>
+  </data>
+  <data name="&gt;&gt;servoOptions1.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;servoOptions1.Parent" xml:space="preserve">
+    <value>flowLayoutPanelServos</value>
+  </data>
+  <data name="&gt;&gt;servoOptions1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="servoOptions2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 36</value>
+  </data>
+  <data name="servoOptions2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 27</value>
+  </data>
+  <data name="servoOptions2.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;servoOptions2.Name" xml:space="preserve">
+    <value>servoOptions2</value>
+  </data>
+  <data name="&gt;&gt;servoOptions2.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;servoOptions2.Parent" xml:space="preserve">
+    <value>flowLayoutPanelServos</value>
+  </data>
+  <data name="&gt;&gt;servoOptions2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="servoOptions3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 69</value>
+  </data>
+  <data name="servoOptions3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 27</value>
+  </data>
+  <data name="servoOptions3.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;servoOptions3.Name" xml:space="preserve">
+    <value>servoOptions3</value>
+  </data>
+  <data name="&gt;&gt;servoOptions3.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;servoOptions3.Parent" xml:space="preserve">
+    <value>flowLayoutPanelServos</value>
+  </data>
+  <data name="&gt;&gt;servoOptions3.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="servoOptions4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 102</value>
+  </data>
+  <data name="servoOptions4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 27</value>
+  </data>
+  <data name="servoOptions4.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;servoOptions4.Name" xml:space="preserve">
+    <value>servoOptions4</value>
+  </data>
+  <data name="&gt;&gt;servoOptions4.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;servoOptions4.Parent" xml:space="preserve">
+    <value>flowLayoutPanelServos</value>
+  </data>
+  <data name="&gt;&gt;servoOptions4.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="servoOptions5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 135</value>
+  </data>
+  <data name="servoOptions5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 27</value>
+  </data>
+  <data name="servoOptions5.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;servoOptions5.Name" xml:space="preserve">
+    <value>servoOptions5</value>
+  </data>
+  <data name="&gt;&gt;servoOptions5.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;servoOptions5.Parent" xml:space="preserve">
+    <value>flowLayoutPanelServos</value>
+  </data>
+  <data name="&gt;&gt;servoOptions5.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="servoOptions6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 168</value>
+  </data>
+  <data name="servoOptions6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 27</value>
+  </data>
+  <data name="servoOptions6.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;servoOptions6.Name" xml:space="preserve">
+    <value>servoOptions6</value>
+  </data>
+  <data name="&gt;&gt;servoOptions6.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;servoOptions6.Parent" xml:space="preserve">
+    <value>flowLayoutPanelServos</value>
+  </data>
+  <data name="&gt;&gt;servoOptions6.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="servoOptions7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 201</value>
+  </data>
+  <data name="servoOptions7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>294, 27</value>
+  </data>
+  <data name="servoOptions7.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;servoOptions7.Name" xml:space="preserve">
+    <value>servoOptions7</value>
+  </data>
+  <data name="&gt;&gt;servoOptions7.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.ServoOptions, MissionPlanner, Version=1.1.5553.21062, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;servoOptions7.Parent" xml:space="preserve">
+    <value>flowLayoutPanelServos</value>
+  </data>
+  <data name="&gt;&gt;servoOptions7.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <metadata name="bindingSourceGaugesTab.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>154, 57</value>
+  </metadata>
+  <metadata name="bindingSource1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>307, 17</value>
+  </metadata>
   <metadata name="bindingSourceStatusTab.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 57</value>
   </metadata>
@@ -5364,35 +5349,11 @@
   <data name="&gt;&gt;russianHudToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;bindingSourceHud.Name" xml:space="preserve">
-    <value>bindingSourceHud</value>
-  </data>
-  <data name="&gt;&gt;bindingSourceHud.Type" xml:space="preserve">
-    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;dropOutToolStripMenuItem.Name" xml:space="preserve">
     <value>dropOutToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;dropOutToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bindingSourceQuickTab.Name" xml:space="preserve">
-    <value>bindingSourceQuickTab</value>
-  </data>
-  <data name="&gt;&gt;bindingSourceQuickTab.Type" xml:space="preserve">
-    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bindingSourceGaugesTab.Name" xml:space="preserve">
-    <value>bindingSourceGaugesTab</value>
-  </data>
-  <data name="&gt;&gt;bindingSourceGaugesTab.Type" xml:space="preserve">
-    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;bindingSource1.Name" xml:space="preserve">
-    <value>bindingSource1</value>
-  </data>
-  <data name="&gt;&gt;bindingSource1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ZedGraphTimer.Name" xml:space="preserve">
     <value>ZedGraphTimer</value>
@@ -5435,6 +5396,30 @@
   </data>
   <data name="&gt;&gt;Messagetabtimer.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bindingSourceHud.Name" xml:space="preserve">
+    <value>bindingSourceHud</value>
+  </data>
+  <data name="&gt;&gt;bindingSourceHud.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bindingSourceQuickTab.Name" xml:space="preserve">
+    <value>bindingSourceQuickTab</value>
+  </data>
+  <data name="&gt;&gt;bindingSourceQuickTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bindingSourceGaugesTab.Name" xml:space="preserve">
+    <value>bindingSourceGaugesTab</value>
+  </data>
+  <data name="&gt;&gt;bindingSourceGaugesTab.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bindingSource1.Name" xml:space="preserve">
+    <value>bindingSource1</value>
+  </data>
+  <data name="&gt;&gt;bindingSource1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;bindingSourceStatusTab.Name" xml:space="preserve">
     <value>bindingSourceStatusTab</value>
