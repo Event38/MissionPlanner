@@ -7,6 +7,8 @@ The servo values for RC7 (Hatch) are now stored in the parameter file and read f
 Added small notification on bottom of flight data screen for when the camera triggers a picture
 Added icons for when a picture is taken. Green is good, yellow is bad (35 degree roll)
 Checkbox to hide camera icons and button to clear them
+There is no longer a notification when the camera lens closes automatically (the lens will still close)
+The close camera lens command will not be sent in log playback mode
 
 
 * Mission Planner 1.3.6 for Event 38 -Daniel Cironi (2015-02-09)
