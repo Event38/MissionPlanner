@@ -1,4 +1,4 @@
-﻿* Mission Planner 1.3.7 for Event 38 -Daniel Cironi (2015-03-12)
+﻿* Mission Planner 1.3.7 for Event 38 -Daniel Cironi (2015-03-16)
 Added a simple user setup screen that allows users to select camera and model and adjust the GUI based on their choices
 Camera face forward is no longer default in GridUI
 Added a button that allows users to force dataflash logs to erase
