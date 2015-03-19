@@ -827,10 +827,20 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             {
                 CustomMessageBox.Show("WARNING:\nYou must obtain permission from the airport operator and control tower before flying in an airport's airspace!");
                 MainV2.WPinAirports = true; //allow waypoints in airports
+                //save this setting in configuration
+                if (!MainV2.config.Contains("WPinAirports"))
+                    MainV2.config.Add("WPinAirports", true);
+                else
+                    MainV2.config["WPinAirports"] = true;
             }
             else
             {
                 MainV2.WPinAirports = false;
+                //save setting in configuration
+                if (!MainV2.config.Contains("WPinAirports"))
+                    MainV2.config.Add("WPinAirports", false);
+                else
+                    MainV2.config["WPinAirports"] = false;
             }
         }
 

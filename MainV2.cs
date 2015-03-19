@@ -112,7 +112,7 @@ namespace MissionPlanner
         public static bool ShowAirports { get; set; }
         public static bool ShowTFR { get; set; }
 
-        public static bool WPinAirports = false;  //D Cironi
+        public static bool WPinAirports = false;
 
         private Utilities.adsb _adsb;
         public bool EnableADSB
@@ -575,29 +575,33 @@ namespace MissionPlanner
             }
 
             
-            //commented out code below that loads advanced view based on previous configuration
-            //instead the program will always default to non-advanced view - D Cironi (2014-01-12)
-            MainV2.Advanced = false;
+            //switched it back to loading advanced view based on previous configuration  - D Cironi (2014-03-18)
+            //MainV2.Advanced = false;
 
-            //// load this before the other screens get loaded
-            //if (MainV2.config["advancedview"] != null)
-            //{
-            //    MainV2.Advanced = bool.Parse(config["advancedview"].ToString());
-            //}
-            //else
-            //{
-            //    // existing user - enable advanced view
-            //    if (MainV2.config.Count > 3)
-            //    {
-            //        config["advancedview"] = true.ToString();
-            //        MainV2.Advanced = true;
-            //    }
-            //    else
-            //    {
-            //        config["advancedview"] = false.ToString();
-            //    }
-            //}
+            // load this before the other screens get loaded
+            if (MainV2.config["advancedview"] != null)
+            {
+                MainV2.Advanced = bool.Parse(config["advancedview"].ToString());
+            }
+            else
+            {
+                //// existing user - enable advanced view
+                //if (MainV2.config.Count > 3)
+                //{
+                //    config["advancedview"] = true.ToString();
+                //    MainV2.Advanced = true;
+                //}
+                //else
+                //{
+                    config["advancedview"] = false.ToString();
+                //}
+            }
 
+            //also load preference for WP in airport -D Cironi 2015-03-19
+            if(config["WPinAirports"] != null)
+            {
+                WPinAirports = bool.Parse(config["WPinAirports"].ToString());
+            }
 
             try
             {
