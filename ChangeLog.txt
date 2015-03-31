@@ -1,4 +1,7 @@
-﻿** Mission Planner 1.3.76 for Event 38 -Daniel Cironi (2015-03-19)
+﻿* Mission Planner 1.3.77 for Event 38 -Daniel Cironi (2015-03-31)
+Hid the "E384 Plus" option from the User Setup screen for now
+
+* Mission Planner 1.3.76 for Event 38 -Daniel Cironi (2015-03-19)
 "Advanced View" and "WP in Airports" preferences are now saved so the user doesn't have to check these everytime
 
 * Mission Planner 1.3.75 for Event 38 -Daniel Cironi (2015-03-16)

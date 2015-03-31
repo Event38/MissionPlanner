@@ -73,7 +73,6 @@
             this.CMB_Model.Items.AddRange(new object[] {
             "E382",
             "E384",
-            "E384 Plus",
             "Other"});
             this.CMB_Model.Location = new System.Drawing.Point(89, 53);
             this.CMB_Model.Name = "CMB_Model";
