@@ -107,6 +107,7 @@
             this.splitter2 = new BSE.Windows.Forms.Splitter();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.BUT_AddTakeoffWP = new MissionPlanner.Controls.MyButton();
             this.BUT_ClearMission = new MissionPlanner.Controls.MyButton();
             this.BUT_ElevationGraph = new MissionPlanner.Controls.MyButton();
             this.BUT_Survey = new MissionPlanner.Controls.MyButton();
@@ -115,6 +116,7 @@
             this.BUT_loadwpfile = new MissionPlanner.Controls.MyButton();
             this.BUT_saveWPFile = new MissionPlanner.Controls.MyButton();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.coords1 = new MissionPlanner.Controls.Coords();
             this.panel3 = new System.Windows.Forms.Panel();
             this.chk_grid = new System.Windows.Forms.CheckBox();
             this.comboBoxMapType = new System.Windows.Forms.ComboBox();
@@ -204,8 +206,7 @@
             this.panelBASE = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.coords1 = new MissionPlanner.Controls.Coords();
-            this.BUT_AddTakeoffWP = new MissionPlanner.Controls.MyButton();
+            this.BUT_AddLandWP = new MissionPlanner.Controls.MyButton();
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -654,6 +655,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.BUT_AddLandWP);
             this.panel2.Controls.Add(this.BUT_AddTakeoffWP);
             this.panel2.Controls.Add(this.BUT_ClearMission);
             this.panel2.Controls.Add(this.BUT_ElevationGraph);
@@ -664,6 +666,13 @@
             this.panel2.Controls.Add(this.BUT_saveWPFile);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
+            // 
+            // BUT_AddTakeoffWP
+            // 
+            resources.ApplyResources(this.BUT_AddTakeoffWP, "BUT_AddTakeoffWP");
+            this.BUT_AddTakeoffWP.Name = "BUT_AddTakeoffWP";
+            this.BUT_AddTakeoffWP.UseVisualStyleBackColor = true;
+            this.BUT_AddTakeoffWP.Click += new System.EventHandler(this.BUT_AddTakeoffWP_Click);
             // 
             // BUT_ClearMission
             // 
@@ -718,6 +727,15 @@
             this.panel4.Controls.Add(this.coords1);
             resources.ApplyResources(this.panel4, "panel4");
             this.panel4.Name = "panel4";
+            // 
+            // coords1
+            // 
+            this.coords1.Alt = 0D;
+            this.coords1.Lat = 0D;
+            this.coords1.Lng = 0D;
+            resources.ApplyResources(this.coords1, "coords1");
+            this.coords1.Name = "coords1";
+            this.coords1.Vertical = true;
             // 
             // panel3
             // 
@@ -1353,21 +1371,12 @@
             this.timer1.Interval = 1200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // coords1
+            // BUT_AddLandWP
             // 
-            this.coords1.Alt = 0D;
-            this.coords1.Lat = 0D;
-            this.coords1.Lng = 0D;
-            resources.ApplyResources(this.coords1, "coords1");
-            this.coords1.Name = "coords1";
-            this.coords1.Vertical = true;
-            // 
-            // BUT_AddTakeoffWP
-            // 
-            resources.ApplyResources(this.BUT_AddTakeoffWP, "BUT_AddTakeoffWP");
-            this.BUT_AddTakeoffWP.Name = "BUT_AddTakeoffWP";
-            this.BUT_AddTakeoffWP.UseVisualStyleBackColor = true;
-            this.BUT_AddTakeoffWP.Click += new System.EventHandler(this.BUT_AddTakeoffWP_Click);
+            resources.ApplyResources(this.BUT_AddLandWP, "BUT_AddLandWP");
+            this.BUT_AddLandWP.Name = "BUT_AddLandWP";
+            this.BUT_AddLandWP.UseVisualStyleBackColor = true;
+            this.BUT_AddLandWP.Click += new System.EventHandler(this.BUT_AddLandWP_Click);
             // 
             // FlightPlanner
             // 
@@ -1553,5 +1562,6 @@
         private System.Windows.Forms.Label lbl_FlightTimeMain;
         private Controls.MyButton BUT_AddTakeoffWP;
         private Controls.Coords coords1;
+        private Controls.MyButton BUT_AddLandWP;
     }
 }

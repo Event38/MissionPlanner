@@ -48,6 +48,7 @@ namespace MissionPlanner.GCSViews
         altmode currentaltmode = altmode.Relative;
 
         bool grid = false;
+        public bool LandingPointMode; //for setting up landing waypoints -D Cironi 2015-03-31
 
         public static FlightPlanner instance = null;
 
@@ -2778,7 +2779,15 @@ namespace MissionPlanner.GCSViews
                     }
                     else
                     {
-                        AddWPToMap(currentMarker.Position.Lat, currentMarker.Position.Lng, 0);
+                        if (LandingPointMode) //for setting up landing waypoints - D Cironi 2015-03-31
+                        {
+                            SetupLandingWaypoints();
+                            LandingPointMode = false;
+                        }
+                        else
+                        {
+                            AddWPToMap(currentMarker.Position.Lat, currentMarker.Position.Lng, 0);
+                        }
                     }
                 }
                 else
@@ -2860,6 +2869,7 @@ namespace MissionPlanner.GCSViews
                 }
             }
         }
+
 
         // move current marker with left holding
         void MainMap_MouseMove(object sender, MouseEventArgs e)
@@ -6004,6 +6014,99 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             ChangeColumnHeader(MAVLink.MAV_CMD.TAKEOFF.ToString());
 
+            writeKML();
+        }
+
+        private void BUT_AddLandWP_Click(object sender, EventArgs e)
+        {
+            CustomMessageBox.Show("Please select location of landing on the map");
+            LandingPointMode = true;
+        }
+
+
+        void SetupLandingWaypoints()
+        {
+
+            //deal with the direction input of the user
+            string direction = "0";
+            if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Direction", "Please enter your landing direction in degrees (0 = North)", ref direction))
+                return;
+
+            if(Convert.ToDouble(direction) > 360 || Convert.ToDouble(direction) < 0)
+            {
+                CustomMessageBox.Show("Invaild Direction. Please choose a value from 0 to 360 degrees.");
+                return;
+            }
+
+            //deal with altitude of first waypoint
+            string FirstWPAlt = "100";
+            if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("First Waypoint", "Please enter the altitude of you first approach waypoint", ref FirstWPAlt))
+                return;
+
+
+            //deal with gradient from first to second waypoint
+            string WP1ToWP2Gradient = "30";
+            if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("First Gradient", "Please enter the gradient from the first waypoint to the second.", ref WP1ToWP2Gradient))
+                return;
+
+            double WP1ToWP2GroundDistance = Convert.ToDouble(FirstWPAlt) * Math.Sin(Math.PI - Math.PI / 2 - (Math.PI * Convert.ToDouble(WP1ToWP2Gradient) / 180)) / Math.Sin(Math.PI * Convert.ToDouble(WP1ToWP2Gradient) / 180);
+
+
+            //deal with altitude of second waypoint
+            string SecondWPAlt = "10";
+            if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Second Waypoint", "Please enter the altitude of you second approach waypoint", ref SecondWPAlt))
+                return;
+
+            //deal with gradient from second to third waypoint
+            string WP2ToWP3Gradient = "30";
+            if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Second Gradient", "Please enter the gradient from the second waypoint to the third.", ref WP2ToWP3Gradient))
+                return;
+
+            double WP2ToWP3GroundDistance = Convert.ToDouble(SecondWPAlt) * Math.Sin(Math.PI - Math.PI / 2 - (Math.PI * Convert.ToDouble(WP2ToWP3Gradient) / 180)) / Math.Sin(Math.PI * Convert.ToDouble(WP2ToWP3Gradient) / 180);
+
+
+            //direction = Convert.ToString(Convert.ToDouble(direction) % 90);
+
+            double directionInRads = Math.PI * Convert.ToDouble(direction) / 180;
+
+            double LatDistance = .000008998 * Math.Sin(Math.PI - directionInRads - Math.PI / 2) / Math.Sin(Math.PI / 2);    //.000008998 degrees LAT = 1m east and west          
+            double LngDistance = .00001195 * Math.Sin(directionInRads) / Math.Sin(Math.PI / 2);                             //.000011950 degrees LNG = 1m north and south
+
+
+            //add first wp of landing procedure
+
+            selectedrow = Commands.Rows.Add();
+
+            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+
+            ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+
+            setfromMap(MouseDownEnd.Lat - (LatDistance * (WP1ToWP2GroundDistance + WP2ToWP3GroundDistance)), MouseDownEnd.Lng - (LngDistance * (WP1ToWP2GroundDistance + WP2ToWP3GroundDistance)), Convert.ToInt32(FirstWPAlt));
+
+            writeKML();
+
+
+            //add second wp of landing procedure
+            selectedrow = Commands.Rows.Add();
+
+            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+
+            ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+
+            setfromMap(MouseDownEnd.Lat - (LatDistance * WP2ToWP3GroundDistance), MouseDownEnd.Lng - (LngDistance * WP2ToWP3GroundDistance), Convert.ToInt32(SecondWPAlt));
+
+            writeKML();
+
+
+            //final wp in landing procedure
+            selectedrow = Commands.Rows.Add();
+
+            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
+
+            ChangeColumnHeader(MAVLink.MAV_CMD.LAND.ToString());
+
+            setfromMap(MouseDownEnd.Lat, MouseDownEnd.Lng, 1);
+            
             writeKML();
         }
     }
