@@ -6038,53 +6038,48 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 return;
             }
 
-            //deal with altitude of first waypoint
+            //convert direction in degrees to radians for calculations
+            double directionInRads = Math.PI * Convert.ToDouble(direction) / 180;
+
+            //user input altitude of first waypoint
             string FirstWPAlt = "100";
             if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("First Waypoint", "Please enter the altitude of you first approach waypoint", ref FirstWPAlt))
                 return;
 
-
-            //deal with gradient from first to second waypoint
+            //user input gradient from first to second waypoint
             string WP1ToWP2Gradient = "30";
             if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("First Gradient", "Please enter the gradient from the first waypoint to the second.", ref WP1ToWP2Gradient))
-                return;
+                return;            
 
-            double WP1ToWP2GroundDistance = Convert.ToDouble(FirstWPAlt) * Math.Sin(Math.PI - Math.PI / 2 - (Math.PI * Convert.ToDouble(WP1ToWP2Gradient) / 180)) / Math.Sin(Math.PI * Convert.ToDouble(WP1ToWP2Gradient) / 180);
-
-
-            //deal with altitude of second waypoint
+            //user input altitude of second waypoint
             string SecondWPAlt = "10";
             if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Second Waypoint", "Please enter the altitude of you second approach waypoint", ref SecondWPAlt))
                 return;
 
-            //deal with gradient from second to third waypoint
+            //user input gradient from second to third waypoint
             string WP2ToWP3Gradient = "30";
             if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Second Gradient", "Please enter the gradient from the second waypoint to the third.", ref WP2ToWP3Gradient))
                 return;
 
-            double WP2ToWP3GroundDistance = Convert.ToDouble(SecondWPAlt) * Math.Sin(Math.PI - Math.PI / 2 - (Math.PI * Convert.ToDouble(WP2ToWP3Gradient) / 180)) / Math.Sin(Math.PI * Convert.ToDouble(WP2ToWP3Gradient) / 180);
+            //determine ground distance between waypoints to get the proper gradient
+            double WP2ToWP3GroundDistance = (Convert.ToDouble(SecondWPAlt) - 1) / Convert.ToDouble(WP2ToWP3Gradient) * 100;
+            double WP1ToWP2GroundDistance = (Convert.ToDouble(FirstWPAlt)  - Convert.ToDouble(SecondWPAlt)) / Convert.ToDouble(WP1ToWP2Gradient) * 100;
 
-
-            //direction = Convert.ToString(Convert.ToDouble(direction) % 90);
-
-            double directionInRads = Math.PI * Convert.ToDouble(direction) / 180;
-
-            double LatDistance = .000008998 * Math.Sin(Math.PI - directionInRads - Math.PI / 2) / Math.Sin(Math.PI / 2);    //.000008998 degrees LAT = 1m east and west          
-            double LngDistance = .00001195 * Math.Sin(directionInRads) / Math.Sin(Math.PI / 2);                             //.000011950 degrees LNG = 1m north and south
-
+            //determine where to place waypoints based on angle of landing, these values put a waypoint at the proper angle 1m away,
+            //in order to get the final waypoint value we must multiply these values by the ground distance between waypoints in order to get the proper angle and distance
+            double LatDistance = .000008998 * Math.Sin(Math.PI - directionInRads - Math.PI / 2) / Math.Sin(Math.PI / 2);     //.000008998 degrees LAT = 1m east and west          
+            double LngDistance = .000011950 * Math.Sin(directionInRads) / Math.Sin(Math.PI / 2);                             //.000011950 degrees LNG = 1m north and south
 
             //add first wp of landing procedure
-
             selectedrow = Commands.Rows.Add();
 
             Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
 
             ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
 
-            setfromMap(MouseDownEnd.Lat - (LatDistance * (WP1ToWP2GroundDistance + WP2ToWP3GroundDistance)), MouseDownEnd.Lng - (LngDistance * (WP1ToWP2GroundDistance + WP2ToWP3GroundDistance)), Convert.ToInt32(FirstWPAlt));
-
+            setfromMap(MouseDownEnd.Lat - (LatDistance * (Convert.ToDouble(WP1ToWP2GroundDistance) + Convert.ToDouble(WP2ToWP3GroundDistance))), MouseDownEnd.Lng - (LngDistance * (Convert.ToDouble(WP1ToWP2GroundDistance) + Convert.ToDouble(WP2ToWP3GroundDistance))), Convert.ToInt32(FirstWPAlt));
             writeKML();
-
+            //
 
             //add second wp of landing procedure
             selectedrow = Commands.Rows.Add();
@@ -6093,10 +6088,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
 
-            setfromMap(MouseDownEnd.Lat - (LatDistance * WP2ToWP3GroundDistance), MouseDownEnd.Lng - (LngDistance * WP2ToWP3GroundDistance), Convert.ToInt32(SecondWPAlt));
+            setfromMap(MouseDownEnd.Lat - (LatDistance * Convert.ToDouble(WP2ToWP3GroundDistance)), MouseDownEnd.Lng - (LngDistance * Convert.ToDouble(WP2ToWP3GroundDistance)), Convert.ToInt32(SecondWPAlt));
 
             writeKML();
-
+            //
 
             //final wp in landing procedure
             selectedrow = Commands.Rows.Add();
@@ -6108,6 +6103,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             setfromMap(MouseDownEnd.Lat, MouseDownEnd.Lng, 1);
             
             writeKML();
+            //
         }
     }
 }
