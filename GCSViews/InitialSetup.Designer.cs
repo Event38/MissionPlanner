@@ -82,6 +82,8 @@
             this.configMotor1 = new MissionPlanner.GCSViews.ConfigurationView.ConfigMotorTest();
             this.backstageViewPagehwbt = new MissionPlanner.Controls.BackstageView.BackstageViewPage();
             this.configHWBT1 = new MissionPlanner.GCSViews.ConfigurationView.ConfigHWBT();
+            this.backstageViewPagefwSimple = new MissionPlanner.Controls.BackstageView.BackstageViewPage();
+            this.configFirmwareSimple1 = new MissionPlanner.GCSViews.ConfigurationView.ConfigFirmwareSimple();
             this.backstageViewPageinstfw = new MissionPlanner.Controls.BackstageView.BackstageViewPage();
             ((System.ComponentModel.ISupportInitialize)(this.initialSetupBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -117,6 +119,7 @@
             this.backstageView.Pages.Add(this.backstageViewPageAntTrack);
             this.backstageView.Pages.Add(this.backstageViewPageMotorTest);
             this.backstageView.Pages.Add(this.backstageViewPagehwbt);
+            this.backstageView.Pages.Add(this.backstageViewPagefwSimple);
             this.backstageView.WidthMenu = 172;
             // 
             // backstageViewPagefw
@@ -269,6 +272,7 @@
             // backstageViewPagecompass
             // 
             this.backstageViewPagecompass.Advanced = false;
+            this.backstageViewPagecompass.DataBindings.Add(new System.Windows.Forms.Binding("Show", this.initialSetupBindingSource, "isConnected", true));
             this.backstageViewPagecompass.LinkText = "Compass";
             this.backstageViewPagecompass.Page = this.configHWCompass1;
             this.backstageViewPagecompass.Parent = null;
@@ -516,6 +520,21 @@
             resources.ApplyResources(this.configHWBT1, "configHWBT1");
             this.configHWBT1.Name = "configHWBT1";
             // 
+            // backstageViewPagefwSimple
+            // 
+            this.backstageViewPagefwSimple.Advanced = false;
+            this.backstageViewPagefwSimple.LinkText = "Install Firmware";
+            this.backstageViewPagefwSimple.Page = this.configFirmwareSimple1;
+            this.backstageViewPagefwSimple.Parent = null;
+            this.backstageViewPagefwSimple.Show = true;
+            this.backstageViewPagefwSimple.Spacing = 30;
+            resources.ApplyResources(this.backstageViewPagefwSimple, "backstageViewPagefwSimple");
+            // 
+            // configFirmwareSimple1
+            // 
+            resources.ApplyResources(this.configFirmwareSimple1, "configFirmwareSimple1");
+            this.configFirmwareSimple1.Name = "configFirmwareSimple1";
+            // 
             // backstageViewPageinstfw
             // 
             this.backstageViewPageinstfw.Advanced = true;
@@ -533,6 +552,7 @@
             this.Controls.Add(this.backstageView);
             this.Controls.Add(this.configAccelerometerCalibrationTracker1);
             this.Controls.Add(this.configHWBT1);
+            this.Controls.Add(this.configFirmwareSimple1);
             this.MinimumSize = new System.Drawing.Size(1000, 450);
             this.Name = "InitialSetup";
             resources.ApplyResources(this, "$this");
@@ -545,7 +565,6 @@
 
         #endregion
 
-        private Controls.BackstageView.BackstageView backstageView;
         private ConfigurationView.ConfigFirmware configFirmware1;
         private ConfigurationView.ConfigFirmwareDisabled configFirmwareDisabled1;
         private ConfigurationView.ConfigWizard configWizard1;
@@ -598,5 +617,8 @@
         private ConfigurationView.ConfigHWBT configHWBT1;
         private Controls.BackstageView.BackstageViewPage backstageViewPagemand;
         private Controls.BackstageView.BackstageViewPage backstageViewPagefs;
+        private ConfigurationView.ConfigFirmwareSimple configFirmwareSimple1;
+        private Controls.BackstageView.BackstageView backstageView;
+        public Controls.BackstageView.BackstageViewPage backstageViewPagefwSimple;
     }
 }

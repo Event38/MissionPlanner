@@ -43,20 +43,33 @@ namespace MissionPlanner.GCSViews
         public void Activate()
         {
             initialSetupBindingSource.DataSource = this;
+
+            //Hide the simple install firmware tab if in advanced view
+            if (MainV2.Advanced)
+            {
+                backstageView.Pages[25].Page.Visible = false;
+                backstageView.Pages[25].Show = false;
+            }
+            else
+            {
+                backstageView.Pages[25].Page.Visible = true;
+                backstageView.Pages[25].Show = true;
+            }
+            //
         }
 
         private void HardwareConfig_Load(object sender, EventArgs e)
         {
-            // remeber last page accessed
-            foreach (BackstageViewPage page in backstageView.Pages)
-            {
-                if (page.LinkText == lastpagename && page.Show)
-                {
-                    this.backstageView.ActivatePage(page);
-                    break;
-                }
-            }
-
+            //// remeber last page accessed
+            //foreach (BackstageViewPage page in backstageView.Pages)
+            //{
+            //    if (page.LinkText == lastpagename && page.Show)
+            //    {
+            //        this.backstageView.ActivatePage(page);
+            //        break;
+            //    }
+            //}
+            
             ThemeManager.ApplyThemeTo(this);
         }
 
