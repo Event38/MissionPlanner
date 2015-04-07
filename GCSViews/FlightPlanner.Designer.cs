@@ -107,6 +107,7 @@
             this.splitter2 = new BSE.Windows.Forms.Splitter();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.BUT_AddLandWP = new MissionPlanner.Controls.MyButton();
             this.BUT_AddTakeoffWP = new MissionPlanner.Controls.MyButton();
             this.BUT_ClearMission = new MissionPlanner.Controls.MyButton();
             this.BUT_ElevationGraph = new MissionPlanner.Controls.MyButton();
@@ -206,7 +207,6 @@
             this.panelBASE = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.BUT_AddLandWP = new MissionPlanner.Controls.MyButton();
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -666,6 +666,13 @@
             this.panel2.Controls.Add(this.BUT_saveWPFile);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
+            // 
+            // BUT_AddLandWP
+            // 
+            resources.ApplyResources(this.BUT_AddLandWP, "BUT_AddLandWP");
+            this.BUT_AddLandWP.Name = "BUT_AddLandWP";
+            this.BUT_AddLandWP.UseVisualStyleBackColor = true;
+            this.BUT_AddLandWP.Click += new System.EventHandler(this.BUT_AddLandWP_Click);
             // 
             // BUT_AddTakeoffWP
             // 
@@ -1370,13 +1377,6 @@
             // 
             this.timer1.Interval = 1200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // BUT_AddLandWP
-            // 
-            resources.ApplyResources(this.BUT_AddLandWP, "BUT_AddLandWP");
-            this.BUT_AddLandWP.Name = "BUT_AddLandWP";
-            this.BUT_AddLandWP.UseVisualStyleBackColor = true;
-            this.BUT_AddLandWP.Click += new System.EventHandler(this.BUT_AddLandWP_Click);
             // 
             // FlightPlanner
             // 
