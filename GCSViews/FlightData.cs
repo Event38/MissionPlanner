@@ -3816,5 +3816,12 @@ namespace MissionPlanner.GCSViews
                 CamPoints.IsVisibile = false;
             }
         }
+
+        private void BUT_BTBLand_Click(object sender, EventArgs e)
+        {
+            object land = new MAVLink.mavlink_BTB_land_t();
+
+            MainV2.comPort.sendPacket(land);
+        }
     }
 }
