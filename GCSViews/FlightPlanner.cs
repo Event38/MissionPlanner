@@ -6004,7 +6004,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 }
             }
 
-            selectedrow = Commands.Rows.Add();
+            Commands.Rows.Insert(0, 1); //always make the takeoff waypoint the first waypoint
+            
+            selectedrow = 0;
 
             Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
 
