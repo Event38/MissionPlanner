@@ -892,9 +892,6 @@
     <value>NOTE: The Configuration Tab will NOT display these units, as those are raw values.
 </value>
   </data>
-  <data name="label99.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="&gt;&gt;label99.Name" xml:space="preserve">
     <value>label99</value>
   </data>
@@ -976,9 +973,6 @@
   <data name="CMB_speedunits.TabIndex" type="System.Int32, mscorlib">
     <value>60</value>
   </data>
-  <data name="CMB_speedunits.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="&gt;&gt;CMB_speedunits.Name" xml:space="preserve">
     <value>CMB_speedunits</value>
   </data>
@@ -999,9 +993,6 @@
   </data>
   <data name="CMB_distunits.TabIndex" type="System.Int32, mscorlib">
     <value>61</value>
-  </data>
-  <data name="CMB_distunits.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="&gt;&gt;CMB_distunits.Name" xml:space="preserve">
     <value>CMB_distunits</value>

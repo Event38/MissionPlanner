@@ -1,4 +1,9 @@
-﻿* Mission Planner 1.3.78 for Event 38 -Daniel Cironi (2015-04-06)
+﻿* Mission Planner 1.3.79 for Event 38 -Daniel Cironi (2015-04-14)
+User can now choose to use different speed and distance units
+Adding an auto takeoff point will add it as the first waypoint always
+Changed "Accel/Compass" screen to "Initial Setup"
+
+* Mission Planner 1.3.78 for Event 38 -Daniel Cironi (2015-04-06)
 Fixed camera mode default to Cam_Trig_Dist in Survey screen
 Added a simple install firmware screen for international users
 

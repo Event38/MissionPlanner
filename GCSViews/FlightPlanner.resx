@@ -1139,6 +1139,9 @@
   <data name="BUT_AddLandWP.Text" xml:space="preserve">
     <value>Add Landing WP</value>
   </data>
+  <data name="BUT_AddLandWP.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;BUT_AddLandWP.Name" xml:space="preserve">
     <value>BUT_AddLandWP</value>
   </data>
