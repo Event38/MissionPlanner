@@ -896,8 +896,12 @@ namespace MissionPlanner.GCSViews
                     //int fixme;
                     updateBindingSource();
 
-                    //open or close camera hatch automatically --D Cironi
-                    updateCameraHatch();
+                    //open or close camera hatch automatically if using NX1100 --D Cironi
+                    if(MainV2.instance.UserCamera == "NX1100")
+                    {
+                        updateCameraHatch();
+                    }
+                    
 
                     // Console.WriteLine(DateTime.Now.Millisecond + " done ");
 
@@ -1320,7 +1324,7 @@ namespace MissionPlanner.GCSViews
                     {
                         CHK_AutoHatch.BackgroundImage = MissionPlanner.Properties.Resources.Green_panel1;
 
-                        if (MainV2.comPort.MAV.cs.alt > 30)
+                        if (MainV2.comPort.MAV.cs.alt > 30) 
                         {
                             MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, int.Parse(servoOptions3.TXT_pwm_low.Text), 0, 0, 0, 0, 0); //open hatch
                         }
@@ -1359,30 +1363,28 @@ namespace MissionPlanner.GCSViews
                 {
                     try
                     {
-                        //check to see if 50 meters has been reached
-                        if (MainV2.comPort.MAV.cs.alt > 50)
-                        {
-                            Reached50M = true;
-                            CameraClosed = false; //assume the camera is open anytime above 50m..
-                                                  //...fixes the issue of the camera not closing on any flight after the first because the program already thinks it is closed.
-                        }
+                        ////check to see if 50 meters has been reached
+                        //if (MainV2.comPort.MAV.cs.alt > 50)
+                        //{
+                        //    Reached50M = true;
+                        //    CameraClosed = false; //assume the camera is open anytime above 50m..
+                        //                          //...fixes the issue of the camera not closing on any flight after the first because the program already thinks it is closed.
+                        //}
 
-                        //close camera lens based on parameters
-                        if (MainV2.comPort.MAV.cs.connected && MainV2.comPort.MAV.cs.alt < 20 
-                            && CameraClosed == false && Reached50M == true 
-                            && MainV2.instance.UserCamera.ToString() != "NX1100"
-                            && playingLog == false)
-                        {
-                            if (File.Exists("ShutCamtrig.py"))
-                            {
-                                CameraClosed = true;
-                                Script script = new Script();
-                                script.runScript("ShutCamtrig.py");
-                                //CustomMessageBox.Show("Camera lens closed because of low altitude!!!");
-                            }
-                            else
-                                CustomMessageBox.Show("ERROR in BUT_CloseLens function (ShutCamtrig.py file was not found)");
-                        }
+                        ////close camera lens based on parameters
+                        //if (MainV2.comPort.MAV.cs.connected && MainV2.comPort.MAV.cs.alt < 20 
+                        //    && CameraClosed == false && Reached50M == true 
+                        //    && MainV2.instance.UserCamera.ToString() != "NX1100"
+                        //    && playingLog == false)
+                        //{
+                        //        CameraClosed = true;
+                        //        Script script = new Script();
+                        //        script.runScript("ShutCamtrig.py");
+                        //        //CustomMessageBox.Show("Camera lens closed because of low altitude!!!");
+                        //    
+                        //    else
+                        //        CustomMessageBox.Show("ERROR in BUT_CloseLens function (ShutCamtrig.py file was not found)");
+                        //}
 
                         if (this.Visible)
                         {
