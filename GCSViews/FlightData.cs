@@ -896,12 +896,16 @@ namespace MissionPlanner.GCSViews
                     //int fixme;
                     updateBindingSource();
 
-                    //open or close camera hatch automatically if using NX1100 --D Cironi
-                    if(MainV2.instance.UserCamera == "NX1100")
+                    //open or close camera hatch automatically if using NX1100/check lens on S110 --D Cironi
+                    if(MainV2.instance.UserCamera.ToString() == "Samsung NX1100")
                     {
                         updateCameraHatch();
                     }
-                    
+                    else if(MainV2.instance.UserCamera.ToString() == "Canon S110" || MainV2.instance.UserCamera.ToString() == "Canon SX260")
+                    {
+                        updateCameraLens();
+                    }
+                    //
 
                     // Console.WriteLine(DateTime.Now.Millisecond + " done ");
 
@@ -1353,6 +1357,30 @@ namespace MissionPlanner.GCSViews
             }
         }
 
+        private void updateCameraLens()
+        {
+            //auto close camera lens for Canon S110
+
+            //check to see if 50 meters has been reached
+            if (MainV2.comPort.MAV.cs.alt > 50)
+            {
+                Reached50M = true;
+                CameraClosed = false; //assume the camera is open anytime above 50m..
+                                      //...fixes the issue of the camera not closing on any flight after the first because the program already thinks it is closed.
+            }
+
+            //close camera lens based on parameters
+            if (MainV2.comPort.MAV.cs.connected && MainV2.comPort.MAV.cs.alt < 20
+                && CameraClosed == false && Reached50M == true
+                && playingLog == false)
+            {
+                CameraClosed = true;
+                Script script = new Script();
+                script.runScript("ShutCamtrig.py");
+                //CustomMessageBox.Show("Camera lens closed because of low altitude!!!");
+            }
+        }
+
         private void updateBindingSource()
         {        
             //  run at 25 hz.
@@ -1363,29 +1391,6 @@ namespace MissionPlanner.GCSViews
                 {
                     try
                     {
-                        ////check to see if 50 meters has been reached
-                        //if (MainV2.comPort.MAV.cs.alt > 50)
-                        //{
-                        //    Reached50M = true;
-                        //    CameraClosed = false; //assume the camera is open anytime above 50m..
-                        //                          //...fixes the issue of the camera not closing on any flight after the first because the program already thinks it is closed.
-                        //}
-
-                        ////close camera lens based on parameters
-                        //if (MainV2.comPort.MAV.cs.connected && MainV2.comPort.MAV.cs.alt < 20 
-                        //    && CameraClosed == false && Reached50M == true 
-                        //    && MainV2.instance.UserCamera.ToString() != "NX1100"
-                        //    && playingLog == false)
-                        //{
-                        //        CameraClosed = true;
-                        //        Script script = new Script();
-                        //        script.runScript("ShutCamtrig.py");
-                        //        //CustomMessageBox.Show("Camera lens closed because of low altitude!!!");
-                        //    
-                        //    else
-                        //        CustomMessageBox.Show("ERROR in BUT_CloseLens function (ShutCamtrig.py file was not found)");
-                        //}
-
                         if (this.Visible)
                         {
                             //Console.Write("bindingSource1 ");

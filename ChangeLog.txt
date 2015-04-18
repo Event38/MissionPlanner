@@ -1,4 +1,4 @@
-﻿* Mission Planner 1.3.8 for Event 38 Daniel Cironi (2015-04-17)
+﻿* Mission Planner 1.3.81 for Event 38 Daniel Cironi (2015-04-17)
 Fixed the issue with the flight data screen getting slowed down and choppy when the telemetry signal was weak.
 
 * Mission Planner 1.3.79 for Event 38 -Daniel Cironi (2015-04-14)
