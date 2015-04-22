@@ -1371,6 +1371,50 @@ namespace MissionPlanner
                     plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_CHANGE_SPEED, 0, (int)NUM_UpDownFlySpeed.Value, 0, 0, 0, 0, 0);
                 }
 
+                //add a waypoint before the survey starts in order to line up the plane with the first survey waypoint -D Cironi 2015-04-20
+
+                //find angle between WP 1 and WP 2
+                //double DistInMeters = 0;
+                //double YDistInMeters = 0;
+                //double direction = 0;
+                //double x;
+
+                //DistInMeters = grid[0].GetDistance(grid[1]);
+                //YDistInMeters = (grid[1].Lng - grid[0].Lng) / .000011950;
+                //x = (YDistInMeters * Math.Sin(Math.PI / 2) / DistInMeters);
+                //if(x>1)
+                //{
+                //    x = 1;
+                //}
+
+                //direction = Math.Asin(x);
+
+
+                //convert to radians for calculations
+                double directionInRads = Math.PI * (Convert.ToDouble(NUM_angle.Text) % 180) / 180;
+
+                //determine where to place waypoint based on angle of waypoint, these values put a waypoint at the proper angle 1m away,
+                //in order to get the final waypoint value we must multiply these values by the ground distance between waypoints in order to get the proper angle and distance
+                double LatDistance = .000008998 * Math.Sin(Math.PI - directionInRads - Math.PI / 2) / Math.Sin(Math.PI / 2);     //.000008998 degrees LAT = 1m east and west          
+                double LngDistance = .000011950 * Math.Sin(directionInRads) / Math.Sin(Math.PI / 2);                             //.000011950 degrees LNG = 1m north and south
+
+                if (grid[0].Lat < grid[1].Lat)
+                {
+                    LatDistance = -LatDistance;
+                }
+                if (grid[0].Lng > grid[1].Lng)
+                {
+                    LngDistance = -LngDistance;
+                }
+
+                if ((directionInRads > Math.PI/2 && directionInRads < Math.PI) || (directionInRads > 3 * Math.PI/2 && directionInRads < 2* Math.PI))
+                {
+                    LatDistance = -LatDistance;
+                }
+
+                //add wp
+                AddWP(grid[0].Lng - (LngDistance * 100), grid[0].Lat + (LatDistance * 100), grid[0].Alt);
+
                 int i = 0;
                 grid.ForEach(plla =>
                 {
