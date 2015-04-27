@@ -62,7 +62,6 @@
             this.rad_repeatservo = new System.Windows.Forms.RadioButton();
             this.rad_trigdist = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.BUT_samplephoto = new MissionPlanner.Controls.MyButton();
             this.label21 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -80,7 +79,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.BUT_save = new MissionPlanner.Controls.MyButton();
             this.tabGrid = new System.Windows.Forms.TabPage();
             this.groupBox_copter = new System.Windows.Forms.GroupBox();
             this.TXT_headinghold = new System.Windows.Forms.TextBox();
@@ -127,10 +125,12 @@
             this.CHK_grid = new System.Windows.Forms.CheckBox();
             this.CHK_markers = new System.Windows.Forms.CheckBox();
             this.CHK_boundary = new System.Windows.Forms.CheckBox();
-            this.BUT_Accept = new MissionPlanner.Controls.MyButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TRK_zoom = new MissionPlanner.Controls.MyTrackBar();
             this.map = new MissionPlanner.Controls.myGMAP();
+            this.BUT_Accept = new MissionPlanner.Controls.MyButton();
+            this.BUT_samplephoto = new MissionPlanner.Controls.MyButton();
+            this.BUT_save = new MissionPlanner.Controls.MyButton();
             this.groupBox5.SuspendLayout();
             this.tabCamera.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -427,13 +427,6 @@
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
-            // BUT_samplephoto
-            // 
-            resources.ApplyResources(this.BUT_samplephoto, "BUT_samplephoto");
-            this.BUT_samplephoto.Name = "BUT_samplephoto";
-            this.BUT_samplephoto.UseVisualStyleBackColor = true;
-            this.BUT_samplephoto.Click += new System.EventHandler(this.BUT_samplephoto_Click);
-            // 
             // label21
             // 
             resources.ApplyResources(this.label21, "label21");
@@ -544,13 +537,6 @@
             // 
             resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
-            // 
-            // BUT_save
-            // 
-            resources.ApplyResources(this.BUT_save, "BUT_save");
-            this.BUT_save.Name = "BUT_save";
-            this.BUT_save.UseVisualStyleBackColor = true;
-            this.BUT_save.Click += new System.EventHandler(this.BUT_save_Click);
             // 
             // tabGrid
             // 
@@ -863,6 +849,7 @@
             // 
             // CMB_camera
             // 
+            this.CMB_camera.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CMB_camera.FormattingEnabled = true;
             resources.ApplyResources(this.CMB_camera, "CMB_camera");
             this.CMB_camera.Name = "CMB_camera";
@@ -966,13 +953,6 @@
             this.CHK_boundary.UseVisualStyleBackColor = true;
             this.CHK_boundary.CheckedChanged += new System.EventHandler(this.domainUpDown1_ValueChanged);
             // 
-            // BUT_Accept
-            // 
-            resources.ApplyResources(this.BUT_Accept, "BUT_Accept");
-            this.BUT_Accept.Name = "BUT_Accept";
-            this.BUT_Accept.UseVisualStyleBackColor = true;
-            this.BUT_Accept.Click += new System.EventHandler(this.BUT_Accept_Click);
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabSimple);
@@ -1019,6 +999,27 @@
             this.map.Zoom = 3D;
             this.map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.map_MouseDown);
             this.map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.map_MouseMove);
+            // 
+            // BUT_Accept
+            // 
+            resources.ApplyResources(this.BUT_Accept, "BUT_Accept");
+            this.BUT_Accept.Name = "BUT_Accept";
+            this.BUT_Accept.UseVisualStyleBackColor = true;
+            this.BUT_Accept.Click += new System.EventHandler(this.BUT_Accept_Click);
+            // 
+            // BUT_samplephoto
+            // 
+            resources.ApplyResources(this.BUT_samplephoto, "BUT_samplephoto");
+            this.BUT_samplephoto.Name = "BUT_samplephoto";
+            this.BUT_samplephoto.UseVisualStyleBackColor = true;
+            this.BUT_samplephoto.Click += new System.EventHandler(this.BUT_samplephoto_Click);
+            // 
+            // BUT_save
+            // 
+            resources.ApplyResources(this.BUT_save, "BUT_save");
+            this.BUT_save.Name = "BUT_save";
+            this.BUT_save.UseVisualStyleBackColor = true;
+            this.BUT_save.Click += new System.EventHandler(this.BUT_save_Click);
             // 
             // GridUI
             // 

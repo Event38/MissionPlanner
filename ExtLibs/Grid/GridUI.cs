@@ -355,7 +355,7 @@ namespace MissionPlanner
 
         void savesettings()
         {
-            plugin.Host.config["grid_camera"] = MainV2.instance.UserCamera.ToString();
+            //plugin.Host.config["grid_camera"] = MainV2.instance.UserCamera.ToString();
             //don't save the camera setting from GridUI, use the UserCamera variable from UserSetup instead -D Cironi 2015-03-02
             plugin.Host.config["grid_alt"] = NUM_altitude.Value.ToString();
             plugin.Host.config["grid_angle"] = NUM_angle.Value.ToString();
@@ -1350,6 +1350,11 @@ namespace MissionPlanner
 
         private void BUT_Accept_Click(object sender, EventArgs e)
         {
+            if(CMB_camera.Text == String.Empty)
+            {
+                CustomMessageBox.Show("Please select a camera");
+            }
+
             if (grid != null && grid.Count > 0)
             {
                 MainV2.instance.FlightPlanner.quickadd = true;
