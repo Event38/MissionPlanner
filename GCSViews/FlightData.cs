@@ -897,13 +897,18 @@ namespace MissionPlanner.GCSViews
                     updateBindingSource();
 
                     //open or close camera hatch automatically if using NX1100/check lens on S110 --D Cironi
-                    if(MainV2.instance.UserCamera.ToString() == "Samsung NX1100")
+                    if (lastCameraUpdate.AddSeconds(5) < DateTime.Now && MainV2.comPort.MAV.cs.connected) //do every 5 seconds
                     {
-                        updateCameraHatch();
-                    }
-                    else if(MainV2.instance.UserCamera.ToString() == "Canon S110" || MainV2.instance.UserCamera.ToString() == "Canon SX260")
-                    {
-                        updateCameraLens();
+                        if (MainV2.instance.UserCamera.ToString() == "Samsung NX1100")
+                        {
+                            updateCameraHatch();
+                        }
+                        else if (MainV2.instance.UserCamera.ToString() == "Canon S110" || MainV2.instance.UserCamera.ToString() == "Canon SX260")
+                        {
+                            updateCameraLens();
+                        }
+
+                        lastCameraUpdate = DateTime.Now;
                     }
                     //
 
@@ -1312,6 +1317,7 @@ namespace MissionPlanner.GCSViews
         }
 
         DateTime lastscreenupdate = DateTime.Now;
+        DateTime lastCameraUpdate = DateTime.Now;
         public bool CameraClosed;
         public bool Reached50M;
 
@@ -1319,7 +1325,7 @@ namespace MissionPlanner.GCSViews
         private void updateCameraHatch()
         {
             count = count + 1;
-            if(count > 40 && !playingLog && MainV2.comPort.MAV.cs.connected) //only run this code every 40th time. Prevents slow parameter retrieval on initial connection.
+            if(!playingLog && MainV2.comPort.MAV.cs.connected) //only run this code every 40th time. Prevents slow parameter retrieval on initial connection.
             {
                 count = 0;
                 if (tabControlactions.TabPages.Contains(tabActions)) //if in advanced mode
