@@ -1229,6 +1229,19 @@ namespace MissionPlanner.GCSViews
                     }
 
                     lbl_distance.Text = rm.GetString("lbl_distance.Text") + ": " + FormatDistance(dist + homedist, false);
+                    //update flight time when distance is updated
+                    if (MainV2.config["distunits"].ToString() == "Meters")
+                    {
+                        double seconds = (Convert.ToDouble(dist + homedist) * 1000) / 13; //13 m/s flight speed
+                        lbl_FlightTimeMainData.Text = secondsToNice(seconds);
+                    }
+                    else if (MainV2.config["distunits"].ToString() == "Feet")
+                    {
+                        double distMiles = 0.621371 * dist;
+                        double homeDistMiles = 0.621371 * homedist;
+                        double seconds = (Convert.ToDouble(distMiles + homeDistMiles) * 5280) / 42.65; //42.65 feet/s flight speed
+                        lbl_FlightTimeMainData.Text = secondsToNice(seconds);
+                    }
                 }
 
                 setgradanddistandaz();
@@ -6107,5 +6120,45 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             writeKML();
             //
         }
+
+        private void lbl_distance_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        string secondsToNice(double seconds)
+        {
+            if (seconds < 0)
+                return "Infinity Seconds";
+
+            double secs = seconds % 60;
+            int mins = (int)(seconds / 60) % 60;
+            int hours = (int)(seconds / 3600) % 24;
+
+            if (hours > 0)
+            {
+                return hours + ":" + mins.ToString("00") + ":" + secs.ToString("00") + " Hours";
+            }
+            else if (mins > 0)
+            {
+                return mins + ":" + secs.ToString("00") + " Minutes";
+            }
+            else
+            {
+                return secs.ToString("0.00") + " Seconds";
+            }
+        }
+
+        //this makes the Action panel look better collapsed -D Cironi 2015-04-23
+        private void panelAction_PanelCollapsing(object sender, BSE.Windows.Forms.XPanderStateChangeEventArgs e)
+        {
+            panelAction.ShowTransparentBackground = false;
+        }
+
+        private void panelAction_PanelExpanding(object sender, BSE.Windows.Forms.XPanderStateChangeEventArgs e)
+        {
+            panelAction.ShowTransparentBackground = true;
+        }
+
     }
 }

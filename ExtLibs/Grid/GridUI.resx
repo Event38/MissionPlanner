@@ -220,13 +220,13 @@
     <value>470, 20</value>
   </data>
   <data name="label31.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 13</value>
+    <value>106, 13</value>
   </data>
   <data name="label31.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
   </data>
   <data name="label31.Text" xml:space="preserve">
-    <value>Flight Time (est):</value>
+    <value>Grid Flight Time (est):</value>
   </data>
   <data name="&gt;&gt;label31.Name" xml:space="preserve">
     <value>label31</value>

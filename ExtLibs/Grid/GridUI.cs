@@ -695,8 +695,8 @@ namespace MissionPlanner
             CalcHeadingHold();
 
             //for the main Flight Planner Stats screen
-            MainV2.instance.FlightPlanner.lbl_FlightTimeMainData.Text = lbl_flighttime.Text;
-            MainV2.instance.FlightPlanner.lbl_DistMainData.Text = lbl_distance.Text;
+            //MainV2.instance.FlightPlanner.lbl_FlightTimeMainData.Text = lbl_flighttime.Text;
+            //MainV2.instance.FlightPlanner.lbl_DistMainData.Text = lbl_distance.Text; //MainV2.instance.FlightPlanner.lbl_distance.Text;
             MainV2.instance.FlightPlanner.lbl_ResolutionMainData.Text = lbl_grndres.Text;
             MainV2.instance.FlightPlanner.lbl_PhotoEveryMainData.Text = lbl_photoevery.Text;
         }
@@ -1373,23 +1373,6 @@ namespace MissionPlanner
 
                 //add a waypoint before the survey starts in order to line up the plane with the first survey waypoint -D Cironi 2015-04-20
 
-                //find angle between WP 1 and WP 2
-                //double DistInMeters = 0;
-                //double YDistInMeters = 0;
-                //double direction = 0;
-                //double x;
-
-                //DistInMeters = grid[0].GetDistance(grid[1]);
-                //YDistInMeters = (grid[1].Lng - grid[0].Lng) / .000011950;
-                //x = (YDistInMeters * Math.Sin(Math.PI / 2) / DistInMeters);
-                //if(x>1)
-                //{
-                //    x = 1;
-                //}
-
-                //direction = Math.Asin(x);
-
-
                 //convert to radians for calculations
                 double directionInRads = Math.PI * (Convert.ToDouble(NUM_angle.Text) % 180) / 180;
 
@@ -1414,6 +1397,9 @@ namespace MissionPlanner
 
                 //add wp
                 AddWP(grid[0].Lng - (LngDistance * 100), grid[0].Lat + (LatDistance * 100), grid[0].Alt);
+
+                //
+
 
                 int i = 0;
                 grid.ForEach(plla =>

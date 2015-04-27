@@ -127,10 +127,8 @@
             this.lbl_FlightTimeMain = new System.Windows.Forms.Label();
             this.lbl_PhotoEveryMainData = new System.Windows.Forms.Label();
             this.lbl_ResolutionMainData = new System.Windows.Forms.Label();
-            this.lbl_DistMainData = new System.Windows.Forms.Label();
             this.lbl_PhotoEveryMain = new System.Windows.Forms.Label();
             this.lbl_ResolutionMain = new System.Windows.Forms.Label();
-            this.lbl_DistMain = new System.Windows.Forms.Label();
             this.panelMap = new System.Windows.Forms.Panel();
             this.lbl_distance = new System.Windows.Forms.Label();
             this.lbl_homedist = new System.Windows.Forms.Label();
@@ -424,9 +422,9 @@
             // 
             // panel5
             // 
+            resources.ApplyResources(this.panel5, "panel5");
             this.panel5.Controls.Add(this.BUT_write);
             this.panel5.Controls.Add(this.BUT_read);
-            resources.ApplyResources(this.panel5, "panel5");
             this.panel5.Name = "panel5";
             // 
             // BUT_write
@@ -445,6 +443,7 @@
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
@@ -452,7 +451,6 @@
             this.panel1.Controls.Add(this.TXT_homealt);
             this.panel1.Controls.Add(this.TXT_homelng);
             this.panel1.Controls.Add(this.TXT_homelat);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // label4
@@ -622,18 +620,21 @@
             this.panelAction.CustomColors.CaptionSelectedGradientBegin = System.Drawing.Color.Transparent;
             this.panelAction.CustomColors.CaptionSelectedGradientEnd = System.Drawing.Color.Transparent;
             this.panelAction.CustomColors.CaptionText = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(87)))), ((int)(((byte)(4)))));
-            this.panelAction.CustomColors.CollapsedCaptionText = System.Drawing.Color.White;
-            this.panelAction.CustomColors.ContentGradientBegin = System.Drawing.SystemColors.ButtonFace;
-            this.panelAction.CustomColors.ContentGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(252)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.panelAction.CustomColors.CollapsedCaptionText = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(87)))), ((int)(((byte)(4)))));
+            this.panelAction.CustomColors.ContentGradientBegin = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(226)))), ((int)(((byte)(150)))));
+            this.panelAction.CustomColors.ContentGradientEnd = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(193)))), ((int)(((byte)(31)))));
             this.panelAction.CustomColors.InnerBorderColor = System.Drawing.SystemColors.Window;
             resources.ApplyResources(this.panelAction, "panelAction");
             this.panelAction.ForeColor = System.Drawing.SystemColors.ControlText;
             this.panelAction.Image = null;
+            this.panelAction.LinearGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
             this.panelAction.Name = "panelAction";
             this.panelAction.ShowExpandIcon = true;
             this.panelAction.ToolTipTextCloseIcon = null;
             this.panelAction.ToolTipTextExpandIconPanelCollapsed = null;
             this.panelAction.ToolTipTextExpandIconPanelExpanded = null;
+            this.panelAction.PanelExpanding += new System.EventHandler<BSE.Windows.Forms.XPanderStateChangeEventArgs>(this.panelAction_PanelExpanding);
+            this.panelAction.PanelCollapsing += new System.EventHandler<BSE.Windows.Forms.XPanderStateChangeEventArgs>(this.panelAction_PanelCollapsing);
             // 
             // splitter2
             // 
@@ -746,11 +747,11 @@
             // 
             // panel3
             // 
+            resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Controls.Add(this.chk_grid);
             this.panel3.Controls.Add(this.lbl_status);
             this.panel3.Controls.Add(this.comboBoxMapType);
             this.panel3.Controls.Add(this.lnk_kml);
-            resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Name = "panel3";
             // 
             // chk_grid
@@ -762,9 +763,9 @@
             // 
             // comboBoxMapType
             // 
+            resources.ApplyResources(this.comboBoxMapType, "comboBoxMapType");
             this.comboBoxMapType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMapType.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxMapType, "comboBoxMapType");
             this.comboBoxMapType.Name = "comboBoxMapType";
             this.toolTip1.SetToolTip(this.comboBoxMapType, resources.GetString("comboBoxMapType.ToolTip"));
             // 
@@ -782,10 +783,8 @@
             this.boxStats.Controls.Add(this.lbl_FlightTimeMain);
             this.boxStats.Controls.Add(this.lbl_PhotoEveryMainData);
             this.boxStats.Controls.Add(this.lbl_ResolutionMainData);
-            this.boxStats.Controls.Add(this.lbl_DistMainData);
             this.boxStats.Controls.Add(this.lbl_PhotoEveryMain);
             this.boxStats.Controls.Add(this.lbl_ResolutionMain);
-            this.boxStats.Controls.Add(this.lbl_DistMain);
             this.boxStats.ForeColor = System.Drawing.SystemColors.ControlText;
             this.boxStats.Name = "boxStats";
             this.boxStats.TabStop = false;
@@ -810,11 +809,6 @@
             resources.ApplyResources(this.lbl_ResolutionMainData, "lbl_ResolutionMainData");
             this.lbl_ResolutionMainData.Name = "lbl_ResolutionMainData";
             // 
-            // lbl_DistMainData
-            // 
-            resources.ApplyResources(this.lbl_DistMainData, "lbl_DistMainData");
-            this.lbl_DistMainData.Name = "lbl_DistMainData";
-            // 
             // lbl_PhotoEveryMain
             // 
             resources.ApplyResources(this.lbl_PhotoEveryMain, "lbl_PhotoEveryMain");
@@ -824,11 +818,6 @@
             // 
             resources.ApplyResources(this.lbl_ResolutionMain, "lbl_ResolutionMain");
             this.lbl_ResolutionMain.Name = "lbl_ResolutionMain";
-            // 
-            // lbl_DistMain
-            // 
-            resources.ApplyResources(this.lbl_DistMain, "lbl_DistMain");
-            this.lbl_DistMain.Name = "lbl_DistMain";
             // 
             // panelMap
             // 
@@ -847,6 +836,7 @@
             // 
             resources.ApplyResources(this.lbl_distance, "lbl_distance");
             this.lbl_distance.Name = "lbl_distance";
+            this.lbl_distance.TextChanged += new System.EventHandler(this.lbl_distance_TextChanged);
             // 
             // lbl_homedist
             // 
@@ -1396,8 +1386,8 @@
             this.panelWaypoints.PerformLayout();
             this.panelAction.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -1553,8 +1543,6 @@
         private System.Windows.Forms.GroupBox boxStats;
         private System.Windows.Forms.Label lbl_PhotoEveryMain;
         private System.Windows.Forms.Label lbl_ResolutionMain;
-        private System.Windows.Forms.Label lbl_DistMain;
-        public System.Windows.Forms.Label lbl_DistMainData;
         public System.Windows.Forms.Label lbl_distance;
         public System.Windows.Forms.Label lbl_PhotoEveryMainData;
         public System.Windows.Forms.Label lbl_ResolutionMainData;
