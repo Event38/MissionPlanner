@@ -80,12 +80,19 @@ namespace MissionPlanner.Log
                             + mine.MAV.aptype.ToString() + Path.DirectorySeparatorChar
                             + hbpacket[3] + Path.DirectorySeparatorChar;
 
+                        string tlogdir = Path.GetDirectoryName(logfile) + Path.DirectorySeparatorChar
+                            + mine.MAV.aptype.ToString() + Path.DirectorySeparatorChar
+                            + "Telemetry Logs" + Path.DirectorySeparatorChar;
+
                         if (!Directory.Exists(destdir))
                             Directory.CreateDirectory(destdir);
+                        if (!Directory.Exists(tlogdir))
+                            Directory.CreateDirectory(tlogdir);
 
                         log.Info("Move log " + logfile + " to " + destdir + Path.GetFileName(logfile));
 
-                        File.Move(logfile, destdir + Path.GetFileName(logfile));
+                        //File.Move(logfile, destdir + Path.GetFileName(logfile));
+                        File.Move(logfile, tlogdir + Path.GetFileName(logfile));
 
                         try
                         {
