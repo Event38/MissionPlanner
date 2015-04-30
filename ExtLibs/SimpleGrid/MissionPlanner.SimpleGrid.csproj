@@ -44,7 +44,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="GMap.NET.WindowsForms">
-      <HintPath>..\..\extLibs\GMap.NET.WindowsForms.dll</HintPath>
+      <HintPath>..\Comms\bin\Release\GMap.NET.WindowsForms.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ProjNet">
