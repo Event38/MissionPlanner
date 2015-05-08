@@ -33,16 +33,16 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 lblGPS.Text = "3D fix or satellites failed or both";
             }
 
-            if (MainV2.comPort.MAV.cs.linkqualitygcs >= 95)
+            if (MainV2.comPort.MAV.cs.linkqualitygcs >= 90)
             {
                 lblTel.Image = MissionPlanner.Properties.Resources.Green_panel1;
-                lblTel.Text = "signal >= 95%";
+                lblTel.Text = "signal >= 90%";
                 chBoxTel.Checked = true;
             }
             else
             {
                 lblTel.Image = MissionPlanner.Properties.Resources.Red_panel;
-                lblTel.Text = "signal < 95%";
+                lblTel.Text = "signal < 90%";
                 chBoxTel.Checked = false;
             }
 
