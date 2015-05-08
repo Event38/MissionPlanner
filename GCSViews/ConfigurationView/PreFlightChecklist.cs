@@ -65,18 +65,18 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 chBoxBattery.Checked = false;
             }
 
-            if (MainV2.comPort.MAV.cs.mode.Equals("FBWA", StringComparison.OrdinalIgnoreCase))
-            {
-                lblRemote.Text = MainV2.comPort.MAV.cs.mode;
-                lblRemote.Image = MissionPlanner.Properties.Resources.Green_panel1;
-                chBoxRemote.Checked = true;
-            }
-            else
-            {
-                lblRemote.Text = MainV2.comPort.MAV.cs.mode;
-                lblRemote.Image = MissionPlanner.Properties.Resources.Red_panel;
-                chBoxRemote.Checked = false;
-            }
+            //if (MainV2.comPort.MAV.cs.mode.Equals("FBWA", StringComparison.OrdinalIgnoreCase))
+            //{
+            //    lblRemote.Text = MainV2.comPort.MAV.cs.mode;
+            //    lblRemote.Image = MissionPlanner.Properties.Resources.Green_panel1;
+            //    chBoxRemote.Checked = true;
+            //}
+            //else
+            //{
+            //    lblRemote.Text = MainV2.comPort.MAV.cs.mode;
+            //    lblRemote.Image = MissionPlanner.Properties.Resources.Red_panel;
+            //    chBoxRemote.Checked = false;
+            //}
 
             if (MainV2.comPort.MAV.cs.alt <= 10)
             {
