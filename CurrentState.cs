@@ -731,7 +731,7 @@ namespace MissionPlanner
                                 Bitmap BadCamIcon = new Bitmap(MissionPlanner.Properties.Resources.CamIconYellow, 40, 40);
 
 
-                                PointLatLng CamMessagePoint = new PointLatLng(CamLatDbl, CamLngDbl);
+                                PointLatLng CamMessagePoint = new PointLatLng(CamLatDbl - .00007, CamLngDbl); //offset .00007 so the icon is centered on plane's location
                                 GMarkerGoogle CamPoint = new GMarkerGoogle(CamMessagePoint, GMarkerGoogleType.none);
                                 //drop red (bad) icon if roll is above 35 degrees
                                 if(status.roll > 35 || status.roll < -35)
