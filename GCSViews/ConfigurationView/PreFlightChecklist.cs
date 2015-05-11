@@ -78,18 +78,18 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             //    chBoxRemote.Checked = false;
             //}
 
-            if (MainV2.comPort.MAV.cs.alt <= 10)
-            {
-                lblAltitude.Text = MainV2.comPort.MAV.cs.alt.ToString();
-                lblAltitude.Image = MissionPlanner.Properties.Resources.Green_panel1;
-                chBoxAltitude.Checked = true;
-            }
-            else
-            {
-                lblAltitude.Text = MainV2.comPort.MAV.cs.alt.ToString();
-                lblAltitude.Image = MissionPlanner.Properties.Resources.Red_panel;
-                chBoxAltitude.Checked = false;
-            }
+            //if (MainV2.comPort.MAV.cs.alt <= 10)
+            //{
+            //    lblAltitude.Text = MainV2.comPort.MAV.cs.alt.ToString();
+            //    lblAltitude.Image = MissionPlanner.Properties.Resources.Green_panel1;
+            //    chBoxAltitude.Checked = true;
+            //}
+            //else
+            //{
+            //    lblAltitude.Text = MainV2.comPort.MAV.cs.alt.ToString();
+            //    lblAltitude.Image = MissionPlanner.Properties.Resources.Red_panel;
+            //    chBoxAltitude.Checked = false;
+            //}
 
             BindUserCheckList();
         }
@@ -133,6 +133,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             SetColorAndTextOnState(lblUWing, chBoxUWing);
 
             SetColorAndTextOnState(lblWPCheck, CHK_WPCheck);
+
+            SetColorAndTextOnState(lbl_CompassCheck, CHK_CompassCheck);
         }
 
         private void SetColorAndTextOnState(Label lbl, CheckBox chBox)
