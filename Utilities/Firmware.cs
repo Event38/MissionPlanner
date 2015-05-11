@@ -13,6 +13,7 @@ using log4net;
 using px4uploader;
 using System.Collections;
 using System.Xml.Serialization;
+using System.Threading;
 
 namespace MissionPlanner.Utilities
 {
@@ -801,7 +802,7 @@ namespace MissionPlanner.Utilities
                     {
                         updateProgress(0, "Upload");
                         up.upload(fw);
-                        updateProgress(100, "Upload Done");
+                        updateProgress(98, "Almost Done"); //Almost done, still have to wait for IO firmware upgrade below -D Cironi
                     }
                     catch (Exception ex)
                     {
@@ -816,7 +817,10 @@ namespace MissionPlanner.Utilities
                     }
 
                     // wait for IO firmware upgrade and boot to a mavlink state
-                    CustomMessageBox.Show("Please wait for the musical tones to finish before clicking OK");
+                    //CustomMessageBox.Show("Please wait for the musical tones to finish before clicking OK");
+                    //instead of trusting user to wait on tone, we just have the upload take an extra 20 seconds.
+                    Thread.Sleep(20000);
+                    updateProgress(100, "Done");
 
                     return true;
                 }
