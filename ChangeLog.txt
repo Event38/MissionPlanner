@@ -1,4 +1,13 @@
-﻿* Mission Planner 1.3.81 for Event 38 Daniel Cironi (2015-04-17)
+﻿* Mission Planner 1.3.83 for Event 38 -Daniel Cironi (2015-05-11)
+Removed altitude check and transmitter mode check from preflight checklist
+Added compass check and camera check to pre flight checklist
+There is no longer a dialog to "wait for musical tones" when installing firmware, instead the uploader takes a extra 20 seconds to complete rebooting
+Camera Icons are offset so that they line up with flight path better
+Changed where TLOGs are saved. They are now all in their own folder
+An extra WP is added when you perform a survey. This WP will help line the plane up for its mission.
+Minor change to the stats displayed on the flight planner screen.
+
+* Mission Planner 1.3.81 for Event 38 -Daniel Cironi (2015-04-17)
 Fixed the issue with the flight data screen getting slowed down and choppy when the telemetry signal was weak.
 
 * Mission Planner 1.3.79 for Event 38 -Daniel Cironi (2015-04-14)
