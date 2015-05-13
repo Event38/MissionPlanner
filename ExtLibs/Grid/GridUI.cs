@@ -281,7 +281,7 @@ namespace MissionPlanner
 
         void loadsettings()
         {
-            if(MainV2.instance.UserCamera.ToString() != string.Empty)   //load camera choice from initial UserSetup
+            if(MainV2.instance.UserCamera != null)   //load camera choice from initial UserSetup
                 CMB_camera.Text = MainV2.instance.UserCamera.ToString();
 
             if (plugin.Host.config.ContainsKey("grid_camera"))
@@ -1353,6 +1353,7 @@ namespace MissionPlanner
             if(CMB_camera.Text == String.Empty)
             {
                 CustomMessageBox.Show("Please select a camera");
+                return;
             }
 
             if (grid != null && grid.Count > 0)
