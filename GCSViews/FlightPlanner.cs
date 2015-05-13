@@ -1229,18 +1229,27 @@ namespace MissionPlanner.GCSViews
                     }
 
                     lbl_distance.Text = rm.GetString("lbl_distance.Text") + ": " + FormatDistance(dist + homedist, false);
+
                     //update flight time when distance is updated
-                    if (MainV2.config["distunits"].ToString() == "Meters")
+                    if (MainV2.config["distunits"] == null) //default to meters if no config for distunits
                     {
                         double seconds = (Convert.ToDouble(dist + homedist) * 1000) / 13; //13 m/s flight speed
                         lbl_FlightTimeMainData.Text = secondsToNice(seconds);
                     }
-                    else if (MainV2.config["distunits"].ToString() == "Feet")
+                    else
                     {
-                        double distMiles = 0.621371 * dist;
-                        double homeDistMiles = 0.621371 * homedist;
-                        double seconds = (Convert.ToDouble(distMiles + homeDistMiles) * 5280) / 42.65; //42.65 feet/s flight speed
-                        lbl_FlightTimeMainData.Text = secondsToNice(seconds);
+                        if (MainV2.config["distunits"].ToString() == "Meters")
+                        {
+                            double seconds = (Convert.ToDouble(dist + homedist) * 1000) / 13; //13 m/s flight speed
+                            lbl_FlightTimeMainData.Text = secondsToNice(seconds);
+                        }
+                        else if (MainV2.config["distunits"].ToString() == "Feet")
+                        {
+                            double distMiles = 0.621371 * dist;
+                            double homeDistMiles = 0.621371 * homedist;
+                            double seconds = (Convert.ToDouble(distMiles + homeDistMiles) * 5280) / 42.65; //42.65 feet/s flight speed
+                            lbl_FlightTimeMainData.Text = secondsToNice(seconds);
+                        }
                     }
                 }
 
