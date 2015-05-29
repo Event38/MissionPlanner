@@ -2226,15 +2226,15 @@ namespace MissionPlanner
 
             Program.Splash.Close();
 
-            //Show User Setup Screen -D Cironi 2015-02-27
-            if (SaveUserSetup == false)
-            {
-                UserSetup.ShowDialog();
-            }
-            else
-            {
-                updateUserSetup();
-            }
+            ////Show User Setup Screen -D Cironi 2015-02-27 -commented out 2015-05-29
+            //if (SaveUserSetup == false)
+            //{
+            //    UserSetup.ShowDialog();
+            //}
+            //else
+            //{
+            //    updateUserSetup();
+            //}
 
 
 

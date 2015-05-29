@@ -390,7 +390,7 @@ namespace MissionPlanner
             plugin.Host.config["grid_copter_headinghold_chk"] = CHK_copter_headinghold.Checked.ToString();
         }
 
-        private void xmlcamera(bool write, string filename = "cameras.xml")
+        private void xmlcamera(bool write, string filename = "camerasBuiltIn.xml")
         {
             bool exists = File.Exists(Path.GetDirectoryName(Application.ExecutablePath) + Path.DirectorySeparatorChar + filename);
 
@@ -1112,6 +1112,9 @@ namespace MissionPlanner
             if (cameras.ContainsKey(CMB_camera.Text))
             {
                 camerainfo camera = cameras[CMB_camera.Text];
+                MainV2.instance.UserCamera = CMB_camera.Text; //set user global camera setting
+                MainV2.instance.SaveUserSetup = true;
+                MainV2.instance.updateUserSetup(); //update user settings
 
                 NUM_focallength.Value = (decimal)camera.focallen;
                 TXT_imgheight.Text = camera.imageheight.ToString();
