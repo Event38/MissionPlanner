@@ -1204,8 +1204,8 @@ namespace MissionPlanner
                     //            }
                     //        }
                     //    }
-                        catch (Exception ex) { log.Error(ex); }
-                    }
+                    //    catch (Exception ex) { log.Error(ex); }
+                    //}
 
                     FlightData.CheckBatteryShow();
 
