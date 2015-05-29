@@ -3176,6 +3176,7 @@ namespace MissionPlanner.GCSViews
         private void TXT_homelat_Enter(object sender, EventArgs e)
         {
             sethome = true;
+            polygongridmode = false; //exit polygon mode so user can set home -D Cironi 2015-05-29
             CustomMessageBox.Show("Click on the Map to set Home ");
         }
 

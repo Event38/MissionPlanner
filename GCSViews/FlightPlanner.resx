@@ -602,7 +602,7 @@
     <value>1</value>
   </data>
   <data name="panel5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 352</value>
+    <value>3, 351</value>
   </data>
   <data name="panel5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 5, 3, 3</value>
@@ -821,7 +821,7 @@
     <value>6</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 418</value>
+    <value>3, 417</value>
   </data>
   <data name="panel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 5, 3, 3</value>
@@ -1524,7 +1524,7 @@
     <value>3, 3, 3, 0</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>142, 256</value>
+    <value>142, 255</value>
   </data>
   <data name="panel2.TabIndex" type="System.Int32, mscorlib">
     <value>48</value>
@@ -1563,7 +1563,7 @@
     <value>0</value>
   </data>
   <data name="panel4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 262</value>
+    <value>3, 261</value>
   </data>
   <data name="panel4.Size" type="System.Drawing.Size, System.Drawing">
     <value>127, 10</value>
@@ -1674,7 +1674,7 @@
     <value>3</value>
   </data>
   <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 275</value>
+    <value>3, 274</value>
   </data>
   <data name="panel3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 0, 3, 3</value>
@@ -1893,7 +1893,7 @@ Resolution:</value>
     <value>5</value>
   </data>
   <data name="boxStats.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 519</value>
+    <value>3, 518</value>
   </data>
   <data name="boxStats.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 10, 3, 3</value>

@@ -107,6 +107,7 @@
             this.splitter2 = new BSE.Windows.Forms.Splitter();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.BUT_AddLandWP = new MissionPlanner.Controls.MyButton();
             this.BUT_AddTakeoffWP = new MissionPlanner.Controls.MyButton();
             this.BUT_ClearMission = new MissionPlanner.Controls.MyButton();
@@ -205,7 +206,6 @@
             this.panelBASE = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.myButton1 = new MissionPlanner.Controls.MyButton();
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -669,6 +669,13 @@
             this.panel2.Controls.Add(this.BUT_saveWPFile);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
+            // 
+            // myButton1
+            // 
+            resources.ApplyResources(this.myButton1, "myButton1");
+            this.myButton1.Name = "myButton1";
+            this.myButton1.UseVisualStyleBackColor = true;
+            this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
             // BUT_AddLandWP
             // 
@@ -1369,13 +1376,6 @@
             // 
             this.timer1.Interval = 1200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // myButton1
-            // 
-            resources.ApplyResources(this.myButton1, "myButton1");
-            this.myButton1.Name = "myButton1";
-            this.myButton1.UseVisualStyleBackColor = true;
-            this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
             // 
             // FlightPlanner
             // 
