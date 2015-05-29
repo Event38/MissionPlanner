@@ -6169,5 +6169,19 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             panelAction.ShowTransparentBackground = true;
         }
 
+        private void myButton1_Click(object sender, EventArgs e)
+        {
+            MAVLink.mavlink_BTB_land_t BTBLand = new MAVLink.mavlink_BTB_land_t();
+
+            string directionAsString = "0";
+            Int16 direction = 0;
+            if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Direction", "Please enter your landing direction in degrees (0 = North)", ref directionAsString))
+                return;
+            direction = Convert.ToInt16(directionAsString);
+
+            BTBLand.Direction = direction;
+
+            MainV2.comPort.sendPacket(BTBLand);
+        }
     }
 }

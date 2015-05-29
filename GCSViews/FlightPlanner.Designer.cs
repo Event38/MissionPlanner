@@ -205,6 +205,7 @@
             this.panelBASE = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.myButton1 = new MissionPlanner.Controls.MyButton();
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -656,6 +657,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.myButton1);
             this.panel2.Controls.Add(this.BUT_AddLandWP);
             this.panel2.Controls.Add(this.BUT_AddTakeoffWP);
             this.panel2.Controls.Add(this.BUT_ClearMission);
@@ -1368,6 +1370,13 @@
             this.timer1.Interval = 1200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // myButton1
+            // 
+            resources.ApplyResources(this.myButton1, "myButton1");
+            this.myButton1.Name = "myButton1";
+            this.myButton1.UseVisualStyleBackColor = true;
+            this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
+            // 
             // FlightPlanner
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1551,5 +1560,6 @@
         private Controls.MyButton BUT_AddTakeoffWP;
         private Controls.Coords coords1;
         private Controls.MyButton BUT_AddLandWP;
+        private Controls.MyButton myButton1;
     }
 }
