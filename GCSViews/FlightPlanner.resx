@@ -602,7 +602,6 @@
     <value>1</value>
   </data>
   <data name="panel5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 351</value>
   </data>
   <data name="panel5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 5, 3, 3</value>
@@ -821,7 +820,6 @@
     <value>6</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 417</value>
   </data>
   <data name="panel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 5, 3, 3</value>
@@ -1181,6 +1179,9 @@
   <data name="myButton1.Text" xml:space="preserve">
     <value>BTB Landing Direction</value>
   </data>
+  <data name="myButton1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;myButton1.Name" xml:space="preserve">
     <value>myButton1</value>
   </data>
@@ -1216,6 +1217,9 @@
   </data>
   <data name="BUT_AddLandWP.Text" xml:space="preserve">
     <value>Add Landing WP</value>
+  </data>
+  <data name="BUT_AddLandWP.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;BUT_AddLandWP.Name" xml:space="preserve">
     <value>BUT_AddLandWP</value>
@@ -1524,7 +1528,6 @@
     <value>3, 3, 3, 0</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>142, 255</value>
   </data>
   <data name="panel2.TabIndex" type="System.Int32, mscorlib">
     <value>48</value>
@@ -1563,7 +1566,6 @@
     <value>0</value>
   </data>
   <data name="panel4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 261</value>
   </data>
   <data name="panel4.Size" type="System.Drawing.Size, System.Drawing">
     <value>127, 10</value>
@@ -1674,7 +1676,6 @@
     <value>3</value>
   </data>
   <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 274</value>
   </data>
   <data name="panel3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 0, 3, 3</value>
@@ -1893,7 +1894,6 @@ Resolution:</value>
     <value>5</value>
   </data>
   <data name="boxStats.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 518</value>
   </data>
   <data name="boxStats.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 10, 3, 3</value>
