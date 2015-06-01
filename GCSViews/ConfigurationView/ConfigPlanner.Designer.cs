@@ -781,12 +781,12 @@
         private System.Windows.Forms.CheckBox CHK_beta;
         private System.Windows.Forms.CheckBox CHK_Password;
         private System.Windows.Forms.CheckBox CHK_speechlowspeed;
-        private System.Windows.Forms.CheckBox CHK_advancedview;
         private System.Windows.Forms.CheckBox CHK_showairports;
         private System.Windows.Forms.CheckBox chk_ADSB;
         private System.Windows.Forms.CheckBox chk_tfr;
         public System.Windows.Forms.CheckBox CHK_WPinAirports;
         private System.Windows.Forms.Label label6;
         private Controls.MyButton BUT_ChangeUserSetup;
+        public System.Windows.Forms.CheckBox CHK_advancedview;
     }
 }

@@ -721,7 +721,6 @@ namespace MissionPlanner
                         {
                             MainV2.instance.FlightData.BeginInvoke(new System.Windows.Forms.MethodInvoker(delegate
                             {
-                                MainV2.instance.FlightData.PhotoTakenLabelVisible(true);
                                 photoTime = DateTime.Now; //time picture was taken
 
                                 double CamLatDbl = status.lat * 1E-7;
@@ -754,17 +753,6 @@ namespace MissionPlanner
 
                             previousPictureNumber = status.img_idx;
                         }
-                        else
-                        {
-                            if (photoTime.AddSeconds(1) < DateTime.Now) //only hide message after 2 seconds
-                            {
-                                MainV2.instance.FlightData.BeginInvoke(new System.Windows.Forms.MethodInvoker(delegate
-                                {
-                                    MainV2.instance.FlightData.PhotoTakenLabelVisible(false);
-                                }));
-                            }
-                        }
-
                     }
                     
 

@@ -465,6 +465,7 @@ namespace MissionPlanner.GCSViews
                 tabControlactions.TabPages.Remove(tabScripts);
                 tabControlactions.TabPages.Remove(tabPagemessages);
                 tabControlactions.Invalidate();
+                CHK_advancedviewFD.Checked = false; //update other adv view chk box -D Cironi 2015-06-01
             }
             else
             {
@@ -481,6 +482,7 @@ namespace MissionPlanner.GCSViews
                     tabControlactions.TabPages.Add(tabScripts);
                 if (!tabControlactions.TabPages.Contains(tabPagemessages))
                     tabControlactions.TabPages.Add(tabPagemessages);
+                CHK_advancedviewFD.Checked = true; 
             }
         }
 
@@ -3779,18 +3781,6 @@ namespace MissionPlanner.GCSViews
             servoOptions3.TXT_pwm_high.Text = TXT_high_PWM_Adv.Text;
         }
 
-        public void PhotoTakenLabelVisible(bool input)
-        {
-            if (input == true)
-            {
-                LBL_PhotoTaken.Visible = true;
-            }
-            if (input == false)
-            {
-                LBL_PhotoTaken.Visible = false;
-            }
-        }
-
         //forcefully erase all data flash logs from APM -D Cironi
         private void BUT_EraseDFLogs_Click(object sender, EventArgs e)
         {
@@ -3829,6 +3819,12 @@ namespace MissionPlanner.GCSViews
             object land = new MAVLink.mavlink_BTB_land_t();
 
             MainV2.comPort.sendPacket(land);
+        }
+
+        private void CHK_advancedviewFD_CheckedChanged(object sender, EventArgs e)
+        {
+            MainV2.config["advancedview"] = CHK_advancedviewFD.Checked.ToString();
+            MainV2.Advanced = CHK_advancedviewFD.Checked;
         }
     }
 }

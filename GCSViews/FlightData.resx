@@ -616,7 +616,7 @@
     <value>NoControl</value>
   </data>
   <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 257</value>
+    <value>191, 259</value>
   </data>
   <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
     <value>30, 13</value>
@@ -646,7 +646,7 @@
     <value>NoControl</value>
   </data>
   <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>268, 257</value>
+    <value>268, 259</value>
   </data>
   <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 13</value>
@@ -679,7 +679,7 @@
     <value>NoControl</value>
   </data>
   <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 236</value>
+    <value>191, 238</value>
   </data>
   <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 13</value>
@@ -703,7 +703,7 @@
     <value>2</value>
   </data>
   <data name="TXT_high_PWM_Adv.Location" type="System.Drawing.Point, System.Drawing">
-    <value>306, 257</value>
+    <value>306, 259</value>
   </data>
   <data name="TXT_high_PWM_Adv.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 20</value>
@@ -727,7 +727,7 @@
     <value>3</value>
   </data>
   <data name="TXT_low_PWM_Adv.Location" type="System.Drawing.Point, System.Drawing">
-    <value>225, 257</value>
+    <value>225, 259</value>
   </data>
   <data name="TXT_low_PWM_Adv.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 20</value>
@@ -757,7 +757,7 @@
     <value>NoControl</value>
   </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 164</value>
+    <value>9, 166</value>
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 13</value>
@@ -790,7 +790,7 @@
     <value>NoControl</value>
   </data>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 135</value>
+    <value>9, 137</value>
   </data>
   <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
     <value>220, 17</value>
@@ -817,7 +817,7 @@
     <value>Microsoft Sans Serif, 10pt</value>
   </data>
   <data name="TXT_NumLogsforDLAdv.Location" type="System.Drawing.Point, System.Drawing">
-    <value>146, 164</value>
+    <value>146, 166</value>
   </data>
   <data name="TXT_NumLogsforDLAdv.Size" type="System.Drawing.Size, System.Drawing">
     <value>25, 23</value>
@@ -850,7 +850,7 @@
     <value>NoControl</value>
   </data>
   <data name="LBL_DownloadingAdvanced.Location" type="System.Drawing.Point, System.Drawing">
-    <value>143, 191</value>
+    <value>143, 193</value>
   </data>
   <data name="LBL_DownloadingAdvanced.Size" type="System.Drawing.Size, System.Drawing">
     <value>78, 13</value>
@@ -880,7 +880,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_DL3LogsAdvanced.Location" type="System.Drawing.Point, System.Drawing">
-    <value>177, 161</value>
+    <value>177, 163</value>
   </data>
   <data name="BUT_DL3LogsAdvanced.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 24</value>
@@ -946,7 +946,7 @@
     <value>NoControl</value>
   </data>
   <data name="CHK_AutoHatch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 264</value>
+    <value>12, 266</value>
   </data>
   <data name="CHK_AutoHatch.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 24</value>
@@ -976,7 +976,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_CloseHatch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>102, 236</value>
+    <value>102, 238</value>
   </data>
   <data name="BUT_CloseHatch.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 23</value>
@@ -1006,7 +1006,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_OpenHatch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 236</value>
+    <value>12, 238</value>
   </data>
   <data name="BUT_OpenHatch.Size" type="System.Drawing.Size, System.Drawing">
     <value>84, 23</value>
@@ -1036,7 +1036,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_CloseLens.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 207</value>
+    <value>12, 209</value>
   </data>
   <data name="BUT_CloseLens.Size" type="System.Drawing.Size, System.Drawing">
     <value>173, 23</value>
@@ -1648,7 +1648,7 @@
     <value>NoControl</value>
   </data>
   <data name="label18.Location" type="System.Drawing.Point, System.Drawing">
-    <value>185, 199</value>
+    <value>185, 201</value>
   </data>
   <data name="label18.Size" type="System.Drawing.Size, System.Drawing">
     <value>30, 13</value>
@@ -1681,7 +1681,7 @@
     <value>NoControl</value>
   </data>
   <data name="label17.Location" type="System.Drawing.Point, System.Drawing">
-    <value>266, 199</value>
+    <value>266, 201</value>
   </data>
   <data name="label17.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 13</value>
@@ -1717,7 +1717,7 @@
     <value>NoControl</value>
   </data>
   <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>185, 178</value>
+    <value>185, 180</value>
   </data>
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 13</value>
@@ -1744,7 +1744,7 @@
     <value>3</value>
   </data>
   <data name="TXT_pwm_high.Location" type="System.Drawing.Point, System.Drawing">
-    <value>304, 199</value>
+    <value>304, 201</value>
   </data>
   <data name="TXT_pwm_high.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 20</value>
@@ -1771,7 +1771,7 @@
     <value>4</value>
   </data>
   <data name="TXT_pwm_low.Location" type="System.Drawing.Point, System.Drawing">
-    <value>217, 199</value>
+    <value>217, 201</value>
   </data>
   <data name="TXT_pwm_low.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 20</value>
@@ -1804,7 +1804,7 @@
     <value>NoControl</value>
   </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 106</value>
+    <value>3, 108</value>
   </data>
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 13</value>
@@ -1837,7 +1837,7 @@
     <value>NoControl</value>
   </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 80</value>
+    <value>3, 82</value>
   </data>
   <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
     <value>220, 17</value>
@@ -1864,7 +1864,7 @@
     <value>Microsoft Sans Serif, 10pt</value>
   </data>
   <data name="TXT_NumLogsforDL.Location" type="System.Drawing.Point, System.Drawing">
-    <value>133, 106</value>
+    <value>133, 108</value>
   </data>
   <data name="TXT_NumLogsforDL.Size" type="System.Drawing.Size, System.Drawing">
     <value>22, 23</value>
@@ -1900,7 +1900,7 @@
     <value>NoControl</value>
   </data>
   <data name="LBL_Downloading.Location" type="System.Drawing.Point, System.Drawing">
-    <value>130, 133</value>
+    <value>130, 135</value>
   </data>
   <data name="LBL_Downloading.Size" type="System.Drawing.Size, System.Drawing">
     <value>78, 13</value>
@@ -1930,7 +1930,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_DL3Logs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 103</value>
+    <value>161, 105</value>
   </data>
   <data name="BUT_DL3Logs.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 23</value>
@@ -2050,7 +2050,7 @@
     <value>NoControl</value>
   </data>
   <data name="CHK_AutoHatchSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 207</value>
+    <value>6, 209</value>
   </data>
   <data name="CHK_AutoHatchSimple.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 24</value>
@@ -2080,7 +2080,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_CloseHatchSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 178</value>
+    <value>96, 180</value>
   </data>
   <data name="BUT_CloseHatchSimple.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 23</value>
@@ -2110,7 +2110,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_OpenHatchSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 178</value>
+    <value>6, 180</value>
   </data>
   <data name="BUT_OpenHatchSimple.Size" type="System.Drawing.Size, System.Drawing">
     <value>84, 23</value>
@@ -2140,7 +2140,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_CloseLensSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 149</value>
+    <value>6, 151</value>
   </data>
   <data name="BUT_CloseLensSimple.Size" type="System.Drawing.Size, System.Drawing">
     <value>173, 23</value>
@@ -4143,6 +4143,36 @@
   <data name="&gt;&gt;splitContainer1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="CHK_advancedviewFD.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="CHK_advancedviewFD.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="CHK_advancedviewFD.Location" type="System.Drawing.Point, System.Drawing">
+    <value>745, 4</value>
+  </data>
+  <data name="CHK_advancedviewFD.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 17</value>
+  </data>
+  <data name="CHK_advancedviewFD.TabIndex" type="System.Int32, mscorlib">
+    <value>107</value>
+  </data>
+  <data name="CHK_advancedviewFD.Text" xml:space="preserve">
+    <value>Advanced View</value>
+  </data>
+  <data name="&gt;&gt;CHK_advancedviewFD.Name" xml:space="preserve">
+    <value>CHK_advancedviewFD</value>
+  </data>
+  <data name="&gt;&gt;CHK_advancedviewFD.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CHK_advancedviewFD.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;CHK_advancedviewFD.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="CHK_CamIcons.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -4177,7 +4207,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;CHK_CamIcons.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="BUT_ClrCamIcons.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -4207,42 +4237,6 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;BUT_ClrCamIcons.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="LBL_PhotoTaken.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 11pt</value>
-  </data>
-  <data name="LBL_PhotoTaken.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="LBL_PhotoTaken.Location" type="System.Drawing.Point, System.Drawing">
-    <value>735, 4</value>
-  </data>
-  <data name="LBL_PhotoTaken.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 20</value>
-  </data>
-  <data name="LBL_PhotoTaken.TabIndex" type="System.Int32, mscorlib">
-    <value>77</value>
-  </data>
-  <data name="LBL_PhotoTaken.Text" xml:space="preserve">
-    <value>Camera Triggered</value>
-  </data>
-  <data name="LBL_PhotoTaken.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleCenter</value>
-  </data>
-  <data name="LBL_PhotoTaken.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;LBL_PhotoTaken.Name" xml:space="preserve">
-    <value>LBL_PhotoTaken</value>
-  </data>
-  <data name="&gt;&gt;LBL_PhotoTaken.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;LBL_PhotoTaken.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;LBL_PhotoTaken.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="coords1.Location" type="System.Drawing.Point, System.Drawing">
@@ -4519,7 +4513,7 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>136</value>
+    <value>78</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>

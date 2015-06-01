@@ -787,6 +787,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             MainV2.config["advancedview"] = CHK_advancedview.Checked.ToString();
             MainV2.Advanced = CHK_advancedview.Checked;
+            FlightData.instance.CHK_advancedviewFD.Checked = CHK_advancedview.Checked;
         }
 
         private void CHK_showairports_CheckedChanged(object sender, EventArgs e)

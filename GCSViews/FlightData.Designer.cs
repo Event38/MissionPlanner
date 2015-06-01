@@ -155,7 +155,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.CHK_CamIcons = new System.Windows.Forms.CheckBox();
             this.BUT_ClrCamIcons = new MissionPlanner.Controls.MyButton();
-            this.LBL_PhotoTaken = new System.Windows.Forms.Label();
             this.coords1 = new MissionPlanner.Controls.Coords();
             this.Zoomlevel = new System.Windows.Forms.NumericUpDown();
             this.label1 = new MissionPlanner.Controls.MyLabel();
@@ -168,6 +167,7 @@
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Messagetabtimer = new System.Windows.Forms.Timer(this.components);
+            this.CHK_advancedviewFD = new System.Windows.Forms.CheckBox();
             this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSourceQuickTab = new System.Windows.Forms.BindingSource(this.components);
             this.preFlightChecklist1 = new MissionPlanner.GCSViews.ConfigurationView.PreFlightChecklist();
@@ -1917,9 +1917,9 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.CHK_advancedviewFD);
             this.panel1.Controls.Add(this.CHK_CamIcons);
             this.panel1.Controls.Add(this.BUT_ClrCamIcons);
-            this.panel1.Controls.Add(this.LBL_PhotoTaken);
             this.panel1.Controls.Add(this.coords1);
             this.panel1.Controls.Add(this.Zoomlevel);
             this.panel1.Controls.Add(this.label1);
@@ -1945,12 +1945,6 @@
             this.toolTip1.SetToolTip(this.BUT_ClrCamIcons, resources.GetString("BUT_ClrCamIcons.ToolTip"));
             this.BUT_ClrCamIcons.UseVisualStyleBackColor = true;
             this.BUT_ClrCamIcons.Click += new System.EventHandler(this.BUT_ClrCamIcons_Click);
-            // 
-            // LBL_PhotoTaken
-            // 
-            resources.ApplyResources(this.LBL_PhotoTaken, "LBL_PhotoTaken");
-            this.LBL_PhotoTaken.Image = global::MissionPlanner.Properties.Resources.Green_panel;
-            this.LBL_PhotoTaken.Name = "LBL_PhotoTaken";
             // 
             // coords1
             // 
@@ -2055,6 +2049,13 @@
             // 
             this.Messagetabtimer.Interval = 200;
             this.Messagetabtimer.Tick += new System.EventHandler(this.Messagetabtimer_Tick);
+            // 
+            // CHK_advancedviewFD
+            // 
+            resources.ApplyResources(this.CHK_advancedviewFD, "CHK_advancedviewFD");
+            this.CHK_advancedviewFD.Name = "CHK_advancedviewFD";
+            this.CHK_advancedviewFD.UseVisualStyleBackColor = true;
+            this.CHK_advancedviewFD.CheckedChanged += new System.EventHandler(this.CHK_advancedviewFD_CheckedChanged);
             // 
             // bindingSourceHud
             // 
@@ -2402,11 +2403,10 @@
         public System.Windows.Forms.Label label18;
         public System.Windows.Forms.Label label17;
         public Controls.ServoOptions servoOptions3;
-        public System.Windows.Forms.Label LBL_PhotoTaken;
         public Controls.myGMAP gMapControl1;
         private Controls.MyButton BUT_ClrCamIcons;
         private System.Windows.Forms.CheckBox CHK_CamIcons;
         private Controls.MyButton BUT_BTBLand;
-
+        public System.Windows.Forms.CheckBox CHK_advancedviewFD;
     }
 }
