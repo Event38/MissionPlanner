@@ -16,7 +16,7 @@ namespace MissionPlanner.Log
         {
             foreach (var logfile in logs)
             {
-                if (File.Exists(logfile + ".jpg"))
+                if (File.Exists(logfile + ".jpg") || logfile.Contains("Telemetry Logs"))
                     continue;
 
                 MAVLinkInterface mine = new MAVLinkInterface();
