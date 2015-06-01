@@ -1509,27 +1509,18 @@ namespace MissionPlanner
         private void lbl_photoevery_TextChanged(object sender, EventArgs e)
         {
             double flyspeedms = CurrentState.fromSpeedDisplayUnit((double)NUM_UpDownFlySpeed.Value);
-            double HighTailWindSpeed = 18;
-            double LowTailWindSpeed = 15;
-           
-            double S110ReloadTime = 2.5; //these reload times should be put in the camera.xml file
-            double SX260ReloadTime = 3.0;
-            double NX1100ReloadTime = 1.0;
 
-            //we will take the distance between shots and divide that by air speed of 18 m/s (yellow warning) and 15 m/s (red warning)
-            //if our camera's minimum reload time is less than these values then show the warning.
-            //18 m/s will require ~5 m/s tailwind and 15 m/s will require ~2 m/s tailwind to mess up the shots. -D Cironi 2015-05-08
 
             if (CMB_camera.Text == "Canon S110")
             {
-                if ((double)NUM_spacing.Value / LowTailWindSpeed < S110ReloadTime)
+                if ((double)NUM_spacing.Value / flyspeedms < 3.1)
                 {
                     LBL_PhotoEveryWarning.Text = "Time between pictures exceeds camera's reload time. Please reduce overlap or fly higher";
                     LBL_PhotoEveryWarning.ForeColor = Color.Red;
                     LBL_PhotoEveryWarning.Visible = true;
                 }
-                else if ((double)NUM_spacing.Value / HighTailWindSpeed < S110ReloadTime)
-                {  
+                else if ((double)NUM_spacing.Value / flyspeedms < 3.73)
+                {
                     LBL_PhotoEveryWarning.Text = "A strong tail wind may cause the camera to skip shots. Please reduce overlap, fly perpendicular to prevailing wind, or fly higher";
                     LBL_PhotoEveryWarning.ForeColor = Color.Yellow;
                     LBL_PhotoEveryWarning.Visible = true;
@@ -1542,13 +1533,13 @@ namespace MissionPlanner
 
             else if (CMB_camera.Text == "Canon SX260")
             {
-                if ((double)NUM_spacing.Value / LowTailWindSpeed < SX260ReloadTime)
+                if ((double)NUM_spacing.Value / flyspeedms < 4.1)
                 {
                     LBL_PhotoEveryWarning.Text = "If using Intellishoot: Time between pictures exceeds camera's reload time. Please reduce overlap or fly higher";
                     LBL_PhotoEveryWarning.ForeColor = Color.Red;
                     LBL_PhotoEveryWarning.Visible = true;
                 }
-                else if ((double)NUM_spacing.Value / HighTailWindSpeed < SX260ReloadTime)
+                else if ((double)NUM_spacing.Value / flyspeedms < 4.72)
                 {
                     LBL_PhotoEveryWarning.Text = "If using Intellishoot: A strong tail wind may cause the camera to skip shots. Please reduce overlap, fly perpendicular to prevailing wind, or fly higher";
                     LBL_PhotoEveryWarning.ForeColor = Color.Yellow;
@@ -1558,17 +1549,18 @@ namespace MissionPlanner
                 {
                     LBL_PhotoEveryWarning.Visible = false;
                 }
+
             }
 
             else if (CMB_camera.Text == "NX1100")
             {
-                if ((double)NUM_spacing.Value / LowTailWindSpeed < NX1100ReloadTime)
+                if ((double)NUM_spacing.Value / flyspeedms < .84)
                 {
                     LBL_PhotoEveryWarning.Text = "Time between pictures exceeds camera's reload time. Please reduce overlap or fly higher";
                     LBL_PhotoEveryWarning.ForeColor = Color.Red;
                     LBL_PhotoEveryWarning.Visible = true;
                 }
-                else if ((double)NUM_spacing.Value / HighTailWindSpeed < NX1100ReloadTime)
+                else if ((double)NUM_spacing.Value / flyspeedms < .97)
                 {
                     LBL_PhotoEveryWarning.Text = "A strong tail wind may cause the camera to skip shots. Please reduce overlap, fly perpendicular to prevailing wind, or fly higher";
                     LBL_PhotoEveryWarning.ForeColor = Color.Yellow;
@@ -1579,6 +1571,79 @@ namespace MissionPlanner
                     LBL_PhotoEveryWarning.Visible = false;
                 }
             }
+
+            //different method to determine warnings
+            //        double flyspeedms = CurrentState.fromSpeedDisplayUnit((double)NUM_UpDownFlySpeed.Value);
+            //        double HighTailWindSpeed = 18;
+            //        double LowTailWindSpeed = 15;
+
+            //        double S110ReloadTime = 2.5; //these reload times should be put in the camera.xml file
+            //        double SX260ReloadTime = 3.0;
+            //        double NX1100ReloadTime = 1.0;
+
+            //        //we will take the distance between shots and divide that by air speed of 18 m/s (yellow warning) and 15 m/s (red warning)
+            //        //if our camera's minimum reload time is less than these values then show the warning.
+            //        //18 m/s will require ~5 m/s tailwind and 15 m/s will require ~2 m/s tailwind to mess up the shots. -D Cironi 2015-05-08
+
+            //        if (CMB_camera.Text == "Canon S110")
+            //        {
+            //            if ((double)NUM_spacing.Value / LowTailWindSpeed < S110ReloadTime)
+            //            {
+            //                LBL_PhotoEveryWarning.Text = "Time between pictures exceeds camera's reload time. Please reduce overlap or fly higher";
+            //                LBL_PhotoEveryWarning.ForeColor = Color.Red;
+            //                LBL_PhotoEveryWarning.Visible = true;
+            //            }
+            //            else if ((double)NUM_spacing.Value / HighTailWindSpeed < S110ReloadTime)
+            //            {  
+            //                LBL_PhotoEveryWarning.Text = "A strong tail wind may cause the camera to skip shots. Please reduce overlap, fly perpendicular to prevailing wind, or fly higher";
+            //                LBL_PhotoEveryWarning.ForeColor = Color.Yellow;
+            //                LBL_PhotoEveryWarning.Visible = true;
+            //            }
+            //            else
+            //            {
+            //                LBL_PhotoEveryWarning.Visible = false;
+            //            }
+            //        }
+
+            //        else if (CMB_camera.Text == "Canon SX260")
+            //        {
+            //            if ((double)NUM_spacing.Value / LowTailWindSpeed < SX260ReloadTime)
+            //            {
+            //                LBL_PhotoEveryWarning.Text = "If using Intellishoot: Time between pictures exceeds camera's reload time. Please reduce overlap or fly higher";
+            //                LBL_PhotoEveryWarning.ForeColor = Color.Red;
+            //                LBL_PhotoEveryWarning.Visible = true;
+            //            }
+            //            else if ((double)NUM_spacing.Value / HighTailWindSpeed < SX260ReloadTime)
+            //            {
+            //                LBL_PhotoEveryWarning.Text = "If using Intellishoot: A strong tail wind may cause the camera to skip shots. Please reduce overlap, fly perpendicular to prevailing wind, or fly higher";
+            //                LBL_PhotoEveryWarning.ForeColor = Color.Yellow;
+            //                LBL_PhotoEveryWarning.Visible = true;
+            //            }
+            //            else
+            //            {
+            //                LBL_PhotoEveryWarning.Visible = false;
+            //            }
+            //        }
+
+            //        else if (CMB_camera.Text == "NX1100")
+            //        {
+            //            if ((double)NUM_spacing.Value / LowTailWindSpeed < NX1100ReloadTime)
+            //            {
+            //                LBL_PhotoEveryWarning.Text = "Time between pictures exceeds camera's reload time. Please reduce overlap or fly higher";
+            //                LBL_PhotoEveryWarning.ForeColor = Color.Red;
+            //                LBL_PhotoEveryWarning.Visible = true;
+            //            }
+            //            else if ((double)NUM_spacing.Value / HighTailWindSpeed < NX1100ReloadTime)
+            //            {
+            //                LBL_PhotoEveryWarning.Text = "A strong tail wind may cause the camera to skip shots. Please reduce overlap, fly perpendicular to prevailing wind, or fly higher";
+            //                LBL_PhotoEveryWarning.ForeColor = Color.Yellow;
+            //                LBL_PhotoEveryWarning.Visible = true;
+            //            }
+            //            else
+            //            {
+            //                LBL_PhotoEveryWarning.Visible = false;
+            //            }
+            //        }
         }
     }
 }
