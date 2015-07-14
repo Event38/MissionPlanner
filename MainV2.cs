@@ -2117,6 +2117,24 @@ namespace MissionPlanner
                             catch { }
                         }
                     }
+
+                    //D Cironi 2015-06-19
+                    if (armedstatus != MainV2.comPort.MAV.cs.armed && comPort.BaseStream.IsOpen)
+                    {
+                        armedstatus = MainV2.comPort.MAV.cs.armed;
+                        // status just changed to armed
+                        if (MainV2.comPort.MAV.cs.armed == true)
+                        {
+                            //send packet to BTB to update Gnd_Pres
+                            MAVLink.mavlink_Gnd_Pres_t ArmedGndPres = new MAVLink.mavlink_Gnd_Pres_t();
+
+                            ArmedGndPres.Pressure = comPort.MAV.cs.raw_press;
+
+                            MainV2.comPort.sendPacket(ArmedGndPres);
+                            
+                        }
+                    }
+
                 }
                 catch (Exception e)
                 {

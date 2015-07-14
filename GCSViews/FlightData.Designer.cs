@@ -153,6 +153,7 @@
             this.gMapControl1 = new MissionPlanner.Controls.myGMAP();
             this.TRK_zoom = new MissionPlanner.Controls.MyTrackBar();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.CHK_advancedviewFD = new System.Windows.Forms.CheckBox();
             this.CHK_CamIcons = new System.Windows.Forms.CheckBox();
             this.BUT_ClrCamIcons = new MissionPlanner.Controls.MyButton();
             this.coords1 = new MissionPlanner.Controls.Coords();
@@ -167,7 +168,6 @@
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Messagetabtimer = new System.Windows.Forms.Timer(this.components);
-            this.CHK_advancedviewFD = new System.Windows.Forms.CheckBox();
             this.bindingSourceHud = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSourceQuickTab = new System.Windows.Forms.BindingSource(this.components);
             this.preFlightChecklist1 = new MissionPlanner.GCSViews.ConfigurationView.PreFlightChecklist();
@@ -185,6 +185,7 @@
             this.bindingSourceGaugesTab = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
+            this.BUT_BaroCalib = new MissionPlanner.Controls.MyButton();
             this.contextMenuStripMap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainH)).BeginInit();
             this.MainH.Panel1.SuspendLayout();
@@ -858,6 +859,7 @@
             // 
             // tabActionsSimple
             // 
+            this.tabActionsSimple.Controls.Add(this.BUT_BaroCalib);
             this.tabActionsSimple.Controls.Add(this.BUT_BTBLand);
             this.tabActionsSimple.Controls.Add(this.label18);
             this.tabActionsSimple.Controls.Add(this.label17);
@@ -1829,7 +1831,7 @@
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 180D;
+            this.windDir1.Direction = 0D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -1927,6 +1929,13 @@
             this.panel1.Controls.Add(this.CB_tuning);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
+            // 
+            // CHK_advancedviewFD
+            // 
+            resources.ApplyResources(this.CHK_advancedviewFD, "CHK_advancedviewFD");
+            this.CHK_advancedviewFD.Name = "CHK_advancedviewFD";
+            this.CHK_advancedviewFD.UseVisualStyleBackColor = true;
+            this.CHK_advancedviewFD.CheckedChanged += new System.EventHandler(this.CHK_advancedviewFD_CheckedChanged);
             // 
             // CHK_CamIcons
             // 
@@ -2050,13 +2059,6 @@
             this.Messagetabtimer.Interval = 200;
             this.Messagetabtimer.Tick += new System.EventHandler(this.Messagetabtimer_Tick);
             // 
-            // CHK_advancedviewFD
-            // 
-            resources.ApplyResources(this.CHK_advancedviewFD, "CHK_advancedviewFD");
-            this.CHK_advancedviewFD.Name = "CHK_advancedviewFD";
-            this.CHK_advancedviewFD.UseVisualStyleBackColor = true;
-            this.CHK_advancedviewFD.CheckedChanged += new System.EventHandler(this.CHK_advancedviewFD_CheckedChanged);
-            // 
             // bindingSourceHud
             // 
             this.bindingSourceHud.DataSource = typeof(MissionPlanner.CurrentState);
@@ -2166,6 +2168,13 @@
             // bindingSourceStatusTab
             // 
             this.bindingSourceStatusTab.DataSource = typeof(MissionPlanner.CurrentState);
+            // 
+            // BUT_BaroCalib
+            // 
+            resources.ApplyResources(this.BUT_BaroCalib, "BUT_BaroCalib");
+            this.BUT_BaroCalib.Name = "BUT_BaroCalib";
+            this.BUT_BaroCalib.UseVisualStyleBackColor = true;
+            this.BUT_BaroCalib.Click += new System.EventHandler(this.BUT_BaroCalib_Click);
             // 
             // FlightData
             // 
@@ -2408,5 +2417,6 @@
         private System.Windows.Forms.CheckBox CHK_CamIcons;
         private Controls.MyButton BUT_BTBLand;
         public System.Windows.Forms.CheckBox CHK_advancedviewFD;
+        private Controls.MyButton BUT_BaroCalib;
     }
 }

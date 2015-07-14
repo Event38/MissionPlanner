@@ -732,43 +732,43 @@ namespace MissionPlanner.GCSViews
             }
             else
                 if (folder != null)
+            {
+                foreach (SharpKml.Dom.Feature feat in folder.Features)
                 {
-                    foreach (SharpKml.Dom.Feature feat in folder.Features)
-                    {
-                        //Console.WriteLine("feat "+feat.GetType());
-                        //processKML(feat);
-                    }
+                    //Console.WriteLine("feat "+feat.GetType());
+                    //processKML(feat);
                 }
-                else if (pm != null)
+            }
+            else if (pm != null)
+            {
+
+            }
+            else if (polygon != null)
+            {
+                GMapPolygon kmlpolygon = new GMapPolygon(new List<PointLatLng>(), "kmlpolygon");
+
+                kmlpolygon.Stroke.Color = Color.Purple;
+
+                foreach (var loc in polygon.OuterBoundary.LinearRing.Coordinates)
                 {
-
+                    kmlpolygon.Points.Add(new PointLatLng(loc.Latitude, loc.Longitude));
                 }
-                else if (polygon != null)
+
+                kmlpolygonsoverlay.Polygons.Add(kmlpolygon);
+            }
+            else if (ls != null)
+            {
+                GMapRoute kmlroute = new GMapRoute(new List<PointLatLng>(), "kmlroute");
+
+                kmlroute.Stroke.Color = Color.Purple;
+
+                foreach (var loc in ls.Coordinates)
                 {
-                    GMapPolygon kmlpolygon = new GMapPolygon(new List<PointLatLng>(), "kmlpolygon");
-
-                    kmlpolygon.Stroke.Color = Color.Purple;
-
-                    foreach (var loc in polygon.OuterBoundary.LinearRing.Coordinates)
-                    {
-                        kmlpolygon.Points.Add(new PointLatLng(loc.Latitude, loc.Longitude));
-                    }
-
-                    kmlpolygonsoverlay.Polygons.Add(kmlpolygon);
+                    kmlroute.Points.Add(new PointLatLng(loc.Latitude, loc.Longitude));
                 }
-                else if (ls != null)
-                {
-                    GMapRoute kmlroute = new GMapRoute(new List<PointLatLng>(), "kmlroute");
 
-                    kmlroute.Stroke.Color = Color.Purple;
-
-                    foreach (var loc in ls.Coordinates)
-                    {
-                        kmlroute.Points.Add(new PointLatLng(loc.Latitude, loc.Longitude));
-                    }
-
-                    kmlpolygonsoverlay.Routes.Add(kmlroute);
-                }
+                kmlpolygonsoverlay.Routes.Add(kmlroute);
+            }
         }
 
         private void ChangeColumnHeader(string command)
@@ -955,7 +955,7 @@ namespace MissionPlanner.GCSViews
         void updateRowNumbers()
         {
             // number rows 
-            System.Threading.Thread t1 = new System.Threading.Thread(delegate()
+            System.Threading.Thread t1 = new System.Threading.Thread(delegate ()
             {
                 // thread for updateing row numbers
                 for (int a = 0; a < Commands.Rows.Count - 0; a++)
@@ -1606,7 +1606,7 @@ namespace MissionPlanner.GCSViews
             catch { error = 1; throw; }
             try
             {
-                this.Invoke((MethodInvoker)delegate()
+                this.Invoke((MethodInvoker)delegate ()
                 {
                     if (error == 0)
                     {
@@ -2193,7 +2193,7 @@ namespace MissionPlanner.GCSViews
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// 
-        
+
         private void BUT_AddPolygon_Click_1(object sender, EventArgs e)
         {
             if (polygongridmode == false)
@@ -2827,7 +2827,7 @@ namespace MissionPlanner.GCSViews
                                     if (MainV2.WPinAirports == false && item.GetDistance(currentMarker.Position) < 5555) //check to make sure waypoint is not within airport range D Cironi (2015-01-29)
                                     {
                                         CustomMessageBox.Show("Cannot place polygon point within airport operating range! \n \n" + item.Tag);
-                                        
+
                                         CurrentGMapMarker.Position = MouseDownStart; //put the marker back where it was dragged from
                                         drawnpolygon.Points[int.Parse(CurentRectMarker.InnerMarker.Tag.ToString().Replace("grid", "")) - 1] = new PointLatLng(MouseDownStart.Lat, MouseDownStart.Lng);
                                         MainMap.UpdatePolygonLocalPosition(drawnpolygon);
@@ -2838,9 +2838,9 @@ namespace MissionPlanner.GCSViews
                                         MainMap.UpdateRouteLocalPosition(route);
                                         MainMap.Invalidate();
 
-                                       // RegeneratePolygon();
+                                        // RegeneratePolygon();
 
-                                      
+
 
                                         CurentRectMarker = null;
                                         return;
@@ -2850,8 +2850,8 @@ namespace MissionPlanner.GCSViews
                                 drawnpolygon.Points[int.Parse(CurentRectMarker.InnerMarker.Tag.ToString().Replace("grid", "")) - 1] = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
                                 MainMap.UpdatePolygonLocalPosition(drawnpolygon);
 
-                                
-                                
+
+
                                 MainMap.UpdateMarkerLocalPosition(currentMarker);
                                 MainMap.UpdateRouteLocalPosition(route);
                                 MainMap.Invalidate();
@@ -3010,7 +3010,7 @@ namespace MissionPlanner.GCSViews
         // loader start loading tiles
         void MainMap_OnTileLoadStart()
         {
-            MethodInvoker m = delegate()
+            MethodInvoker m = delegate ()
             {
                 lbl_status.Text = "Status: loading tiles...";
             };
@@ -3029,7 +3029,7 @@ namespace MissionPlanner.GCSViews
 
             //MainMap.ElapsedMilliseconds = ElapsedMilliseconds;
 
-            MethodInvoker m = delegate()
+            MethodInvoker m = delegate ()
             {
                 lbl_status.Text = "Status: loaded tiles";
 
@@ -3670,7 +3670,7 @@ namespace MissionPlanner.GCSViews
 
         private void updateMapPosition(PointLatLng currentloc)
         {
-            this.BeginInvoke((MethodInvoker)delegate()
+            this.BeginInvoke((MethodInvoker)delegate ()
             {
                 try
                 {
@@ -5419,29 +5419,29 @@ namespace MissionPlanner.GCSViews
             }
             else
                 if (folder != null)
+            {
+                foreach (SharpKml.Dom.Feature feat in folder.Features)
                 {
-                    foreach (SharpKml.Dom.Feature feat in folder.Features)
-                    {
-                        //Console.WriteLine("feat "+feat.GetType());
-                        //processKML(feat);
-                    }
+                    //Console.WriteLine("feat "+feat.GetType());
+                    //processKML(feat);
                 }
-                else if (pm != null)
-                {
+            }
+            else if (pm != null)
+            {
 
-                }
-                else if (polygon != null)
-                {
+            }
+            else if (polygon != null)
+            {
 
-                }
-                else if (ls != null)
+            }
+            else if (ls != null)
+            {
+                foreach (var loc in ls.Coordinates)
                 {
-                    foreach (var loc in ls.Coordinates)
-                    {
-                        selectedrow = Commands.Rows.Add();
-                        setfromMap(loc.Latitude, loc.Longitude, (int)loc.Altitude);
-                    }
+                    selectedrow = Commands.Rows.Add();
+                    setfromMap(loc.Latitude, loc.Longitude, (int)loc.Altitude);
                 }
+            }
         }
 
         private void lnk_kml_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -5869,7 +5869,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             bool startup = true;
 
-            for (int stepalt = minalt; stepalt <= maxalt; )
+            for (int stepalt = minalt; stepalt <= maxalt;)
             {
 
                 for (a = 0; a <= (startangle + 360) && a >= 0; a += step)
@@ -5995,7 +5995,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         private void BUT_AddTakeoffWP_Click(object sender, EventArgs e)
         {
             // same exact function as right click toolstrip menu
-            
+
             // altitude
             string alt = "100";
 
@@ -6028,7 +6028,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
 
             Commands.Rows.Insert(0, 1); //always make the takeoff waypoint the first waypoint
-            
+
             selectedrow = 0;
 
             Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.TAKEOFF.ToString();
@@ -6057,7 +6057,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Direction", "Please enter your landing direction in degrees (0 = North)", ref direction))
                 return;
 
-            if(Convert.ToDouble(direction) > 360 || Convert.ToDouble(direction) < 0)
+            if (Convert.ToDouble(direction) > 360 || Convert.ToDouble(direction) < 0)
             {
                 CustomMessageBox.Show("Invaild Direction. Please choose a value from 0 to 360 degrees.");
                 return;
@@ -6074,7 +6074,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //user input gradient from first to second waypoint
             string WP1ToWP2Gradient = "30";
             if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("First Gradient", "Please enter the gradient from the first waypoint to the second.", ref WP1ToWP2Gradient))
-                return;            
+                return;
 
             //user input altitude of second waypoint
             string SecondWPAlt = "10";
@@ -6088,7 +6088,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             //determine ground distance between waypoints to get the proper gradient
             double WP2ToWP3GroundDistance = (Convert.ToDouble(SecondWPAlt) - 1) / Convert.ToDouble(WP2ToWP3Gradient) * 100;
-            double WP1ToWP2GroundDistance = (Convert.ToDouble(FirstWPAlt)  - Convert.ToDouble(SecondWPAlt)) / Convert.ToDouble(WP1ToWP2Gradient) * 100;
+            double WP1ToWP2GroundDistance = (Convert.ToDouble(FirstWPAlt) - Convert.ToDouble(SecondWPAlt)) / Convert.ToDouble(WP1ToWP2Gradient) * 100;
 
             //determine where to place waypoints based on angle of landing, these values put a waypoint at the proper angle 1m away,
             //in order to get the final waypoint value we must multiply these values by the ground distance between waypoints in order to get the proper angle and distance
@@ -6126,14 +6126,14 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             ChangeColumnHeader(MAVLink.MAV_CMD.LAND.ToString());
 
             setfromMap(MouseDownEnd.Lat, MouseDownEnd.Lng, 1);
-            
+
             writeKML();
             //
         }
 
         private void lbl_distance_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         string secondsToNice(double seconds)
@@ -6184,5 +6184,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             MainV2.comPort.sendPacket(BTBLand);
         }
+
+        
     }
 }

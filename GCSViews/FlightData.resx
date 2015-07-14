@@ -1608,14 +1608,50 @@
   <data name="&gt;&gt;tabActions.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="BUT_BaroCalib.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="BUT_BaroCalib.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="BUT_BaroCalib.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_BaroCalib.Location" type="System.Drawing.Point, System.Drawing">
+    <value>222, 34</value>
+  </data>
+  <data name="BUT_BaroCalib.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>1, 1, 1, 1</value>
+  </data>
+  <data name="BUT_BaroCalib.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 23</value>
+  </data>
+  <data name="BUT_BaroCalib.TabIndex" type="System.Int32, mscorlib">
+    <value>114</value>
+  </data>
+  <data name="BUT_BaroCalib.Text" xml:space="preserve">
+    <value>Barometer Calibration</value>
+  </data>
+  <data name="&gt;&gt;BUT_BaroCalib.Name" xml:space="preserve">
+    <value>BUT_BaroCalib</value>
+  </data>
+  <data name="&gt;&gt;BUT_BaroCalib.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUT_BaroCalib.Parent" xml:space="preserve">
+    <value>tabActionsSimple</value>
+  </data>
+  <data name="&gt;&gt;BUT_BaroCalib.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="BUT_BTBLand.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="BUT_BTBLand.Location" type="System.Drawing.Point, System.Drawing">
-    <value>222, 34</value>
+    <value>222, 61</value>
   </data>
   <data name="BUT_BTBLand.Size" type="System.Drawing.Size, System.Drawing">
-    <value>114, 23</value>
+    <value>117, 23</value>
   </data>
   <data name="BUT_BTBLand.TabIndex" type="System.Int32, mscorlib">
     <value>109</value>
@@ -1639,7 +1675,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;BUT_BTBLand.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="label18.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1672,7 +1708,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;label18.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="label17.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1705,7 +1741,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="label13.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1741,7 +1777,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="TXT_pwm_high.Location" type="System.Drawing.Point, System.Drawing">
     <value>304, 201</value>
@@ -1768,7 +1804,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;TXT_pwm_high.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="TXT_pwm_low.Location" type="System.Drawing.Point, System.Drawing">
     <value>217, 201</value>
@@ -1795,7 +1831,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;TXT_pwm_low.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="label8.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1825,7 +1861,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1858,7 +1894,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="TXT_NumLogsforDL.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 10pt</value>
@@ -1891,7 +1927,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;TXT_NumLogsforDL.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="LBL_Downloading.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1924,7 +1960,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;LBL_Downloading.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="BUT_DL3Logs.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1954,7 +1990,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;BUT_DL3Logs.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="CMB_setwpSimple.Items" xml:space="preserve">
     <value>0 (Home)</value>
@@ -1978,7 +2014,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;CMB_setwpSimple.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="BUT_RestartSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2008,7 +2044,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;BUT_RestartSimple.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="BUT_SetWPSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2038,7 +2074,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;BUT_SetWPSimple.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="CHK_AutoHatchSimple.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2074,7 +2110,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;CHK_AutoHatchSimple.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="BUT_CloseHatchSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2104,7 +2140,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;BUT_CloseHatchSimple.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>16</value>
   </data>
   <data name="BUT_OpenHatchSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2134,7 +2170,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;BUT_OpenHatchSimple.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>17</value>
   </data>
   <data name="BUT_CloseLensSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2164,7 +2200,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;BUT_CloseLensSimple.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>18</value>
   </data>
   <data name="BUT_RTLSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2194,7 +2230,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;BUT_RTLSimple.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>19</value>
   </data>
   <data name="BUT_AutoSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2224,7 +2260,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;BUT_AutoSimple.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>20</value>
   </data>
   <data name="modifyandSetSpeedSimple.Location" type="System.Drawing.Point, System.Drawing">
     <value>222, 3</value>
@@ -2245,7 +2281,7 @@
     <value>tabActionsSimple</value>
   </data>
   <data name="&gt;&gt;modifyandSetSpeedSimple.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>21</value>
   </data>
   <data name="tabActionsSimple.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -3781,7 +3817,7 @@
     <value>zg1</value>
   </data>
   <data name="&gt;&gt;zg1.Type" xml:space="preserve">
-    <value>ZedGraph.ZedGraphControl, ZedGraph, Version=5.1.5.19719, Culture=neutral, PublicKeyToken=null</value>
+    <value>ZedGraph.ZedGraphControl, ZedGraph, Version=5.1.5.24318, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;zg1.Parent" xml:space="preserve">
     <value>splitContainer1.Panel1</value>

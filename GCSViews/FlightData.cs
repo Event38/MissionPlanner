@@ -3826,5 +3826,27 @@ namespace MissionPlanner.GCSViews
             MainV2.config["advancedview"] = CHK_advancedviewFD.Checked.ToString();
             MainV2.Advanced = CHK_advancedviewFD.Checked;
         }
+
+        private void BUT_BaroCalib_Click(object sender, EventArgs e)
+        {
+            //try
+            //{
+            //    ((Button)sender).Enabled = false;
+
+            //    MainV2.comPort.doCommand((MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), "PREFLIGHT_CALIBRATION"), 0, 0, 1, 0, 0, 0, 0); //calibrate baro
+            //}
+
+            //catch { CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR); }
+            //    ((Button)sender).Enabled = true;
+
+            //send packet to BTB containing pressure and altitude
+            MAVLink.mavlink_BTB_Pres_Alt Pres_Alt = new MAVLink.mavlink_BTB_Pres_Alt();
+
+            Pres_Alt.Pressure = MainV2.comPort.MAV.cs.raw_press;
+            Pres_Alt.Altitude = MainV2.comPort.MAV.cs.alt;
+
+            MainV2.comPort.sendPacket(Pres_Alt);
+            //
+        }
     }
 }
