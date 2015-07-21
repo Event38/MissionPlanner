@@ -76,6 +76,7 @@
             this.BUTrestartmission = new MissionPlanner.Controls.MyButton();
             this.BUTactiondo = new MissionPlanner.Controls.MyButton();
             this.tabActionsSimple = new System.Windows.Forms.TabPage();
+            this.BUT_BaroCalib = new MissionPlanner.Controls.MyButton();
             this.BUT_BTBLand = new MissionPlanner.Controls.MyButton();
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -185,7 +186,6 @@
             this.bindingSourceGaugesTab = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSourceStatusTab = new System.Windows.Forms.BindingSource(this.components);
-            this.BUT_BaroCalib = new MissionPlanner.Controls.MyButton();
             this.contextMenuStripMap.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainH)).BeginInit();
             this.MainH.Panel1.SuspendLayout();
@@ -884,6 +884,13 @@
             resources.ApplyResources(this.tabActionsSimple, "tabActionsSimple");
             this.tabActionsSimple.Name = "tabActionsSimple";
             this.tabActionsSimple.UseVisualStyleBackColor = true;
+            // 
+            // BUT_BaroCalib
+            // 
+            resources.ApplyResources(this.BUT_BaroCalib, "BUT_BaroCalib");
+            this.BUT_BaroCalib.Name = "BUT_BaroCalib";
+            this.BUT_BaroCalib.UseVisualStyleBackColor = true;
+            this.BUT_BaroCalib.Click += new System.EventHandler(this.BUT_BaroCalib_Click);
             // 
             // BUT_BTBLand
             // 
@@ -1831,7 +1838,7 @@
             this.windDir1.BackColor = System.Drawing.Color.Transparent;
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Direction", this.bindingSource1, "wind_dir", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.windDir1.DataBindings.Add(new System.Windows.Forms.Binding("Speed", this.bindingSource1, "wind_vel", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.windDir1.Direction = 0D;
+            this.windDir1.Direction = 360D;
             resources.ApplyResources(this.windDir1, "windDir1");
             this.windDir1.Name = "windDir1";
             this.windDir1.Speed = 0D;
@@ -2168,13 +2175,6 @@
             // bindingSourceStatusTab
             // 
             this.bindingSourceStatusTab.DataSource = typeof(MissionPlanner.CurrentState);
-            // 
-            // BUT_BaroCalib
-            // 
-            resources.ApplyResources(this.BUT_BaroCalib, "BUT_BaroCalib");
-            this.BUT_BaroCalib.Name = "BUT_BaroCalib";
-            this.BUT_BaroCalib.UseVisualStyleBackColor = true;
-            this.BUT_BaroCalib.Click += new System.EventHandler(this.BUT_BaroCalib_Click);
             // 
             // FlightData
             // 

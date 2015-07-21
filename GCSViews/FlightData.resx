@@ -1614,6 +1614,9 @@
   <data name="BUT_BaroCalib.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="BUT_BaroCalib.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="BUT_BaroCalib.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1632,6 +1635,9 @@
   <data name="BUT_BaroCalib.Text" xml:space="preserve">
     <value>Barometer Calibration</value>
   </data>
+  <data name="BUT_BaroCalib.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;BUT_BaroCalib.Name" xml:space="preserve">
     <value>BUT_BaroCalib</value>
   </data>
@@ -1643,6 +1649,9 @@
   </data>
   <data name="&gt;&gt;BUT_BaroCalib.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="BUT_BTBLand.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="BUT_BTBLand.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
