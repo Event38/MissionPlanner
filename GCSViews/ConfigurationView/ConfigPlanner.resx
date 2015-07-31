@@ -919,9 +919,6 @@
   <data name="label98.Text" xml:space="preserve">
     <value>Speed Units</value>
   </data>
-  <data name="label98.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="&gt;&gt;label98.Name" xml:space="preserve">
     <value>label98</value>
   </data>
@@ -948,9 +945,6 @@
   </data>
   <data name="label97.Text" xml:space="preserve">
     <value>Dist Units</value>
-  </data>
-  <data name="label97.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="&gt;&gt;label97.Name" xml:space="preserve">
     <value>label97</value>

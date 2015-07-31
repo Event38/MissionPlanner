@@ -284,6 +284,40 @@ namespace MissionPlanner
             if(MainV2.instance.UserCamera != null)   //load camera choice from initial UserSetup
                 CMB_camera.Text = MainV2.instance.UserCamera.ToString();
 
+            if (MainV2.instance.UserModel != null)  //change fly speed based on model selection in UserSetup -D Cironi 2015-07-29
+            {
+                switch (MainV2.instance.UserModel.ToString())
+                {
+                    case "E382":
+                    case "E384":
+                    case "Other":
+                        //if (ConfigPlannerInstance.CMB_speedunits.Text == "fps")
+                        //    NUM_UpDownFlySpeed.Value = 43;
+                        //else if (ConfigPlannerInstance.CMB_speedunits.Text == "kph")
+                        //    NUM_UpDownFlySpeed.Value = 47;
+                        //else if (ConfigPlannerInstance.CMB_speedunits.Text == "mph")
+                        //    NUM_UpDownFlySpeed.Value = 29;
+                        //else if (ConfigPlannerInstance.CMB_speedunits.Text == "knots")
+                        //    NUM_UpDownFlySpeed.Value = 25;
+                        //else
+                            NUM_UpDownFlySpeed.Value = 13; //m/s
+                        break;
+
+                    case "Iris":
+                        //if (ConfigPlannerInstance.CMB_speedunits.Text == "fps")
+                        //    NUM_UpDownFlySpeed.Value = 16;
+                        //else if (ConfigPlannerInstance.CMB_speedunits.Text == "kph")
+                        //    NUM_UpDownFlySpeed.Value = 18;
+                        //else if (ConfigPlannerInstance.CMB_speedunits.Text == "mph")
+                        //    NUM_UpDownFlySpeed.Value = 11;
+                        //else if (ConfigPlannerInstance.CMB_speedunits.Text == "knots")
+                        //    NUM_UpDownFlySpeed.Value = 10;
+                        //else
+                            NUM_UpDownFlySpeed.Value = 5; //m/s
+                        break;
+                    }
+            }
+
             if (plugin.Host.config.ContainsKey("grid_camera"))
             { 
                 loadsetting("grid_alt", NUM_altitude);
@@ -1144,11 +1178,15 @@ namespace MissionPlanner
             {
                 tabControl1.TabPages.Add(tabGrid);
                 tabControl1.TabPages.Add(tabCamera);
+                NUM_UpDownFlySpeed.Visible = true; //make sly speed show up under advanced view in GridUI - D Cironi 2015-07-29
+                label24.Visible = true; //label for fly speed
             }
             else
             {
                 tabControl1.TabPages.Remove(tabGrid);
                 tabControl1.TabPages.Remove(tabCamera);
+                NUM_UpDownFlySpeed.Visible = false;
+                label24.Visible = false;
             }
         }
 

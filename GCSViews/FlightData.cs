@@ -3851,5 +3851,17 @@ namespace MissionPlanner.GCSViews
             MainV2.comPort.sendPacket(Pres_Alt);
             //
         }
+
+        private void BUT_OpenLogFiles_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fd = new OpenFileDialog();
+            fd.AddExtension = true;
+            fd.Filter = "Ardupilot Telemtry log (*.tlog)|*.tlog|Mavlink Log (*.mavlog)|*.mavlog";
+            fd.InitialDirectory = MainV2.LogDir;
+            fd.DefaultExt = ".tlog";
+            DialogResult result = fd.ShowDialog();
+            //string file = fd.FileName;
+            //LoadLogFile(file);
+        }
     }
 }

@@ -745,7 +745,6 @@
         private System.Windows.Forms.Label label99;
         private System.Windows.Forms.Label label98;
         private System.Windows.Forms.Label label97;
-        private System.Windows.Forms.ComboBox CMB_speedunits;
         private System.Windows.Forms.ComboBox CMB_distunits;
         private System.Windows.Forms.Label label96;
         private System.Windows.Forms.Label label95;
@@ -788,5 +787,6 @@
         private System.Windows.Forms.Label label6;
         private Controls.MyButton BUT_ChangeUserSetup;
         public System.Windows.Forms.CheckBox CHK_advancedview;
+        public System.Windows.Forms.ComboBox CMB_speedunits;
     }
 }
