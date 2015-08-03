@@ -2135,6 +2135,9 @@ Airport Airspace</value>
   <data name="BUT_ChangeUserSetup.Text" xml:space="preserve">
     <value>Change Model/Camera Setup</value>
   </data>
+  <data name="BUT_ChangeUserSetup.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;BUT_ChangeUserSetup.Name" xml:space="preserve">
     <value>BUT_ChangeUserSetup</value>
   </data>

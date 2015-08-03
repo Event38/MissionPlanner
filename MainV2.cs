@@ -1160,6 +1160,7 @@ namespace MissionPlanner
                     if (comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
                     {
                         _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(Firmwares.ArduCopter2);
+                        UserModel = "Iris"; //this allows us to customize certain GUI elements based on model
                     }
                     else if (comPort.MAV.cs.firmware == Firmwares.Ateryx)
                     {
@@ -1172,6 +1173,7 @@ namespace MissionPlanner
                     else if (comPort.MAV.cs.firmware == Firmwares.ArduPlane)
                     {
                         _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(Firmwares.ArduPlane);
+                        UserModel = "E384"; //this allows us to customize certain GUI elements based on model
                     }
 
                     // check for newer firmware -Don't do this in our version -D Cironi 2015-05-13
@@ -2244,15 +2246,15 @@ namespace MissionPlanner
 
             Program.Splash.Close();
 
-            //Show User Setup Screen -D Cironi 2015-02-27 --added back in 2015-07-29
-            if (SaveUserSetup == false)
-            {
-                UserSetup.ShowDialog();
-            }
-            else
-            {
-                updateUserSetup();
-            }
+            ////Show User Setup Screen -D Cironi 2015-02-27
+            //if (SaveUserSetup == false)
+            //{
+            //    UserSetup.ShowDialog();
+            //}
+            //else
+            //{
+            //    updateUserSetup();
+            //}
 
 
 
