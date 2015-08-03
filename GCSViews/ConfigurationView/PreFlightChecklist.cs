@@ -19,78 +19,150 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         public void BindData()
         {
+           // if (MainV2.instance.UserModel.ToString() == "E382" || MainV2.instance.UserModel.ToString() == "E384" || MainV2.instance.UserModel.ToString() == "Other")
+          //  {
+                //Need to add one more condition
+            if (MainV2.instance.UserModel.ToString() == "E384" || MainV2.instance.UserModel.ToString() == "E382" || MainV2.instance.UserModel.ToString() == "Other" || MainV2.instance.UserModel.ToString() == "")
+            {
+                if (MainV2.comPort.MAV.cs.satcount >= 5 && MainV2.comPort.MAV.cs.gpsstatus >= 3)
+                {
+                    lblGPS.Image = MissionPlanner.Properties.Resources.Green_panel1;
+                    chBoxGPS.Checked = true;
+                    lblGPS.Text = "3D fix and 5 or more satellites connected";
+                }
+                else
+                {
+                    lblGPS.Image = MissionPlanner.Properties.Resources.Red_panel;
+                    chBoxGPS.Checked = false;
+                    lblGPS.Text = "3D fix or satellites failed or both";
+                }
+
+                if (MainV2.comPort.MAV.cs.linkqualitygcs >= 90)
+                {
+                    lblTel.Image = MissionPlanner.Properties.Resources.Green_panel1;
+                    lblTel.Text = "signal >= 90%";
+                    chBoxTel.Checked = true;
+                }
+                else
+                {
+                    lblTel.Image = MissionPlanner.Properties.Resources.Red_panel;
+                    lblTel.Text = "signal < 90%";
+                    chBoxTel.Checked = false;
+                }
+
+                if (MainV2.comPort.MAV.cs.battery_voltage >= 15.99)
+                {
+                    lblBattery.Text = "Voltage > 15.99";
+                    lblBattery.Image = MissionPlanner.Properties.Resources.Green_panel1;
+                    chBoxBattery.Checked = true;
+                }
+                else if (MainV2.comPort.MAV.cs.battery_voltage >= 14.5 && MainV2.comPort.MAV.cs.battery_voltage <= 15.98)
+                {
+                    lblBattery.Text = "Voltage between 14.5 and 15.98";
+                    lblBattery.Image = MissionPlanner.Properties.Resources.Yellow_panel;
+                    chBoxBattery.Checked = true;
+                }
+                else
+                {
+                    lblBattery.Text = "Voltage less than 14.5";
+                    lblBattery.Image = MissionPlanner.Properties.Resources.Red_panel;
+                    chBoxBattery.Checked = false;
+                }
+                this.label14.Text = "Valid Waypoints";
+                this.label3.Text = "All servos respond to tilting the aircraft";
+                this.label4.Text = "Center of gravity at points indicated ";
+                this.label2.Text = "All servos respond to R/C stick inputs";
+                this.label6.Text = "Servo linkages are secure";
+                this.label12.Text = "Tail and wings are secured to the body";
+                this.label5.Text = "Camera is on and test shot has been taken";
+                this.label15.Text = "Verify Compass Heading";
+            }
+                //if (MainV2.comPort.MAV.cs.mode.Equals("FBWA", StringComparison.OrdinalIgnoreCase))
+                //{
+                //    lblRemote.Text = MainV2.comPort.MAV.cs.mode;
+                //    lblRemote.Image = MissionPlanner.Properties.Resources.Green_panel1;
+                //    chBoxRemote.Checked = true;
+                //}
+                //else
+                //{
+                //    lblRemote.Text = MainV2.comPort.MAV.cs.mode;
+                //    lblRemote.Image = MissionPlanner.Properties.Resources.Red_panel;
+                //    chBoxRemote.Checked = false;
+                //}
+
+                //if (MainV2.comPort.MAV.cs.alt <= 10)
+                //{
+                //    lblAltitude.Text = MainV2.comPort.MAV.cs.alt.ToString();
+                //    lblAltitude.Image = MissionPlanner.Properties.Resources.Green_panel1;
+                //    chBoxAltitude.Checked = true;
+                //}
+                //else
+                //{
+                //    lblAltitude.Text = MainV2.comPort.MAV.cs.alt.ToString();
+                //    lblAltitude.Image = MissionPlanner.Properties.Resources.Red_panel;
+                //    chBoxAltitude.Checked = false;
+                //}
+         //   }
             //Need to add one more condition
-            if (MainV2.comPort.MAV.cs.satcount >= 5 && MainV2.comPort.MAV.cs.gpsstatus >= 3)
+            if (MainV2.instance.UserModel.ToString() == "Iris")
             {
-                lblGPS.Image = MissionPlanner.Properties.Resources.Green_panel1;
-                chBoxGPS.Checked = true;
-                lblGPS.Text = "3D fix and 5 or more satellites connected";
-            }
-            else
-            {
-                lblGPS.Image = MissionPlanner.Properties.Resources.Red_panel;
-                chBoxGPS.Checked = false;
-                lblGPS.Text = "3D fix or satellites failed or both";
-            }
+                if (MainV2.comPort.MAV.cs.satcount >= 5 && MainV2.comPort.MAV.cs.gpsstatus >= 3)
+               {
+                    lblGPS.Image = MissionPlanner.Properties.Resources.Green_panel1;
+                    chBoxGPS.Checked = true;
+                    lblGPS.Text = "3D fix and 5 or more satelites connected";
+                }
+                else
+                {
+                    lblGPS.Image = MissionPlanner.Properties.Resources.Red_panel;
+                    chBoxGPS.Checked = false;
+                    lblGPS.Text = "3D fix or satelites failed or both";
+                }
 
-            if (MainV2.comPort.MAV.cs.linkqualitygcs >= 90)
-            {
-                lblTel.Image = MissionPlanner.Properties.Resources.Green_panel1;
-                lblTel.Text = "signal >= 90%";
-                chBoxTel.Checked = true;
-            }
-            else
-            {
-                lblTel.Image = MissionPlanner.Properties.Resources.Red_panel;
-                lblTel.Text = "signal < 90%";
-                chBoxTel.Checked = false;
-            }
+                if (MainV2.comPort.MAV.cs.linkqualitygcs >= 90)
+                {
+                    lblTel.Image = MissionPlanner.Properties.Resources.Green_panel1;
+                    lblTel.Text = "signal >= 90%";
+                    chBoxTel.Checked = true;
+                }
+                else
+                {
+                    lblTel.Image = MissionPlanner.Properties.Resources.Red_panel;
+                    lblTel.Text = "signal < 90%";
+                    chBoxTel.Checked = false;
+                }
 
-            if (MainV2.comPort.MAV.cs.battery_voltage >= 15.99)
-            {
-                lblBattery.Text = "Voltage > 15.99";
-                lblBattery.Image = MissionPlanner.Properties.Resources.Green_panel1;
-                chBoxBattery.Checked = true;
+                if (MainV2.comPort.MAV.cs.battery_voltage >= 12.6)
+                {
+                    lblBattery.Text = "Voltage > 12.6";
+                    lblBattery.Image = MissionPlanner.Properties.Resources.Green_panel1;
+                    chBoxBattery.Checked = true;
+                }
+                else if (MainV2.comPort.MAV.cs.battery_voltage >= 10.5 && MainV2.comPort.MAV.cs.battery_voltage <= 12.6)
+                {
+                    lblBattery.Text = "Voltage between 10.5 and 12.6";
+                    lblBattery.Image = MissionPlanner.Properties.Resources.Yellow_panel;
+                    chBoxBattery.Checked = true;
+                }
+                else
+                {
+                   lblBattery.Text = "Voltage less than 10.5";
+                  lblBattery.Image = MissionPlanner.Properties.Resources.Red_panel;
+                    chBoxBattery.Checked = false;
+                }
+            this.label14.Text = "Valid Waypoints";
+            this.label3.Text =  "Ensure that camera is tightened firmly to the mount";
+            this.label4.Text = "ch7 switch(auto land) is in OFF position";
+            this.label2.Text =  "Camera is on and test shot has been taken";
+            this.label6.Text =  "RTL switch is in the OFF position";
+            this.label12.Text = "Propellers are tight and secure";
+            this.label5.Text = "Transmitter set to loiter";
+            this.label15.Text = "";
+            this.lbl_CompassCheck.Visible = false;
+            this.CHK_CompassCheck.Visible = false;
+            this.label14.Text = "Verify Compass Heading";
             }
-            else if (MainV2.comPort.MAV.cs.battery_voltage >= 14.5 && MainV2.comPort.MAV.cs.battery_voltage <= 15.98)
-            {
-                lblBattery.Text = "Voltage between 14.5 and 15.98";
-                lblBattery.Image = MissionPlanner.Properties.Resources.Yellow_panel;
-                chBoxBattery.Checked = true;
-            }
-            else
-            {
-                lblBattery.Text = "Voltage less than 14.5";
-                lblBattery.Image = MissionPlanner.Properties.Resources.Red_panel;
-                chBoxBattery.Checked = false;
-            }
-
-            //if (MainV2.comPort.MAV.cs.mode.Equals("FBWA", StringComparison.OrdinalIgnoreCase))
-            //{
-            //    lblRemote.Text = MainV2.comPort.MAV.cs.mode;
-            //    lblRemote.Image = MissionPlanner.Properties.Resources.Green_panel1;
-            //    chBoxRemote.Checked = true;
-            //}
-            //else
-            //{
-            //    lblRemote.Text = MainV2.comPort.MAV.cs.mode;
-            //    lblRemote.Image = MissionPlanner.Properties.Resources.Red_panel;
-            //    chBoxRemote.Checked = false;
-            //}
-
-            //if (MainV2.comPort.MAV.cs.alt <= 10)
-            //{
-            //    lblAltitude.Text = MainV2.comPort.MAV.cs.alt.ToString();
-            //    lblAltitude.Image = MissionPlanner.Properties.Resources.Green_panel1;
-            //    chBoxAltitude.Checked = true;
-            //}
-            //else
-            //{
-            //    lblAltitude.Text = MainV2.comPort.MAV.cs.alt.ToString();
-            //    lblAltitude.Image = MissionPlanner.Properties.Resources.Red_panel;
-            //    chBoxAltitude.Checked = false;
-            //}
-
+            
             BindUserCheckList();
         }
 

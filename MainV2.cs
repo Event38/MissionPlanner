@@ -108,7 +108,7 @@ namespace MissionPlanner
                     AdvancedChanged(null, new EventArgs());
             }
         }
-
+       
         public static bool ShowAirports { get; set; }
         public static bool ShowTFR { get; set; }
 
@@ -292,7 +292,7 @@ namespace MissionPlanner
 
         //variables for user setup, will be set when xml config file is read
         public string UserCamera;
-        public string UserModel;
+        public string UserModel = "Null";
         public bool SaveUserSetup;
 
 
@@ -318,7 +318,7 @@ namespace MissionPlanner
                 config["SaveUserSetup"] = SaveUserSetup;
 
             if (UserCamera == "Canon S110" || UserCamera == "Canon SX260")
-            {
+            { 
                 //hide hatch buttons
                 FlightData.BUT_CloseHatch.Visible = false;
                 FlightData.BUT_CloseHatchSimple.Visible = false;
@@ -372,6 +372,7 @@ namespace MissionPlanner
             }
             else //just show nothing
             {
+           
                 FlightData.BUT_CloseHatch.Visible = false;
                 FlightData.BUT_CloseHatchSimple.Visible = false;
                 FlightData.BUT_OpenHatch.Visible = false;
@@ -418,11 +419,9 @@ namespace MissionPlanner
             splash.Refresh();
 
             Application.DoEvents();
-
+            
             instance = this;
-
             InitializeComponent();
-
             MyView = new MainSwitcher(this);
 
             View = MyView;
@@ -448,7 +447,7 @@ namespace MissionPlanner
 
             var t = Type.GetType("Mono.Runtime");
             MONO = (t != null);
-
+           
             speechEngine = new Speech();
 
             Warnings.CustomWarning.defaultsrc = comPort.MAV.cs;

@@ -177,7 +177,6 @@
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(149, 36);
             this.label14.TabIndex = 53;
-            this.label14.Text = "Valid Waypoints";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label13
@@ -321,7 +320,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(149, 36);
             this.label2.TabIndex = 34;
-            this.label2.Text = "All servos respond to R/C stick inputs";
+            
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblURcStick
@@ -357,7 +356,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(149, 36);
             this.label3.TabIndex = 37;
-            this.label3.Text = "All servos respond to tilting the aircraft";
+            
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblUtilt
@@ -393,7 +392,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(149, 36);
             this.label4.TabIndex = 40;
-            this.label4.Text = "Center of gravity at points indicated ";
+            
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblUCent
@@ -429,7 +428,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(149, 36);
             this.label5.TabIndex = 43;
-            this.label5.Text = "Camera is on and test shot has been taken";
+            
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblUCam
@@ -465,7 +464,7 @@
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(149, 36);
             this.label6.TabIndex = 46;
-            this.label6.Text = "Servo linkages are secure";
+           
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblUServo
@@ -501,7 +500,7 @@
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(149, 36);
             this.label12.TabIndex = 49;
-            this.label12.Text = "Tail and wings are secured to the body";
+           
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblUWing
@@ -537,7 +536,7 @@
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(149, 36);
             this.label15.TabIndex = 59;
-            this.label15.Text = "Verify Compass Heading";
+           
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbl_CompassCheck
@@ -574,6 +573,8 @@
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
+            
+          
         }
 
 

@@ -13,7 +13,8 @@ namespace MissionPlanner.GCSViews
     {
         public UserSetup()
         {
-            InitializeComponent();
+          
+           InitializeComponent();
         }
 
         private void UserSetup_Load(object sender, EventArgs e)
