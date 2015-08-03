@@ -284,39 +284,8 @@ namespace MissionPlanner
             if(MainV2.instance.UserCamera != null)   //load camera choice from initial UserSetup
                 CMB_camera.Text = MainV2.instance.UserCamera.ToString();
 
-            if (MainV2.instance.UserModel != null)  //change fly speed based on model selection in UserSetup -D Cironi 2015-07-29
-            {
-                switch (MainV2.instance.UserModel.ToString())
-                {
-                    case "E382":
-                    case "E384":
-                    case "Other":
-                        //if (ConfigPlannerInstance.CMB_speedunits.Text == "fps")
-                        //    NUM_UpDownFlySpeed.Value = 43;
-                        //else if (ConfigPlannerInstance.CMB_speedunits.Text == "kph")
-                        //    NUM_UpDownFlySpeed.Value = 47;
-                        //else if (ConfigPlannerInstance.CMB_speedunits.Text == "mph")
-                        //    NUM_UpDownFlySpeed.Value = 29;
-                        //else if (ConfigPlannerInstance.CMB_speedunits.Text == "knots")
-                        //    NUM_UpDownFlySpeed.Value = 25;
-                        //else
-                            NUM_UpDownFlySpeed.Value = 13; //m/s
-                        break;
-
-                    case "Iris":
-                        //if (ConfigPlannerInstance.CMB_speedunits.Text == "fps")
-                        //    NUM_UpDownFlySpeed.Value = 16;
-                        //else if (ConfigPlannerInstance.CMB_speedunits.Text == "kph")
-                        //    NUM_UpDownFlySpeed.Value = 18;
-                        //else if (ConfigPlannerInstance.CMB_speedunits.Text == "mph")
-                        //    NUM_UpDownFlySpeed.Value = 11;
-                        //else if (ConfigPlannerInstance.CMB_speedunits.Text == "knots")
-                        //    NUM_UpDownFlySpeed.Value = 10;
-                        //else
-                            NUM_UpDownFlySpeed.Value = 5; //m/s
-                        break;
-                    }
-            }
+            if (MainV2.instance.UserModel != null)    //load user model choice
+                CMB_UserModel.Text = MainV2.instance.UserModel.ToString();
 
             if (plugin.Host.config.ContainsKey("grid_camera"))
             { 
@@ -1518,6 +1487,8 @@ namespace MissionPlanner
 
                 MainV2.instance.FlightPlanner.writeKML();
 
+                MainV2.instance.updateUserSetup(); //D Cironi 2015-08-03
+
                 this.Close();
             }
             else
@@ -1682,6 +1653,22 @@ namespace MissionPlanner
             //                LBL_PhotoEveryWarning.Visible = false;
             //            }
             //        }
+        }
+
+        //change flight speed based on model selection
+        private void CMB_UserModel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(CMB_UserModel.Text == "Iris")
+            {
+                NUM_UpDownFlySpeed.Value = 5; //m/s
+            }
+            else
+            {
+                NUM_UpDownFlySpeed.Value = 13; //m/s
+            }
+
+            //update user model
+            MainV2.instance.UserModel = CMB_UserModel.Text;
         }
     }
 }

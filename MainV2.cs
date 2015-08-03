@@ -298,8 +298,9 @@ namespace MissionPlanner
 
         public void updateUserSetup() //hides certain GUI elements based on model,camera,etc. -D Cironi 2015-02-26
         {
-            if (SaveUserSetup == true)
-            {
+            //comment this out because we will save the user setup choice regardless
+            //if (SaveUserSetup == true)
+            //{
                 if (!config.Contains("UserCamera"))
                     config.Add("UserCamera", UserCamera);
                 else
@@ -310,7 +311,7 @@ namespace MissionPlanner
                     config.Add("UserModel", UserModel);
                 else
                     config["UserModel"] = UserModel;
-            }
+            //}
 
             if (!config.ContainsKey("SaveUserSetup"))
                 config.Add("SaveUserSetup", Convert.ToString(SaveUserSetup));

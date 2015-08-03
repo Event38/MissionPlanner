@@ -106,8 +106,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
             if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
             {
-                this.label3.Text = "Ensure that camera is tightened firmly to the mount";
-                this.label4.Text = "ch7 switch(auto land) is in OFF position";
+                this.label3.Text = "Camera is tightened firmly to the mount";
+                this.label4.Text = "Ch 7 switch (auto land) is in OFF position";
                 this.label2.Text = "Camera is on and test shot has been taken";
                 this.label6.Text = "RTL switch is in the OFF position";
                 this.label12.Text = "Propellers are tight and secure";
