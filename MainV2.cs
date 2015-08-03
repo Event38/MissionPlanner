@@ -292,7 +292,7 @@ namespace MissionPlanner
 
         //variables for user setup, will be set when xml config file is read
         public string UserCamera;
-        public string UserModel = "Null";
+        public string UserModel = "null";
         public bool SaveUserSetup;
 
 

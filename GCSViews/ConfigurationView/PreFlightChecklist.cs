@@ -19,10 +19,9 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         public void BindData()
         {
-           // if (MainV2.instance.UserModel.ToString() == "E382" || MainV2.instance.UserModel.ToString() == "E384" || MainV2.instance.UserModel.ToString() == "Other")
-          //  {
-                //Need to add one more condition
-            if (MainV2.instance.UserModel.ToString() == "E384" || MainV2.instance.UserModel.ToString() == "E382" || MainV2.instance.UserModel.ToString() == "Other" || MainV2.instance.UserModel.ToString() == "")
+         
+               // Need to add one more condition
+            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduRover || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduTracker)
             {
                 if (MainV2.comPort.MAV.cs.satcount >= 5 && MainV2.comPort.MAV.cs.gpsstatus >= 3)
                 {
@@ -33,7 +32,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 else
                 {
                     lblGPS.Image = MissionPlanner.Properties.Resources.Red_panel;
-                    chBoxGPS.Checked = false;
+                   chBoxGPS.Checked = false;
                     lblGPS.Text = "3D fix or satellites failed or both";
                 }
 
@@ -54,7 +53,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 {
                     lblBattery.Text = "Voltage > 15.99";
                     lblBattery.Image = MissionPlanner.Properties.Resources.Green_panel1;
-                    chBoxBattery.Checked = true;
+                   chBoxBattery.Checked = true;
                 }
                 else if (MainV2.comPort.MAV.cs.battery_voltage >= 14.5 && MainV2.comPort.MAV.cs.battery_voltage <= 15.98)
                 {
@@ -65,8 +64,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 else
                 {
                     lblBattery.Text = "Voltage less than 14.5";
-                    lblBattery.Image = MissionPlanner.Properties.Resources.Red_panel;
-                    chBoxBattery.Checked = false;
+                   lblBattery.Image = MissionPlanner.Properties.Resources.Red_panel;
+                   chBoxBattery.Checked = false;
                 }
                 this.label14.Text = "Valid Waypoints";
                 this.label3.Text = "All servos respond to tilting the aircraft";
@@ -104,10 +103,20 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 //}
          //   }
             //Need to add one more condition
-            if (MainV2.instance.UserModel.ToString() == "Iris")
+
+            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
             {
+                this.label3.Text = "Ensure that camera is tightened firmly to the mount";
+                this.label4.Text = "ch7 switch(auto land) is in OFF position";
+                this.label2.Text = "Camera is on and test shot has been taken";
+                this.label6.Text = "RTL switch is in the OFF position";
+                this.label12.Text = "Propellers are tight and secure";
+                this.label5.Text = "Transmitter set to loiter";
+                this.label15.Text = "Iris is on a level surface";
+                this.label14.Text = "Verify Compass Heading";
+               
                 if (MainV2.comPort.MAV.cs.satcount >= 5 && MainV2.comPort.MAV.cs.gpsstatus >= 3)
-               {
+                {
                     lblGPS.Image = MissionPlanner.Properties.Resources.Green_panel1;
                     chBoxGPS.Checked = true;
                     lblGPS.Text = "3D fix and 5 or more satelites connected";
@@ -116,7 +125,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 {
                     lblGPS.Image = MissionPlanner.Properties.Resources.Red_panel;
                     chBoxGPS.Checked = false;
-                    lblGPS.Text = "3D fix or satelites failed or both";
+                    lblGPS.Text = "3D fix or satellites failed or both";
                 }
 
                 if (MainV2.comPort.MAV.cs.linkqualitygcs >= 90)
@@ -146,21 +155,11 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 }
                 else
                 {
-                   lblBattery.Text = "Voltage less than 10.5";
-                  lblBattery.Image = MissionPlanner.Properties.Resources.Red_panel;
+                    lblBattery.Text = "Voltage less than 10.5";
+                    lblBattery.Image = MissionPlanner.Properties.Resources.Red_panel;
                     chBoxBattery.Checked = false;
                 }
-            this.label14.Text = "Valid Waypoints";
-            this.label3.Text =  "Ensure that camera is tightened firmly to the mount";
-            this.label4.Text = "ch7 switch(auto land) is in OFF position";
-            this.label2.Text =  "Camera is on and test shot has been taken";
-            this.label6.Text =  "RTL switch is in the OFF position";
-            this.label12.Text = "Propellers are tight and secure";
-            this.label5.Text = "Transmitter set to loiter";
-            this.label15.Text = "";
-            this.lbl_CompassCheck.Visible = false;
-            this.CHK_CompassCheck.Visible = false;
-            this.label14.Text = "Verify Compass Heading";
+                
             }
             
             BindUserCheckList();
