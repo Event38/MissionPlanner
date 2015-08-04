@@ -1,4 +1,8 @@
-﻿* Mission Planner 1.3.86 for Event 38 -Daniel Cironi (2015-07-29)
+﻿* Mission Planner 1.3.9 for Event 38 -Daniel Cironi (2015-07-29)
+Added an Iris specific preflight checklist
+Changed the way User Setup is done, there is now a User Model option in Grid UI
+
+* Mission Planner 1.3.86 for Event 38 -Daniel Cironi (2015-07-29)
 Added an Iris option under User Setup
 Choosing the Iris changes the default speed in Survey(Grid)
 
