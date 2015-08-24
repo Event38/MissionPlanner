@@ -43,6 +43,14 @@ namespace MissionPlanner.GCSViews
         bool isonline = true;
         bool sethome = false;
         bool polygongridmode = false;
+        bool landingStripMode = false; //D Cironi 2015-08-17
+        int landingStripPointCount = 0; //D Cironi 2015-08-17
+        PointLatLng beginningOfRunway = new PointLatLng(0, 0); //D Cironi 2015-08-17
+        PointLatLng endOfRunway = new PointLatLng(0, 0); //D Cironi 2015-08-17
+        List<PointLatLng> landingStripPoints = new List<PointLatLng>(); //D Cironi 2015-08-17
+        PointLatLng landingPoint = new PointLatLng(); //D Cironi 2015-08-17
+        double LandingDirection = 0; //D Cironi 2015-08-17
+        bool GPSLanding = false; //D Cironi 2015-08-18
         Hashtable param = new Hashtable();
         bool splinemode = false;
         altmode currentaltmode = altmode.Relative;
@@ -221,7 +229,7 @@ namespace MissionPlanner.GCSViews
                 if (float.TryParse(cell.Value.ToString(), out ans))
                 {
                     ans = (int)ans;
-                    if (alt != 0) // use passed in value;
+                    if (alt != -1) // use passed in value; //changed this check from 0 to -1 so I can put a land point at 0 - D Cironi 2015-08-21
                         cell.Value = alt.ToString();
                     if (ans == 0) // default
                         cell.Value = 50;
@@ -452,6 +460,9 @@ namespace MissionPlanner.GCSViews
 
             objectsoverlay = new GMapOverlay("objects");
             MainMap.Overlays.Add(objectsoverlay);
+
+            runwayoverlay = new GMapOverlay("runway");
+            MainMap.Overlays.Add(runwayoverlay);
 
             drawnpolygonsoverlay = new GMapOverlay("drawnpolygons");
             MainMap.Overlays.Add(drawnpolygonsoverlay);
@@ -2245,6 +2256,9 @@ namespace MissionPlanner.GCSViews
 
             selectedrow = 0;
             quickadd = false;
+
+            //clear runway overlay -D Cironi 2015-08-18
+            runwayoverlay.Clear();
             writeKML();
         }
 
@@ -2503,6 +2517,7 @@ namespace MissionPlanner.GCSViews
         public static GMapOverlay objectsoverlay; // where the markers a drawn
         public static GMapOverlay routesoverlay;// static so can update from gcs
         public static GMapOverlay polygonsoverlay; // where the track is drawn
+        public static GMapOverlay runwayoverlay; //where the runway will be - D Cironi 2015-08-17
         public static GMapOverlay airportsoverlay;
         public static GMapOverlay poioverlay = new GMapOverlay("POI"); // poi layer
         GMapOverlay drawnpolygonsoverlay;
@@ -2806,6 +2821,19 @@ namespace MissionPlanner.GCSViews
                             SetupLandingWaypoints();
                             LandingPointMode = false;
                         }
+                    
+                        if(landingStripMode) //for setting up a landing strip - D Cironi 2015-08-17
+                        {
+                            SetupLandingStrip();
+
+                            if(landingStripPointCount >= 2) //they have placed two points
+                            {
+                                landingStripMode = false;
+                                GPSLanding = false;
+                                landingStripPointCount = 0;
+                            }
+                        }
+
                         else
                         {
                             AddWPToMap(currentMarker.Position.Lat, currentMarker.Position.Lng, 0);
@@ -6042,16 +6070,81 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             writeKML();
         }
 
-        private void BUT_AddLandWP_Click(object sender, EventArgs e)
-        {
-            CustomMessageBox.Show("Please select location of landing on the map");
-            LandingPointMode = true;
-        }
-
-
         void SetupLandingWaypoints()
         {
+            //remove old land WPs if they are present
+            if (Commands.Rows.Count >= 3)
+            {
+                for (int i = 0; i <= pointlist.Count - 2; i++) //home adds an extra point
+                {
+                    if (Commands.Rows[i].Cells[Command.Index].Value.ToString().Contains("LAND"))
+                    {
+                        Commands.Rows.RemoveAt(i);      //remove land point
+                        Commands.Rows.RemoveAt(i - 1);  //remove approach
+                        Commands.Rows.RemoveAt(i - 2);  //remove approach
+                        Commands.Rows.RemoveAt(i - 3);  //remove approach
+                        break;
+                    }
+                }
+            }
 
+            if (!GPSLanding)
+            {
+                landingPoint = endOfRunway;
+            }
+
+            //convert direction in degrees to radians for calculations
+            double LandingDirectionRadians = Math.PI * Convert.ToDouble(LandingDirection) / 180;
+
+            //determine where to place waypoints based on angle of landing, these values put a waypoint at the proper angle 1m away,
+            //in order to get the final waypoint value we must multiply these values by the ground distance between waypoints in order to get the proper angle and distance
+            double LatDistance = .000008998 * Math.Sin(Math.PI - LandingDirectionRadians - Math.PI / 2) / Math.Sin(Math.PI / 2);     //.000008998 degrees LAT = 1m east and west          
+            double LngDistance = .000011950 * Math.Sin(LandingDirectionRadians) / Math.Sin(Math.PI / 2);                             //.000011950 degrees LNG = 1m north and south
+           
+            //add first wp of landing procedure
+            selectedrow = Commands.Rows.Add();
+            
+            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+
+            ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+
+            setfromMap(landingPoint.Lat - (LatDistance * 400), landingPoint.Lng - (LngDistance * 400), 100); //WP 400 meters out in the direction of landing and 100 meters altitude
+            writeKML();
+
+            //add second wp of landing procedure
+            selectedrow = Commands.Rows.Add();
+
+            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+
+            ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+
+            setfromMap(landingPoint.Lat - (LatDistance * 200), landingPoint.Lng - (LngDistance * 200), 50); //WP 200 meters out in the direction of landing and 50 meters altitude
+            writeKML();
+
+            //add third wp of landing procedure
+            selectedrow = Commands.Rows.Add();
+
+            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+
+            ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+
+            setfromMap(landingPoint.Lat - (LatDistance * 100), landingPoint.Lng - (LngDistance * 100), 50); //WP 100 meters out in the direction of landing and 50 meters altitude
+
+            writeKML();
+
+            //add final land wp of landing procedure
+            selectedrow = Commands.Rows.Add();
+
+            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
+
+            ChangeColumnHeader(MAVLink.MAV_CMD.LAND.ToString());
+
+            setfromMap(landingPoint.Lat, landingPoint.Lng, 0); //WP at specified GPS location of landing
+
+            writeKML();
+
+
+            /******Old Stuff******
             //deal with the direction input of the user
             string direction = "0";
             if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Direction", "Please enter your landing direction in degrees (0 = North)", ref direction))
@@ -6129,6 +6222,112 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             writeKML();
             //
+             */
+        }
+
+        private void SetupLandingStrip()
+        {
+            landingStripPointCount = landingStripPointCount + 1;
+
+            if (landingStripPointCount == 1)
+            {
+                landingStripPoints.Clear(); //clear old points
+
+                beginningOfRunway = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
+
+
+                GMarkerGoogle beginningOfRunwayIcon = new GMarkerGoogle(beginningOfRunway, GMarkerGoogleType.arrow);
+                //runwayoverlay.Markers.Add(beginningOfRunwayIcon);
+                
+            }
+            else if(landingStripPointCount == 2)
+            {
+                endOfRunway = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
+
+                Bitmap FinishIcon = new Bitmap(MissionPlanner.Properties.Resources.CheckeredFlag, 40, 40);
+                GMarkerGoogle endOfRunwayIcon = new GMarkerGoogle(endOfRunway, FinishIcon);
+                //runwayoverlay.Markers.Add(endOfRunwayIcon);
+
+                //draw the "Runway"
+                landingStripPoints.Add(beginningOfRunway);
+                landingStripPoints.Add(endOfRunway);
+
+                GMapPolygon runwayPolygon = new GMapPolygon(landingStripPoints, "Runway");
+
+                runwayPolygon.Fill = Brushes.Red;
+                runwayPolygon.Stroke.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                runwayoverlay.Polygons.Add(runwayPolygon);
+               
+            }
+
+            //determine landing direction once we have the start and end points of the runway
+            if (landingStripPointCount == 2)
+            {
+                double startLat = beginningOfRunway.Lat;
+                double startLong = beginningOfRunway.Lng;
+                double endLat = endOfRunway.Lat;
+                double endLong = endOfRunway.Lng;
+
+                var dLong = -(endLong - startLong);
+
+                var dPhi = Math.Log(Math.Tan(endLat / 2.0 + Math.PI / 4.0) / Math.Tan(startLat / 2.0 + Math.PI / 4.0));
+                if (Math.Abs(dLong) > Math.PI)
+                {
+                    if (dLong > 0.0)
+                        dLong = -(2.0 * Math.PI - dLong);
+                    else
+                        dLong = (2.0 * Math.PI + dLong);
+                }
+
+                LandingDirection = (degrees(Math.Atan2(dLong, dPhi)) + 180) % 360.0;
+
+                CustomMessageBox.Show("Your landing direction is " + LandingDirection);
+
+
+                //set up the landing pattern
+                SetupLandingWaypoints();
+
+                ////convert direction in degrees to radians for calculations
+                //LandingDirection = Math.PI * Convert.ToDouble(LandingDirection) / 180;
+
+                ////determine where to place waypoints based on angle of landing, these values put a waypoint at the proper angle 1m away,
+                ////in order to get the final waypoint value we must multiply these values by the ground distance between waypoints in order to get the proper angle and distance
+                //double LatDistance = .000008998 * Math.Sin(Math.PI - LandingDirection - Math.PI / 2) / Math.Sin(Math.PI / 2);     //.000008998 degrees LAT = 1m east and west          
+                //double LngDistance = .000011950 * Math.Sin(LandingDirection) / Math.Sin(Math.PI / 2);                             //.000011950 degrees LNG = 1m north and south
+
+                ////add first wp of landing procedure
+                //selectedrow = Commands.Rows.Add();
+
+                //Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+
+                //ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+
+                //setfromMap(endOfRunway.Lat - (LatDistance * 200), endOfRunway.Lng - (LngDistance * 200), 50); //WP 200 meters out in the direction of landing and 50 meters altitude
+                //writeKML();
+
+                ////add second wp of landing procedure
+                //selectedrow = Commands.Rows.Add();
+
+                //Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+
+                //ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+
+                //setfromMap(endOfRunway.Lat - (LatDistance * 100), endOfRunway.Lng - (LngDistance * 100), 50); //WP 100 meters out in the direction of landing and 50 meters altitude
+
+                //writeKML();
+
+                ////add final land wp of landing procedure
+                //selectedrow = Commands.Rows.Add();
+
+                //Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
+
+                //ChangeColumnHeader(MAVLink.MAV_CMD.LAND.ToString());
+
+                //setfromMap(endOfRunway.Lat, endOfRunway.Lng, 0); //WP at specified GPS location of landing
+
+                //writeKML();
+            }
+            
         }
 
         private void lbl_distance_TextChanged(object sender, EventArgs e)
@@ -6172,17 +6371,45 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void myButton1_Click(object sender, EventArgs e)
         {
-            MAVLink.mavlink_BTB_land_t BTBLand = new MAVLink.mavlink_BTB_land_t();
+            //MAVLink.mavlink_BTB_land_t BTBLand = new MAVLink.mavlink_BTB_land_t();
 
-            string directionAsString = "0";
-            Int16 direction = 0;
-            if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Direction", "Please enter your landing direction in degrees (0 = North)", ref directionAsString))
-                return;
-            direction = Convert.ToInt16(directionAsString);
+            //string directionAsString = "0";
+            //Int16 direction = 0;
+            //if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Direction", "Please enter your landing direction in degrees (0 = North)", ref directionAsString))
+            //    return;
+            //direction = Convert.ToInt16(directionAsString);
 
-            BTBLand.Direction = direction;
+            //BTBLand.Direction = direction;
 
-            MainV2.comPort.sendPacket(BTBLand);
+            //MainV2.comPort.sendPacket(BTBLand);
+
+
+            //New method to determine landing direction based on picking beginning and end of runway
+            if (landingStripMode == false)
+            {
+                runwayoverlay.Clear();
+                CustomMessageBox.Show("Please select the beginning point of your runway and the end point");
+            }
+            GPSLanding = false;
+            landingStripMode = true;
+        }
+
+        private void BUT_GPSLanding_Click(object sender, EventArgs e)
+        {
+            CustomMessageBox.Show("Please place plane where you would like it to land and press OK");
+
+            if(MainV2.comPort.MAV.cs.gpsstatus >= 3) //at least a 3D fix
+            {
+                landingPoint.Lat = MainV2.comPort.MAV.cs.lat;
+                landingPoint.Lng = MainV2.comPort.MAV.cs.lng;
+                GPSLanding = true;
+                    
+                SetupLandingWaypoints(); //redo this with new GPS point
+            }
+            else
+            {
+                CustomMessageBox.Show("You do not have a GPS 3D fix, please try again.");
+            }
         }
 
         
