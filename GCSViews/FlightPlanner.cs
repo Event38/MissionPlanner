@@ -6104,11 +6104,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //add first wp of landing procedure
             selectedrow = Commands.Rows.Add();
             
-            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TO_ALT.ToString();
+            Commands.Rows[selectedrow].Cells[Param1.Index].Value = 1; //do not leave loiter until heading towards next WP
 
-            ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
-
-            setfromMap(landingPoint.Lat - (LatDistance * 400), landingPoint.Lng - (LngDistance * 400), 100); //WP 400 meters out in the direction of landing and 100 meters altitude
+            ChangeColumnHeader(MAVLink.MAV_CMD.LOITER_TO_ALT.ToString());
+    
+            setfromMap(landingPoint.Lat - (LatDistance * 350), landingPoint.Lng - (LngDistance * 350), 80); //WP 350 meters out in the direction of landing and 100 meters altitude
             writeKML();
 
             //add second wp of landing procedure
@@ -6268,21 +6269,25 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 double endLat = endOfRunway.Lat;
                 double endLong = endOfRunway.Lng;
 
-                var dLong = -(endLong - startLong);
 
-                var dPhi = Math.Log(Math.Tan(endLat / 2.0 + Math.PI / 4.0) / Math.Tan(startLat / 2.0 + Math.PI / 4.0));
-                if (Math.Abs(dLong) > Math.PI)
-                {
-                    if (dLong > 0.0)
-                        dLong = -(2.0 * Math.PI - dLong);
+                //other other other method
+                double a = startLat * Math.PI / 180;
+                double b = startLong * Math.PI / 180;
+                double c = endLat * Math.PI / 180;
+                double d = endLong * Math.PI / 180;
+
+                if (Math.Cos(c) * Math.Sin(d - b) == 0)
+                    if (c > a)
+                        LandingDirection=  0;
                     else
-                        dLong = (2.0 * Math.PI + dLong);
+                        LandingDirection = 180;
+                else
+                {
+                    double angle = Math.Atan2(Math.Cos(c) * Math.Sin(d - b), Math.Sin(c) * Math.Cos(a) - Math.Sin(a) * Math.Cos(c) * Math.Cos(d - b));
+                    LandingDirection = (angle * 180 / Math.PI + 360) % 360;
                 }
 
-                LandingDirection = (degrees(Math.Atan2(dLong, dPhi)) + 180) % 360.0;
-
                 CustomMessageBox.Show("Your landing direction is " + LandingDirection);
-
 
                 //set up the landing pattern
                 SetupLandingWaypoints();
