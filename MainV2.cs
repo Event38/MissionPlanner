@@ -291,7 +291,7 @@ namespace MissionPlanner
         }
 
         //variables for user setup, will be set when xml config file is read
-        public string UserCamera;
+        public string UserCamera = "placeholder"; // placeholder so on first startup loop isnt set to "" -mrwright;
         public string UserModel = "null";
         public bool SaveUserSetup;
 
