@@ -20,4 +20,5 @@ namespace MissionPlanner.Utilities
         public double lng;				// Longitude * 10**7
         public float alt;				// Altitude in centimeters (meters * 100)
     };
+
 }
