@@ -900,11 +900,9 @@ namespace MissionPlanner.GCSViews
 
                     if (MainV2.instance.UserCamera != null)
                     {
-                        //open or close camera hatch automatically if using NX1100/check lens on S110 --D Cironi
-
-                            updateCameraHatch();
+                        updateCameraHatch();
                         
-                      if (MainV2.instance.UserCamera.ToString() == "Canon S110" || MainV2.instance.UserCamera.ToString() == "Canon SX260")
+                        if (MainV2.instance.UserCamera.ToString() == "Canon S110" || MainV2.instance.UserCamera.ToString() == "Canon SX260")
                         {
                             updateCameraLens();
                         }

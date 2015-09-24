@@ -318,7 +318,7 @@ namespace MissionPlanner
             else
                 config["SaveUserSetup"] = SaveUserSetup;
 
-            if (UserCamera == "Canon S110" || UserCamera == "Canon SX260")
+            /*if (UserCamera == "Canon S110" || UserCamera == "Canon SX260")
             { 
                 //hide hatch buttons
                 FlightData.BUT_CloseHatch.Visible = false;
@@ -370,31 +370,31 @@ namespace MissionPlanner
                 FlightData.BUT_CloseLens.Visible = false;
                 FlightData.BUT_CloseLensSimple.Visible = false;
 
-            }
-            else //just show nothing
-            {
+            } */
+
+            //Show Camera Stuff -D Cironi 2015-09-24
            
-                FlightData.BUT_CloseHatch.Visible = false;
-                FlightData.BUT_CloseHatchSimple.Visible = false;
-                FlightData.BUT_OpenHatch.Visible = false;
-                FlightData.BUT_OpenHatchSimple.Visible = false;
-                FlightData.CHK_AutoHatch.Visible = false;
-                FlightData.CHK_AutoHatchSimple.Visible = false;
+            FlightData.BUT_CloseHatch.Visible = true;
+            FlightData.BUT_CloseHatchSimple.Visible = true;
+            FlightData.BUT_OpenHatch.Visible = true;
+            FlightData.BUT_OpenHatchSimple.Visible = true;
+            FlightData.CHK_AutoHatch.Visible = true;
+            FlightData.CHK_AutoHatchSimple.Visible = true;
 
-                FlightData.BUT_CloseLens.Visible = false;
-                FlightData.BUT_CloseLensSimple.Visible = false;
+            FlightData.BUT_CloseLens.Visible = false;
+            FlightData.BUT_CloseLensSimple.Visible = false;
 
-                FlightData.label13.Visible = false;
-                FlightData.label14.Visible = false;
-                FlightData.label15.Visible = false;
-                FlightData.label16.Visible = false;
-                FlightData.label17.Visible = false;
-                FlightData.label18.Visible = false;
-                FlightData.TXT_high_PWM_Adv.Visible = false;
-                FlightData.TXT_low_PWM_Adv.Visible = false;
-                FlightData.TXT_pwm_high.Visible = false;
-                FlightData.TXT_pwm_low.Visible = false;
-            }
+            FlightData.label13.Visible = true;
+            FlightData.label14.Visible = true;
+            FlightData.label15.Visible = true;
+            FlightData.label16.Visible = true;
+            FlightData.label17.Visible = true;
+            FlightData.label18.Visible = true;
+            FlightData.TXT_high_PWM_Adv.Visible = true;
+            FlightData.TXT_low_PWM_Adv.Visible = true;
+            FlightData.TXT_pwm_high.Visible = true;
+            FlightData.TXT_pwm_low.Visible = true;
+            
 
             if(UserSetup.CHK_RememberSetup.Checked == true)
             {

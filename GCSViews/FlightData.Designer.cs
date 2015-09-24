@@ -733,6 +733,7 @@
             this.toolTip1.SetToolTip(this.BUT_CloseLens, resources.GetString("BUT_CloseLens.ToolTip"));
             this.BUT_CloseLens.UseVisualStyleBackColor = true;
             this.BUT_CloseLens.Click += new System.EventHandler(this.BUT_CloseLens_Click);
+            this.BUT_CloseLens.Visible = false;
             // 
             // CMB_mountmode
             // 
@@ -1053,6 +1054,7 @@
             this.toolTip1.SetToolTip(this.BUT_CloseLensSimple, resources.GetString("BUT_CloseLensSimple.ToolTip"));
             this.BUT_CloseLensSimple.UseVisualStyleBackColor = true;
             this.BUT_CloseLensSimple.Click += new System.EventHandler(this.BUT_CloseLens_Click);
+            this.BUT_CloseLensSimple.Visible = false;
             // 
             // BUT_RTLSimple
             // 
