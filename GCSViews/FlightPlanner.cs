@@ -1,33 +1,26 @@
 ﻿using System;
 using System.Collections.Generic; // Lists
-using System.Text; // stringbuilder
+// stringbuilder
 using System.Drawing; // pens etc
 using System.IO; // file io
-using System.IO.Ports; // serial
+// serial
 using System.Windows.Forms; // Forms
 using System.Collections; // hashs
-using System.Text.RegularExpressions; // regex
+// regex
 using System.Xml; // GE xml alt reader
 using System.Net; // dns, ip address
-using System.Net.Sockets; // tcplistner
+// tcplistner
 using GMap.NET;
 using GMap.NET.WindowsForms;
-using System.Globalization; // language
+// language
 using GMap.NET.WindowsForms.Markers;
-using System.Resources;
 using System.Reflection;
 using System.ComponentModel;
-using System.Threading;
 using log4net;
 using MissionPlanner.Controls;
 using MissionPlanner.Utilities;
-using MissionPlanner.Controls.BackstageView;
 using ProjNet.CoordinateSystems.Transformations;
 using ProjNet.CoordinateSystems;
-using ProjNet.Converters;
-using System.Xml.XPath;
-using com.codec.jpeg;
-using MissionPlanner;
 using GMap.NET.MapProviders;
 using MissionPlanner.Maps;
 using System.Data;
@@ -6093,6 +6086,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 landingPoint = endOfRunway;
             }
 
+            //create an offset so we place the landing point right in the middle of the beginning and end of runway
+            double middleOfRunwayOffset = MainMap.MapProvider.Projection.GetDistance(beginningOfRunway, endOfRunway) * 1000 / 1.5; //returns km, multiply by 1000 to get meters
+
+            
             //convert direction in degrees to radians for calculations
             double LandingDirectionRadians = Math.PI * Convert.ToDouble(LandingDirection) / 180;
 
@@ -6108,8 +6105,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             Commands.Rows[selectedrow].Cells[Param1.Index].Value = 1; //do not leave loiter until heading towards next WP
 
             ChangeColumnHeader(MAVLink.MAV_CMD.LOITER_TO_ALT.ToString());
-    
-            setfromMap(landingPoint.Lat - (LatDistance * 350), landingPoint.Lng - (LngDistance * 350), 80); //WP 350 meters out in the direction of landing and 100 meters altitude
+
+            setfromMap(landingPoint.Lat - (LatDistance * (500 + middleOfRunwayOffset)), landingPoint.Lng - (LngDistance * (500 + middleOfRunwayOffset)), 80); //WP 500 meters out in the direction of landing and 100 meters altitude
             writeKML();
 
             //add second wp of landing procedure
@@ -6119,7 +6116,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
 
-            setfromMap(landingPoint.Lat - (LatDistance * 200), landingPoint.Lng - (LngDistance * 200), 50); //WP 200 meters out in the direction of landing and 50 meters altitude
+            setfromMap(landingPoint.Lat - (LatDistance * (315 + middleOfRunwayOffset)), landingPoint.Lng - (LngDistance * (315 + middleOfRunwayOffset)), 50); //WP 315 meters out in the direction of landing and 50 meters altitude
             writeKML();
 
             //add third wp of landing procedure
@@ -6129,7 +6126,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
 
-            setfromMap(landingPoint.Lat - (LatDistance * 100), landingPoint.Lng - (LngDistance * 100), 50); //WP 100 meters out in the direction of landing and 50 meters altitude
+            setfromMap(landingPoint.Lat - (LatDistance * (111 + middleOfRunwayOffset)), landingPoint.Lng - (LngDistance * (111 + middleOfRunwayOffset)), 50); //WP 100 meters out in the direction of landing and 50 meters altitude
 
             writeKML();
 
@@ -6140,7 +6137,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             ChangeColumnHeader(MAVLink.MAV_CMD.LAND.ToString());
 
-            setfromMap(landingPoint.Lat, landingPoint.Lng, 0); //WP at specified GPS location of landing
+            setfromMap(landingPoint.Lat - (LatDistance * middleOfRunwayOffset), landingPoint.Lng - (LngDistance * middleOfRunwayOffset), 0); //WP at specified GPS location of landing
 
             writeKML();
 
