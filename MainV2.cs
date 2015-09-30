@@ -244,7 +244,7 @@ namespace MissionPlanner
         /// enum of firmwares
         /// </summary>
         public enum Firmwares
-        {
+        {   
             ArduPlane,
             ArduCopter2,
             //ArduHeli,

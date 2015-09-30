@@ -6464,7 +6464,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                              CustomMessageBox.Show("Invalid Waypoint file");
                              return;
                          }
-                   
+                   //mission from file
                          while (!error && !sr.EndOfStream)
                          {
                              string line = sr.ReadLine();
@@ -6543,6 +6543,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                        
                             pointList.Add(tempPoint);
                          }
+                         //convert gps to radians and find distance between points -mwright
                          List <double> distanceList = new List <double>();
                          bool first = true;
                          foreach (PointLatLng item in pointList)
@@ -6563,7 +6564,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                  Lng = item.Lng;                        
                              }
 
-                          //remember to not use first two values   
+                          //disregards first value (0 - homeloc)   
                              if (first == false){
                              distanceList.Add(dist);
                              }
@@ -6573,6 +6574,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                                 string[] home;
                                 int numberofsaves = 0;
+                                bool setcamtrig = false;                              
                                 SaveFileDialog savefile = new SaveFileDialog();    
                                 fd.Filter = "Ardupilot Mission (*.txt)|*.*";
                                 DialogResult result2 = savefile.ShowDialog();
@@ -6581,26 +6583,32 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                 enumerator.MoveNext();        
                                 string file2 = savefile.FileName;
                                 StreamWriter sw = new StreamWriter(file2 + numberofsaves.ToString() + ".txt");
+                                
+                         
+                         
                                 sw.WriteLine("QGC WPL 110");
                                 sw.WriteLine(home[0].ToString() + " " + home[1].ToString() + " " + home[2].ToString() + " " + home[3].ToString() + " " + home[4].ToString() + " " + home[5].ToString() + " " + home[6].ToString() + " " + home[7].ToString() + " " + home[8].ToString() + " " + home[9].ToString() + " " + home[10].ToString() + " " + home[11].ToString());
-                              
-                         
-                         foreach (double item in distanceList)
-                                {  
+                              //breaks missions up into 60 minute missions  
+                              foreach (double item in distanceList)
+                              {  
 
                                        flightTime = (flightTime + item);
 
                                         if ((flightTime / 780) < 60)
                                         {
                                             sw.WriteLine(enumerator.Current[0].ToString() + " " + enumerator.Current[1].ToString() + " " + enumerator.Current[2].ToString() + " " + enumerator.Current[3] + " " + enumerator.Current[4] + " " + enumerator.Current[5] + " " + enumerator.Current[6] + " " + enumerator.Current[7] + " " + enumerator.Current[8] + " " + enumerator.Current[9] + " " + enumerator.Current[10] + " " + enumerator.Current[11]);
-                                               
-                                            enumerator.MoveNext();
+                                            if (setcamtrig == true)
+                                            {
+                                                sw.WriteLine("3 0 3 206 47.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 1");
+                                                setcamtrig = false;
+                                            }
+                                                enumerator.MoveNext();
                                          
                                         }
                                         else if ((flightTime / 780) > 60)
                                         {
 
-                                             
+                                            sw.WriteLine("3 0 3 206 47.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 1");
                                             sw.Close();
                                          
                                                 enumerator.MoveNext();
@@ -6611,21 +6619,22 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                             sw = new StreamWriter(file2 + numberofsaves.ToString() + ".txt");
                                             sw.WriteLine("QGC WPL 110");
                                             sw.WriteLine(home[0].ToString() + " " + home[1].ToString() + " " + home[2].ToString() + " " + home[3].ToString() + " " + home[4].ToString() + " " + home[5].ToString() + " " + home[6].ToString() + " " + home[7].ToString() + " " + home[8].ToString() + " " + home[9].ToString() + " " + home[10].ToString() + " " + home[11].ToString());
-                                            
+                                            setcamtrig = true;
                                             if ((flightTime / 780) > 60)
-                                            {
+                                            {   
+                            
                                                 sw.WriteLine(enumerator.Current[0].ToString() + " " + enumerator.Current[1].ToString() + " " + enumerator.Current[2].ToString() + " " + enumerator.Current[3] + " " + enumerator.Current[4] + " " + enumerator.Current[5] + " " + enumerator.Current[6] + " " + enumerator.Current[7] + " " + enumerator.Current[8] + " " + enumerator.Current[9] + " " + enumerator.Current[10] + " " + enumerator.Current[11]);
-                                                sw.WriteLine("3 0 3 206 47.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 1");
+                                                
                                             }
                                         }
 
                                     
                                 }
-                         FileInfo info = new FileInfo(file2 + numberofsaves.ToString() + ".txt");
-                         if (IsFileLocked(info) == true)
-                         {
-                             sw.Close();
-                         }
+                                    FileInfo info = new FileInfo(file2 + numberofsaves.ToString() + ".txt");
+                                if (IsFileLocked(info) == true)
+                                {
+                                    sw.Close();
+                                }
   
                          }
                            
