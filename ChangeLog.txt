@@ -1,4 +1,9 @@
-﻿* Mission Planner 1.3.9 for Event 38 -Daniel Cironi (2015-07-29)
+﻿*Mission Planner 1.4.01 for Event 38 -D Cironi/M Wright (2015-09-30)
+Camera hatch now works automatically with all camera types
+Added "Mission Breakdown" feature
+Decided on a better version numbering system...
+
+* Mission Planner 1.3.9 for Event 38 -Daniel Cironi (2015-07-29)
 Added an Iris specific preflight checklist
 Changed the way User Setup is done, there is now a User Model option in Grid UI
 
