@@ -922,8 +922,14 @@ namespace MissionPlanner.GCSViews
                 {
                     mBorders.InnerMarker = m;
                     mBorders.wprad = (int)(float.Parse(TXT_WPRad.Text) / CurrentState.multiplierdist);
+                    
                     if (color.HasValue)
                     {
+                        if (color == Color.Red)
+                        {
+                            mBorders.wprad = 0;
+                            mBorders.Tag = "LAND";
+                        }
                         mBorders.Color = color.Value;
                     }
                 }
@@ -1094,6 +1100,13 @@ namespace MissionPlanner.GCSViews
                                 // order matters
                                 objectsoverlay.Markers.Add(m);
                                 objectsoverlay.Markers.Add(mBorders);
+                            }
+                            //we want to color LAND commands differently do we can identify and draw them differently -D Cironi 2015-10-09
+                            else if (command == (byte)MAVLink.MAV_CMD.LAND)
+                            {
+                                pointlist.Add(new PointLatLngAlt(double.Parse(cell3), double.Parse(cell4), (int)double.Parse(cell2) + homealt, (a + 1).ToString()));
+                                fullpointlist.Add(pointlist[pointlist.Count - 1]);
+                                addpolygonmarker((a + 1).ToString(), double.Parse(cell4), double.Parse(cell3), (int)double.Parse(cell2), Color.Red);
                             }
                             else if (command == (byte)MAVLink.MAV_CMD.LOITER_TIME || command == (byte)MAVLink.MAV_CMD.LOITER_TURNS || command == (byte)MAVLink.MAV_CMD.LOITER_UNLIM)
                             {
@@ -6086,7 +6099,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 landingPoint = endOfRunway;
             }
 
-            //create an offset so we place the landing point right in the middle of the beginning and end of runway
+            //create an offset so we place the landing point somewhere in the middle of the beginning and end of runway, rather than at the very end
             double middleOfRunwayOffset = MainMap.MapProvider.Projection.GetDistance(beginningOfRunway, endOfRunway) * 1000 / 1.5; //returns km, multiply by 1000 to get meters
 
             
@@ -6140,6 +6153,27 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             setfromMap(landingPoint.Lat - (LatDistance * middleOfRunwayOffset), landingPoint.Lng - (LngDistance * middleOfRunwayOffset), 0); //WP at specified GPS location of landing
 
             writeKML();
+
+            //add "landing zones" for downwind and upwind landings
+            //cross/downwind
+            PointLatLng DownwindPoint = new PointLatLng();
+            DownwindPoint.Lat = landingPoint.Lat - (LatDistance * (middleOfRunwayOffset - 20));
+            DownwindPoint.Lng = landingPoint.Lng - (LngDistance * (middleOfRunwayOffset - 20));
+            GMapMarkerLanding DownwindZone = new GMapMarkerLanding(DownwindPoint, 15, Color.Red, Color.White);
+            DownwindZone.ToolTipText = "Cross/Downwind Landing Zone";
+            DownwindZone.ToolTipMode = MarkerTooltipMode.Always;
+
+            //headwind
+            PointLatLng HeadwindPoint = new PointLatLng();
+            HeadwindPoint.Lat = landingPoint.Lat - (LatDistance * (middleOfRunwayOffset + 10));
+            HeadwindPoint.Lng = landingPoint.Lng - (LngDistance * (middleOfRunwayOffset + 10));
+            GMapMarkerLanding HeadwindZone = new GMapMarkerLanding(HeadwindPoint, 15, Color.Blue, Color.White);
+            HeadwindZone.ToolTipText = "Headwind Landing Zone";
+            HeadwindZone.ToolTipMode = MarkerTooltipMode.Always;
+
+            //add them to the runwayoverlay
+            runwayoverlay.Markers.Add(DownwindZone);
+            runwayoverlay.Markers.Add(HeadwindZone);
 
 
             /******Old Stuff******
@@ -6223,8 +6257,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
              */
         }
 
-       
-
         private void SetupLandingStrip()
         {
             landingStripPointCount = landingStripPointCount + 1;
@@ -6252,11 +6284,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 landingStripPoints.Add(beginningOfRunway);
                 landingStripPoints.Add(endOfRunway);
 
-                GMapPolygon runwayPolygon = new GMapPolygon(landingStripPoints, "Runway");
+                GMapRoute runwayRoute = new GMapRoute(landingStripPoints, "RunwayRoute");
 
-                runwayPolygon.Fill = Brushes.Red;
-                runwayPolygon.Stroke.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-                runwayoverlay.Polygons.Add(runwayPolygon);
+                runwayRoute.Stroke.Color = Color.Red;
+                runwayRoute.Stroke.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+
+                runwayoverlay.Routes.Add(runwayRoute);
                
             }
 
