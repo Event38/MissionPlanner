@@ -51,11 +51,9 @@
             this.label14 = new System.Windows.Forms.Label();
             this.TXT_high_PWM_Adv = new System.Windows.Forms.TextBox();
             this.TXT_low_PWM_Adv = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.TXT_NumLogsforDLAdv = new System.Windows.Forms.TextBox();
-            this.LBL_DownloadingAdvanced = new System.Windows.Forms.Label();
-            this.BUT_DL3LogsAdvanced = new MissionPlanner.Controls.MyButton();
+          
+            
+           
             this.BUT_Auto = new MissionPlanner.Controls.MyButton();
             this.CHK_AutoHatch = new System.Windows.Forms.CheckBox();
             this.BUT_CloseHatch = new MissionPlanner.Controls.MyButton();
@@ -88,11 +86,8 @@
             this.label13 = new System.Windows.Forms.Label();
             this.TXT_pwm_high = new System.Windows.Forms.TextBox();
             this.TXT_pwm_low = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.TXT_NumLogsforDL = new System.Windows.Forms.TextBox();
             this.LBL_Downloading = new System.Windows.Forms.Label();
-            this.BUT_DL3Logs = new MissionPlanner.Controls.MyButton();
+          
             this.CMB_setwpSimple = new System.Windows.Forms.ComboBox();
             this.BUT_RestartSimple = new MissionPlanner.Controls.MyButton();
             this.BUT_SetWPSimple = new MissionPlanner.Controls.MyButton();
@@ -604,11 +599,9 @@
             this.tabActions.Controls.Add(this.label14);
             this.tabActions.Controls.Add(this.TXT_high_PWM_Adv);
             this.tabActions.Controls.Add(this.TXT_low_PWM_Adv);
-            this.tabActions.Controls.Add(this.label11);
-            this.tabActions.Controls.Add(this.label12);
-            this.tabActions.Controls.Add(this.TXT_NumLogsforDLAdv);
-            this.tabActions.Controls.Add(this.LBL_DownloadingAdvanced);
-            this.tabActions.Controls.Add(this.BUT_DL3LogsAdvanced);
+          
+
+            
             this.tabActions.Controls.Add(this.BUT_Auto);
             this.tabActions.Controls.Add(this.CHK_AutoHatch);
             this.tabActions.Controls.Add(this.BUT_CloseHatch);
@@ -662,34 +655,9 @@
             resources.ApplyResources(this.TXT_low_PWM_Adv, "TXT_low_PWM_Adv");
             this.TXT_low_PWM_Adv.Name = "TXT_low_PWM_Adv";
             this.TXT_low_PWM_Adv.Leave += new System.EventHandler(this.TXT_low_PWM_Adv_Leave);
-            // 
-            // label11
-            // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = "label11";
-            // 
-            // label12
-            // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = "label12";
-            // 
-            // TXT_NumLogsforDLAdv
-            // 
-            resources.ApplyResources(this.TXT_NumLogsforDLAdv, "TXT_NumLogsforDLAdv");
-            this.TXT_NumLogsforDLAdv.Name = "TXT_NumLogsforDLAdv";
-            // 
-            // LBL_DownloadingAdvanced
-            // 
-            resources.ApplyResources(this.LBL_DownloadingAdvanced, "LBL_DownloadingAdvanced");
-            this.LBL_DownloadingAdvanced.Name = "LBL_DownloadingAdvanced";
-            // 
-            // BUT_DL3LogsAdvanced
-            // 
-            resources.ApplyResources(this.BUT_DL3LogsAdvanced, "BUT_DL3LogsAdvanced");
-            this.BUT_DL3LogsAdvanced.Name = "BUT_DL3LogsAdvanced";
-            this.toolTip1.SetToolTip(this.BUT_DL3LogsAdvanced, resources.GetString("BUT_DL3LogsAdvanced.ToolTip"));
-            this.BUT_DL3LogsAdvanced.UseVisualStyleBackColor = true;
-            this.BUT_DL3LogsAdvanced.Click += new System.EventHandler(this.BUT_DL3LogsAdvanced_Click);
+   
+       
+         
             // 
             // BUT_Auto
             // 
@@ -903,11 +871,9 @@
             this.tabActionsSimple.Controls.Add(this.label13);
             this.tabActionsSimple.Controls.Add(this.TXT_pwm_high);
             this.tabActionsSimple.Controls.Add(this.TXT_pwm_low);
-            this.tabActionsSimple.Controls.Add(this.label8);
-            this.tabActionsSimple.Controls.Add(this.label7);
-            this.tabActionsSimple.Controls.Add(this.TXT_NumLogsforDL);
+           
             this.tabActionsSimple.Controls.Add(this.LBL_Downloading);
-            this.tabActionsSimple.Controls.Add(this.BUT_DL3Logs);
+        
             this.tabActionsSimple.Controls.Add(this.CMB_setwpSimple);
             this.tabActionsSimple.Controls.Add(this.BUT_RestartSimple);
             this.tabActionsSimple.Controls.Add(this.BUT_SetWPSimple);
@@ -963,36 +929,13 @@
             resources.ApplyResources(this.TXT_pwm_low, "TXT_pwm_low");
             this.TXT_pwm_low.Name = "TXT_pwm_low";
             this.TXT_pwm_low.Leave += new System.EventHandler(this.TXT_pwm_low_Leave);
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
-            // 
-            // TXT_NumLogsforDL
-            // 
-            this.TXT_NumLogsforDL.BackColor = System.Drawing.SystemColors.Window;
-            resources.ApplyResources(this.TXT_NumLogsforDL, "TXT_NumLogsforDL");
-            this.TXT_NumLogsforDL.Name = "TXT_NumLogsforDL";
-            this.toolTip1.SetToolTip(this.TXT_NumLogsforDL, resources.GetString("TXT_NumLogsforDL.ToolTip"));
+      
             // 
             // LBL_Downloading
             // 
             resources.ApplyResources(this.LBL_Downloading, "LBL_Downloading");
             this.LBL_Downloading.Name = "LBL_Downloading";
-            // 
-            // BUT_DL3Logs
-            // 
-            resources.ApplyResources(this.BUT_DL3Logs, "BUT_DL3Logs");
-            this.BUT_DL3Logs.Name = "BUT_DL3Logs";
-            this.toolTip1.SetToolTip(this.BUT_DL3Logs, resources.GetString("BUT_DL3Logs.ToolTip"));
-            this.BUT_DL3Logs.UseVisualStyleBackColor = true;
-            this.BUT_DL3Logs.Click += new System.EventHandler(this.BUT_DL3Logs_Click);
+            
             // 
             // CMB_setwpSimple
             // 
@@ -2391,17 +2334,15 @@
         private Controls.ModifyandSet modifyandSetSpeedSimple;
         private System.Windows.Forms.ComboBox CMB_setwpSimple;
         private ConfigurationView.PreFlightChecklist preFlightChecklist1;
-        private Controls.MyButton BUT_DL3Logs;
+       
         private System.Windows.Forms.Label LBL_Downloading;
-        private System.Windows.Forms.Label LBL_DownloadingAdvanced;
-        private Controls.MyButton BUT_DL3LogsAdvanced;
-        public System.Windows.Forms.TextBox TXT_NumLogsforDLAdv;
+        
+      
         public System.Windows.Forms.TabControl tabControlactions;
-        public System.Windows.Forms.TextBox TXT_NumLogsforDL;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
+      
+      
+
+       
         public System.Windows.Forms.TextBox TXT_pwm_low;
         public System.Windows.Forms.TextBox TXT_pwm_high;
         public System.Windows.Forms.TextBox TXT_high_PWM_Adv;

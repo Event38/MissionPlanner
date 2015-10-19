@@ -898,7 +898,7 @@ namespace MissionPlanner.GCSViews
                     //int fixme;
                     updateBindingSource();
 
-                    if (MainV2.instance.UserCamera != null)
+                    if (MainV2.instance.UserCamera.ToString() != null)
                     {
                         updateCameraHatch();
                         
@@ -3566,125 +3566,6 @@ namespace MissionPlanner.GCSViews
 
 
         string logfile = "";
-
-        private void BUT_DL3Logs_Click(object sender, EventArgs e)
-        {
-            if (!MainV2.comPort.BaseStream.IsOpen)
-            {
-                this.Close();
-                CustomMessageBox.Show("Please Connect");
-                return;
-            }
-
-            try
-            {
-                LBL_Downloading.Text = "Downloading...";
-                LBL_Downloading.Show();
-
-                var list = MainV2.comPort.GetLatest3LogList();
-
-                long listSize = 0; //total bytes to download
-
-                //foreach (var item in list)
-                //{
-                    
-                //    if (item.size < 5000) //if it's less than 5 kB
-                //    {
-                //        list.Remove(item); //don't download it
-                //    }
-                //    else
-                //    { 
-                //        listSize = item.size + listSize; //add each item to total size
-                //    }
-                //}
-
-                long downloadedSize = 0;
-
-                //download
-                for (int i = 0; i < list.Count; ++i)
-                {
-                    var a = list[i].id;
-                    var logname = GetLog((ushort)a);
-                    downloadedSize = list[i].size + downloadedSize;
-                    
-                    CreateLog(logname);
-
-                    LBL_Downloading.Text = "Downloading: " + downloadedSize + " / " + listSize + " Bytes";
-                }
-
-                CustomMessageBox.Show(list.Count + " data flash logs downloaded");
-                //MainV2.comPort.EraseLog(); no longer erase logs after download
-
-                LBL_Downloading.Hide();
-                LBL_DownloadingAdvanced.Hide();
-            }
-
-            catch  //if there are no logs then "GetLogList" will fail
-            {
-                CustomMessageBox.Show("No logs to download");
-                LBL_Downloading.Hide();
-                LBL_DownloadingAdvanced.Hide();
-            }
-        }
-
-        private void BUT_DL3LogsAdvanced_Click(object sender, EventArgs e)
-        {
-            if (!MainV2.comPort.BaseStream.IsOpen)
-            {
-                this.Close();
-                CustomMessageBox.Show("Please Connect");
-                return;
-            }
-
-            try
-            {
-                LBL_DownloadingAdvanced.Text = "Downloading...";
-                LBL_DownloadingAdvanced.Show();
-
-                var list = MainV2.comPort.GetLatest3LogList();
-
-                long listSize = 0; //total bytes to download
-
-                foreach (var item in list)
-                {
-
-                    if (item.size < 5000) //if it's less than 5 kB
-                    {
-                        list.Remove(item); //don't download it
-                    }
-                    else
-                    {
-                        listSize = item.size + listSize; //add each item to total size
-                    }
-                }
-
-                long downloadedSize = 0;
-                //download
-                for (int i = 0; i < list.Count; ++i)
-                {
-                    var a = list[i].id;
-                    var logname = GetLog((ushort)a);
-                    downloadedSize = list[i].size + downloadedSize;
-
-                    CreateLog(logname);
-
-                    LBL_DownloadingAdvanced.Text = "Downloading: " + downloadedSize + " / " + listSize + " Bytes";
-                }
-
-                CustomMessageBox.Show(list.Count + " data flash logs downloaded");
-                MainV2.comPort.EraseLog();
-
-                LBL_DownloadingAdvanced.Hide();
-                LBL_Downloading.Hide();
-            }
-
-            catch  //if there are no logs then "GetLogList" will fail
-            {
-                CustomMessageBox.Show("No logs to download");
-                LBL_DownloadingAdvanced.Hide();
-                LBL_Downloading.Hide();
-            }
-        }
 
         string GetLog(ushort no)
         {

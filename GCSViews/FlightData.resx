@@ -616,7 +616,7 @@
     <value>NoControl</value>
   </data>
   <data name="label16.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 259</value>
+    <value>191, 135</value>
   </data>
   <data name="label16.Size" type="System.Drawing.Size, System.Drawing">
     <value>30, 13</value>
@@ -646,7 +646,7 @@
     <value>NoControl</value>
   </data>
   <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>268, 259</value>
+    <value>268, 135</value>
   </data>
   <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
     <value>32, 13</value>
@@ -679,7 +679,7 @@
     <value>NoControl</value>
   </data>
   <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
-    <value>191, 238</value>
+    <value>191, 120</value>
   </data>
   <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 13</value>
@@ -703,7 +703,7 @@
     <value>2</value>
   </data>
   <data name="TXT_high_PWM_Adv.Location" type="System.Drawing.Point, System.Drawing">
-    <value>306, 259</value>
+    <value>306, 135</value>
   </data>
   <data name="TXT_high_PWM_Adv.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 20</value>
@@ -727,7 +727,7 @@
     <value>3</value>
   </data>
   <data name="TXT_low_PWM_Adv.Location" type="System.Drawing.Point, System.Drawing">
-    <value>225, 259</value>
+    <value>225, 135</value>
   </data>
   <data name="TXT_low_PWM_Adv.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 20</value>
@@ -749,162 +749,6 @@
   </data>
   <data name="&gt;&gt;TXT_low_PWM_Adv.ZOrder" xml:space="preserve">
     <value>4</value>
-  </data>
-  <data name="label11.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 166</value>
-  </data>
-  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 13</value>
-  </data>
-  <data name="label11.TabIndex" type="System.Int32, mscorlib">
-    <value>106</value>
-  </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>Number of logs requested:</value>
-  </data>
-  <data name="&gt;&gt;label11.Name" xml:space="preserve">
-    <value>label11</value>
-  </data>
-  <data name="&gt;&gt;label11.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
-    <value>tabActions</value>
-  </data>
-  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="label12.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label12.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 10pt, style=Underline</value>
-  </data>
-  <data name="label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 137</value>
-  </data>
-  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 17</value>
-  </data>
-  <data name="label12.TabIndex" type="System.Int32, mscorlib">
-    <value>105</value>
-  </data>
-  <data name="label12.Text" xml:space="preserve">
-    <value>Download Latest Data Flash Logs</value>
-  </data>
-  <data name="&gt;&gt;label12.Name" xml:space="preserve">
-    <value>label12</value>
-  </data>
-  <data name="&gt;&gt;label12.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label12.Parent" xml:space="preserve">
-    <value>tabActions</value>
-  </data>
-  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="TXT_NumLogsforDLAdv.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 10pt</value>
-  </data>
-  <data name="TXT_NumLogsforDLAdv.Location" type="System.Drawing.Point, System.Drawing">
-    <value>146, 166</value>
-  </data>
-  <data name="TXT_NumLogsforDLAdv.Size" type="System.Drawing.Size, System.Drawing">
-    <value>25, 23</value>
-  </data>
-  <data name="TXT_NumLogsforDLAdv.TabIndex" type="System.Int32, mscorlib">
-    <value>102</value>
-  </data>
-  <data name="TXT_NumLogsforDLAdv.Text" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="TXT_NumLogsforDLAdv.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Right</value>
-  </data>
-  <data name="&gt;&gt;TXT_NumLogsforDLAdv.Name" xml:space="preserve">
-    <value>TXT_NumLogsforDLAdv</value>
-  </data>
-  <data name="&gt;&gt;TXT_NumLogsforDLAdv.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TXT_NumLogsforDLAdv.Parent" xml:space="preserve">
-    <value>tabActions</value>
-  </data>
-  <data name="&gt;&gt;TXT_NumLogsforDLAdv.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="LBL_DownloadingAdvanced.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="LBL_DownloadingAdvanced.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="LBL_DownloadingAdvanced.Location" type="System.Drawing.Point, System.Drawing">
-    <value>143, 193</value>
-  </data>
-  <data name="LBL_DownloadingAdvanced.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 13</value>
-  </data>
-  <data name="LBL_DownloadingAdvanced.TabIndex" type="System.Int32, mscorlib">
-    <value>101</value>
-  </data>
-  <data name="LBL_DownloadingAdvanced.Text" xml:space="preserve">
-    <value>Downloading...</value>
-  </data>
-  <data name="LBL_DownloadingAdvanced.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;LBL_DownloadingAdvanced.Name" xml:space="preserve">
-    <value>LBL_DownloadingAdvanced</value>
-  </data>
-  <data name="&gt;&gt;LBL_DownloadingAdvanced.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;LBL_DownloadingAdvanced.Parent" xml:space="preserve">
-    <value>tabActions</value>
-  </data>
-  <data name="&gt;&gt;LBL_DownloadingAdvanced.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="BUT_DL3LogsAdvanced.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="BUT_DL3LogsAdvanced.Location" type="System.Drawing.Point, System.Drawing">
-    <value>177, 163</value>
-  </data>
-  <data name="BUT_DL3LogsAdvanced.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 24</value>
-  </data>
-  <data name="BUT_DL3LogsAdvanced.TabIndex" type="System.Int32, mscorlib">
-    <value>100</value>
-  </data>
-  <data name="BUT_DL3LogsAdvanced.Text" xml:space="preserve">
-    <value>Download</value>
-  </data>
-  <data name="BUT_DL3LogsAdvanced.ToolTip" xml:space="preserve">
-    <value>Close the camera lens manually</value>
-  </data>
-  <data name="&gt;&gt;BUT_DL3LogsAdvanced.Name" xml:space="preserve">
-    <value>BUT_DL3LogsAdvanced</value>
-  </data>
-  <data name="&gt;&gt;BUT_DL3LogsAdvanced.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;BUT_DL3LogsAdvanced.Parent" xml:space="preserve">
-    <value>tabActions</value>
-  </data>
-  <data name="&gt;&gt;BUT_DL3LogsAdvanced.ZOrder" xml:space="preserve">
-    <value>9</value>
   </data>
   <data name="BUT_Auto.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -946,7 +790,7 @@
     <value>NoControl</value>
   </data>
   <data name="CHK_AutoHatch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 266</value>
+    <value>12, 150</value>
   </data>
   <data name="CHK_AutoHatch.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 24</value>
@@ -976,7 +820,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_CloseHatch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>102, 238</value>
+    <value>95, 120</value>
   </data>
   <data name="BUT_CloseHatch.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 23</value>
@@ -1006,7 +850,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_OpenHatch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 238</value>
+    <value>8, 120</value>
   </data>
   <data name="BUT_OpenHatch.Size" type="System.Drawing.Size, System.Drawing">
     <value>84, 23</value>
@@ -1693,7 +1537,7 @@
     <value>NoControl</value>
   </data>
   <data name="label18.Location" type="System.Drawing.Point, System.Drawing">
-    <value>185, 201</value>
+    <value>200, 120</value>
   </data>
   <data name="label18.Size" type="System.Drawing.Size, System.Drawing">
     <value>30, 13</value>
@@ -1762,7 +1606,7 @@
     <value>NoControl</value>
   </data>
   <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>185, 180</value>
+    <value>120, 180</value>
   </data>
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
     <value>70, 13</value>
@@ -1789,7 +1633,7 @@
     <value>4</value>
   </data>
   <data name="TXT_pwm_high.Location" type="System.Drawing.Point, System.Drawing">
-    <value>304, 201</value>
+    <value>304, 130</value>
   </data>
   <data name="TXT_pwm_high.Size" type="System.Drawing.Size, System.Drawing">
     <value>35, 20</value>
@@ -1842,36 +1686,7 @@
   <data name="&gt;&gt;TXT_pwm_low.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="label8.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 108</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 13</value>
-  </data>
-  <data name="label8.TabIndex" type="System.Int32, mscorlib">
-    <value>102</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>Number of logs requested:</value>
-  </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
-  </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>tabActionsSimple</value>
-  </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
+
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1971,36 +1786,6 @@
   <data name="&gt;&gt;LBL_Downloading.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="BUT_DL3Logs.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="BUT_DL3Logs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>161, 105</value>
-  </data>
-  <data name="BUT_DL3Logs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 23</value>
-  </data>
-  <data name="BUT_DL3Logs.TabIndex" type="System.Int32, mscorlib">
-    <value>98</value>
-  </data>
-  <data name="BUT_DL3Logs.Text" xml:space="preserve">
-    <value>Download</value>
-  </data>
-  <data name="BUT_DL3Logs.ToolTip" xml:space="preserve">
-    <value>Close the camera lens manually</value>
-  </data>
-  <data name="&gt;&gt;BUT_DL3Logs.Name" xml:space="preserve">
-    <value>BUT_DL3Logs</value>
-  </data>
-  <data name="&gt;&gt;BUT_DL3Logs.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;BUT_DL3Logs.Parent" xml:space="preserve">
-    <value>tabActionsSimple</value>
-  </data>
-  <data name="&gt;&gt;BUT_DL3Logs.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
   <data name="CMB_setwpSimple.Items" xml:space="preserve">
     <value>0 (Home)</value>
   </data>
@@ -2095,7 +1880,7 @@
     <value>NoControl</value>
   </data>
   <data name="CHK_AutoHatchSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 209</value>
+    <value>6, 70</value>
   </data>
   <data name="CHK_AutoHatchSimple.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 24</value>
@@ -2125,7 +1910,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_CloseHatchSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 180</value>
+    <value>96, 100</value>
   </data>
   <data name="BUT_CloseHatchSimple.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 23</value>
@@ -2155,7 +1940,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_OpenHatchSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 180</value>
+    <value>6,100</value>
   </data>
   <data name="BUT_OpenHatchSimple.Size" type="System.Drawing.Size, System.Drawing">
     <value>84, 23</value>
