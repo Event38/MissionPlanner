@@ -29,11 +29,13 @@ using MissionPlanner;
 using MissionPlanner.Joystick;
 using System.Collections.ObjectModel;
 
+
+
 namespace MissionPlanner
 {
 
     public partial class MainV2 : Form
-    {
+    { 
         private static readonly ILog log =
             LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -414,7 +416,7 @@ namespace MissionPlanner
 
             // setup adsb
             Utilities.adsb.UpdatePlanePosition += adsb_UpdatePlanePosition;
-
+            
             Form splash = Program.Splash;
 
             splash.Refresh();
@@ -767,8 +769,6 @@ namespace MissionPlanner
                 //    MainV2.config["fixparams"] = 1;
             }
 
-
-
         }
 
         private void BGLoadAirports(object nothing)
@@ -886,6 +886,7 @@ namespace MissionPlanner
         private void MenuFlightPlanner_Click(object sender, EventArgs e)
         {
             MyView.ShowScreen("FlightPlanner");
+
         }
 
         public void MenuSetup_Click(object sender, EventArgs e)
@@ -1175,7 +1176,7 @@ namespace MissionPlanner
                         _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(Firmwares.ArduPlane);
                         UserModel = "E384"; //this allows us to customize certain GUI elements based on model
                     }
-
+                   
                     // check for newer firmware -Don't do this in our version -D Cironi 2015-05-13
                     //var softwares = Firmware.LoadSoftwares();
 
@@ -1210,7 +1211,6 @@ namespace MissionPlanner
                     //}
 
                     FlightData.CheckBatteryShow();
-
                     MissionPlanner.Utilities.Tracking.AddEvent("Connect", "Connect", comPort.MAV.cs.firmware.ToString(), comPort.MAV.param.Count.ToString());
                     MissionPlanner.Utilities.Tracking.AddTiming("Connect", "Connect Time", (DateTime.Now - connecttime).TotalMilliseconds, "");
 
@@ -1815,6 +1815,7 @@ namespace MissionPlanner
         /// </summary>
         private void SerialReader()
         {
+
             if (serialThread == true)
                 return;
             serialThread = true;
@@ -2003,6 +2004,7 @@ namespace MissionPlanner
                                 {
                                     // update home if we are on flight data tab
                                     FlightPlanner.updateHome();
+                                   
                                 }
                             }
                             catch
@@ -2360,7 +2362,9 @@ namespace MissionPlanner
 
                   }
 
-                  CustomMessageBox.Show("To use the wizard please goto the initial setup screen, and click the wizard icon.", "Wizard");
+                  CustomMessageBox.Show("To use the wizard please goto the 
+             * 
+             * screen, and click the wizard icon.", "Wizard");
 
                   config["newuser"] = DateTime.Now.ToShortDateString();
               }

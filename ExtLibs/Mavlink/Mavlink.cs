@@ -555,7 +555,7 @@ DEBUG = 254,
             ENUM_END=129, 
         
         };
-        
+       
         ///<summary> These values encode the bit positions of the decode position. These values can be used to read the value of a flag bit by combining the base_mode variable with AND with the flag position value. The result will be either 0 or 1, depending on if the flag is set or not. </summary>
         public enum MAV_MODE_FLAG_DECODE_POSITION
         {
@@ -563,7 +563,7 @@ DEBUG = 254,
             CUSTOM_MODE=1, 
         	///<summary> Seventh bit: 00000010 | </summary>
             TEST=2, 
-        	///<summary> Sixt bit:   00000100 | </summary>
+        	///<summary> Sixth bit:   00000100 | </summary>
             AUTO=4, 
         	///<summary> Fifth bit:  00001000 | </summary>
             GUIDED=8, 
@@ -1824,7 +1824,7 @@ DEBUG = 254,
         public float Pressure;
         public float Altitude;
     }
-
+    
 
     [StructLayout(LayoutKind.Sequential,Pack=1,Size=9)]
     public struct mavlink_heartbeat_t
