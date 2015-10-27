@@ -23,7 +23,9 @@ namespace MissionPlanner.Utilities
 
             public GMapMarker InnerMarker;
 
-            public double wprad = 15; //m
+            public double RectWidth = 15; //m
+
+            public double RectLength = 30; //m
 
             public void ResetColor()
             {
@@ -33,12 +35,13 @@ namespace MissionPlanner.Utilities
                     Color = Color.White;
             }
 
-            public GMapMarkerLanding(PointLatLng p, double radius, Color Fillcolor, Color BorderColor)
+            public GMapMarkerLanding(PointLatLng p, double width, double length, Color Fillcolor, Color BorderColor)
                 : base(p)
             {
                 Pen.DashStyle = DashStyle.Dash;
                 Color = BorderColor;
-                wprad = radius;
+                RectWidth = width;
+                RectLength = length;
                 FillColor = Fillcolor;
 
                 // do not forget set Size of the marker
@@ -51,7 +54,7 @@ namespace MissionPlanner.Utilities
             {
                 base.OnRender(g);
 
-                if (wprad == 0 || Overlay.Control == null)
+                if (RectLength == 0 || Overlay.Control == null)
                     return;
 
                 // if we have drawn it, then keep that color
@@ -69,19 +72,26 @@ namespace MissionPlanner.Utilities
                 double m2pixelwidth = Overlay.Control.Width / width;
                 double m2pixelheight = Overlay.Control.Height / height;
 
-                GPoint loc = new GPoint((int)(LocalPosition.X - (m2pixelwidth * wprad * 2)), LocalPosition.Y);// MainMap.FromLatLngToLocal(wpradposition);
+                //GPoint loc = new GPoint((int)(LocalPosition.X - (m2pixelwidth * wprad * 2)), LocalPosition.Y);// MainMap.FromLatLngToLocal(wpradposition);
 
-               
+                GPoint loc = new GPoint((int)(LocalPosition.X - (m2pixelwidth * RectWidth)), (int)(LocalPosition.Y - (m2pixelheight * RectLength)));// MainMap.FromLatLngToLocal(wpradposition);
+
+
                 int x = LocalPosition.X - Offset.X - (int)(Math.Abs(loc.X - LocalPosition.X) / 2);
-                int y = LocalPosition.Y - Offset.Y - (int)Math.Abs(loc.X - LocalPosition.X) / 2;
+                int y = LocalPosition.Y - Offset.Y - (int)Math.Abs(loc.Y - LocalPosition.Y) / 2;
                 int widtharc = (int)Math.Abs(loc.X - LocalPosition.X);
-                int heightarc = (int)Math.Abs(loc.X - LocalPosition.X);
+                int heightarc = (int)Math.Abs(loc.Y - LocalPosition.Y);
 
                 if (widtharc > 0)
                 {
-                    g.DrawArc(Pen, new System.Drawing.Rectangle(x, y, widtharc, heightarc), 0, 360);
-
-                    g.FillPie(new SolidBrush(Color.FromArgb(25, FillColor)), x, y, widtharc, heightarc, 0, 360);
+                    //draw circle
+                    //g.DrawArc(Pen, new System.Drawing.Rectangle(x, y, widtharc, heightarc), 0, 360);
+                    //g.FillPie(new SolidBrush(Color.FromArgb(25, FillColor)), x, y, widtharc, heightarc, 0, 360);
+                    
+                    //draw rectangle
+                    g.DrawRectangle(Pen, x, y, widtharc, heightarc);
+                    g.FillRectangle(new SolidBrush(Color.FromArgb(25, FillColor)), x, y, widtharc, heightarc);
+                    
                 }
             }
         
