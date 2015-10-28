@@ -94,7 +94,7 @@ namespace MissionPlanner.GCSViews
 
         bool playingLog = false;
         double LogPlayBackSpeed = 1.0;
-
+        List<double>List = new List<double>();
         GMapMarker marker;
 
         AviWriter aviwriter;
@@ -891,6 +891,7 @@ namespace MissionPlanner.GCSViews
                     }
                 }
 
+             //   MainV2.instance.EstimateLifeRemaining();
                 try
                 { 
                     CheckAndBindPreFlightData();
@@ -898,11 +899,14 @@ namespace MissionPlanner.GCSViews
                     //Console.WriteLine(DateTime.Now.Millisecond);
                     //int fixme;
                     updateBindingSource();
-               
+                    
+                    //mwright
+                    List = MainV2.instance.EstimateLifeRemaining(List);               
+                    
                     if (MainV2.instance.UserCamera.ToString() != null)
                     { 
                         updateCameraHatch();
-                    //mwright  
+                   
                         if (MainV2.instance.UserCamera.ToString() == "Canon S110" || MainV2.instance.UserCamera.ToString() == "Canon SX260")
                         {
                             updateCameraLens();
@@ -1321,13 +1325,17 @@ namespace MissionPlanner.GCSViews
         public bool Reached50M;
 
         int count = 0;
+
         private void updateCameraHatch()
         {
+
+            
+            
             count = count + 1;
             if(count > 40 && !playingLog && MainV2.comPort.MAV.cs.connected) //only run this code every 40th time. Prevents slow parameter retrieval on initial connection.
             {
-
-                
+               
+               
                 count = 0;
                 if (tabControlactions.TabPages.Contains(tabActions)) //if in advanced mode
                 {

@@ -1815,7 +1815,7 @@ namespace MissionPlanner
         /// </summary>
         private void SerialReader()
         {
-
+            
             if (serialThread == true)
                 return;
             serialThread = true;
@@ -2949,6 +2949,90 @@ namespace MissionPlanner
         private void readonlyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MainV2.comPort.ReadOnly = readonlyToolStripMenuItem.Checked;
+        }
+
+        private void toolStripConnectionControl_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripTextBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public List<double> EstimateLifeRemaining(List<double> list)
+        {       double timeLeft;
+        string estimatedBatteryLife;
+        if (comPort.MAV.cs.alt > 60)
+        {
+
+
+            timeLeft = (((comPort.MAV.cs.battery_voltage - 14.2) / comPort.MAV.cs.current) * .7);
+            list.Add(timeLeft);
+
+            if (list.Count == 300)
+            {
+                foreach (double item in list)
+                {
+                    timeLeft += item;
+                }
+
+                timeLeft = (timeLeft / 300) * 3600;
+
+                estimatedBatteryLife = secondsToNice(timeLeft);
+
+                this.BeginInvoke((MethodInvoker)delegate
+                   {
+                       toolStripTextBox1.Visible = true;
+                       updateBatteryLife.Visible = true;
+                       updateBatteryLife.Text = estimatedBatteryLife;
+
+                   });
+                list.Clear();
+            }
+
+          }
+
+            return list;
+            
+      }
+               
+
+
+
+   
+
+        string secondsToNice(double seconds)
+        {
+            if (seconds < 0)
+                return "Infinity Seconds";
+
+            double secs = seconds % 60;
+            int mins = (int)(seconds / 60) % 60;
+            int hours = (int)(seconds / 3600) % 24;
+
+            if (hours > 0)
+            {
+                return hours + ":" + mins.ToString("00") + ":" + secs.ToString("00") + " Hours";
+            }
+            else if (mins > 0)
+            {
+                return mins + ":" + secs.ToString("00") + " Minutes";
+            }
+            else
+            {
+                return secs.ToString("0") + " Seconds";
+            }
+        }
+        private void BatteryLifeRemaining_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripTextBox1_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -6424,7 +6424,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 CustomMessageBox.Show("You do not have a GPS 3D fix, please try again.");
             }
         }
-        //--mwright
         protected virtual bool IsFileLocked(FileInfo file)
         {
             FileStream stream = null;
@@ -6599,7 +6598,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                 sw.WriteLine(home[0].ToString() + " " + home[1].ToString() + " " + home[2].ToString() + " " + home[3].ToString() + " " + home[4].ToString() + " " + home[5].ToString() + " " + home[6].ToString() + " " + home[7].ToString() + " " + home[8].ToString() + " " + home[9].ToString() + " " + home[10].ToString() + " " + home[11].ToString());
                               //breaks missions up into 60 minute missions  
                               foreach (double item in distanceList)
-                              {  
+                             {  
 
                                        flightTime = (flightTime + item);
 
@@ -6694,11 +6693,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
 
      double ret = double.Parse(estimatedFlightTimeRemaining.Text);
-            //System.Windows.Forms.Timer T = new System.Windows.Forms.Timer();
-            // T.Interval += 1000;
-            // T.Tick += new EventHandler(T_Tick);
-            //string k =  T.Interval.ToString();
-            //T.Start();
+          
             Stopwatch stopWatch = new Stopwatch();
             bool missionended = false;
             stopWatch.Start(); 
