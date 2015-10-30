@@ -43,7 +43,7 @@ namespace MissionPlanner.GCSViews
         List<PointLatLng> landingStripPoints = new List<PointLatLng>(); //D Cironi 2015-08-17
         PointLatLng landingPoint = new PointLatLng(); //D Cironi 2015-08-17
         double LandingDirection = 0; //D Cironi 2015-08-17
-        bool GPSLanding = false; //D Cironi 2015-08-18
+        bool ModifiedLandingPoint = false; //D Cironi 2015-08-18
         Hashtable param = new Hashtable();
         bool splinemode = false;
         altmode currentaltmode = altmode.Relative;
@@ -2835,7 +2835,7 @@ namespace MissionPlanner.GCSViews
                             if(landingStripPointCount >= 2) //they have placed two points
                             {
                                 landingStripMode = false;
-                                GPSLanding = false;
+                                ModifiedLandingPoint = false;
                                 landingStripPointCount = 0;
                             }
                         }
@@ -2894,8 +2894,16 @@ namespace MissionPlanner.GCSViews
                         }
                         else
                         {
-                            callMeDrag(CurentRectMarker.InnerMarker.Tag.ToString(), currentMarker.Position.Lat, currentMarker.Position.Lng, -1);
-
+                            if (CurentRectMarker.Tag == "LAND")
+                            {
+                                landingPoint = MouseDownEnd;
+                                ModifiedLandingPoint = true;
+                                SetupLandingWaypoints();
+                            }
+                            else
+                            {
+                                callMeDrag(CurentRectMarker.InnerMarker.Tag.ToString(), currentMarker.Position.Lat, currentMarker.Position.Lng, -1);
+                            }
                         }
                         CurentRectMarker = null;
                     }
@@ -6078,7 +6086,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         void SetupLandingWaypoints()
         {
-            //remove old land WPs if they are present
+            //remove old land WPs and runway overlay if they are present
             if (Commands.Rows.Count >= 3)
             {
                 for (int i = 0; i <= pointlist.Count - 2; i++) //home adds an extra point
@@ -6093,15 +6101,44 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     }
                 }
             }
+            runwayoverlay.Clear();
 
-            if (!GPSLanding)
+            if (!ModifiedLandingPoint)
             {
                 landingPoint = endOfRunway;
+
+                ////temp stuff for testing
+                //string LatAsString = "0";
+                //Double Lat = 0;
+                //if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Lat", "Enter Latitude of landing point", ref LatAsString))
+                //    return;
+                //Lat = Convert.ToDouble(LatAsString);
+
+                //string LngAsString = "0";
+                //Double Lng = 0;
+                //if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Lng", "Enter Longitude of landing point", ref LngAsString))
+                //    return;
+                //Lng = Convert.ToDouble(LngAsString);                
+
+                //landingPoint.Lat = Lat;
+                //landingPoint.Lng = Lng;
             }
 
             //create an offset so we place the landing point somewhere in the middle of the beginning and end of runway, rather than at the very end
-            double middleOfRunwayOffset = MainMap.MapProvider.Projection.GetDistance(beginningOfRunway, endOfRunway) * 1000 / 1.5; //returns km, multiply by 1000 to get meters
+            double middleOfRunwayOffset = 0;
+            if (!ModifiedLandingPoint)
+            {
+                middleOfRunwayOffset = MainMap.MapProvider.Projection.GetDistance(beginningOfRunway, endOfRunway) * 1000 / 1.5; //returns km, multiply by 1000 to get meters
+            }
 
+            ////temp method to get direction. only for testing.
+            //string directionAsString = "0";
+            //Int16 direction = 0;
+            //if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Direction", "Please enter your landing direction in degrees (0 = North)", ref directionAsString))
+            //    return;
+            //direction = Convert.ToInt16(directionAsString);
+            //LandingDirection = direction;
+            ////
             
             //convert direction in degrees to radians for calculations
             double LandingDirectionRadians = Math.PI * Convert.ToDouble(LandingDirection) / 180;
@@ -6159,15 +6196,16 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             PointLatLng DownwindPoint = new PointLatLng();
             DownwindPoint.Lat = landingPoint.Lat - (LatDistance * (middleOfRunwayOffset - 20));
             DownwindPoint.Lng = landingPoint.Lng - (LngDistance * (middleOfRunwayOffset - 20));
-            GMapMarkerLanding DownwindZone = new GMapMarkerLanding(DownwindPoint, 15, Color.Red, Color.White);
+            GMapMarkerLanding DownwindZone = new GMapMarkerLanding(DownwindPoint, 25, 30, Color.Red, Color.White, LandingDirection);
             DownwindZone.ToolTipText = "Cross/Downwind Landing Zone";
             DownwindZone.ToolTipMode = MarkerTooltipMode.Always;
+
 
             //headwind
             PointLatLng HeadwindPoint = new PointLatLng();
             HeadwindPoint.Lat = landingPoint.Lat - (LatDistance * (middleOfRunwayOffset + 10));
             HeadwindPoint.Lng = landingPoint.Lng - (LngDistance * (middleOfRunwayOffset + 10));
-            GMapMarkerLanding HeadwindZone = new GMapMarkerLanding(HeadwindPoint, 15, Color.Blue, Color.White);
+            GMapMarkerLanding HeadwindZone = new GMapMarkerLanding(HeadwindPoint, 25, 30, Color.Blue, Color.White, LandingDirection);
             HeadwindZone.ToolTipText = "Headwind Landing Zone";
             HeadwindZone.ToolTipMode = MarkerTooltipMode.Always;
 
@@ -6427,7 +6465,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 runwayoverlay.Clear();
                 CustomMessageBox.Show("Please select the beginning point of your runway and the end point");
             }
-            GPSLanding = false;
+            ModifiedLandingPoint = false;
             landingStripMode = true;
         }
 
@@ -6439,7 +6477,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 landingPoint.Lat = MainV2.comPort.MAV.cs.lat;
                 landingPoint.Lng = MainV2.comPort.MAV.cs.lng;
-                GPSLanding = true;
+                ModifiedLandingPoint = true;
                     
                 SetupLandingWaypoints(); //redo this with new GPS point
             }
