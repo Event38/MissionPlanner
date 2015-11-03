@@ -49,6 +49,9 @@ namespace MissionPlanner
             this.MenuConnect = new System.Windows.Forms.ToolStripButton();
             this.toolStripConnectionControl = new MissionPlanner.Controls.ToolStripConnectionControl();
             this.MenuDonate = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripLabel();
+            this.updateBatteryLife = new System.Windows.Forms.ToolStripLabel();
+            this.estimatedBatteryLifeRemaining = new System.Windows.Forms.Label();
             this.menu = new MissionPlanner.Controls.MyButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.MainMenu.SuspendLayout();
@@ -72,7 +75,9 @@ namespace MissionPlanner
             this.MenuHelp,
             this.MenuConnect,
             this.toolStripConnectionControl,
-            this.MenuDonate});
+            this.MenuDonate,
+            this.toolStripTextBox1,
+            this.updateBatteryLife});
             resources.ApplyResources(this.MainMenu, "MainMenu");
             this.MainMenu.Name = "MainMenu";
             this.MainMenu.Stretch = false;
@@ -187,6 +192,7 @@ namespace MissionPlanner
             this.toolStripConnectionControl.Name = "toolStripConnectionControl";
             this.toolStripConnectionControl.Padding = new System.Windows.Forms.Padding(0, 0, 60, 0);
             resources.ApplyResources(this.toolStripConnectionControl, "toolStripConnectionControl");
+            this.toolStripConnectionControl.Click += new System.EventHandler(this.toolStripConnectionControl_Click);
             this.toolStripConnectionControl.MouseLeave += new System.EventHandler(this.MainMenu_MouseLeave);
             // 
             // MenuDonate
@@ -197,6 +203,27 @@ namespace MissionPlanner
             this.MenuDonate.Name = "MenuDonate";
             this.MenuDonate.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.MenuDonate.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.ActiveLinkColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.toolStripTextBox1, "toolStripTextBox1");
+            this.toolStripTextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(129)))), ((int)(((byte)(176)))), ((int)(((byte)(41)))));
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.Click += new System.EventHandler(this.toolStripTextBox1_Click_1);
+            // 
+            // updateBatteryLife
+            // 
+            this.updateBatteryLife.ActiveLinkColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.updateBatteryLife, "updateBatteryLife");
+            this.updateBatteryLife.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(129)))), ((int)(((byte)(176)))), ((int)(((byte)(41)))));
+            this.updateBatteryLife.Name = "updateBatteryLife";
+            this.updateBatteryLife.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            // 
+            // estimatedBatteryLifeRemaining
+            // 
+            resources.ApplyResources(this.estimatedBatteryLifeRemaining, "estimatedBatteryLifeRemaining");
+            this.estimatedBatteryLifeRemaining.Name = "estimatedBatteryLifeRemaining";
             // 
             // menu
             // 
@@ -234,7 +261,7 @@ namespace MissionPlanner
         }
 
         #endregion
-
+        private System.Windows.Forms.Label estimatedBatteryLifeRemaining;
         private System.Windows.Forms.ToolStripButton MenuFlightData;
         private System.Windows.Forms.ToolStripButton MenuFlightPlanner;
         private System.Windows.Forms.ToolStripButton MenuInitConfig;
@@ -253,5 +280,7 @@ namespace MissionPlanner
         public System.Windows.Forms.MenuStrip MainMenu;
         private System.Windows.Forms.ToolStripMenuItem fullScreenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem readonlyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripLabel toolStripTextBox1;
+        private System.Windows.Forms.ToolStripLabel updateBatteryLife;
     }
 }

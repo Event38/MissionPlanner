@@ -25,11 +25,15 @@ using GMap.NET.MapProviders;
 using MissionPlanner.Maps;
 using System.Data;
 using DotSpatial.Projections;
+using System.Threading;
+using DirectShow;
+using System.Diagnostics;
 
 namespace MissionPlanner.GCSViews
 {
     public partial class FlightPlanner : MyUserControl, IDeactivate, IActivate
     {
+        
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         int selectedrow = 0;
         public bool quickadd = false;
@@ -52,7 +56,6 @@ namespace MissionPlanner.GCSViews
         public bool LandingPointMode; //for setting up landing waypoints -D Cironi 2015-03-31
 
         public static FlightPlanner instance = null;
-
         public bool autopan { get; set; }
 
         public List<PointLatLngAlt> pointlist = new List<PointLatLngAlt>(); // used to calc distance
@@ -61,7 +64,6 @@ namespace MissionPlanner.GCSViews
         public GMapRoute homeroute = new GMapRoute("home route");
         static public Object thisLock = new Object();
         private ComponentResourceManager rm = new ComponentResourceManager(typeof(FlightPlanner));
-
         private Dictionary<string, string[]> cmdParamNames = new Dictionary<string, string[]>();
 
         public Button ButtonSurvey { get { return BUT_Survey; } } //MB_270414
@@ -1252,6 +1254,8 @@ namespace MissionPlanner.GCSViews
                     {
                         double seconds = (Convert.ToDouble(dist + homedist) * 1000) / 13; //13 m/s flight speed
                         lbl_FlightTimeMainData.Text = secondsToNice(seconds);
+                        estimatedFlightTimeRemaining.Text = seconds.ToString();
+                        estimatedFlightTimeRemaining.Visible = false;
                     }
                     else
                     {
@@ -1259,6 +1263,8 @@ namespace MissionPlanner.GCSViews
                         {
                             double seconds = (Convert.ToDouble(dist + homedist) * 1000) / 13; //13 m/s flight speed
                             lbl_FlightTimeMainData.Text = secondsToNice(seconds);
+                            estimatedFlightTimeRemaining.Text = seconds.ToString();
+                            estimatedFlightTimeRemaining.Visible = false;
                         }
                         else if (MainV2.config["distunits"].ToString() == "Feet")
                         {
@@ -1266,6 +1272,8 @@ namespace MissionPlanner.GCSViews
                             double homeDistMiles = 0.621371 * homedist;
                             double seconds = (Convert.ToDouble(distMiles + homeDistMiles) * 5280) / 42.65; //42.65 feet/s flight speed
                             lbl_FlightTimeMainData.Text = secondsToNice(seconds);
+                            estimatedFlightTimeRemaining.Text = seconds.ToString();
+                            estimatedFlightTimeRemaining.Visible = false;
                         }
                     }
                 }
@@ -3031,7 +3039,7 @@ namespace MissionPlanner.GCSViews
                 }
             }
         }
-
+        
         // MapZoomChanged
         void MainMap_OnMapZoomChanged()
         {
@@ -3639,7 +3647,7 @@ namespace MissionPlanner.GCSViews
             trackBar1.Size = new System.Drawing.Size(trackBar1.Size.Width, panelMap.Size.Height - trackBar1.Location.Y);
             label11.Location = new System.Drawing.Point(panelMap.Size.Width - 50, label11.Location.Y);
         }
-
+     
         DateTime mapupdate = DateTime.MinValue;
 
         /// <summary>
@@ -3703,6 +3711,7 @@ namespace MissionPlanner.GCSViews
                 }
             }
             catch (Exception ex) { log.Warn(ex); }
+        
         }
 
         /// <summary>
@@ -6429,7 +6438,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
             else
             {
-                return secs.ToString("0.00") + " Seconds";
+                return secs.ToString("0") + " Seconds";
             }
         }
 
@@ -6486,7 +6495,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 CustomMessageBox.Show("You do not have a GPS 3D fix, please try again.");
             }
         }
-        //--mwright
         protected virtual bool IsFileLocked(FileInfo file)
         {
             FileStream stream = null;
@@ -6661,7 +6669,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                 sw.WriteLine(home[0].ToString() + " " + home[1].ToString() + " " + home[2].ToString() + " " + home[3].ToString() + " " + home[4].ToString() + " " + home[5].ToString() + " " + home[6].ToString() + " " + home[7].ToString() + " " + home[8].ToString() + " " + home[9].ToString() + " " + home[10].ToString() + " " + home[11].ToString());
                               //breaks missions up into 60 minute missions  
                               foreach (double item in distanceList)
-                              {  
+                             {  
 
                                        flightTime = (flightTime + item);
 
@@ -6719,5 +6727,89 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
            
              }
 
+        private void boxStats_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbl_FlightTimeMain_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbl_FlightTimeMainData_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void estimatedFlightTimeRemaining_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void T_Tick(object sender, EventArgs e)
+        { 
+            
+            
+        }
+
+        public void updateestimate()
+        {
+
+
+
+
+     double ret = double.Parse(estimatedFlightTimeRemaining.Text);
+          
+            Stopwatch stopWatch = new Stopwatch();
+            bool missionended = false;
+            stopWatch.Start(); 
+            
+            estimatedFlightTimeRemaining.Invoke(new Action(() =>
+            {
+                estimatedFlightTimeRemaining.Visible = true;
+            }));
+            while (missionended != true)
+            { 
+                 
+                TimeSpan ts = stopWatch.Elapsed;
+                if (ts.Seconds != stopWatch.Elapsed.Seconds)
+                {
+                    double ret2;
+                   
+                    double seconds = double.Parse(ts.Seconds.ToString());
+                    double minutes = double.Parse(ts.Minutes.ToString());
+                    double hours = double.Parse(ts.Hours.ToString());
+                    seconds = seconds + (minutes*60) + (hours * 3600);               
+        
+                    ret2 = ret - seconds;
+                    
+                    if (ret2 > 0)
+                    {
+                        estimatedFlightTimeRemaining.Invoke(new Action(() =>
+                        {
+                            estimatedFlightTimeRemaining.Text = secondsToNice(ret2);
+                        }));
+                    }
+
+                    if (ret2 <= 0)
+                    {
+                        estimatedFlightTimeRemaining.Invoke(new Action(() =>
+                        {
+                            estimatedFlightTimeRemaining.Text = "0";
+                        }));
+                        stopWatch.Stop();
+                        stopWatch.Reset();
+                        missionended = true;
+                    }
+                }
+
+            }
+        }
+        }
        }
-}
+

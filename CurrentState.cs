@@ -14,6 +14,8 @@ using GMap.NET;
 using System.Drawing;
 using System.Windows.Forms;
 using MissionPlanner.Plugin;
+using System.Threading;
+
 
 namespace MissionPlanner
 {
@@ -22,8 +24,9 @@ namespace MissionPlanner
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         internal MAVState parent;
-
+        
         //camera
+        bool boolVar = true;
         public int previousPictureNumber = -1;
         DateTime photoTime;
 
@@ -609,6 +612,7 @@ namespace MissionPlanner
 
                 if (DateTime.Now > lastupdate.AddMilliseconds(50) || updatenow) // 20 hz
                 {
+                       
                     lastupdate = DateTime.Now;
 
                     //check if valid mavinterface
@@ -825,6 +829,7 @@ namespace MissionPlanner
 
 
 
+                    
                     bytearray = MAV.packets[(byte)MAVLink.MAVLINK_MSG_ID.HEARTBEAT];
                     if (bytearray != null)
                     {
@@ -845,6 +850,26 @@ namespace MissionPlanner
                             failsafe = hb.system_status == (byte)MAVLink.MAV_STATE.CRITICAL;
 
                             string oldmode = mode;
+                            //mwright flight time remaining updates hb.base_mode 153 is auto mode run on seperate thread to avoid deadlock
+
+                            if (hb.base_mode.ToString() != "153")
+                            {
+                                boolVar = true;
+                            }
+                            if (hb.base_mode.ToString() == "153")
+                            {   
+                                
+                               
+                                if (boolVar == true)
+                                {   boolVar = false;
+                                    ThreadStart updateflighttime = new ThreadStart(work.dowork);
+                                    Thread newthread = new Thread(updateflighttime);
+                                    newthread.Start();
+                                }
+                                
+                                //problems with writing to seperate thread
+                                                           
+                            }
 
                             if ((hb.base_mode & (byte)MAVLink.MAV_MODE_FLAG.CUSTOM_MODE_ENABLED) != 0)
                             {
@@ -1330,7 +1355,14 @@ namespace MissionPlanner
                 catch { log.InfoFormat("CurrentState Binding error"); }
             }
         }
-
+        //-mwright class forthread to work with
+        class work
+        {
+            public static void dowork()
+            {
+                MainV2.instance.FlightPlanner.updateestimate();
+            }
+        }
         public object Clone()
         {
             return this.MemberwiseClone();
