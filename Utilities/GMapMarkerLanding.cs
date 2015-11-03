@@ -67,7 +67,7 @@ namespace MissionPlanner.Utilities
 
                 Matrix temp = g.Transform;
 
-                g.TranslateTransform(LocalPosition.X, LocalPosition.Y);
+                g.TranslateTransform(LocalPosition.X + RectWidth, LocalPosition.Y + RectHeight);
                 g.RotateTransform(-Overlay.Control.Bearing);
 
                 
