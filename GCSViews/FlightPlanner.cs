@@ -6202,25 +6202,23 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             //add "landing zones" for downwind and upwind landings
             //cross/downwind
-            PointLatLng DownwindPoint = new PointLatLng();
-            DownwindPoint.Lat = landingPoint.Lat - (LatDistance * (middleOfRunwayOffset - 20));
-            DownwindPoint.Lng = landingPoint.Lng - (LngDistance * (middleOfRunwayOffset - 20));
-            GMapMarkerLanding DownwindZone = new GMapMarkerLanding(DownwindPoint, 25, 30, Color.Red, Color.White, LandingDirection);
-            DownwindZone.ToolTipText = "Cross/Downwind Landing Zone";
-            DownwindZone.ToolTipMode = MarkerTooltipMode.Always;
+            //PointLatLng DownwindPoint = new PointLatLng();
+            //DownwindPoint.Lat = landingPoint.Lat - (LatDistance * (middleOfRunwayOffset - 20));
+            //DownwindPoint.Lng = landingPoint.Lng - (LngDistance * (middleOfRunwayOffset - 20));
+            //GMapMarkerLanding DownwindZone = new GMapMarkerLanding(DownwindPoint, 25, 30, Color.Red, Color.White, LandingDirection);
+            //DownwindZone.ToolTipText = "Cross/Downwind Landing Zone";
+            //DownwindZone.ToolTipMode = MarkerTooltipMode.Always;
 
-
-            //headwind
-            PointLatLng HeadwindPoint = new PointLatLng();
-            HeadwindPoint.Lat = landingPoint.Lat - (LatDistance * (middleOfRunwayOffset + 10));
-            HeadwindPoint.Lng = landingPoint.Lng - (LngDistance * (middleOfRunwayOffset + 10));
-            GMapMarkerLanding HeadwindZone = new GMapMarkerLanding(HeadwindPoint, 25, 30, Color.Blue, Color.White, LandingDirection);
-            HeadwindZone.ToolTipText = "Headwind Landing Zone";
-            HeadwindZone.ToolTipMode = MarkerTooltipMode.Always;
+            PointLatLng LandPoint = new PointLatLng();
+            LandPoint.Lat = landingPoint.Lat - (LatDistance * middleOfRunwayOffset);
+            LandPoint.Lng = landingPoint.Lng - (LngDistance * middleOfRunwayOffset);
+            GMapMarkerLanding LandingZone = new GMapMarkerLanding(LandPoint, 25, 65, Color.Blue, Color.White, LandingDirection);
+            LandingZone.ToolTipText = "Landing Zone";
+            LandingZone.ToolTipMode = MarkerTooltipMode.Always;
 
             //add them to the runwayoverlay
-            runwayoverlay.Markers.Add(DownwindZone);
-            runwayoverlay.Markers.Add(HeadwindZone);
+            //runwayoverlay.Markers.Add(DownwindZone);
+            runwayoverlay.Markers.Add(LandingZone);
 
 
             /******Old Stuff******

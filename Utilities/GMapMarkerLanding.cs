@@ -66,7 +66,6 @@ namespace MissionPlanner.Utilities
 
 
                 Matrix temp = g.Transform;
-
                 g.TranslateTransform(LocalPosition.X + RectWidth, LocalPosition.Y + RectHeight);
                 g.RotateTransform(-Overlay.Control.Bearing);
 
@@ -92,11 +91,11 @@ namespace MissionPlanner.Utilities
                 double direction = LandingDirection;
 
                 //mine
-                int x =  Offset.X - (int)(Math.Abs(loc.X - (int)LocalPosition.X)/2);
-                int y =  Offset.Y - (int)(Math.Abs(loc.Y - (int)LocalPosition.Y)/2);
+                int x = Offset.X - (int)(Math.Abs(loc.X - (int)LocalPosition.X)/2);
+                int y = Offset.Y - (int)(Math.Abs(loc.Y - (int)LocalPosition.Y) / 2);
                 int widtharc = (int)Math.Abs(loc.X - LocalPosition.X);
                 int heightarc = (int)Math.Abs(loc.Y - LocalPosition.Y);
-
+                
                 if (widtharc > 0)
                 {
                     try
