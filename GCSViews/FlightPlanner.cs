@@ -6364,7 +6364,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     LandingDirection = (angle * 180 / Math.PI + 360) % 360;
                 }
 
-                CustomMessageBox.Show("Your landing direction is " + LandingDirection);
+                //CustomMessageBox.Show("Your landing direction is " + LandingDirection);
 
                 //set up the landing pattern
                 SetupLandingWaypoints();
