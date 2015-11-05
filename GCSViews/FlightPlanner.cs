@@ -6098,6 +6098,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //remove old land WPs and runway overlay if they are present
             if (Commands.Rows.Count >= 3)
             {
+                runwayoverlay.Clear();
                 for (int i = 0; i <= pointlist.Count - 2; i++) //home adds an extra point
                 {
                     if (Commands.Rows[i].Cells[Command.Index].Value.ToString().Contains("LAND"))
@@ -6110,7 +6111,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     }
                 }
             }
-            runwayoverlay.Clear();
+            
 
             if (!ModifiedLandingPoint)
             {
@@ -6210,8 +6211,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //DownwindZone.ToolTipMode = MarkerTooltipMode.Always;
 
             PointLatLng LandPoint = new PointLatLng();
-            LandPoint.Lat = landingPoint.Lat - (LatDistance * middleOfRunwayOffset);
-            LandPoint.Lng = landingPoint.Lng - (LngDistance * middleOfRunwayOffset);
+            LandPoint.Lat = landingPoint.Lat - (LatDistance * (middleOfRunwayOffset - 10));
+            LandPoint.Lng = landingPoint.Lng - (LngDistance * (middleOfRunwayOffset - 10));
             GMapMarkerLanding LandingZone = new GMapMarkerLanding(LandPoint, 25, 65, Color.Blue, Color.White, LandingDirection);
             LandingZone.ToolTipText = "Landing Zone";
             LandingZone.ToolTipMode = MarkerTooltipMode.Always;
@@ -6304,10 +6305,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void SetupLandingStrip()
         {
+           
             landingStripPointCount = landingStripPointCount + 1;
 
             if (landingStripPointCount == 1)
             {
+                runwayoverlay.Clear();
                 landingStripPoints.Clear(); //clear old points
 
                 beginningOfRunway = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
@@ -6331,7 +6334,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                 GMapRoute runwayRoute = new GMapRoute(landingStripPoints, "RunwayRoute");
 
-                runwayRoute.Stroke.Color = Color.Red;
+                runwayRoute.Stroke.Color = Color.DarkRed;
                 runwayRoute.Stroke.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
 
                 runwayoverlay.Routes.Add(runwayRoute);

@@ -66,7 +66,7 @@ namespace MissionPlanner.Utilities
 
 
                 Matrix temp = g.Transform;
-                g.TranslateTransform(LocalPosition.X + RectWidth, LocalPosition.Y + RectHeight);
+                g.TranslateTransform(LocalPosition.X + RectHeight, LocalPosition.Y + RectWidth);
                 g.RotateTransform(-Overlay.Control.Bearing);
 
                 
@@ -82,7 +82,7 @@ namespace MissionPlanner.Utilities
 
                 // undo autochange in mouse over
                 // if (Pen.Color == Color.Blue)
-                //  Pen.Color = Color.White;
+                // Pen.Color = Color.White;
                 
 
                 //GPoint loc = new GPoint((int)(LocalPosition.X - (m2pixelwidth * RectWidth * 2)), LocalPosition.Y);// MainMap.FromLatLngToLocal(wpradposition);
@@ -91,7 +91,7 @@ namespace MissionPlanner.Utilities
                 double direction = LandingDirection;
 
                 //mine
-                int x = Offset.X - (int)(Math.Abs(loc.X - (int)LocalPosition.X)/2);
+                int x = Offset.X - (int)(Math.Abs(loc.X - (int)LocalPosition.X) / 2);
                 int y = Offset.Y - (int)(Math.Abs(loc.Y - (int)LocalPosition.Y) / 2);
                 int widtharc = (int)Math.Abs(loc.X - LocalPosition.X);
                 int heightarc = (int)Math.Abs(loc.Y - LocalPosition.Y);
