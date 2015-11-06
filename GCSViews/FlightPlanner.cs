@@ -6114,45 +6114,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                     }
                 }
             }
-            
 
-            if (!ModifiedLandingPoint)
-            {
-                landingPoint = endOfRunway;
 
-                ////temp stuff for testing
-                //string LatAsString = "0";
-                //Double Lat = 0;
-                //if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Lat", "Enter Latitude of landing point", ref LatAsString))
-                //    return;
-                //Lat = Convert.ToDouble(LatAsString);
-
-                //string LngAsString = "0";
-                //Double Lng = 0;
-                //if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Lng", "Enter Longitude of landing point", ref LngAsString))
-                //    return;
-                //Lng = Convert.ToDouble(LngAsString);                
-
-                //landingPoint.Lat = Lat;
-                //landingPoint.Lng = Lng;
-            }
-
-            //create an offset so we place the landing point somewhere in the middle of the beginning and end of runway, rather than at the very end
-            double middleOfRunwayOffset = 0;
-            if (!ModifiedLandingPoint)
-            {
-                middleOfRunwayOffset = MainMap.MapProvider.Projection.GetDistance(beginningOfRunway, endOfRunway) * 1000 / 1.5; //returns km, multiply by 1000 to get meters
-            }
-
-            ////temp method to get direction. only for testing.
-            //string directionAsString = "0";
-            //Int16 direction = 0;
-            //if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Direction", "Please enter your landing direction in degrees (0 = North)", ref directionAsString))
-            //    return;
-            //direction = Convert.ToInt16(directionAsString);
-            //LandingDirection = direction;
-            ////
-            
             //convert direction in degrees to radians for calculations
             double LandingDirectionRadians = Math.PI * Convert.ToDouble(LandingDirection) / 180;
 
@@ -6160,7 +6123,18 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //in order to get the final waypoint value we must multiply these values by the ground distance between waypoints in order to get the proper angle and distance
             double LatDistance = .000008998 * Math.Sin(Math.PI - LandingDirectionRadians - Math.PI / 2) / Math.Sin(Math.PI / 2);     //.000008998 degrees LAT = 1m east and west          
             double LngDistance = .000011950 * Math.Sin(LandingDirectionRadians) / Math.Sin(Math.PI / 2);                             //.000011950 degrees LNG = 1m north and south
-           
+
+            double middleOfRunwayOffset = 0;
+            if (!ModifiedLandingPoint)
+            {
+                landingPoint = endOfRunway;
+
+                //create an offset so we place the landing point somewhere in the middle of the beginning and end of runway, rather than at the very end
+                middleOfRunwayOffset = MainMap.MapProvider.Projection.GetDistance(beginningOfRunway, endOfRunway) * 1000 / 1.5; //returns km, multiply by 1000 to get meters
+                landingPoint.Lat = landingPoint.Lat - (middleOfRunwayOffset * LatDistance);
+                landingPoint.Lng = landingPoint.Lng - (middleOfRunwayOffset * LngDistance);
+            }
+
             //add first wp of landing procedure
             selectedrow = Commands.Rows.Add();
             
@@ -6169,7 +6143,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             ChangeColumnHeader(MAVLink.MAV_CMD.LOITER_TO_ALT.ToString());
 
-            setfromMap(landingPoint.Lat - (LatDistance * (500 + middleOfRunwayOffset)), landingPoint.Lng - (LngDistance * (500 + middleOfRunwayOffset)), 80); //WP 500 meters out in the direction of landing and 100 meters altitude
+            setfromMap(landingPoint.Lat - (LatDistance * (500)), landingPoint.Lng - (LngDistance * (500)), 80); //WP 500 meters out in the direction of landing and 100 meters altitude
             writeKML();
 
             //add second wp of landing procedure
@@ -6179,7 +6153,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
 
-            setfromMap(landingPoint.Lat - (LatDistance * (315 + middleOfRunwayOffset)), landingPoint.Lng - (LngDistance * (315 + middleOfRunwayOffset)), 50); //WP 315 meters out in the direction of landing and 50 meters altitude
+            setfromMap(landingPoint.Lat - (LatDistance * (315)), landingPoint.Lng - (LngDistance * (315)), 50); //WP 315 meters out in the direction of landing and 50 meters altitude
             writeKML();
 
             //add third wp of landing procedure
@@ -6189,7 +6163,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
 
-            setfromMap(landingPoint.Lat - (LatDistance * (111 + middleOfRunwayOffset)), landingPoint.Lng - (LngDistance * (111 + middleOfRunwayOffset)), 50); //WP 100 meters out in the direction of landing and 50 meters altitude
+            setfromMap(landingPoint.Lat - (LatDistance * (111)), landingPoint.Lng - (LngDistance * (111)), 50); //WP 100 meters out in the direction of landing and 50 meters altitude
 
             writeKML();
 
@@ -6200,40 +6174,21 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             ChangeColumnHeader(MAVLink.MAV_CMD.LAND.ToString());
 
-            setfromMap(landingPoint.Lat - (LatDistance * middleOfRunwayOffset), landingPoint.Lng - (LngDistance * middleOfRunwayOffset), 0); //WP at specified GPS location of landing
+            setfromMap(landingPoint.Lat, landingPoint.Lng, 0); //WP at specified GPS location of landing
 
             writeKML();
-
-            //add "landing zones" for downwind and upwind landings
-            //cross/downwind
-            //PointLatLng DownwindPoint = new PointLatLng();
-            //DownwindPoint.Lat = landingPoint.Lat - (LatDistance * (middleOfRunwayOffset - 20));
-            //DownwindPoint.Lng = landingPoint.Lng - (LngDistance * (middleOfRunwayOffset - 20));
-            //GMapMarkerLanding DownwindZone = new GMapMarkerLanding(DownwindPoint, 25, 30, Color.Red, Color.White, LandingDirection);
-            //DownwindZone.ToolTipText = "Cross/Downwind Landing Zone";
-            //DownwindZone.ToolTipMode = MarkerTooltipMode.Always;
-
-            PointLatLng LandPoint = new PointLatLng();
-            LandPoint.Lat = landingPoint.Lat - (LatDistance * (middleOfRunwayOffset - 10));
-            LandPoint.Lng = landingPoint.Lng - (LngDistance * (middleOfRunwayOffset - 10));
-            GMapMarkerLanding LandingZone = new GMapMarkerLanding(LandPoint, 25, 65, Color.Blue, Color.White, LandingDirection);
-            LandingZone.ToolTipText = "Landing Zone";
-            LandingZone.ToolTipMode = MarkerTooltipMode.Always;
-
-            //add them to the runwayoverlay
-            //runwayoverlay.Markers.Add(DownwindZone);
-            //runwayoverlay.Markers.Add(LandingZone);
-
             
-           
-            List<PointLatLng> RunwayCorners = new List<PointLatLng>();
 
+            //create the Landing Zone polygon overlay -D Cironi 2015-11-06
+
+            List<PointLatLng> LandingZoneCorners = new List<PointLatLng>();
 
             for(int i = 0; i < 4; i++)
             {
                 double tempDirection = LandingDirectionRadians; //necessary offset of 45 degrees
                 switch(i)
                 {
+                    //these numbers will creat a 65 by 25 meter landing zone, eventually I need to create a function to calculate these numbers based on law of cosines
                     case 0:
                         tempDirection = tempDirection + .36704274;
                         break;
@@ -6247,113 +6202,34 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         tempDirection = tempDirection + 5.91614257;
                         break;
                 }
-                //determine where to place points based on angle of landing, these values put a waypoint at the proper angle 1m away,
+
+                //determine where to place points based on angle of landing, these values put a point at the proper angle 1m away,
                 //in order to get the final point placement we must multiply these values by the ground distance between waypoints in order to get the proper angle and distance
                 double LatDirection = .000008998 * Math.Sin(Math.PI - tempDirection - Math.PI / 2) / Math.Sin(Math.PI / 2);     //.000008998 degrees LAT = 1m east and west          
                 double LngDirection = .000011950 * Math.Sin(tempDirection) / Math.Sin(Math.PI / 2);                             //.000011950 degrees LNG = 1m north and south
 
                 PointLatLng tempPoint = new PointLatLng();
 
-                tempPoint.Lat = landingPoint.Lat + (10 * LatDistance) - (middleOfRunwayOffset * LatDistance) - (LatDirection * 34.82);
-                tempPoint.Lng = landingPoint.Lng + (10 * LngDistance) - (middleOfRunwayOffset * LngDistance) - (LngDirection * 34.82);
-                RunwayCorners.Add(tempPoint);
-
-               //tempDirection += Math.PI/2; //four corners, 90 degrees apart, creates a square
+                //center 10 meters past point, account for previous offset, and 34.82 is the distance for a 65 by 25 meter LZ
+                tempPoint.Lat = landingPoint.Lat + (10 * LatDistance) - (LatDirection * 34.82);
+                tempPoint.Lng = landingPoint.Lng + (10 * LngDistance) - (LngDirection * 34.82);
+                LandingZoneCorners.Add(tempPoint);
             }
 
+            //create the polygon from the points
+            GMapPolygon LandingZone = new GMapPolygon(LandingZoneCorners, "Landing Zone");
+            LandingZone.Stroke.Brush = Brushes.Green;
+            LandingZone.Stroke.Width = 1;
 
+            //create a marker to use as a label, since apparently you can't put a label on a polygon
+            //this will be drawn right over top the actual final landing waypoint
+            GMarkerGoogle LandingZoneMarker = new GMarkerGoogle(landingPoint, GMarkerGoogleType.green);
+            LandingZoneMarker.ToolTipText = "Landing Zone";
+            LandingZoneMarker.ToolTipMode = MarkerTooltipMode.Always;
 
-            GMapPolygon Runway = new GMapPolygon(RunwayCorners, "Runway");
-            Runway.Stroke.Brush = Brushes.Blue;
-            Runway.Stroke.Width = 1;
-
-
-            runwayoverlay.Polygons.Add(Runway);
-
+            runwayoverlay.Markers.Add(LandingZoneMarker);
+            runwayoverlay.Polygons.Add(LandingZone);
             
-            
-            
-
-
-            /******Old Stuff******
-            //deal with the direction input of the user
-            string direction = "0";
-            if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Direction", "Please enter your landing direction in degrees (0 = North)", ref direction))
-                return;
-
-            if (Convert.ToDouble(direction) > 360 || Convert.ToDouble(direction) < 0)
-            {
-                CustomMessageBox.Show("Invaild Direction. Please choose a value from 0 to 360 degrees.");
-                return;
-            }
-
-            //convert direction in degrees to radians for calculations
-            double directionInRads = Math.PI * Convert.ToDouble(direction) / 180;
-
-            //user input altitude of first waypoint
-            string FirstWPAlt = "100";
-            if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("First Waypoint", "Please enter the altitude of you first approach waypoint", ref FirstWPAlt))
-                return;
-
-            //user input gradient from first to second waypoint
-            string WP1ToWP2Gradient = "30";
-            if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("First Gradient", "Please enter the gradient from the first waypoint to the second.", ref WP1ToWP2Gradient))
-                return;
-
-            //user input altitude of second waypoint
-            string SecondWPAlt = "10";
-            if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Second Waypoint", "Please enter the altitude of you second approach waypoint", ref SecondWPAlt))
-                return;
-
-            //user input gradient from second to third waypoint
-            string WP2ToWP3Gradient = "30";
-            if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Second Gradient", "Please enter the gradient from the second waypoint to the third.", ref WP2ToWP3Gradient))
-                return;
-
-            //determine ground distance between waypoints to get the proper gradient
-            double WP2ToWP3GroundDistance = (Convert.ToDouble(SecondWPAlt) - 1) / Convert.ToDouble(WP2ToWP3Gradient) * 100;
-            double WP1ToWP2GroundDistance = (Convert.ToDouble(FirstWPAlt) - Convert.ToDouble(SecondWPAlt)) / Convert.ToDouble(WP1ToWP2Gradient) * 100;
-
-            //determine where to place waypoints based on angle of landing, these values put a waypoint at the proper angle 1m away,
-            //in order to get the final waypoint value we must multiply these values by the ground distance between waypoints in order to get the proper angle and distance
-            double LatDistance = .000008998 * Math.Sin(Math.PI - directionInRads - Math.PI / 2) / Math.Sin(Math.PI / 2);     //.000008998 degrees LAT = 1m east and west          
-            double LngDistance = .000011950 * Math.Sin(directionInRads) / Math.Sin(Math.PI / 2);                             //.000011950 degrees LNG = 1m north and south
-
-            //add first wp of landing procedure
-            selectedrow = Commands.Rows.Add();
-
-            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-
-            ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
-
-            setfromMap(MouseDownEnd.Lat - (LatDistance * (Convert.ToDouble(WP1ToWP2GroundDistance) + Convert.ToDouble(WP2ToWP3GroundDistance))), MouseDownEnd.Lng - (LngDistance * (Convert.ToDouble(WP1ToWP2GroundDistance) + Convert.ToDouble(WP2ToWP3GroundDistance))), Convert.ToInt32(FirstWPAlt));
-            writeKML();
-            //
-
-            //add second wp of landing procedure
-            selectedrow = Commands.Rows.Add();
-
-            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-
-            ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
-
-            setfromMap(MouseDownEnd.Lat - (LatDistance * Convert.ToDouble(WP2ToWP3GroundDistance)), MouseDownEnd.Lng - (LngDistance * Convert.ToDouble(WP2ToWP3GroundDistance)), Convert.ToInt32(SecondWPAlt));
-
-            writeKML();
-            //
-
-            //final wp in landing procedure
-            selectedrow = Commands.Rows.Add();
-
-            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
-
-            ChangeColumnHeader(MAVLink.MAV_CMD.LAND.ToString());
-
-            setfromMap(MouseDownEnd.Lat, MouseDownEnd.Lng, 1);
-
-            writeKML();
-            //
-             */
         }
 
         private void SetupLandingStrip()
