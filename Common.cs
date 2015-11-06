@@ -134,6 +134,54 @@ namespace MissionPlanner
     }
 
     [Serializable]
+    public class GMapMarkerWP : GMarkerGoogle
+    {
+        const float rad2deg = (float)(180 / Math.PI);
+        const float deg2rad = (float)(1.0 / rad2deg);
+
+        string wpno = "";
+        public bool selected = false;
+
+        public GMapMarkerWP(PointLatLng p, string wpno)
+            : base(p, GMarkerGoogleType.green)
+        {
+            this.wpno = wpno;
+        }
+
+        public override void OnRender(Graphics g)
+        {
+            if (selected)
+            {
+                g.FillEllipse(Brushes.Red, new Rectangle(this.LocalPosition, this.Size));
+                g.DrawArc(Pens.Red, new Rectangle(this.LocalPosition, this.Size), 0, 360);
+            }
+
+            base.OnRender(g);
+
+            var midw = LocalPosition.X + 10;
+            var midh = LocalPosition.Y + 3;
+
+            var txtsize = TextRenderer.MeasureText(wpno, SystemFonts.DefaultFont);
+
+            if (txtsize.Width > 15)
+                midw -= 4;
+
+            g.DrawString(wpno, SystemFonts.DefaultFont, Brushes.Black, new PointF(midw, midh));
+
+            //Matrix temp = g.Transform;
+            //g.TranslateTransform(LocalPosition.X, LocalPosition.Y);
+
+            //g.RotateTransform(-Overlay.Control.Bearing);
+
+            // do stuff
+
+
+            //g.Transform = temp;
+        }
+    }
+
+
+    [Serializable]
     public class GMapMarkerRover : GMapMarker
     {
         const float rad2deg = (float)(180 / Math.PI);

@@ -6227,6 +6227,26 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             LandingZoneMarker.ToolTipText = "Landing Zone";
             LandingZoneMarker.ToolTipMode = MarkerTooltipMode.Always;
 
+            //add altitude estimation points along final dive of the landing sequence - D Cironi 2015-11-06
+            PointLatLng AltGuide1 = new PointLatLng();
+            AltGuide1.Lat = landingPoint.Lat - (LatDistance * 79.4);
+            AltGuide1.Lng = landingPoint.Lng - (LngDistance * 79.4);
+            GMapMarkerWP AltGuideMarker1 = new GMapMarkerWP(AltGuide1, "50 M");
+
+            PointLatLng AltGuide2 = new PointLatLng();
+            AltGuide2.Lat = landingPoint.Lat - (LatDistance * 40);
+            AltGuide2.Lng = landingPoint.Lng - (LngDistance * 40);
+            GMapMarkerWP AltGuideMarker2 = new GMapMarkerWP(AltGuide2, "25 M");
+
+            PointLatLng AltGuide3 = new PointLatLng();
+            AltGuide3.Lat = landingPoint.Lat - (LatDistance * 24);
+            AltGuide3.Lng = landingPoint.Lng - (LngDistance * 24);
+            GMapMarkerWP AltGuideMarker3 = new GMapMarkerWP(AltGuide3, "15 M");
+
+            runwayoverlay.Markers.Add(AltGuideMarker1);
+            runwayoverlay.Markers.Add(AltGuideMarker2);
+            runwayoverlay.Markers.Add(AltGuideMarker3);
+
             runwayoverlay.Markers.Add(LandingZoneMarker);
             runwayoverlay.Polygons.Add(LandingZone);
             
