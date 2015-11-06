@@ -6222,7 +6222,57 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             //add them to the runwayoverlay
             //runwayoverlay.Markers.Add(DownwindZone);
-            runwayoverlay.Markers.Add(LandingZone);
+            //runwayoverlay.Markers.Add(LandingZone);
+
+            
+           
+            List<PointLatLng> RunwayCorners = new List<PointLatLng>();
+
+
+            for(int i = 0; i < 4; i++)
+            {
+                double tempDirection = LandingDirectionRadians; //necessary offset of 45 degrees
+                switch(i)
+                {
+                    case 0:
+                        tempDirection = tempDirection + .36704274;
+                        break;
+                    case 1:
+                        tempDirection = tempDirection + 2.77454991;
+                        break;
+                    case 2:
+                        tempDirection = tempDirection + 3.5086345;
+                        break;
+                    case 3:
+                        tempDirection = tempDirection + 5.91614257;
+                        break;
+                }
+                //determine where to place points based on angle of landing, these values put a waypoint at the proper angle 1m away,
+                //in order to get the final point placement we must multiply these values by the ground distance between waypoints in order to get the proper angle and distance
+                double LatDirection = .000008998 * Math.Sin(Math.PI - tempDirection - Math.PI / 2) / Math.Sin(Math.PI / 2);     //.000008998 degrees LAT = 1m east and west          
+                double LngDirection = .000011950 * Math.Sin(tempDirection) / Math.Sin(Math.PI / 2);                             //.000011950 degrees LNG = 1m north and south
+
+                PointLatLng tempPoint = new PointLatLng();
+
+                tempPoint.Lat = landingPoint.Lat + (10 * LatDistance) - (middleOfRunwayOffset * LatDistance) - (LatDirection * 34.82);
+                tempPoint.Lng = landingPoint.Lng + (10 * LngDistance) - (middleOfRunwayOffset * LngDistance) - (LngDirection * 34.82);
+                RunwayCorners.Add(tempPoint);
+
+               //tempDirection += Math.PI/2; //four corners, 90 degrees apart, creates a square
+            }
+
+
+
+            GMapPolygon Runway = new GMapPolygon(RunwayCorners, "Runway");
+            Runway.Stroke.Brush = Brushes.Blue;
+            Runway.Stroke.Width = 1;
+
+
+            runwayoverlay.Polygons.Add(Runway);
+
+            
+            
+            
 
 
             /******Old Stuff******
@@ -6926,12 +6976,12 @@ private void resumeMission_Click(object sender, EventArgs e)
         // go to CurrentState.currentwp
 
     }
-    
 
-   
 
-    
-    
+
+
+
+
 
 }
 

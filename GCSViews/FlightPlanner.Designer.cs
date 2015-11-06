@@ -211,6 +211,7 @@
             this.panelBASE = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -225,6 +226,7 @@
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.panelBASE.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // Commands
@@ -428,9 +430,9 @@
             // 
             // panel5
             // 
-            resources.ApplyResources(this.panel5, "panel5");
             this.panel5.Controls.Add(this.BUT_write);
             this.panel5.Controls.Add(this.BUT_read);
+            resources.ApplyResources(this.panel5, "panel5");
             this.panel5.Name = "panel5";
             // 
             // BUT_write
@@ -449,7 +451,6 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
@@ -457,6 +458,7 @@
             this.panel1.Controls.Add(this.TXT_homealt);
             this.panel1.Controls.Add(this.TXT_homelng);
             this.panel1.Controls.Add(this.TXT_homelat);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // label4
@@ -616,6 +618,7 @@
             this.panelAction.CaptionFont = new System.Drawing.Font("Segoe UI", 11.75F, System.Drawing.FontStyle.Bold);
             this.panelAction.CaptionHeight = 21;
             this.panelAction.ColorScheme = BSE.Windows.Forms.ColorScheme.Custom;
+            this.panelAction.Controls.Add(this.flowLayoutPanel2);
             this.panelAction.Controls.Add(this.flowLayoutPanel1);
             this.panelAction.CustomColors.BorderColor = System.Drawing.Color.Black;
             this.panelAction.CustomColors.CaptionCloseIcon = System.Drawing.Color.White;
@@ -652,19 +655,16 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.panel2);
-            this.flowLayoutPanel1.Controls.Add(this.panel4);
-            this.flowLayoutPanel1.Controls.Add(this.panel3);
-            this.flowLayoutPanel1.Controls.Add(this.panel5);
-            this.flowLayoutPanel1.Controls.Add(this.panel1);
-            this.flowLayoutPanel1.Controls.Add(this.boxStats);
             resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             // 
             // panel2
             // 
+            resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Controls.Add(this.resumeMission);
             this.panel2.Controls.Add(this.autoLand);
             this.panel2.Controls.Add(this.missionBreakdown);
+            this.panel2.Controls.Add(this.boxStats);
             this.panel2.Controls.Add(this.myButton1);
             this.panel2.Controls.Add(this.BUT_GPSLanding);
             this.panel2.Controls.Add(this.BUT_AddTakeoffWP);
@@ -675,21 +675,20 @@
             this.panel2.Controls.Add(this.BUT_AddPolygon);
             this.panel2.Controls.Add(this.BUT_loadwpfile);
             this.panel2.Controls.Add(this.BUT_saveWPFile);
-            resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
             // 
             // resumeMission
             // 
-            resources.ApplyResources(this.resumeMission, "resumeMission");
             this.resumeMission.Image = global::MissionPlanner.Properties.Resources.Green_panel;
+            resources.ApplyResources(this.resumeMission, "resumeMission");
             this.resumeMission.Name = "resumeMission";
             this.resumeMission.UseVisualStyleBackColor = true;
             this.resumeMission.Click += new System.EventHandler(this.resumeMission_Click);
             // 
             // autoLand
             // 
-            resources.ApplyResources(this.autoLand, "autoLand");
             this.autoLand.Image = global::MissionPlanner.Properties.Resources.Green_panel;
+            resources.ApplyResources(this.autoLand, "autoLand");
             this.autoLand.Name = "autoLand";
             this.autoLand.UseVisualStyleBackColor = true;
             this.autoLand.Click += new System.EventHandler(this.autoLand_Click);
@@ -710,8 +709,8 @@
             // 
             // BUT_GPSLanding
             // 
-            resources.ApplyResources(this.BUT_GPSLanding, "BUT_GPSLanding");
             this.BUT_GPSLanding.Image = global::MissionPlanner.Properties.Resources.Green_panel;
+            resources.ApplyResources(this.BUT_GPSLanding, "BUT_GPSLanding");
             this.BUT_GPSLanding.Name = "BUT_GPSLanding";
             this.BUT_GPSLanding.UseVisualStyleBackColor = true;
             this.BUT_GPSLanding.Click += new System.EventHandler(this.BUT_GPSLanding_Click);
@@ -788,11 +787,11 @@
             // 
             // panel3
             // 
-            resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Controls.Add(this.chk_grid);
             this.panel3.Controls.Add(this.lbl_status);
             this.panel3.Controls.Add(this.comboBoxMapType);
             this.panel3.Controls.Add(this.lnk_kml);
+            resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Name = "panel3";
             // 
             // chk_grid
@@ -819,7 +818,6 @@
             // 
             // boxStats
             // 
-            resources.ApplyResources(this.boxStats, "boxStats");
             this.boxStats.Controls.Add(this.estimatedFlightTimeRemaining);
             this.boxStats.Controls.Add(this.label7);
             this.boxStats.Controls.Add(this.lbl_FlightTimeMainData);
@@ -829,6 +827,7 @@
             this.boxStats.Controls.Add(this.lbl_PhotoEveryMain);
             this.boxStats.Controls.Add(this.lbl_ResolutionMain);
             this.boxStats.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.boxStats, "boxStats");
             this.boxStats.Name = "boxStats";
             this.boxStats.TabStop = false;
             this.boxStats.Enter += new System.EventHandler(this.boxStats_Enter);
@@ -1426,6 +1425,15 @@
             this.timer1.Interval = 1200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // flowLayoutPanel2
+            // 
+            resources.ApplyResources(this.flowLayoutPanel2, "flowLayoutPanel2");
+            this.flowLayoutPanel2.Controls.Add(this.panel5);
+            this.flowLayoutPanel2.Controls.Add(this.panel1);
+            this.flowLayoutPanel2.Controls.Add(this.panel3);
+            this.flowLayoutPanel2.Controls.Add(this.panel4);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            // 
             // FlightPlanner
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1443,7 +1451,9 @@
             this.panelWaypoints.ResumeLayout(false);
             this.panelWaypoints.PerformLayout();
             this.panelAction.ResumeLayout(false);
+            this.panelAction.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -1456,6 +1466,7 @@
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.panelBASE.ResumeLayout(false);
+            this.flowLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1615,5 +1626,6 @@
         private System.Windows.Forms.Label label7;
         private Controls.MyButton autoLand;
         private Controls.MyButton resumeMission;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
     }
 }
