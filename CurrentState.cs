@@ -31,6 +31,7 @@ namespace MissionPlanner
         DateTime photoTime;
 
         // multipliers
+        public static float currentwp;
         public static float multiplierdist = 1;
         public static string DistanceUnit = "";
         public static float multiplierspeed = 1;
@@ -1154,11 +1155,10 @@ namespace MissionPlanner
                     if (bytearray != null)
                     {
                         var wpcur = bytearray.ByteArrayToStructure<MAVLink.mavlink_mission_current_t>(6);
-
                         int oldwp = (int)wpno;
 
                         wpno = wpcur.seq;
-
+                        currentwp = wpno;
                         if (oldwp != wpno && MainV2.speechEnable && MainV2.comPort.MAV.cs == this && MainV2.getConfig("speechwaypointenabled") == "True")
                         {
                             MainV2.speechEngine.SpeakAsync(Common.speechConversion(MainV2.getConfig("speechwaypoint")));

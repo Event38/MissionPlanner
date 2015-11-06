@@ -29,11 +29,13 @@ using System.Threading;
 using DirectShow;
 using System.Diagnostics;
 
+
 namespace MissionPlanner.GCSViews
-{
+{ 
     public partial class FlightPlanner : MyUserControl, IDeactivate, IActivate
     {
-        
+        public static float camTriggDist;
+        public static float flightpoint;
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         int selectedrow = 0;
         public bool quickadd = false;
@@ -4925,6 +4927,7 @@ namespace MissionPlanner.GCSViews
             ChangeColumnHeader(MAVLink.MAV_CMD.RETURN_TO_LAUNCH.ToString());
 
             writeKML();
+        
         }
 
         private void landToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4943,7 +4946,7 @@ namespace MissionPlanner.GCSViews
         }
 
         private void AddDigicamControlPhoto()
-        {
+        {     
             selectedrow = Commands.Rows.Add();
 
             Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.DO_DIGICAM_CONTROL.ToString();
@@ -6764,7 +6767,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
 
 
-     double ret = double.Parse(estimatedFlightTimeRemaining.Text);
+     double ret = double.Parse(estimatedFlightTimeRemaining.Text.ToString());
           
             Stopwatch stopWatch = new Stopwatch();
             bool missionended = false;
@@ -6811,6 +6814,130 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
             }
         }
+// -mwright
+private void autoLand_Click(object sender, EventArgs e)
+{
+    float wpcount;
+    //remembers current wp
+    flightpoint = CurrentState.currentwp; 
+    //gets total number of wps
+    wpcount = MainV2.comPort.GetParam("MIS_TOTAL") - 1;
+    //camera trigger dist
+    camTriggDist = MainV2.comPort.GetParam("CAM_TRIGG_DIST");
+    
+       try
+       {   
+           ((Button)sender).Enabled = false;           
+           wpcount = wpcount - 4;
+         
+        ushort UShWP = ushort.Parse(wpcount.ToString());
+            MainV2.comPort.setWPCurrent(UShWP);
+
+        }
+        catch { CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR); }
+        ((Button)sender).Enabled = true;   
+}
+//-mwright
+private void resumeMission_Click(object sender, EventArgs e)
+{
+    
+    
+    
+    Locationwp cmds;
+    //check for auto take off values 2	0	3	22-takeoffid 0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	100.000000	1
+
+    cmds = MainV2.comPort.getWP(1);
+    bool takeoffprocedure = true;
+    bool notSet = true;
+    int i = 0;
+    ushort usFP;
+
+    //if auto take 
+    if (cmds.id == 22)
+    {
+        //only hit once
+        if (i == 0)
+        {
+            //set mode into auto 
+            MainV2.comPort.setMode("Auto");
+            MainV2.comPort.setWPCurrent(1);
+            i++;
+        }
+        //while takeoff procedure is in progress continue with this loop.
+        while (takeoffprocedure)
+        {
+
+
+            //enters once altitude of auto take off is hit and never enters again after notSet = false;
+            if (MainV2.comPort.MAV.cs.alt >= cmds.alt && notSet)
+            {
+                //uses stored last flight point and converts it to ushort    
+                usFP = ushort.Parse(flightpoint.ToString());
+                //sets wp to previous wp
+                MainV2.comPort.setWPCurrent(usFP);
+                notSet = false;
+            }
+            //when previous wp is hit current wp will change to 
+            if (CurrentState.currentwp == (flightpoint + 1))
+            {
+                //begins triggering camera once last hit wp is hit
+                 MainV2.comPort.setParam("CAM_TRIGG_DIST", camTriggDist);
+                //MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST, 7, 0, 0, 0, 0, 0, 0);
+                //concludes the resume flight
+                takeoffprocedure = false;
+            }
+        }
+    }
+    //if not auto take off wait until plane hits 80m altitude
+    else
+    {
+
+        while (takeoffprocedure)
+        {       //enters after manual takeoff hits an altitude of 80
+            if (MainV2.comPort.MAV.cs.alt > 80)
+            {
+
+                if (i == 0)
+                {
+                    i++;
+                    //uses stored last flight point and converts it to ushort    
+                    usFP = ushort.Parse(flightpoint.ToString());
+                    MainV2.comPort.setMode("Auto");
+
+
+                    //sets wp to previous wp
+                    MainV2.comPort.setWPCurrent(usFP);
+
+                }
+
+
+                //when previous wp is hit current wp will change to 
+                if (CurrentState.currentwp == (flightpoint + 1))
+                {
+                    //begins triggering camera once last hit wp is hit
+                    MainV2.comPort.setParam("CAM_TRIGG_DIST", camTriggDist);
+                   // MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST, 1, 0, 0, 0, 0, 0, 0);
+
+                    //concludes the resume flight
+                    takeoffprocedure = false;
+                }
+            }
+        }
+        // go to CurrentState.currentwp
+
+    }
+    
+
+   
+
+    
+    
+
+}
+
+
+
+
         }
        }
 
