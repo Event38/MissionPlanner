@@ -968,8 +968,8 @@ namespace MissionPlanner
                 }
                 else
                 {
-                    p.Lat = shotLocation.Lat;
-                    p.Lon = shotLocation.Lon;
+                    p.Lat = shotLocation.Lat/100000;
+                    p.Lon = shotLocation.Lon/100000;
                     p.AltAMSL = shotLocation.AltAMSL;
 
                     p.RelAlt = shotLocation.RelAlt;
@@ -1132,8 +1132,8 @@ namespace MissionPlanner
                             // Stay with CAM Message as it is closer to CorrectedTime
                             p.Time = dCAMMsgTime;
 
-                            p.Lat = double.Parse(getValueFromStringArray(currentCAM, latCAMpos), CultureInfo.InvariantCulture);
-                            p.Lon = double.Parse(getValueFromStringArray(currentCAM, lngCAMpos), CultureInfo.InvariantCulture);
+                            p.Lat = double.Parse(getValueFromStringArray(currentCAM, latCAMpos), CultureInfo.InvariantCulture)/100000;
+                            p.Lon = double.Parse(getValueFromStringArray(currentCAM, lngCAMpos), CultureInfo.InvariantCulture)/100000;
                             p.AltAMSL = double.Parse(getValueFromStringArray(currentCAM, altCAMpos), CultureInfo.InvariantCulture);
                             p.RelAlt = double.Parse(getValueFromStringArray(currentCAM, altCAMpos), CultureInfo.InvariantCulture);
 
@@ -2522,6 +2522,7 @@ namespace MissionPlanner
             weekCAMPos = (int)((NumericUpDown)sender).Value;
         }
         #endregion
+
 
 
     }
