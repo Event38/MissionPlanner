@@ -51,14 +51,14 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlightPlanner));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Commands = new System.Windows.Forms.DataGridView();
             this.Command = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Param1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,9 +81,6 @@
             this.LBL_defalutalt = new System.Windows.Forms.Label();
             this.TXT_loiterrad = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.BUT_write = new MissionPlanner.Controls.MyButton();
-            this.BUT_read = new MissionPlanner.Controls.MyButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
@@ -105,11 +102,14 @@
             this.BUT_Add = new MissionPlanner.Controls.MyButton();
             this.panelAction = new BSE.Windows.Forms.Panel();
             this.splitter2 = new BSE.Windows.Forms.Splitter();
+            this.pictureBoxMouseOver1 = new MissionPlanner.Controls.PictureBoxMouseOver();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.chk_grid = new System.Windows.Forms.CheckBox();
             this.comboBoxMapType = new System.Windows.Forms.ComboBox();
             this.lnk_kml = new System.Windows.Forms.LinkLabel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.coords1 = new MissionPlanner.Controls.Coords();
             this.boxStats = new System.Windows.Forms.GroupBox();
             this.estimatedFlightTimeRemaining = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -122,6 +122,8 @@
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.BUT_write = new MissionPlanner.Controls.MyButton();
+            this.BUT_read = new MissionPlanner.Controls.MyButton();
             this.resumeMission = new MissionPlanner.Controls.MyButton();
             this.autoLand = new MissionPlanner.Controls.MyButton();
             this.missionBreakdown = new MissionPlanner.Controls.MyButton();
@@ -135,8 +137,6 @@
             this.BUT_AddPolygon = new MissionPlanner.Controls.MyButton();
             this.BUT_loadwpfile = new MissionPlanner.Controls.MyButton();
             this.BUT_saveWPFile = new MissionPlanner.Controls.MyButton();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.coords1 = new MissionPlanner.Controls.Coords();
             this.panelMap = new System.Windows.Forms.Panel();
             this.lbl_distance = new System.Windows.Forms.Label();
             this.lbl_homedist = new System.Windows.Forms.Label();
@@ -213,35 +213,37 @@
             this.panelBASE = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).BeginInit();
-            this.panel5.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panelWaypoints.SuspendLayout();
             this.panelAction.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMouseOver1)).BeginInit();
             this.flowLayoutPanel3.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.boxStats.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.panelMap.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.panelBASE.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Commands
             // 
             this.Commands.AllowUserToAddRows = false;
             resources.ApplyResources(this.Commands, "Commands");
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Commands.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle33.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle33.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle33.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle33.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Commands.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle33;
             this.Commands.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Command,
             this.Param1,
@@ -258,17 +260,17 @@
             this.Dist,
             this.AZ});
             this.Commands.Name = "Commands";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.Format = "N0";
-            dataGridViewCellStyle5.NullValue = "0";
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.Commands.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
-            this.Commands.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle37.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle37.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle37.Format = "N0";
+            dataGridViewCellStyle37.NullValue = "0";
+            dataGridViewCellStyle37.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle37.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            this.Commands.RowHeadersDefaultCellStyle = dataGridViewCellStyle37;
+            dataGridViewCellStyle38.ForeColor = System.Drawing.Color.Black;
+            this.Commands.RowsDefaultCellStyle = dataGridViewCellStyle38;
             this.Commands.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Commands_CellContentClick);
             this.Commands.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.Commands_CellEndEdit);
             this.Commands.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.Commands_DataError);
@@ -281,9 +283,9 @@
             // Command
             // 
             this.Command.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(68)))), ((int)(((byte)(69)))));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            this.Command.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle34.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(67)))), ((int)(((byte)(68)))), ((int)(((byte)(69)))));
+            dataGridViewCellStyle34.ForeColor = System.Drawing.Color.White;
+            this.Command.DefaultCellStyle = dataGridViewCellStyle34;
             this.Command.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             resources.ApplyResources(this.Command, "Command");
             this.Command.Name = "Command";
@@ -347,7 +349,7 @@
             // Up
             // 
             this.Up.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.Up.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Up.DefaultCellStyle = dataGridViewCellStyle35;
             resources.ApplyResources(this.Up, "Up");
             this.Up.Image = ((System.Drawing.Image)(resources.GetObject("Up.Image")));
             this.Up.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -356,8 +358,8 @@
             // Down
             // 
             this.Down.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Down.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Down.DefaultCellStyle = dataGridViewCellStyle36;
             resources.ApplyResources(this.Down, "Down");
             this.Down.Image = ((System.Drawing.Image)(resources.GetObject("Down.Image")));
             this.Down.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -429,27 +431,6 @@
             resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
             // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.BUT_write);
-            this.panel5.Controls.Add(this.BUT_read);
-            resources.ApplyResources(this.panel5, "panel5");
-            this.panel5.Name = "panel5";
-            // 
-            // BUT_write
-            // 
-            resources.ApplyResources(this.BUT_write, "BUT_write");
-            this.BUT_write.Name = "BUT_write";
-            this.BUT_write.UseVisualStyleBackColor = true;
-            this.BUT_write.Click += new System.EventHandler(this.BUT_write_Click);
-            // 
-            // BUT_read
-            // 
-            resources.ApplyResources(this.BUT_read, "BUT_read");
-            this.BUT_read.Name = "BUT_read";
-            this.BUT_read.UseVisualStyleBackColor = true;
-            this.BUT_read.Click += new System.EventHandler(this.BUT_read_Click);
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.label4);
@@ -505,8 +486,8 @@
             // 
             // dataGridViewImageColumn1
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle39;
             resources.ApplyResources(this.dataGridViewImageColumn1, "dataGridViewImageColumn1");
             this.dataGridViewImageColumn1.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn1.Image")));
             this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -514,8 +495,8 @@
             // 
             // dataGridViewImageColumn2
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewImageColumn2.DefaultCellStyle = dataGridViewCellStyle40;
             resources.ApplyResources(this.dataGridViewImageColumn2, "dataGridViewImageColumn2");
             this.dataGridViewImageColumn2.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn2.Image")));
             this.dataGridViewImageColumn2.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
@@ -619,6 +600,7 @@
             this.panelAction.CaptionFont = new System.Drawing.Font("Segoe UI", 11.75F, System.Drawing.FontStyle.Bold);
             this.panelAction.CaptionHeight = 21;
             this.panelAction.ColorScheme = BSE.Windows.Forms.ColorScheme.Custom;
+            this.panelAction.Controls.Add(this.pictureBoxMouseOver1);
             this.panelAction.Controls.Add(this.flowLayoutPanel3);
             this.panelAction.Controls.Add(this.flowLayoutPanel2);
             this.panelAction.Controls.Add(this.flowLayoutPanel1);
@@ -654,13 +636,21 @@
             this.splitter2.Name = "splitter2";
             this.splitter2.TabStop = false;
             // 
+            // pictureBoxMouseOver1
+            // 
+            this.pictureBoxMouseOver1.BackgroundImage = global::MissionPlanner.Properties.Resources.Event38_FF;
+            resources.ApplyResources(this.pictureBoxMouseOver1, "pictureBoxMouseOver1");
+            this.pictureBoxMouseOver1.ImageNormal = null;
+            this.pictureBoxMouseOver1.ImageOver = null;
+            this.pictureBoxMouseOver1.Name = "pictureBoxMouseOver1";
+            this.pictureBoxMouseOver1.selected = false;
+            this.pictureBoxMouseOver1.TabStop = false;
+            // 
             // flowLayoutPanel3
             // 
-            this.flowLayoutPanel3.Controls.Add(this.panel5);
-            this.flowLayoutPanel3.Controls.Add(this.panel3);
-            this.flowLayoutPanel3.Controls.Add(this.panel1);
-            this.flowLayoutPanel3.Controls.Add(this.boxStats);
             resources.ApplyResources(this.flowLayoutPanel3, "flowLayoutPanel3");
+            this.flowLayoutPanel3.Controls.Add(this.groupBox1);
+            this.flowLayoutPanel3.Controls.Add(this.boxStats);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             // 
             // panel3
@@ -693,6 +683,21 @@
             this.lnk_kml.Name = "lnk_kml";
             this.lnk_kml.TabStop = true;
             this.lnk_kml.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnk_kml_LinkClicked);
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.coords1);
+            resources.ApplyResources(this.panel4, "panel4");
+            this.panel4.Name = "panel4";
+            // 
+            // coords1
+            // 
+            this.coords1.Alt = 0D;
+            this.coords1.Lat = 0D;
+            this.coords1.Lng = 0D;
+            resources.ApplyResources(this.coords1, "coords1");
+            this.coords1.Name = "coords1";
+            this.coords1.Vertical = true;
             // 
             // boxStats
             // 
@@ -761,14 +766,15 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.panel2);
-            this.flowLayoutPanel1.Controls.Add(this.panel4);
             resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
+            this.flowLayoutPanel1.Controls.Add(this.panel2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             // 
             // panel2
             // 
             resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.Controls.Add(this.BUT_write);
+            this.panel2.Controls.Add(this.BUT_read);
             this.panel2.Controls.Add(this.resumeMission);
             this.panel2.Controls.Add(this.autoLand);
             this.panel2.Controls.Add(this.missionBreakdown);
@@ -783,6 +789,18 @@
             this.panel2.Controls.Add(this.BUT_loadwpfile);
             this.panel2.Controls.Add(this.BUT_saveWPFile);
             this.panel2.Name = "panel2";
+            // 
+            // BUT_write
+            // 
+            resources.ApplyResources(this.BUT_write, "BUT_write");
+            this.BUT_write.Name = "BUT_write";
+            this.BUT_write.UseVisualStyleBackColor = true;
+            // 
+            // BUT_read
+            // 
+            resources.ApplyResources(this.BUT_read, "BUT_read");
+            this.BUT_read.Name = "BUT_read";
+            this.BUT_read.UseVisualStyleBackColor = true;
             // 
             // resumeMission
             // 
@@ -876,21 +894,6 @@
             this.BUT_saveWPFile.Name = "BUT_saveWPFile";
             this.BUT_saveWPFile.UseVisualStyleBackColor = true;
             this.BUT_saveWPFile.Click += new System.EventHandler(this.BUT_saveWPFile_Click);
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.coords1);
-            resources.ApplyResources(this.panel4, "panel4");
-            this.panel4.Name = "panel4";
-            // 
-            // coords1
-            // 
-            this.coords1.Alt = 0D;
-            this.coords1.Lat = 0D;
-            this.coords1.Lng = 0D;
-            resources.ApplyResources(this.coords1, "coords1");
-            this.coords1.Name = "coords1";
-            this.coords1.Vertical = true;
             // 
             // panelMap
             // 
@@ -1441,6 +1444,16 @@
             this.timer1.Interval = 1200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.panel4);
+            this.groupBox1.Controls.Add(this.panel1);
+            this.groupBox1.Controls.Add(this.panel3);
+            this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
             // FlightPlanner
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1452,27 +1465,28 @@
             this.Load += new System.EventHandler(this.Planner_Load);
             this.Resize += new System.EventHandler(this.Planner_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.Commands)).EndInit();
-            this.panel5.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panelWaypoints.ResumeLayout(false);
             this.panelWaypoints.PerformLayout();
             this.panelAction.ResumeLayout(false);
             this.panelAction.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMouseOver1)).EndInit();
             this.flowLayoutPanel3.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
             this.boxStats.ResumeLayout(false);
             this.boxStats.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel4.ResumeLayout(false);
             this.panelMap.ResumeLayout(false);
             this.panelMap.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.panelBASE.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1480,9 +1494,6 @@
 
         #endregion
 
-        private Controls.MyButton BUT_read;
-        private Controls.MyButton BUT_write;
-        private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.LinkLabel label4;
         private System.Windows.Forms.Label label3;
@@ -1634,5 +1645,9 @@
         private Controls.MyButton resumeMission;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
+        private Controls.PictureBoxMouseOver pictureBoxMouseOver1;
+        private Controls.MyButton BUT_write;
+        private Controls.MyButton BUT_read;
+        public System.Windows.Forms.GroupBox groupBox1;
     }
 }

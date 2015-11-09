@@ -573,6 +573,26 @@ namespace MissionPlanner.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Event38 {
+            get {
+                object obj = ResourceManager.GetObject("Event38", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Event38_FF {
+            get {
+                object obj = ResourceManager.GetObject("Event38_FF", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap frames_06 {
             get {
                 object obj = ResourceManager.GetObject("frames_06", resourceCulture);

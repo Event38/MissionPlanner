@@ -2721,6 +2721,8 @@
     <None Include="Resources\CamIconGreen.png" />
     <None Include="Resources\CamIconYellow.png" />
     <None Include="Resources\CheckeredFlag.png" />
+    <None Include="Resources\Event38.png" />
+    <None Include="Resources\Event38_FF.png" />
     <Content Include="Wizard\acsimplepids.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
