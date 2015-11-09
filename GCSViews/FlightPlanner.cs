@@ -2908,6 +2908,7 @@ namespace MissionPlanner.GCSViews
                             {
                                 landingPoint = MouseDownEnd;
                                 ModifiedLandingPoint = true;
+                                runwayoverlay.Clear();
                                 SetupLandingWaypoints();
                             }
                             else
@@ -6101,7 +6102,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //remove old land WPs and runway overlay if they are present
             if (Commands.Rows.Count >= 3)
             {
-                runwayoverlay.Clear();
                 for (int i = 0; i <= pointlist.Count - 2; i++) //home adds an extra point
                 {
                     if (Commands.Rows[i].Cells[Command.Index].Value.ToString().Contains("LAND"))
@@ -6224,7 +6224,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //create a marker to use as a label, since apparently you can't put a label on a polygon
             //this will be drawn right over top the actual final landing waypoint
             GMarkerGoogle LandingZoneMarker = new GMarkerGoogle(landingPoint, GMarkerGoogleType.green);
-            LandingZoneMarker.ToolTipText = "Landing Zone";
+            LandingZoneMarker.ToolTipText = "LZ";
             LandingZoneMarker.ToolTipMode = MarkerTooltipMode.Always;
 
             //add altitude estimation points along final dive of the landing sequence - D Cironi 2015-11-06
@@ -6405,18 +6405,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void myButton1_Click(object sender, EventArgs e)
         {
-            //MAVLink.mavlink_BTB_land_t BTBLand = new MAVLink.mavlink_BTB_land_t();
-
-            //string directionAsString = "0";
-            //Int16 direction = 0;
-            //if (System.Windows.Forms.DialogResult.Cancel == InputBox.Show("Direction", "Please enter your landing direction in degrees (0 = North)", ref directionAsString))
-            //    return;
-            //direction = Convert.ToInt16(directionAsString);
-
-            //BTBLand.Direction = direction;
-
-            //MainV2.comPort.sendPacket(BTBLand);
-
 
             //New method to determine landing direction based on picking beginning and end of runway
             if (landingStripMode == false)
