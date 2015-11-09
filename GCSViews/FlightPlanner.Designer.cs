@@ -105,18 +105,11 @@
             this.BUT_Add = new MissionPlanner.Controls.MyButton();
             this.panelAction = new BSE.Windows.Forms.Panel();
             this.splitter2 = new BSE.Windows.Forms.Splitter();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.chk_grid = new System.Windows.Forms.CheckBox();
             this.comboBoxMapType = new System.Windows.Forms.ComboBox();
             this.lnk_kml = new System.Windows.Forms.LinkLabel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.coords1 = new MissionPlanner.Controls.Coords();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.resumeMission = new MissionPlanner.Controls.MyButton();
-            this.autoLand = new MissionPlanner.Controls.MyButton();
-            this.missionBreakdown = new MissionPlanner.Controls.MyButton();
             this.boxStats = new System.Windows.Forms.GroupBox();
             this.estimatedFlightTimeRemaining = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -126,6 +119,12 @@
             this.lbl_ResolutionMainData = new System.Windows.Forms.Label();
             this.lbl_PhotoEveryMain = new System.Windows.Forms.Label();
             this.lbl_ResolutionMain = new System.Windows.Forms.Label();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.resumeMission = new MissionPlanner.Controls.MyButton();
+            this.autoLand = new MissionPlanner.Controls.MyButton();
+            this.missionBreakdown = new MissionPlanner.Controls.MyButton();
             this.myButton1 = new MissionPlanner.Controls.MyButton();
             this.BUT_GPSLanding = new MissionPlanner.Controls.MyButton();
             this.BUT_AddTakeoffWP = new MissionPlanner.Controls.MyButton();
@@ -136,6 +135,8 @@
             this.BUT_AddPolygon = new MissionPlanner.Controls.MyButton();
             this.BUT_loadwpfile = new MissionPlanner.Controls.MyButton();
             this.BUT_saveWPFile = new MissionPlanner.Controls.MyButton();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.coords1 = new MissionPlanner.Controls.Coords();
             this.panelMap = new System.Windows.Forms.Panel();
             this.lbl_distance = new System.Windows.Forms.Label();
             this.lbl_homedist = new System.Windows.Forms.Label();
@@ -217,11 +218,12 @@
             this.panel1.SuspendLayout();
             this.panelWaypoints.SuspendLayout();
             this.panelAction.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
+            this.boxStats.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.boxStats.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.panelMap.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -617,6 +619,7 @@
             this.panelAction.CaptionFont = new System.Drawing.Font("Segoe UI", 11.75F, System.Drawing.FontStyle.Bold);
             this.panelAction.CaptionHeight = 21;
             this.panelAction.ColorScheme = BSE.Windows.Forms.ColorScheme.Custom;
+            this.panelAction.Controls.Add(this.flowLayoutPanel3);
             this.panelAction.Controls.Add(this.flowLayoutPanel2);
             this.panelAction.Controls.Add(this.flowLayoutPanel1);
             this.panelAction.CustomColors.BorderColor = System.Drawing.Color.Black;
@@ -651,10 +654,14 @@
             this.splitter2.Name = "splitter2";
             this.splitter2.TabStop = false;
             // 
-            // flowLayoutPanel2
+            // flowLayoutPanel3
             // 
-            resources.ApplyResources(this.flowLayoutPanel2, "flowLayoutPanel2");
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel3.Controls.Add(this.panel5);
+            this.flowLayoutPanel3.Controls.Add(this.panel3);
+            this.flowLayoutPanel3.Controls.Add(this.panel1);
+            this.flowLayoutPanel3.Controls.Add(this.boxStats);
+            resources.ApplyResources(this.flowLayoutPanel3, "flowLayoutPanel3");
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             // 
             // panel3
             // 
@@ -686,73 +693,6 @@
             this.lnk_kml.Name = "lnk_kml";
             this.lnk_kml.TabStop = true;
             this.lnk_kml.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnk_kml_LinkClicked);
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.coords1);
-            resources.ApplyResources(this.panel4, "panel4");
-            this.panel4.Name = "panel4";
-            // 
-            // coords1
-            // 
-            this.coords1.Alt = 0D;
-            this.coords1.Lat = 0D;
-            this.coords1.Lng = 0D;
-            resources.ApplyResources(this.coords1, "coords1");
-            this.coords1.Name = "coords1";
-            this.coords1.Vertical = true;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.panel2);
-            this.flowLayoutPanel1.Controls.Add(this.panel4);
-            this.flowLayoutPanel1.Controls.Add(this.panel3);
-            this.flowLayoutPanel1.Controls.Add(this.panel5);
-            this.flowLayoutPanel1.Controls.Add(this.panel1);
-            this.flowLayoutPanel1.Controls.Add(this.boxStats);
-            resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            // 
-            // panel2
-            // 
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.Controls.Add(this.resumeMission);
-            this.panel2.Controls.Add(this.autoLand);
-            this.panel2.Controls.Add(this.missionBreakdown);
-            this.panel2.Controls.Add(this.myButton1);
-            this.panel2.Controls.Add(this.BUT_GPSLanding);
-            this.panel2.Controls.Add(this.BUT_AddTakeoffWP);
-            this.panel2.Controls.Add(this.BUT_ClearMission);
-            this.panel2.Controls.Add(this.BUT_ElevationGraph);
-            this.panel2.Controls.Add(this.BUT_Survey);
-            this.panel2.Controls.Add(this.BUT_ClearPolygon);
-            this.panel2.Controls.Add(this.BUT_AddPolygon);
-            this.panel2.Controls.Add(this.BUT_loadwpfile);
-            this.panel2.Controls.Add(this.BUT_saveWPFile);
-            this.panel2.Name = "panel2";
-            // 
-            // resumeMission
-            // 
-            this.resumeMission.Image = global::MissionPlanner.Properties.Resources.Green_panel;
-            resources.ApplyResources(this.resumeMission, "resumeMission");
-            this.resumeMission.Name = "resumeMission";
-            this.resumeMission.UseVisualStyleBackColor = true;
-            this.resumeMission.Click += new System.EventHandler(this.resumeMission_Click);
-            // 
-            // autoLand
-            // 
-            this.autoLand.Image = global::MissionPlanner.Properties.Resources.Green_panel;
-            resources.ApplyResources(this.autoLand, "autoLand");
-            this.autoLand.Name = "autoLand";
-            this.autoLand.UseVisualStyleBackColor = true;
-            this.autoLand.Click += new System.EventHandler(this.autoLand_Click);
-            // 
-            // missionBreakdown
-            // 
-            resources.ApplyResources(this.missionBreakdown, "missionBreakdown");
-            this.missionBreakdown.Name = "missionBreakdown";
-            this.missionBreakdown.UseVisualStyleBackColor = true;
-            this.missionBreakdown.Click += new System.EventHandler(this.missionBreakDown_Click);
             // 
             // boxStats
             // 
@@ -813,6 +753,59 @@
             // 
             resources.ApplyResources(this.lbl_ResolutionMain, "lbl_ResolutionMain");
             this.lbl_ResolutionMain.Name = "lbl_ResolutionMain";
+            // 
+            // flowLayoutPanel2
+            // 
+            resources.ApplyResources(this.flowLayoutPanel2, "flowLayoutPanel2");
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.panel2);
+            this.flowLayoutPanel1.Controls.Add(this.panel4);
+            resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            // 
+            // panel2
+            // 
+            resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.Controls.Add(this.resumeMission);
+            this.panel2.Controls.Add(this.autoLand);
+            this.panel2.Controls.Add(this.missionBreakdown);
+            this.panel2.Controls.Add(this.myButton1);
+            this.panel2.Controls.Add(this.BUT_GPSLanding);
+            this.panel2.Controls.Add(this.BUT_AddTakeoffWP);
+            this.panel2.Controls.Add(this.BUT_ClearMission);
+            this.panel2.Controls.Add(this.BUT_ElevationGraph);
+            this.panel2.Controls.Add(this.BUT_Survey);
+            this.panel2.Controls.Add(this.BUT_ClearPolygon);
+            this.panel2.Controls.Add(this.BUT_AddPolygon);
+            this.panel2.Controls.Add(this.BUT_loadwpfile);
+            this.panel2.Controls.Add(this.BUT_saveWPFile);
+            this.panel2.Name = "panel2";
+            // 
+            // resumeMission
+            // 
+            this.resumeMission.Image = global::MissionPlanner.Properties.Resources.Green_panel;
+            resources.ApplyResources(this.resumeMission, "resumeMission");
+            this.resumeMission.Name = "resumeMission";
+            this.resumeMission.UseVisualStyleBackColor = true;
+            this.resumeMission.Click += new System.EventHandler(this.resumeMission_Click);
+            // 
+            // autoLand
+            // 
+            this.autoLand.Image = global::MissionPlanner.Properties.Resources.Green_panel;
+            resources.ApplyResources(this.autoLand, "autoLand");
+            this.autoLand.Name = "autoLand";
+            this.autoLand.UseVisualStyleBackColor = true;
+            this.autoLand.Click += new System.EventHandler(this.autoLand_Click);
+            // 
+            // missionBreakdown
+            // 
+            resources.ApplyResources(this.missionBreakdown, "missionBreakdown");
+            this.missionBreakdown.Name = "missionBreakdown";
+            this.missionBreakdown.UseVisualStyleBackColor = true;
+            this.missionBreakdown.Click += new System.EventHandler(this.missionBreakDown_Click);
             // 
             // myButton1
             // 
@@ -883,6 +876,21 @@
             this.BUT_saveWPFile.Name = "BUT_saveWPFile";
             this.BUT_saveWPFile.UseVisualStyleBackColor = true;
             this.BUT_saveWPFile.Click += new System.EventHandler(this.BUT_saveWPFile_Click);
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.coords1);
+            resources.ApplyResources(this.panel4, "panel4");
+            this.panel4.Name = "panel4";
+            // 
+            // coords1
+            // 
+            this.coords1.Alt = 0D;
+            this.coords1.Lat = 0D;
+            this.coords1.Lng = 0D;
+            resources.ApplyResources(this.coords1, "coords1");
+            this.coords1.Name = "coords1";
+            this.coords1.Vertical = true;
             // 
             // panelMap
             // 
@@ -1451,14 +1459,15 @@
             this.panelWaypoints.PerformLayout();
             this.panelAction.ResumeLayout(false);
             this.panelAction.PerformLayout();
+            this.flowLayoutPanel3.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel4.ResumeLayout(false);
+            this.boxStats.ResumeLayout(false);
+            this.boxStats.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.boxStats.ResumeLayout(false);
-            this.boxStats.PerformLayout();
+            this.panel4.ResumeLayout(false);
             this.panelMap.ResumeLayout(false);
             this.panelMap.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -1624,5 +1633,6 @@
         private Controls.MyButton autoLand;
         private Controls.MyButton resumeMission;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
     }
 }

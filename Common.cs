@@ -158,15 +158,16 @@ namespace MissionPlanner
 
             base.OnRender(g);
 
-            var midw = LocalPosition.X + 10;
-            var midh = LocalPosition.Y + 3;
+            var midw = LocalPosition.X + 5;
+            var midh = LocalPosition.Y - 10;
 
             var txtsize = TextRenderer.MeasureText(wpno, SystemFonts.DefaultFont);
 
             if (txtsize.Width > 15)
                 midw -= 4;
 
-            g.DrawString(wpno, SystemFonts.DefaultFont, Brushes.Black, new PointF(midw, midh));
+            g.DrawString("Alt:", SystemFonts.DefaultFont, Brushes.White, new PointF(midw + 5, midh - 13));
+            g.DrawString(wpno, SystemFonts.DefaultFont, Brushes.White, new PointF(midw, midh));
 
             //Matrix temp = g.Transform;
             //g.TranslateTransform(LocalPosition.X, LocalPosition.Y);
