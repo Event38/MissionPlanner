@@ -6403,6 +6403,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             panelAction.ShowTransparentBackground = true;
         }
 
+        //this makes the Stats and Info panel look better collapsed -D Cironi 2015-11-10
+        private void panelInfo_PanelCollapsing(object sender, BSE.Windows.Forms.XPanderStateChangeEventArgs e)
+        {
+            panelInfo.ShowTransparentBackground = false;
+        }
+
+        private void panelInfo_PanelExpanding(object sender, BSE.Windows.Forms.XPanderStateChangeEventArgs e)
+        {
+            panelInfo.ShowTransparentBackground = true;
+        }
+
         private void myButton1_Click(object sender, EventArgs e)
         {
 
@@ -6868,6 +6879,7 @@ private void resumeMission_Click(object sender, EventArgs e)
 
 
 }
+
 
 
 
