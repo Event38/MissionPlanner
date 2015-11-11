@@ -134,7 +134,7 @@ namespace MissionPlanner
     }
 
     [Serializable]
-    public class GMapMarkerWP : GMarkerGoogle
+    public class GMapMarkerLanding : GMarkerGoogle
     {
         const float rad2deg = (float)(180 / Math.PI);
         const float deg2rad = (float)(1.0 / rad2deg);
@@ -142,8 +142,62 @@ namespace MissionPlanner
         string wpno = "";
         public bool selected = false;
 
-        public GMapMarkerWP(PointLatLng p, string wpno)
-            : base(p, GMarkerGoogleType.green)
+
+
+        public GMapMarkerLanding(PointLatLng p, string wpno, Bitmap icon)
+            : base(p, new Bitmap(icon, 30, 30))
+            
+        {
+            this.wpno = wpno;
+        }
+        
+
+        public override void OnRender(Graphics g)
+        {
+            if (selected)
+            {
+                g.FillEllipse(Brushes.Red, new Rectangle(this.LocalPosition, this.Size));
+                g.DrawArc(Pens.Red, new Rectangle(this.LocalPosition, this.Size), 0, 360);
+            }
+
+            base.OnRender(g);
+
+            var midw = LocalPosition.X + 10;
+            var midh = LocalPosition.Y + 35;
+
+            var txtsize = TextRenderer.MeasureText(wpno, SystemFonts.DefaultFont);
+
+            if (txtsize.Width > 15)
+                midw -= 4;
+
+            g.DrawString("Alt:", SystemFonts.DefaultFont, Brushes.White, new PointF(midw, midh));
+            g.DrawString(wpno, SystemFonts.DefaultFont, Brushes.White, new PointF(midw - 1, midh + 13));
+
+            //Matrix temp = g.Transform;
+            //g.TranslateTransform(LocalPosition.X, LocalPosition.Y);
+
+            //g.RotateTransform(-Overlay.Control.Bearing);
+
+            // do stuff
+
+
+            //g.Transform = temp;
+        }
+    }
+
+    [Serializable]
+    public class GMapMarkerLandingRight : GMarkerGoogle
+    {
+        const float rad2deg = (float)(180 / Math.PI);
+        const float deg2rad = (float)(1.0 / rad2deg);
+
+        string wpno = "";
+        public bool selected = false;
+
+
+
+        public GMapMarkerLandingRight(PointLatLng p, string wpno, float landingDirection)
+            : base(p, new Bitmap(MissionPlanner.Properties.Resources.icon_take2_right, 30, 30))
         {
             this.wpno = wpno;
         }
@@ -158,16 +212,16 @@ namespace MissionPlanner
 
             base.OnRender(g);
 
-            var midw = LocalPosition.X + 5;
-            var midh = LocalPosition.Y - 10;
+            var midw = LocalPosition.X + 10;
+            var midh = LocalPosition.Y + 35;
 
             var txtsize = TextRenderer.MeasureText(wpno, SystemFonts.DefaultFont);
 
             if (txtsize.Width > 15)
                 midw -= 4;
 
-            g.DrawString("Alt:", SystemFonts.DefaultFont, Brushes.White, new PointF(midw + 5, midh - 13));
-            g.DrawString(wpno, SystemFonts.DefaultFont, Brushes.White, new PointF(midw, midh));
+            g.DrawString("Alt:", SystemFonts.DefaultFont, Brushes.White, new PointF(midw, midh));
+            g.DrawString(wpno, SystemFonts.DefaultFont, Brushes.White, new PointF(midw - 2, midh + 13));
 
             //Matrix temp = g.Transform;
             //g.TranslateTransform(LocalPosition.X, LocalPosition.Y);

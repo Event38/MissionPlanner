@@ -222,11 +222,11 @@ namespace GMap.NET.WindowsForms.Markers
             }
          }
 
-         //if(Bearing.HasValue)
-         //{
-         //   g.RotateTransform(Bearing.Value - Overlay.Control.Bearing);
-         //   g.FillPolygon(Brushes.Red, Arrow);
-         //}
+         if(Bearing.HasValue)
+         {
+            g.RotateTransform(Bearing.Value - Overlay.Control.Bearing);
+            //g.FillPolygon(Brushes.Red, Arrow);
+         }
 
          //if(!Bearing.HasValue)
          {

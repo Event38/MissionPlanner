@@ -6228,20 +6228,33 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             LandingZoneMarker.ToolTipMode = MarkerTooltipMode.Always;
 
             //add altitude estimation points along final dive of the landing sequence - D Cironi 2015-11-06
+
+            Bitmap icon;
+
+            if(LandingDirection > 180 && LandingDirection <= 360)
+            {
+                 icon = MissionPlanner.Properties.Resources.icon_take3_left;
+            }
+            else
+            {
+                 icon = MissionPlanner.Properties.Resources.icon_take3_right;
+            }
+
             PointLatLng AltGuide1 = new PointLatLng();
-            AltGuide1.Lat = landingPoint.Lat - (LatDistance * 79.4);
-            AltGuide1.Lng = landingPoint.Lng - (LngDistance * 79.4);
-            GMapMarkerWP AltGuideMarker1 = new GMapMarkerWP(AltGuide1, "50 M");
+            AltGuide1.Lat = landingPoint.Lat - (LatDistance * 101);
+            AltGuide1.Lng = landingPoint.Lng - (LngDistance * 101);
+            GMapMarkerLanding AltGuideMarker1 = new GMapMarkerLanding(AltGuide1, "50 M", icon);
 
             PointLatLng AltGuide2 = new PointLatLng();
-            AltGuide2.Lat = landingPoint.Lat - (LatDistance * 40);
-            AltGuide2.Lng = landingPoint.Lng - (LngDistance * 40);
-            GMapMarkerWP AltGuideMarker2 = new GMapMarkerWP(AltGuide2, "25 M");
+            AltGuide2.Lat = landingPoint.Lat - (LatDistance * 62);
+            AltGuide2.Lng = landingPoint.Lng - (LngDistance * 62);
+            GMapMarkerLanding AltGuideMarker2 = new GMapMarkerLanding(AltGuide2, "25 M", icon);
 
             PointLatLng AltGuide3 = new PointLatLng();
-            AltGuide3.Lat = landingPoint.Lat - (LatDistance * 24);
-            AltGuide3.Lng = landingPoint.Lng - (LngDistance * 24);
-            GMapMarkerWP AltGuideMarker3 = new GMapMarkerWP(AltGuide3, "15 M");
+            AltGuide3.Lat = landingPoint.Lat - (LatDistance * 46);
+            AltGuide3.Lng = landingPoint.Lng - (LngDistance * 46);
+            GMapMarkerLanding AltGuideMarker3 = new GMapMarkerLanding(AltGuide3, "15 M", icon);
+
 
             runwayoverlay.Markers.Add(AltGuideMarker1);
             runwayoverlay.Markers.Add(AltGuideMarker2);
@@ -6320,46 +6333,6 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                 //set up the landing pattern
                 SetupLandingWaypoints();
-
-                ////convert direction in degrees to radians for calculations
-                //LandingDirection = Math.PI * Convert.ToDouble(LandingDirection) / 180;
-
-                ////determine where to place waypoints based on angle of landing, these values put a waypoint at the proper angle 1m away,
-                ////in order to get the final waypoint value we must multiply these values by the ground distance between waypoints in order to get the proper angle and distance
-                //double LatDistance = .000008998 * Math.Sin(Math.PI - LandingDirection - Math.PI / 2) / Math.Sin(Math.PI / 2);     //.000008998 degrees LAT = 1m east and west          
-                //double LngDistance = .000011950 * Math.Sin(LandingDirection) / Math.Sin(Math.PI / 2);                             //.000011950 degrees LNG = 1m north and south
-
-                ////add first wp of landing procedure
-                //selectedrow = Commands.Rows.Add();
-
-                //Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-
-                //ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
-
-                //setfromMap(endOfRunway.Lat - (LatDistance * 200), endOfRunway.Lng - (LngDistance * 200), 50); //WP 200 meters out in the direction of landing and 50 meters altitude
-                //writeKML();
-
-                ////add second wp of landing procedure
-                //selectedrow = Commands.Rows.Add();
-
-                //Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-
-                //ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
-
-                //setfromMap(endOfRunway.Lat - (LatDistance * 100), endOfRunway.Lng - (LngDistance * 100), 50); //WP 100 meters out in the direction of landing and 50 meters altitude
-
-                //writeKML();
-
-                ////add final land wp of landing procedure
-                //selectedrow = Commands.Rows.Add();
-
-                //Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
-
-                //ChangeColumnHeader(MAVLink.MAV_CMD.LAND.ToString());
-
-                //setfromMap(endOfRunway.Lat, endOfRunway.Lng, 0); //WP at specified GPS location of landing
-
-                //writeKML();
             }
             
         }

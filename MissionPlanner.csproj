@@ -2723,6 +2723,13 @@
     <None Include="Resources\CheckeredFlag.png" />
     <None Include="Resources\Event38.png" />
     <None Include="Resources\Event38_FF.png" />
+    <None Include="Resources\GreenLine.png" />
+    <None Include="Resources\red-dot.png" />
+    <None Include="Resources\icon-noseright.png" />
+    <None Include="Resources\icon-noseleft.png" />
+    <None Include="Resources\icon-take2-right.png" />
+    <None Include="Resources\icon-take2-left.png" />
+    <None Include="Resources\icon-take3-right.png" />
     <Content Include="Wizard\acsimplepids.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
