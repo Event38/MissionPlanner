@@ -285,7 +285,8 @@
   <data name="BUT_setwp.Text" xml:space="preserve">
     <value>Set WP</value>
   </data>
-  <data name="tabTLogs.Text" xml:space="preserve">
+  <data name="
+        .Text" xml:space="preserve">
     <value>Telemetrie-Logs</value>
   </data>
   <data name="lbl_logpercent.Text" xml:space="preserve">

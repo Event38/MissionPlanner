@@ -850,7 +850,7 @@ namespace MissionPlanner.GCSViews
                                 timeerror = 0;
                             }
                         }
-                        if (ts > 1000)
+                        if (Math.Abs(ts) > 1000)
                             ts = 1000;
                     }
 
@@ -893,9 +893,13 @@ namespace MissionPlanner.GCSViews
 
              //   MainV2.instance.EstimateLifeRemaining();
                 try
-                { 
-                    CheckAndBindPreFlightData();
-
+                {    
+  
+                    //when playing a log disables constant update to preflight checklist which slowed down parsing through the tlog -mWright
+                    if (!playingLog)
+                    {
+                        CheckAndBindPreFlightData();
+                    }
                     //Console.WriteLine(DateTime.Now.Millisecond);
                     //int fixme;
                     updateBindingSource();
