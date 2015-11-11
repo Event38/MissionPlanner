@@ -626,6 +626,7 @@
             resources.ApplyResources(this.BUT_write, "BUT_write");
             this.BUT_write.Name = "BUT_write";
             this.BUT_write.UseVisualStyleBackColor = true;
+            this.BUT_write.Click += new System.EventHandler(this.BUT_write_Click);
             // 
             // BUT_read
             // 
@@ -698,6 +699,7 @@
             resources.ApplyResources(this.BUT_Survey, "BUT_Survey");
             this.BUT_Survey.Name = "BUT_Survey";
             this.BUT_Survey.UseVisualStyleBackColor = true;
+            this.BUT_Survey.Click += new System.EventHandler(this.BUT_grid_Click);
             // 
             // BUT_ClearPolygon
             // 
