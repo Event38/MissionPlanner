@@ -185,9 +185,6 @@
   <data name="cmb_ConnectionType.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="cmb_ConnectionType.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="&gt;&gt;cmb_ConnectionType.Name" xml:space="preserve">
     <value>cmb_ConnectionType</value>
   </data>

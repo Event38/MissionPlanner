@@ -38,7 +38,7 @@ namespace MissionPlanner.Wizard
                     catch { }
                 }
             }
-            else if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane)
+            else if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.E386 || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Scout)
             {
                 foreach (var item in ap_failsafe)
                 {

@@ -664,6 +664,7 @@
             this.myButton1.Name = "myButton1";
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
+            this.myButton1.Visible = false;
             // 
             // BUT_GPSLanding
             // 
@@ -1661,11 +1662,11 @@
         private Controls.MyButton BUT_ClearMission;
         public System.Windows.Forms.Label lbl_distance;
         private Controls.MyButton BUT_AddTakeoffWP;
-        private Controls.MyButton BUT_GPSLanding;
-        private Controls.MyButton myButton1;
+        public Controls.MyButton BUT_GPSLanding;
+        public Controls.MyButton autoLand;
+        public Controls.MyButton resumeMission;
+        public Controls.MyButton myButton1;
         private Controls.MyButton missionBreakdown;
-        private Controls.MyButton autoLand;
-        private Controls.MyButton resumeMission;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private Controls.PictureBoxMouseOver pictureBoxMouseOver1;
         private Controls.MyButton BUT_write;

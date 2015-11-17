@@ -110,7 +110,7 @@ namespace MissionPlanner.Log
                                 MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.ArduCopter2;
                             }
                             else if (line.Contains("PARM, PTCH2SRV_P") || line.Contains("ArduPlane"))
-                            {
+                            { //-mwright not sure how to handle yet will not really effect bin to log
                                 MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.ArduPlane;
                             }
                             else if (line.Contains("PARM, SKID_STEER_OUT") || line.Contains("ArduRover"))

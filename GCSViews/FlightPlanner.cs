@@ -554,7 +554,7 @@ namespace MissionPlanner.GCSViews
             {
                 reader.Read();
                 reader.ReadStartElement("CMD");
-                if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx)
+                if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.E386 || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Scout)
                 {
                     reader.ReadToFollowing("APM");
                 }
@@ -3677,7 +3677,7 @@ namespace MissionPlanner.GCSViews
 
                 PointLatLng currentloc = new PointLatLng(MainV2.comPort.MAV.cs.lat, MainV2.comPort.MAV.cs.lng);
 
-                if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx)
+                if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.E386 || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Scout)
                 {
                     routesoverlay.Markers.Add(new GMapMarkerPlane(currentloc, MainV2.comPort.MAV.cs.yaw, MainV2.comPort.MAV.cs.groundcourse, MainV2.comPort.MAV.cs.nav_bearing, MainV2.comPort.MAV.cs.target_bearing));
                 }
@@ -5008,7 +5008,7 @@ namespace MissionPlanner.GCSViews
             // take off pitch
             int topi = 0;
 
-            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx)
+            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.E386 || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Scout)
             {
                 string top = "35";
 
@@ -5174,7 +5174,7 @@ namespace MissionPlanner.GCSViews
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
-            if (MainV2.comPort.MAV.cs.firmware != MainV2.Firmwares.ArduPlane)
+            if (MainV2.comPort.MAV.cs.firmware != MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.E386 || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Scout)
             {
                 geoFenceToolStripMenuItem.Enabled = false;
             }
@@ -6068,7 +6068,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             // take off pitch
             int topi = 0;
 
-            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx)
+            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.E386 || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Scout)
             {
                 string top = "35";
 

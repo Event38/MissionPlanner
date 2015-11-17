@@ -526,9 +526,26 @@ DEBUG = 254,
         	///<summary> Two-rotor VTOL using control surfaces in vertical operation in addition. Tailsitter. | </summary>
             VTOL_DUOROTOR=19, 
         	///<summary> Quad-rotor VTOL using a V-shaped quad config in vertical operation. Tailsitter. | </summary>
-            VTOL_QUADROTOR=20, 
+            VTOL_QUADROTOR=20,
+            ///<summary> VTOL reserved 1 | </summary>
+            VTOL_RESERVED1 = 21,
+            ///<summary> VTOL reserved 2 | </summary>
+            VTOL_RESERVED2 = 22,
+            ///<summary> VTOL reserved 3 | </summary>
+            VTOL_RESERVED3 = 23,
+            ///<summary> VTOL reserved 4 | </summary>
+            VTOL_RESERVED4 = 24,
+            ///<summary> VTOL reserved 5 | </summary>
+            VTOL_RESERVED5 = 25,
+            ///<summary> Onboard gimbal | </summary>
+            GIMBAL = 26,
+             //--mwright 
+            ///<summary>Event38's e386 | </summary>
+            E386 = 27,
+            ///<summary> Event38's Scout| </summary>
+            Scout = 28,
         	///<summary>  | </summary>
-            ENUM_END=21, 
+            ENUM_END=29, 
         
         };
         

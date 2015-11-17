@@ -37,6 +37,7 @@ namespace MissionPlanner.Controls
             this.linkLabel1.Visible = isConnected;
             cmb_Baud.Enabled = !isConnected;
             cmb_Connection.Enabled = !isConnected;
+            cmb_ConnectionType.Enabled = !isConnected;
         }
 
         private void ConnectionControl_MouseClick(object sender, MouseEventArgs e)

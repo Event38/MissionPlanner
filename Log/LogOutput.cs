@@ -65,8 +65,16 @@ namespace MissionPlanner.Log
                     MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.ArduCopter2;
                 }
                 if (line.ToLower().Contains("ArduPlane"))
-                {
+                { 
                     MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.ArduPlane;
+                }
+                if (line.ToLower().Contains("E386"))
+                { 
+                    MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.E386;
+                }
+                if (line.ToLower().Contains("Scout"))
+                { 
+                    MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.Scout;
                 }
 
                 line = line.Replace(", ", ",");
@@ -133,7 +141,7 @@ namespace MissionPlanner.Log
                     lastline = line;
                 }
                 else if (items[0].Contains("GPS") && items[2] == "1" && items[4] != "0" && items[4] != "-1" && lastline != line) // check gps line and fixed status
-                {
+                {   // -mwright not sure how to handle yet
                     MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.ArduPlane;
 
                     if (position[positionindex] == null)

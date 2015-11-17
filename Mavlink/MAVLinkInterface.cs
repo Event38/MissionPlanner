@@ -3413,8 +3413,16 @@ Please check the following
                 case MAV_AUTOPILOT.ARDUPILOTMEGA:
                     switch (MAVlist[sysid].aptype)
                     {
+                            
                         case MAVLink.MAV_TYPE.FIXED_WING:
                             MAVlist[sysid].cs.firmware = MainV2.Firmwares.ArduPlane;
+                            break;
+                            //mWright added new firmware types for e386 and scout
+                        case MAVLink.MAV_TYPE.E386:
+                            MAVlist[sysid].cs.firmware = MainV2.Firmwares.E386;
+                            break;
+                        case MAVLink.MAV_TYPE.Scout:
+                            MAVlist[sysid].cs.firmware = MainV2.Firmwares.Scout;
                             break;
                         case MAVLink.MAV_TYPE.QUADROTOR:
                             MAVlist[sysid].cs.firmware = MainV2.Firmwares.ArduCopter2;

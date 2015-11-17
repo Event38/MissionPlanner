@@ -678,7 +678,7 @@ namespace MissionPlanner
         {
             log.Info("getModesList Called");
 
-            if (cs.firmware == MainV2.Firmwares.ArduPlane)
+            if (cs.firmware == MainV2.Firmwares.ArduPlane || cs.firmware == MainV2.Firmwares.E386 || cs.firmware == MainV2.Firmwares.Scout)
             {
                 var flightModes = Utilities.ParameterMetaDataRepository.GetParameterOptionsInt("FLTMODE1", cs.firmware.ToString());
                 flightModes.Add(new KeyValuePair<int, string>(16, "INITIALISING"));

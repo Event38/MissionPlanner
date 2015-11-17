@@ -43,7 +43,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
             comboBox1.Items.AddRange(Enum.GetNames(typeof(ChannelCameraShutter)));
 
-            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane)
+            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.E386 || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Scout)
             {
                 mavlinkComboBoxTilt.Items.AddRange(Enum.GetNames(typeof(Channelap)));
                 mavlinkComboBoxRoll.Items.AddRange(Enum.GetNames(typeof(Channelap)));

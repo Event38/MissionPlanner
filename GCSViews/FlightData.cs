@@ -1130,7 +1130,7 @@ namespace MissionPlanner.GCSViews
 
                                     PointLatLng portlocation = new PointLatLng(MAV.cs.lat, MAV.cs.lng);
 
-                                    if (MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MAV.cs.firmware == MainV2.Firmwares.Ateryx)
+                                    if (MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MAV.cs.firmware == MainV2.Firmwares.Ateryx || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.E386 || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Scout)
                                     {
                                         routes.Markers.Add(new GMapMarkerPlane(portlocation, MAV.cs.yaw, MAV.cs.groundcourse, MAV.cs.nav_bearing, MAV.cs.target_bearing) { ToolTipText = MAV.cs.alt.ToString("0"), ToolTipMode = MarkerTooltipMode.Always });
                                     }
@@ -1399,15 +1399,32 @@ namespace MissionPlanner.GCSViews
                 //CustomMessageBox.Show("Camera lens closed because of low altitude!!!");
             }
         }
-        //mwright
+
         private void updateBindingSource()
         {        
             //  run at 25 hz.
             if (lastscreenupdate.AddMilliseconds(40) < DateTime.Now)
             {
+
+                
                 // async
                 this.BeginInvoke((System.Windows.Forms.MethodInvoker)delegate()
                 {
+                    if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.E386 || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Scout)
+                {
+                     MainV2.instance.FlightPlanner.BUT_GPSLanding.Visible = true;
+                     MainV2.instance.FlightPlanner.autoLand.Visible = true;
+                     MainV2.instance.FlightPlanner.resumeMission.Visible = true;
+                     MainV2.instance.FlightPlanner.myButton1.Visible = true;
+
+                }
+                else
+                {
+                    MainV2.instance.FlightPlanner.BUT_GPSLanding.Visible = false;
+                    MainV2.instance.FlightPlanner.autoLand.Visible = false;
+                    MainV2.instance.FlightPlanner.resumeMission.Visible = false;
+                    MainV2.instance.FlightPlanner.myButton1.Visible = false;
+                }
                     try
                     {
                         if (this.Visible)
@@ -2223,7 +2240,7 @@ namespace MissionPlanner.GCSViews
             try
             {
                 ((Button)sender).Enabled = false;
-                if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduRover)
+                if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduRover || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.E386 || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Scout)
                     MainV2.comPort.setMode("Loiter");
                 if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
                     MainV2.comPort.setMode("Loiter");
