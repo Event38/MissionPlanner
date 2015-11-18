@@ -664,7 +664,6 @@
             this.myButton1.Name = "myButton1";
             this.myButton1.UseVisualStyleBackColor = true;
             this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
-            this.myButton1.Visible = false;
             // 
             // BUT_GPSLanding
             // 
