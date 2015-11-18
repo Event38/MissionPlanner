@@ -1202,12 +1202,12 @@ namespace MissionPlanner
                     }
                     else if (comPort.MAV.cs.firmware == Firmwares.E386)
                     {        
-                        _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(UAVName.E386);
+                        _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(Firmwares.E386);
                         UserModel = "E386"; //this allows us to customize certain GUI elements based on model
                     }
                     else if (comPort.MAV.cs.firmware == Firmwares.Scout)
                     {        
-                        _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(UAVName.Scout);
+                        _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(Firmwares.Scout);
                         UserModel = "Scout"; //this allows us to customize certain GUI elements based on model
                     }
                    

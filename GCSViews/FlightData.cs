@@ -913,7 +913,19 @@ namespace MissionPlanner.GCSViews
                    
                         if (MainV2.instance.UserCamera.ToString() == "Canon S110" || MainV2.instance.UserCamera.ToString() == "Canon SX260")
                         {
-                            updateCameraLens();
+
+                            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.E386 || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Scout)
+                            {
+                                updateCameraLensPlane();
+                            }
+                            else if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
+                            {
+                                updateCameraLensPlane();
+                            }
+                            else
+                            {
+                                updateCameraLensIris();
+                            }
                         }
                     }
 
@@ -1376,7 +1388,7 @@ namespace MissionPlanner.GCSViews
             }
         }
 
-        private void updateCameraLens()
+        private void updateCameraLensPlane()
         {
             //auto close camera lens for Canon S110
 
@@ -1399,7 +1411,30 @@ namespace MissionPlanner.GCSViews
                 //CustomMessageBox.Show("Camera lens closed because of low altitude!!!");
             }
         }
+        private void updateCameraLensIris()
+        {
+            //auto close camera lens for Canon S110
 
+            //check to see if 20 meters has been reached
+            if (MainV2.comPort.MAV.cs.alt > 20)
+            {
+                Reached50M = true;
+                CameraClosed = false; //assume the camera is open anytime above 50m..
+                                      //...fixes the issue of the camera not closing on any flight after the first because the program already thinks it is closed.
+            }
+
+            //close camera lens based on parameters
+            if (MainV2.comPort.MAV.cs.connected && MainV2.comPort.MAV.cs.alt < 10
+                && CameraClosed == false && Reached50M == true
+                && playingLog == false)
+            {
+                CameraClosed = true;
+                Script script = new Script();
+                script.runScript("ShutCamtrig.py");
+                //CustomMessageBox.Show("Camera lens closed because of low altitude!!!");
+            }
+        }
+        
         private void updateBindingSource()
         {        
             //  run at 25 hz.
