@@ -908,7 +908,14 @@ namespace MissionPlanner
         }
 
         private void MenuFlightPlanner_Click(object sender, EventArgs e)
-        {
+        {  //if firmware isn't connected promt user to select a firmware before going to flight planner screen.
+
+            if (_connectionControl.TOOL_APMFirmware.SelectedIndex == -1)
+            {
+                CustomMessageBox.Show("please select a firmware");
+
+            }
+            
             MyView.ShowScreen("FlightPlanner");
 
         }
@@ -1178,6 +1185,7 @@ namespace MissionPlanner
                     if (comPort.MAV.cs.connected)
                     {
                         FlightData.servoOptions3.TXT_pwm_high.Text = comPort.GetParam("RC7_MAX").ToString();
+
                         FlightData.servoOptions3.TXT_pwm_low.Text = comPort.GetParam("RC7_MIN").ToString();
                     }
 

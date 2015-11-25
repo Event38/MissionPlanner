@@ -6680,16 +6680,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         }
 
         public void updateestimate()
-        {
-
-
-
-
-     double ret = double.Parse(estimatedFlightTimeRemaining.Text.ToString());
-          
+        {       
+                double ret = double.Parse(estimatedFlightTimeRemaining.Text.ToString());
+            
             Stopwatch stopWatch = new Stopwatch();
             bool missionended = false;
-            stopWatch.Start(); 
+            stopWatch.Start();
             
             estimatedFlightTimeRemaining.Invoke(new Action(() =>
             {
@@ -6727,10 +6723,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         stopWatch.Stop();
                         stopWatch.Reset();
                         missionended = true;
+                         
                     }
                 }
 
-            }
+            } 
+           CurrentState.threadCreated = false;
         }
 // -mwright
 private void autoLand_Click(object sender, EventArgs e)

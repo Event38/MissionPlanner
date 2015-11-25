@@ -36,6 +36,7 @@ namespace MissionPlanner.Log
             using (var stream = File.Open(outputfn, FileMode.Create))
             {
                 using (BinaryReader br = new BinaryReader(File.OpenRead(inputfn)))
+              
                 {
                     while (br.BaseStream.Position < br.BaseStream.Length)
                     {

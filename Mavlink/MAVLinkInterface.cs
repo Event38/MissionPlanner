@@ -2602,6 +2602,7 @@ Please check the following
                                 Array.Reverse(datearray);
                                 logfile.Write(datearray, 0, datearray.Length);
                                 logfile.Write(buffer, 0, buffer.Length);
+                                
 
                                 if (buffer[5] == 0)
                                 {// flush on heartbeat - 1 seconds
@@ -3477,6 +3478,12 @@ Please check the following
                     break;
                 case MainV2.Firmwares.ArduRover:
                     MAVlist[sysid].Guid = MainV2.config["rover_guid"].ToString();
+                    break;
+                case MainV2.Firmwares.E386:
+                    MAVlist[sysid].Guid = MainV2.config["plane_guid"].ToString();
+                    break;
+                case MainV2.Firmwares.Scout:
+                    MAVlist[sysid].Guid = MainV2.config["plane_guid"].ToString();
                     break;
             }
         }

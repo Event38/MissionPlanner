@@ -153,14 +153,18 @@ namespace MissionPlanner.Controls
         //handles changing these values throughout mission planner when a user changes them -D Cironi 2015-03-02
         private void TXT_pwm_high_Leave(object sender, EventArgs e)
         {
-            MainV2.config["Servo" + thisservo + "_low"] = TXT_pwm_low.Text;
+            MainV2.config["Servo" + thisservo + "_high"] = TXT_pwm_high.Text;
             if (ServoOptions.servo == 12) //servo 7
             {
-                MissionPlanner.GCSViews.FlightData.instance.TXT_low_PWM_Adv.Text = TXT_pwm_low.Text;
-                MissionPlanner.GCSViews.FlightData.instance.TXT_pwm_low.Text = TXT_pwm_low.Text;
+                MissionPlanner.GCSViews.FlightData.instance.TXT_high_PWM_Adv.Text = TXT_pwm_high.Text;
+                MissionPlanner.GCSViews.FlightData.instance.TXT_pwm_high.Text = TXT_pwm_high.Text;
 
                 //update the parameter file (RC_7 MAX)
-                //MainV2.comPort.setParam("RC_MAX", Convert.ToInt32(TXT_pwm_low.Text));
+                if (MainV2.comPort.MAV.cs.connected)
+                {
+                    MainV2.comPort.setParam("RC" + thisservo + "_MAX", Convert.ToInt32(TXT_pwm_high.Text));
+                }
+               
             }
         }
 
@@ -169,12 +173,18 @@ namespace MissionPlanner.Controls
             MainV2.config["Servo" + thisservo + "_low"] = TXT_pwm_low.Text;
             if (ServoOptions.servo == 12) //servo 7
             {
+                
                 MissionPlanner.GCSViews.FlightData.instance.TXT_low_PWM_Adv.Text = TXT_pwm_low.Text;
                 MissionPlanner.GCSViews.FlightData.instance.TXT_pwm_low.Text = TXT_pwm_low.Text;
 
                 //update the parameter file (RC_7 MAX)
-                //MainV2.comPort.setParam("RC_MIN", Convert.ToInt32(TXT_pwm_low.Text));
-            }
+                //- code below would not set a parameter because it is only setting RC_MIN when setting the parameter
+                if (MainV2.comPort.MAV.cs.connected)
+                {
+                    MainV2.comPort.setParam("RC" + thisservo + "_MIN", Convert.ToInt32(TXT_pwm_low.Text));
+                }
+
+           }
         }
 
 

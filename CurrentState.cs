@@ -29,7 +29,8 @@ namespace MissionPlanner
         bool boolVar = true;
         public int previousPictureNumber = -1;
         DateTime photoTime;
-
+        public static bool threadCreated = false;
+        
         // multipliers
         public static float currentwp;
         public static float multiplierdist = 1;
@@ -860,13 +861,26 @@ namespace MissionPlanner
                             if (hb.base_mode.ToString() == "153")
                             {   
                                 
-                               
+                              
                                 if (boolVar == true)
                                 {   boolVar = false;
-                                    ThreadStart updateflighttime = new ThreadStart(work.dowork);
-                                    Thread newthread = new Thread(updateflighttime);
-                                    newthread.Start();
+
+                                ThreadStart updateflighttime = new ThreadStart(work.dowork);
+                                Thread newthread = null;
+                                if (threadCreated == false)
+                                {
+                                     newthread = new Thread(updateflighttime);
+                                     threadCreated = true;
                                 }
+                               if (threadCreated == true)
+                                   {
+                                     if (newthread.IsAlive == false)
+                                    {
+                                        
+                                        newthread.Start();
+                                    }
+                                }
+                               }
                                 
                                 //problems with writing to seperate thread
                                                            
@@ -1356,11 +1370,18 @@ namespace MissionPlanner
             }
         }
         //-mwright class forthread to work with
+      
         class work
-        {
+        { 
+            
             public static void dowork()
             {
-                MainV2.instance.FlightPlanner.updateestimate();
+
+                if (MainV2.instance.FlightPlanner.Created == true)
+                {
+                    MainV2.instance.FlightPlanner.updateestimate();
+                }
+                else threadCreated = false;
             }
         }
         public object Clone()

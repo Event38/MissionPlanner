@@ -3720,6 +3720,7 @@ namespace MissionPlanner.GCSViews
         //these events handle updating the servo text boxes when the action tab boxes are changed -D Cironi 
         private void TXT_pwm_low_Leave(object sender, EventArgs e) //simple PWM low
         {
+            
             servoOptions3.TXT_pwm_low.Text = TXT_pwm_low.Text;
         }
 
@@ -3729,13 +3730,23 @@ namespace MissionPlanner.GCSViews
         }
 
         private void TXT_low_PWM_Adv_Leave(object sender, EventArgs e) //advanced PWM low
-        {
+        {    MainV2.config["Servo" + 7 + "_low"] = TXT_pwm_low.Text;
+           
             servoOptions3.TXT_pwm_low.Text = TXT_low_PWM_Adv.Text;
+            if (MainV2.comPort.MAV.cs.connected)
+            {
+                MainV2.comPort.setParam("RC7__MIN", Convert.ToInt32(TXT_pwm_low.Text));
+            }
         }
 
         private void TXT_high_PWM_Adv_Leave(object sender, EventArgs e) //advanced PWM high
         {
+            MainV2.config["Servo" + 7 + "_high"] = TXT_pwm_low.Text;
             servoOptions3.TXT_pwm_high.Text = TXT_high_PWM_Adv.Text;
+            if (MainV2.comPort.MAV.cs.connected)
+            {
+                MainV2.comPort.setParam("RC7_MAX", Convert.ToInt32(TXT_pwm_high.Text));
+            }
         }
 
         //forcefully erase all data flash logs from APM -D Cironi
