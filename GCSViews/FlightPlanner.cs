@@ -6100,7 +6100,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         void SetupLandingWaypoints()
         {
             //remove old land WPs and runway overlay if they are present
-            if (Commands.Rows.Count >= 3)
+            if (Commands.Rows.Count >= 4)
             {
                 for (int i = 0; i <= pointlist.Count - 2; i++) //home adds an extra point
                 {
@@ -6110,6 +6110,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         Commands.Rows.RemoveAt(i - 1);  //remove approach
                         Commands.Rows.RemoveAt(i - 2);  //remove approach
                         Commands.Rows.RemoveAt(i - 3);  //remove approach
+                        Commands.Rows.RemoveAt(i - 4);  //remove approach
                         break;
                     }
                 }
@@ -6136,6 +6137,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
 
             //add first wp of landing procedure
+            //This WP is necessary because the loiter to waypoint point sometimes acts strange and gets passed before it is actually reached, which can cause a dangerous situation. This point prevents that.
+            selectedrow = Commands.Rows.Add();
+
+            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+
+            ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+
+            setfromMap(landingPoint.Lat - (LatDistance * (490)), landingPoint.Lng - (LngDistance * (490)), 100); //WP 490 meters out in the direction of landing and 100 meters altitude.
+            writeKML();
+
+            //add second wp of landing procedure
             selectedrow = Commands.Rows.Add();
             
             Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TO_ALT.ToString();
@@ -6146,7 +6158,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             setfromMap(landingPoint.Lat - (LatDistance * (500)), landingPoint.Lng - (LngDistance * (500)), 80); //WP 500 meters out in the direction of landing and 100 meters altitude
             writeKML();
 
-            //add second wp of landing procedure
+            //add third wp of landing procedure
             selectedrow = Commands.Rows.Add();
 
             Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
@@ -6156,7 +6168,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             setfromMap(landingPoint.Lat - (LatDistance * (315)), landingPoint.Lng - (LngDistance * (315)), 50); //WP 315 meters out in the direction of landing and 50 meters altitude
             writeKML();
 
-            //add third wp of landing procedure
+            //add fourth wp of landing procedure
             selectedrow = Commands.Rows.Add();
 
             Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
