@@ -820,7 +820,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_CloseHatch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>95, 120</value>
+    <value>95, 180</value>
   </data>
   <data name="BUT_CloseHatch.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 23</value>
@@ -850,7 +850,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_OpenHatch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 120</value>
+    <value>10, 180</value>
   </data>
   <data name="BUT_OpenHatch.Size" type="System.Drawing.Size, System.Drawing">
     <value>84, 23</value>

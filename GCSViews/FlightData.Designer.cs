@@ -46,12 +46,7 @@
             this.tabpreflight = new System.Windows.Forms.TabPage();
             this.preFlightChecklist1 = new MissionPlanner.GCSViews.ConfigurationView.PreFlightChecklist();
             this.tabActions = new System.Windows.Forms.TabPage();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.TXT_high_PWM_Adv = new System.Windows.Forms.TextBox();
-            this.TXT_low_PWM_Adv = new System.Windows.Forms.TextBox();
-          
+
             
            
             this.BUT_Auto = new MissionPlanner.Controls.MyButton();
@@ -84,8 +79,6 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.TXT_pwm_high = new System.Windows.Forms.TextBox();
-            this.TXT_pwm_low = new System.Windows.Forms.TextBox();
             this.LBL_Downloading = new System.Windows.Forms.Label();
           
             this.CMB_setwpSimple = new System.Windows.Forms.ComboBox();
@@ -594,13 +587,6 @@
             // tabActions
             // 
             resources.ApplyResources(this.tabActions, "tabActions");
-            this.tabActions.Controls.Add(this.label16);
-            this.tabActions.Controls.Add(this.label15);
-            this.tabActions.Controls.Add(this.label14);
-            this.tabActions.Controls.Add(this.TXT_high_PWM_Adv);
-            this.tabActions.Controls.Add(this.TXT_low_PWM_Adv);
-          
-
             
             this.tabActions.Controls.Add(this.BUT_Auto);
             this.tabActions.Controls.Add(this.CHK_AutoHatch);
@@ -628,36 +614,6 @@
             this.tabActions.Controls.Add(this.modifyandSetAlt);
             this.tabActions.Name = "tabActions";
             this.tabActions.UseVisualStyleBackColor = true;
-            // 
-            // label16
-            // 
-            resources.ApplyResources(this.label16, "label16");
-            this.label16.Name = "label16";
-            // 
-            // label15
-            // 
-            resources.ApplyResources(this.label15, "label15");
-            this.label15.Name = "label15";
-            // 
-            // label14
-            // 
-            resources.ApplyResources(this.label14, "label14");
-            this.label14.Name = "label14";
-            // 
-            // TXT_high_PWM_Adv
-            // 
-            resources.ApplyResources(this.TXT_high_PWM_Adv, "TXT_high_PWM_Adv");
-            this.TXT_high_PWM_Adv.Name = "TXT_high_PWM_Adv";
-            this.TXT_high_PWM_Adv.Leave += new System.EventHandler(this.TXT_high_PWM_Adv_Leave);
-            // 
-            // TXT_low_PWM_Adv
-            // 
-            resources.ApplyResources(this.TXT_low_PWM_Adv, "TXT_low_PWM_Adv");
-            this.TXT_low_PWM_Adv.Name = "TXT_low_PWM_Adv";
-            this.TXT_low_PWM_Adv.Leave += new System.EventHandler(this.TXT_low_PWM_Adv_Leave);
-   
-       
-         
             // 
             // BUT_Auto
             // 
@@ -869,8 +825,6 @@
             this.tabActionsSimple.Controls.Add(this.label18);
             this.tabActionsSimple.Controls.Add(this.label17);
             this.tabActionsSimple.Controls.Add(this.label13);
-            this.tabActionsSimple.Controls.Add(this.TXT_pwm_high);
-            this.tabActionsSimple.Controls.Add(this.TXT_pwm_low);
            
             this.tabActionsSimple.Controls.Add(this.LBL_Downloading);
         
@@ -917,19 +871,6 @@
             // 
             resources.ApplyResources(this.label13, "label13");
             this.label13.Name = "label13";
-            // 
-            // TXT_pwm_high
-            // 
-            resources.ApplyResources(this.TXT_pwm_high, "TXT_pwm_high");
-            this.TXT_pwm_high.Name = "TXT_pwm_high";
-            this.TXT_pwm_high.Leave += new System.EventHandler(this.TXT_pwm_high_Leave);
-            // 
-            // TXT_pwm_low
-            // 
-            resources.ApplyResources(this.TXT_pwm_low, "TXT_pwm_low");
-            this.TXT_pwm_low.Name = "TXT_pwm_low";
-            this.TXT_pwm_low.Leave += new System.EventHandler(this.TXT_pwm_low_Leave);
-      
             // 
             // LBL_Downloading
             // 
@@ -2336,17 +2277,9 @@
         private ConfigurationView.PreFlightChecklist preFlightChecklist1;
        
         private System.Windows.Forms.Label LBL_Downloading;
-        
-      
+           
         public System.Windows.Forms.TabControl tabControlactions;
       
-      
-
-       
-        public System.Windows.Forms.TextBox TXT_pwm_low;
-        public System.Windows.Forms.TextBox TXT_pwm_high;
-        public System.Windows.Forms.TextBox TXT_high_PWM_Adv;
-        public System.Windows.Forms.TextBox TXT_low_PWM_Adv;
         private Controls.MyButton BUT_EraseDFLogs;
         public Controls.MyButton BUT_CloseLens;
         public System.Windows.Forms.TabPage tabActionsSimple;

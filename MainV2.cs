@@ -393,19 +393,7 @@ namespace MissionPlanner
             FlightData.CHK_AutoHatchSimple.Visible = true;
 
             FlightData.BUT_CloseLens.Visible = false;
-            FlightData.BUT_CloseLensSimple.Visible = false;
-
-            FlightData.label13.Visible = true;
-            FlightData.label14.Visible = true;
-            FlightData.label15.Visible = true;
-            FlightData.label16.Visible = true;
-            FlightData.label17.Visible = true;
-            FlightData.label18.Visible = true;
-            FlightData.TXT_high_PWM_Adv.Visible = true;
-            FlightData.TXT_low_PWM_Adv.Visible = true;
-            FlightData.TXT_pwm_high.Visible = true;
-            FlightData.TXT_pwm_low.Visible = true;
-            
+            FlightData.BUT_CloseLensSimple.Visible = false;         
 
             if(UserSetup.CHK_RememberSetup.Checked == true)
             {
