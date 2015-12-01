@@ -6756,7 +6756,7 @@ private void autoLand_Click(object sender, EventArgs e)
        try
        {   
            ((Button)sender).Enabled = false;           
-           wpcount = wpcount - 4;
+           wpcount = wpcount - 5;
          
         ushort UShWP = ushort.Parse(wpcount.ToString());
             MainV2.comPort.setWPCurrent(UShWP);
@@ -6825,7 +6825,7 @@ class ResumeMissionThread
                 {
                     //begins triggering camera once last hit wp is hit
                     MainV2.comPort.setParam("CAM_TRIGG_DIST", camTriggDist);
-                    //MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST, 7, 0, 0, 0, 0, 0, 0);
+                   
                     //concludes the resume flight
                     takeoffprocedure = false;
                 }
@@ -6859,7 +6859,7 @@ class ResumeMissionThread
                     {
                         //begins triggering camera once last hit wp is hit
                         MainV2.comPort.setParam("CAM_TRIGG_DIST", camTriggDist);
-                        // MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST, 1, 0, 0, 0, 0, 0, 0);
+                      
 
                         //concludes the resume flight
                         takeoffprocedure = false;

@@ -912,8 +912,7 @@ namespace MissionPlanner
 
             if (_connectionControl.TOOL_APMFirmware.SelectedIndex == -1)
             {
-                CustomMessageBox.Show("please select a firmware");
-
+                UserSetup.ShowDialog();
             }
             
             MyView.ShowScreen("FlightPlanner");
