@@ -108,6 +108,7 @@
             this.tabSimple = new System.Windows.Forms.TabPage();
             this.LBL_PhotoEveryWarning = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.CHK_usespeed = new System.Windows.Forms.CheckBox();
             this.CHK_toandland_RTL = new System.Windows.Forms.CheckBox();
             this.CHK_toandland = new System.Windows.Forms.CheckBox();
@@ -131,8 +132,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TRK_zoom = new MissionPlanner.Controls.MyTrackBar();
             this.map = new MissionPlanner.Controls.myGMAP();
-            this.label28 = new System.Windows.Forms.Label();
-            this.CMB_UserModel = new System.Windows.Forms.ComboBox();
+            this.modelname = new System.Windows.Forms.Label();
             this.groupBox5.SuspendLayout();
             this.tabCamera.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -787,8 +787,8 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.modelname);
             this.groupBox6.Controls.Add(this.label28);
-            this.groupBox6.Controls.Add(this.CMB_UserModel);
             this.groupBox6.Controls.Add(this.CHK_usespeed);
             this.groupBox6.Controls.Add(this.CHK_toandland_RTL);
             this.groupBox6.Controls.Add(this.CHK_toandland);
@@ -804,6 +804,12 @@
             resources.ApplyResources(this.groupBox6, "groupBox6");
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.TabStop = false;
+            this.groupBox6.Enter += new System.EventHandler(this.groupBox6_Enter);
+            // 
+            // label28
+            // 
+            resources.ApplyResources(this.label28, "label28");
+            this.label28.Name = "label28";
             // 
             // CHK_usespeed
             // 
@@ -1025,23 +1031,10 @@
             this.map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.map_MouseDown);
             this.map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.map_MouseMove);
             // 
-            // label28
+            // modelname
             // 
-            resources.ApplyResources(this.label28, "label28");
-            this.label28.Name = "label28";
-            // 
-            // CMB_UserModel
-            // 
-            this.CMB_UserModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CMB_UserModel.FormattingEnabled = true;
-            this.CMB_UserModel.Items.AddRange(new object[] {
-            resources.GetString("CMB_UserModel.Items"),
-            resources.GetString("CMB_UserModel.Items1"),
-            resources.GetString("CMB_UserModel.Items2"),
-            resources.GetString("CMB_UserModel.Items3")});
-            resources.ApplyResources(this.CMB_UserModel, "CMB_UserModel");
-            this.CMB_UserModel.Name = "CMB_UserModel";
-            this.CMB_UserModel.SelectedIndexChanged += new System.EventHandler(this.CMB_UserModel_SelectedIndexChanged);
+            resources.ApplyResources(this.modelname, "modelname");
+            this.modelname.Name = "modelname";
             // 
             // GridUI
             // 
@@ -1197,6 +1190,6 @@
         public System.Windows.Forms.Label lbl_grndres;
         private System.Windows.Forms.Label LBL_PhotoEveryWarning;
         private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.ComboBox CMB_UserModel;
+        private System.Windows.Forms.Label modelname;
     }
 }

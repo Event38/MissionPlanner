@@ -285,8 +285,8 @@ namespace MissionPlanner
                 CMB_camera.Text = MainV2.instance.UserCamera.ToString();
 
             if (MainV2.instance.UserModel != null)    //load user model choice
-                CMB_UserModel.Text = MainV2.instance.UserModel.ToString();
-
+                modelname.Text = MainV2.CurrentUAV.firmware;
+                NUM_UpDownFlySpeed.Value = decimal.Parse(MainV2.CurrentUAV.flightSpeedM.ToString());
             if (plugin.Host.config.ContainsKey("grid_camera"))
             { 
                 loadsetting("grid_alt", NUM_altitude);
@@ -717,8 +717,11 @@ namespace MissionPlanner
             }
             else
             {
-                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, 0, 0, 0, 0, Lng, Lat, (int)(Alt * CurrentState.multiplierdist));
-            }
+                //extra wp
+            
+                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.WAYPOINT, 0, 0, 0, 0, Lng, Lat, (int)(Alt * CurrentState.multiplierdist));
+               
+                }
         }
 
         string secondsToNice(double seconds)
@@ -1412,8 +1415,10 @@ namespace MissionPlanner
                 }
 
                 //add wp
-                AddWP(grid[0].Lng - (LngDistance * 100), grid[0].Lat + (LatDistance * 100), grid[0].Alt);
-
+                if (MainV2.CurrentUAV.firmware != "Iris")
+                {
+                    AddWP(grid[0].Lng - (LngDistance * 100), grid[0].Lat + (LatDistance * 100), grid[0].Alt);
+                }
                 //
 
 
@@ -1658,17 +1663,15 @@ namespace MissionPlanner
         //change flight speed based on model selection
         private void CMB_UserModel_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(CMB_UserModel.Text == "Iris")
-            {
-                NUM_UpDownFlySpeed.Value = 5; //m/s
-            }
-            else
-            {
-                NUM_UpDownFlySpeed.Value = 13; //m/s
-            }
+            
+                NUM_UpDownFlySpeed.Value = decimal.Parse(MainV2.CurrentUAV.flightSpeedM.ToString()); //m/s
 
-            //update user model
-            MainV2.instance.UserModel = CMB_UserModel.Text;
+                MainV2.instance.UserModel = modelname.Text;
+        }
+
+        private void groupBox6_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

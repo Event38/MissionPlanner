@@ -1250,11 +1250,11 @@ namespace MissionPlanner.GCSViews
                     }
 
                     lbl_distance.Text = rm.GetString("lbl_distance.Text") + ": " + FormatDistance(dist + homedist, false);
-
+                   
                     //update flight time when distance is updated
                     if (MainV2.config["distunits"] == null) //default to meters if no config for distunits
                     {
-                        double seconds = (Convert.ToDouble(dist + homedist) * 1000) / 13; //13 m/s flight speed
+                        double seconds = (Convert.ToDouble(dist + homedist) * 1000) / MainV2.CurrentUAV.flightSpeedM; //13 m/s flight speed
                         lbl_FlightTimeMainData.Text = secondsToNice(seconds);
                         estimatedFlightTimeRemaining.Text = seconds.ToString();
                         estimatedFlightTimeRemaining.Visible = false;
@@ -1263,7 +1263,7 @@ namespace MissionPlanner.GCSViews
                     {
                         if (MainV2.config["distunits"].ToString() == "Meters")
                         {
-                            double seconds = (Convert.ToDouble(dist + homedist) * 1000) / 13; //13 m/s flight speed
+                            double seconds = (Convert.ToDouble(dist + homedist) * 1000) / MainV2.CurrentUAV.flightSpeedM; //13 m/s flight speed
                             lbl_FlightTimeMainData.Text = secondsToNice(seconds);
                             estimatedFlightTimeRemaining.Text = seconds.ToString();
                             estimatedFlightTimeRemaining.Visible = false;
@@ -1272,7 +1272,7 @@ namespace MissionPlanner.GCSViews
                         {
                             double distMiles = 0.621371 * dist;
                             double homeDistMiles = 0.621371 * homedist;
-                            double seconds = (Convert.ToDouble(distMiles + homeDistMiles) * 5280) / 42.65; //42.65 feet/s flight speed
+                            double seconds = (Convert.ToDouble(distMiles + homeDistMiles) * 5280) / MainV2.CurrentUAV.flightSpeedF; //42.65 feet/s flight speed
                             lbl_FlightTimeMainData.Text = secondsToNice(seconds);
                             estimatedFlightTimeRemaining.Text = seconds.ToString();
                             estimatedFlightTimeRemaining.Visible = false;
@@ -6744,7 +6744,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         }
 // -mwright
 private void autoLand_Click(object sender, EventArgs e)
-{
+{    
     float wpcount;
     //remembers current wp
     flightpoint = CurrentState.currentwp; 
@@ -6756,7 +6756,7 @@ private void autoLand_Click(object sender, EventArgs e)
        try
        {   
            ((Button)sender).Enabled = false;           
-           wpcount = wpcount - 5;
+           wpcount = wpcount - MainV2.CurrentUAV.landwp;
          
         ushort UShWP = ushort.Parse(wpcount.ToString());
             MainV2.comPort.setWPCurrent(UShWP);

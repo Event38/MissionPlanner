@@ -35,7 +35,8 @@ namespace MissionPlanner
 {
 
     public partial class MainV2 : Form
-    { 
+    {
+       public static UAVStats CurrentUAV = new UAVStats();
         private static readonly ILog log =
             LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -1180,30 +1181,33 @@ namespace MissionPlanner
                     if (comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
                     {
                         _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(UAVName.Iris);
-                        UserModel = "Iris"; //this allows us to customize certain GUI elements based on model
+                     
+                        CurrentUAV = UAVStats.setStats();
                     }
                     else if (comPort.MAV.cs.firmware == Firmwares.Ateryx)
                     {
                         _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(Firmwares.Ateryx);
+                        CurrentUAV = UAVStats.setStats();
                     }
                     else if (comPort.MAV.cs.firmware == Firmwares.ArduRover)
                     {
                         _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(Firmwares.ArduRover);
+                        CurrentUAV = UAVStats.setStats();                
                     }
                     else if (comPort.MAV.cs.firmware == Firmwares.ArduPlane)
                     {         
                         _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(UAVName.E384);
-                        UserModel = "E384"; //this allows us to customize certain GUI elements based on model
+                        CurrentUAV = UAVStats.setStats();
                     }
                     else if (comPort.MAV.cs.firmware == Firmwares.E386)
                     {        
                         _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(Firmwares.E386);
-                        UserModel = "E386"; //this allows us to customize certain GUI elements based on model
+                        CurrentUAV = UAVStats.setStats();
                     }
                     else if (comPort.MAV.cs.firmware == Firmwares.Scout)
                     {        
                         _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(Firmwares.Scout);
-                        UserModel = "Scout"; //this allows us to customize certain GUI elements based on model
+                        CurrentUAV = UAVStats.setStats();
                     }
                    
                     // check for newer firmware -Don't do this in our version -D Cironi 2015-05-13
@@ -2431,14 +2435,20 @@ namespace MissionPlanner
             if (_connectionControl.TOOL_APMFirmware.Text == "Iris")
             {
                 MainV2.comPort.MAV.cs.firmware = Firmwares.ArduCopter2;
+                CurrentUAV = UAVStats.setStats();
             }
             else if (_connectionControl.TOOL_APMFirmware.Text == "E384")
             {
+               
                 MainV2.comPort.MAV.cs.firmware = Firmwares.ArduPlane;
+                CurrentUAV = UAVStats.setStats();
             }
             else
-            MainV2.comPort.MAV.cs.firmware = (MainV2.Firmwares)Enum.Parse(typeof(MainV2.Firmwares), _connectionControl.TOOL_APMFirmware.Text);
-        }
+            {
+                MainV2.comPort.MAV.cs.firmware = (MainV2.Firmwares)Enum.Parse(typeof(MainV2.Firmwares), _connectionControl.TOOL_APMFirmware.Text);
+                MainV2.CurrentUAV = UAVStats.setStats();
+            }
+            }
 
         private void MainV2_Resize(object sender, EventArgs e)
         {
@@ -3001,12 +3011,16 @@ namespace MissionPlanner
 
         public List<double> EstimateLifeRemaining(List<double> list)
         {       double timeLeft;
-        string estimatedBatteryLife;
-        if (comPort.MAV.cs.alt > 60)
+                string estimatedBatteryLife;
+                bool Show =true;
+
+             
+
+        if (comPort.MAV.cs.alt > 60 && CurrentUAV.batteryLow !=0)
         {
 
 
-            timeLeft = (((comPort.MAV.cs.battery_voltage - 14.2) / comPort.MAV.cs.current) * .7);
+            timeLeft = (((comPort.MAV.cs.battery_voltage - CurrentUAV.batteryLow) / comPort.MAV.cs.current) * .7);
             list.Add(timeLeft);
 
             if (list.Count == 300)

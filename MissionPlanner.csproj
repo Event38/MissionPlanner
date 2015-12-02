@@ -267,6 +267,7 @@
     <Compile Include="Arduino\ArduinoSTKv2.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UAVStats.cs" />
     <Compile Include="CodeGen.cs" />
     <Compile Include="Comms\CommsSerialScan.cs" />
     <Compile Include="Comms\MAVLinkSerialPort.cs" />
