@@ -6788,7 +6788,7 @@ class ResumeMissionThread
 
         Locationwp cmds;
         //check for auto take off values 2	0	3	22-takeoffid 0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	100.000000	1
-
+        //iris auto takeoff              1	0	3	22	         0.000000	0.000000	0.000000	0.000000	27.610135	-100.157432	100.000000	1
         cmds = MainV2.comPort.getWP(1);
         bool takeoffprocedure = true;
         bool notSet = true;
@@ -6837,7 +6837,8 @@ class ResumeMissionThread
 
             while (takeoffprocedure)
             {       //enters after manual takeoff hits an altitude of 80
-                if (MainV2.comPort.MAV.cs.alt > 80)
+                    //60 iris
+                if (MainV2.comPort.MAV.cs.alt > MainV2.CurrentUAV.resumealt)
                 {
 
                     if (i == 0)

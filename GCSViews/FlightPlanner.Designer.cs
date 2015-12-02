@@ -102,7 +102,7 @@
             this.resumeMission = new MissionPlanner.Controls.MyButton();
             this.autoLand = new MissionPlanner.Controls.MyButton();
             this.missionBreakdown = new MissionPlanner.Controls.MyButton();
-            this.myButton1 = new MissionPlanner.Controls.MyButton();
+            this.Runway = new MissionPlanner.Controls.MyButton();
             this.BUT_GPSLanding = new MissionPlanner.Controls.MyButton();
             this.BUT_AddTakeoffWP = new MissionPlanner.Controls.MyButton();
             this.BUT_ClearMission = new MissionPlanner.Controls.MyButton();
@@ -609,7 +609,7 @@
             this.panel2.Controls.Add(this.resumeMission);
             this.panel2.Controls.Add(this.autoLand);
             this.panel2.Controls.Add(this.missionBreakdown);
-            this.panel2.Controls.Add(this.myButton1);
+            this.panel2.Controls.Add(this.Runway);
             this.panel2.Controls.Add(this.BUT_GPSLanding);
             this.panel2.Controls.Add(this.BUT_AddTakeoffWP);
             this.panel2.Controls.Add(this.BUT_ClearMission);
@@ -658,12 +658,12 @@
             this.missionBreakdown.UseVisualStyleBackColor = true;
             this.missionBreakdown.Click += new System.EventHandler(this.missionBreakDown_Click);
             // 
-            // myButton1
+            // Runway
             // 
-            resources.ApplyResources(this.myButton1, "myButton1");
-            this.myButton1.Name = "myButton1";
-            this.myButton1.UseVisualStyleBackColor = true;
-            this.myButton1.Click += new System.EventHandler(this.myButton1_Click);
+            resources.ApplyResources(this.Runway, "Runway");
+            this.Runway.Name = "Runway";
+            this.Runway.UseVisualStyleBackColor = true;
+            this.Runway.Click += new System.EventHandler(this.myButton1_Click);
             // 
             // BUT_GPSLanding
             // 
@@ -1664,7 +1664,7 @@
         public Controls.MyButton BUT_GPSLanding;
         public Controls.MyButton autoLand;
         public Controls.MyButton resumeMission;
-        public Controls.MyButton myButton1;
+        public Controls.MyButton Runway;
         private Controls.MyButton missionBreakdown;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private Controls.PictureBoxMouseOver pictureBoxMouseOver1;

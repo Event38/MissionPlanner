@@ -14,7 +14,11 @@ namespace MissionPlanner
         public double flightSpeedM;
         public double flightSpeedF;
         public float landwp;
-
+        public double resumealt;
+        public bool gpslanding;
+        public bool autoland;
+        public bool resumeMission;
+        public bool runway;
         public static UAVStats setStats()
         {
             UAVStats stats = new UAVStats();
@@ -26,6 +30,11 @@ namespace MissionPlanner
                 stats.flightSpeedF = 42.65;
                 stats.landwp = 2;
                 stats.firmware = "E384";
+                stats.resumealt = 80;
+                stats.gpslanding = false;
+                stats.autoland = false;
+                stats.resumeMission = false;
+                stats.runway = false;
             }
             else if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
             {
@@ -35,7 +44,11 @@ namespace MissionPlanner
                 stats.flightSpeedF = 16.4;
                 stats.landwp = 2;
                 stats.firmware = "Iris";
-
+                stats.resumealt = 60;
+                stats.gpslanding = false;
+                stats.autoland = true;
+                stats.resumeMission = true;
+                stats.runway = false;
             }
             else if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.E386)
             {
@@ -45,6 +58,11 @@ namespace MissionPlanner
                 stats.flightSpeedF = 42.65;
                 stats.landwp = 5;
                 stats.firmware = "E386";
+                stats.resumealt = 80;
+                stats.gpslanding = true;
+                stats.autoland = true;
+                stats.resumeMission = true;
+                stats.runway = true;
             }
             else if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Scout)
             {
@@ -54,6 +72,11 @@ namespace MissionPlanner
                 stats.flightSpeedF = 42.65;
                 stats.landwp = 5;
                 stats.firmware = "Scout";
+                stats.resumealt = 80;
+                stats.gpslanding = true;
+                stats.autoland = true;
+                stats.resumeMission = true;
+                stats.runway = true;
             }
             else if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduRover)
             {
@@ -61,7 +84,12 @@ namespace MissionPlanner
                 stats.batteryLow = 0;
                 stats.flightSpeedM = 0;
                 stats.flightSpeedF = 0;
+                stats.resumealt = 0;
                 stats.firmware = "ArduRover";
+                stats.gpslanding = false;
+                stats.autoland = false;
+                stats.resumeMission = false;
+                stats.runway = false;
             }
             else if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx)
             {
@@ -69,7 +97,12 @@ namespace MissionPlanner
                 stats.batteryLow = 0;
                 stats.flightSpeedM = 0;
                 stats.flightSpeedF = 0;
+                stats.resumealt = 0;
                 stats.firmware = "Ateryx";
+                stats.gpslanding = false;
+                stats.autoland = false;
+                stats.resumeMission = false;
+                stats.runway = false;
             }
 
             return stats;

@@ -1439,21 +1439,14 @@ namespace MissionPlanner.GCSViews
                 // async
                 this.BeginInvoke((System.Windows.Forms.MethodInvoker)delegate()
                 {
-                    if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.E386 || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Scout)
-                {
-                     MainV2.instance.FlightPlanner.BUT_GPSLanding.Visible = true;
-                     MainV2.instance.FlightPlanner.autoLand.Visible = true;
-                     MainV2.instance.FlightPlanner.resumeMission.Visible = true;
-                     MainV2.instance.FlightPlanner.myButton1.Visible = true;
+                
+                     MainV2.instance.FlightPlanner.BUT_GPSLanding.Visible = MainV2.CurrentUAV.gpslanding;
+                     MainV2.instance.FlightPlanner.autoLand.Visible = MainV2.CurrentUAV.autoland;
+                     MainV2.instance.FlightPlanner.resumeMission.Visible = MainV2.CurrentUAV.resumeMission;
+                     MainV2.instance.FlightPlanner.Runway.Visible = MainV2.CurrentUAV.runway;
 
-                }
-                else
-                {
-                    MainV2.instance.FlightPlanner.BUT_GPSLanding.Visible = false;
-                    MainV2.instance.FlightPlanner.autoLand.Visible = false;
-                    MainV2.instance.FlightPlanner.resumeMission.Visible = false;
-                    MainV2.instance.FlightPlanner.myButton1.Visible = false;
-                }
+                
+            
                     try
                     {
                         if (this.Visible)
