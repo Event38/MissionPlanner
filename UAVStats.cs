@@ -13,12 +13,14 @@ namespace MissionPlanner
         public double batteryHigh;
         public double flightSpeedM;
         public double flightSpeedF;
+        public double flighttime;
         public float landwp;
         public double resumealt;
         public bool gpslanding;
         public bool autoland;
         public bool resumeMission;
         public bool runway;
+
         public static UAVStats setStats()
         {
             UAVStats stats = new UAVStats();
@@ -30,6 +32,7 @@ namespace MissionPlanner
                 stats.flightSpeedF = 42.65;
                 stats.landwp = 2;
                 stats.firmware = "E384";
+                stats.flighttime = 60;
                 stats.resumealt = 80;
                 stats.gpslanding = false;
                 stats.autoland = false;
@@ -44,6 +47,7 @@ namespace MissionPlanner
                 stats.flightSpeedF = 16.4;
                 stats.landwp = 2;
                 stats.firmware = "Iris";
+                stats.flighttime = 15;
                 stats.resumealt = 60;
                 stats.gpslanding = false;
                 stats.autoland = true;
@@ -58,6 +62,7 @@ namespace MissionPlanner
                 stats.flightSpeedF = 42.65;
                 stats.landwp = 5;
                 stats.firmware = "E386";
+                stats.flighttime = 60;
                 stats.resumealt = 80;
                 stats.gpslanding = true;
                 stats.autoland = true;
@@ -72,6 +77,7 @@ namespace MissionPlanner
                 stats.flightSpeedF = 42.65;
                 stats.landwp = 5;
                 stats.firmware = "Scout";
+                stats.flighttime = 30;
                 stats.resumealt = 80;
                 stats.gpslanding = true;
                 stats.autoland = true;
@@ -86,6 +92,7 @@ namespace MissionPlanner
                 stats.flightSpeedF = 0;
                 stats.resumealt = 0;
                 stats.firmware = "ArduRover";
+                stats.flighttime = 0;
                 stats.gpslanding = false;
                 stats.autoland = false;
                 stats.resumeMission = false;
@@ -97,8 +104,9 @@ namespace MissionPlanner
                 stats.batteryLow = 0;
                 stats.flightSpeedM = 0;
                 stats.flightSpeedF = 0;
-                stats.resumealt = 0;
-                stats.firmware = "Ateryx";
+                stats.resumealt = 0; 
+                stats.firmware = "Ateryx"; 
+                stats.flighttime = 45;
                 stats.gpslanding = false;
                 stats.autoland = false;
                 stats.resumeMission = false;

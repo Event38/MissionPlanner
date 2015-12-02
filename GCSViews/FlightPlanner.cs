@@ -6454,8 +6454,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //file is not locked
             return false;
         }
+        
         private void missionBreakDown_Click(object sender, EventArgs e)
         { //-- mwright
+                 
                  double flightTime = 0;
                  int wp_count = 0;
                  bool error = false;
@@ -6465,7 +6467,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                  string file = fd.FileName;
                  List<Locationwp> wpList = new List<Locationwp>();
                  List<string[]> WPfile = new List<string[]>();
-                 
+                 string LandP1 = null, LandP2 = null, LandP3 = null, LandP4 = null, LandP5 = null, camTrigg = null;
                  if (File.Exists(file))
                  {
                      try
@@ -6544,17 +6546,49 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                        List <PointLatLng> pointList = new List <PointLatLng>();
                          PointLatLng tempPoint = new PointLatLng();
                          foreach (Locationwp item in wpList)
-                         { 
+                         {
+                             
                         
                              if (set_home == true){
                               Lat = Math.Abs(item.lat);
                              Lng = Math.Abs(item.lng);
                              set_home = false;
                          }
+                             
+                             wp_count--;
+                             
                             tempPoint.Lng = item.lng;
                             tempPoint.Lat = item.lat;
-                       
+
+                            if (item.id == 206 && item.p1 != 0)
+                             {
+                                 camTrigg = ("3 "+ "0 " + "3 " + item.id.ToString() + " " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
+                             }
+ 
+
+
                             pointList.Add(tempPoint);
+                            if (wp_count == 4)
+                            {  // 1	   //unsure0	///unsure 3	//id 16	 //p10.000000	//p2 0.000000	//p3 0.000000	//p40.000000	//lat 4.100244	//long 19.279684	//alt 100.000000	//options 1
+                                LandP1 = ("0 " + "3 " + item.id.ToString() +" " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
+                            }
+                            if (wp_count == 3)
+                            {
+                                LandP2 = ("0 " + "3 " + item.id.ToString() + " " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
+                            }
+                            if (wp_count == 2)
+                            {
+                                LandP3 = ("0 " + "3 " + item.id.ToString() + " " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
+                            }
+                            if (wp_count == 1)
+                            {
+                                LandP4 = ("0 " + "3 " + item.id.ToString() + " " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
+                            }
+                            if (wp_count == 0)
+                            {
+                                LandP5 = ("0 " + "3 " + item.id.ToString() + " " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
+                            }
+                         
                          }
                          //convert gps to radians and find distance between points -mwright
                          List <double> distanceList = new List <double>();
@@ -6582,9 +6616,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                              distanceList.Add(dist);
                              }
                              first = false;
-                             }     
+                             }
 
-
+                                int wpnumber = 0;
                                 string[] home;
                                 int numberofsaves = 0;
                                 bool setcamtrig = false;                              
@@ -6607,21 +6641,38 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                                        flightTime = (flightTime + item);
 
-                                        if ((flightTime / 780) < 60)
+                                        if ((flightTime / 780) < MainV2.CurrentUAV.flighttime)
                                         {
                                             sw.WriteLine(enumerator.Current[0].ToString() + " " + enumerator.Current[1].ToString() + " " + enumerator.Current[2].ToString() + " " + enumerator.Current[3] + " " + enumerator.Current[4] + " " + enumerator.Current[5] + " " + enumerator.Current[6] + " " + enumerator.Current[7] + " " + enumerator.Current[8] + " " + enumerator.Current[9] + " " + enumerator.Current[10] + " " + enumerator.Current[11]);
                                             if (setcamtrig == true)
                                             {
-                                                sw.WriteLine("3 0 3 206 47.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 1");
+                                                sw.WriteLine(camTrigg);
+                                               
                                                 setcamtrig = false;
-                                            }
+                                            }    wpnumber = int.Parse(enumerator.Current[0].ToString());
                                                 enumerator.MoveNext();
-                                         
+                                                
                                         }
-                                        else if ((flightTime / 780) > 60)
+                                        else if ((flightTime / 780) > MainV2.CurrentUAV.flighttime)
                                         {
 
-                                            sw.WriteLine("3 0 3 206 47.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 1");
+                                            sw.WriteLine((wpnumber + 1).ToString() + " " + "0 3 206 0 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 1");
+                                            
+                                            if (MainV2.CurrentUAV.firmware == "E386" || MainV2.CurrentUAV.firmware == "Scout")
+                                            { 
+                                                //add landing sequence for e386/scout here.
+                                                sw.WriteLine((wpnumber + 2).ToString() + " " + LandP1);
+                                                sw.WriteLine((wpnumber + 3).ToString() + " " + LandP2);
+                                                sw.WriteLine((wpnumber + 4).ToString() + " " + LandP3);
+                                                sw.WriteLine((wpnumber + 5).ToString() + " " + LandP4);
+                                                sw.WriteLine((wpnumber + 6).ToString() + " " + LandP5);
+                                            }
+
+                                            if (MainV2.CurrentUAV.firmware == "Iris")
+                                            {
+                                                sw.WriteLine((wpnumber + 2).ToString() + " " + LandP5);
+
+                                            }
                                             sw.Close();
                                          
                                                 enumerator.MoveNext();
@@ -6633,7 +6684,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                                             sw.WriteLine("QGC WPL 110");
                                             sw.WriteLine(home[0].ToString() + " " + home[1].ToString() + " " + home[2].ToString() + " " + home[3].ToString() + " " + home[4].ToString() + " " + home[5].ToString() + " " + home[6].ToString() + " " + home[7].ToString() + " " + home[8].ToString() + " " + home[9].ToString() + " " + home[10].ToString() + " " + home[11].ToString());
                                             setcamtrig = true;
-                                            if ((flightTime / 780) > 60)
+                                            if ((flightTime / 780) > MainV2.CurrentUAV.flighttime)
                                             {   
                             
                                                 sw.WriteLine(enumerator.Current[0].ToString() + " " + enumerator.Current[1].ToString() + " " + enumerator.Current[2].ToString() + " " + enumerator.Current[3] + " " + enumerator.Current[4] + " " + enumerator.Current[5] + " " + enumerator.Current[6] + " " + enumerator.Current[7] + " " + enumerator.Current[8] + " " + enumerator.Current[9] + " " + enumerator.Current[10] + " " + enumerator.Current[11]);
