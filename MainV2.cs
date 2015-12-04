@@ -3086,5 +3086,10 @@ namespace MissionPlanner
         {
 
         }
+
+        private void updateBatteryLife_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

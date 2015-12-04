@@ -207,6 +207,7 @@ namespace MissionPlanner
             // toolStripTextBox1
             // 
             this.toolStripTextBox1.ActiveLinkColor = System.Drawing.Color.Red;
+            this.toolStripTextBox1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             resources.ApplyResources(this.toolStripTextBox1, "toolStripTextBox1");
             this.toolStripTextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(129)))), ((int)(((byte)(176)))), ((int)(((byte)(41)))));
             this.toolStripTextBox1.Name = "toolStripTextBox1";
@@ -219,6 +220,7 @@ namespace MissionPlanner
             this.updateBatteryLife.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(129)))), ((int)(((byte)(176)))), ((int)(((byte)(41)))));
             this.updateBatteryLife.Name = "updateBatteryLife";
             this.updateBatteryLife.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.updateBatteryLife.Click += new System.EventHandler(this.updateBatteryLife_Click);
             // 
             // estimatedBatteryLifeRemaining
             // 
