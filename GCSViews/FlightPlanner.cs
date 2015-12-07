@@ -2968,6 +2968,9 @@ namespace MissionPlanner.GCSViews
             if (e.Button == MouseButtons.Left && isMouseDown)
             {
                 isMouseDraging = true;
+                CurrentGMapMarker = null; //D Cironi 2015-12-04, added this to fix bug where map wouldn't drag after deleting the last waypoint
+                                          //it should be okay for this to be null because draging a point is handled elsewhere
+
                 if (CurrentRallyPt != null)
                 {
                     PointLatLng pnew = MainMap.FromLocalToLatLng(e.X, e.Y);
