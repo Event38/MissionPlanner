@@ -6722,28 +6722,28 @@
     </LAND_FLARE_THR>
     <LAND_MAX_REV>
       <DisplayName>Max reverse throttle PWM</DisplayName>
-      <Description>PWM value that gives 100% reverse throttle</Description>
+      <Description>PWM value associated with the maximum amount of reverse throttle you want to allow during the landing approach</Description>
       <Increment>1</Increment>
       <Range>0 10000 </Range>
       <User>Advanced</User>
     </LAND_MAX_REV>
     <LAND_MIN_REV>
       <DisplayName>Min reverse throttle PWM</DisplayName>
-      <Description>PWM value that gives 0% reverse throttle</Description>
+      <Description>PWM value associated with the minimum amount of reverse throttle you want to allow during the landing approach</Description>
       <Increment>1</Increment>
       <Range>0 10000 </Range>
       <User>Advanced</User>
     </LAND_MIN_REV>
     <LAND_REV_PT_DN>
       <DisplayName>Reverse throttle point DOWN</DisplayName>
-      <Description>At this amount of altitude error from the land slope that we use the least amount of reverse throttle (this happens when we are below our land slope)</Description>
+      <Description>At this amount of altitude error from the land slope we use the least amount of reverse throttle (this happens when we are below our land slope)</Description>
       <Increment>1</Increment>
       <Range>0 10000 </Range>
       <User>Advanced</User>
     </LAND_REV_PT_DN>
     <LAND_REV_PT_UP>
       <DisplayName>Reverse throttle point UP</DisplayName>
-      <Description>At this amount of altitude error from the land slope that we use the most amount of reverse throttle (this happens when we are above our land slope)</Description>
+      <Description>At this amount of altitude error from the land slope we use the most amount of reverse throttle (this happens when we are above our land slope)</Description>
       <Increment>1</Increment>
       <Range>0 10000 </Range>
       <User>Advanced</User>
@@ -6780,7 +6780,6 @@
       <DisplayName>Reverse on ground</DisplayName>
       <Description>Enables the motor to spin while on the ground. Useful for slowing planes down during touchdown, but disable if your prop cannot spin while on the ground</Description>
       <Range>0:Disabled, 1:Enabled</Range>
-      <Units>m/s</Units>
       <User>Advanced</User>
     </LAND_REV_ON_GND>   
     <GND_ABS_PRESS>
