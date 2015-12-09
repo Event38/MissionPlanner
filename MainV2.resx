@@ -642,13 +642,13 @@
     <value>TextAboveImage</value>
   </data>
   <data name="toolStripTextBox1.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 15.75pt</value>
+    <value>Segoe UI, 10.75pt</value>
   </data>
   <data name="toolStripTextBox1.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>BottomCenter</value>
   </data>
   <data name="toolStripTextBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>324, 60</value>
+    <value>232, 60</value>
   </data>
   <data name="toolStripTextBox1.Text" xml:space="preserve">
     <value>Estimated Battery Life Remaining:</value>
@@ -658,10 +658,10 @@
     <value>False</value>
   </data>
   <data name="updateBatteryLife.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Segoe UI, 15.75pt</value>
+    <value>Segoe UI, 10.75pt</value>
   </data>
   <data name="updateBatteryLife.Size" type="System.Drawing.Size, System.Drawing">
-    <value>62, 60</value>
+    <value>44, 60</value>
   </data>
   <data name="updateBatteryLife.Text" xml:space="preserve">
     <value>10:00</value>

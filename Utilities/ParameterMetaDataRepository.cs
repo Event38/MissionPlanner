@@ -163,10 +163,10 @@ namespace MissionPlanner.Utilities
       public static List<KeyValuePair<int, string>> GetParameterOptionsInt(string nodeKey, string vechileType)
       {
 
-          if (vechileType == "Scout" || vechileType == "E386")
-          {
-              vechileType = "ArduPlane";
-          }
+         // if (vechileType == "Scout" || vechileType == "E386")
+         // {
+          //   vechileType = "ArduPlane";
+         // }
           CheckLoad();
 
           string availableValuesRaw = GetParameterMetaData(nodeKey, ParameterMetaDataConstants.Values, vechileType);
