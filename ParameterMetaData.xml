@@ -6720,20 +6720,13 @@
       <Range>0 10000 </Range>
       <User>Advanced</User>
     </LAND_FLARE_THR>
-    <LAND_MAX_REV>
-      <DisplayName>Max reverse throttle PWM</DisplayName>
+    <LAND_THR_MIN_REV>
+      <DisplayName>Reverse throttle PWM</DisplayName>
       <Description>PWM value associated with the maximum amount of reverse throttle you want to allow during the landing approach</Description>
       <Increment>1</Increment>
       <Range>0 10000 </Range>
       <User>Advanced</User>
-    </LAND_MAX_REV>
-    <LAND_MIN_REV>
-      <DisplayName>Min reverse throttle PWM</DisplayName>
-      <Description>PWM value associated with the minimum amount of reverse throttle you want to allow during the landing approach</Description>
-      <Increment>1</Increment>
-      <Range>0 10000 </Range>
-      <User>Advanced</User>
-    </LAND_MIN_REV>
+    </LAND_THR_MIN_REV>	
     <LAND_REV_PT_DN>
       <DisplayName>Reverse throttle point DOWN</DisplayName>
       <Description>At this amount of altitude error from the land slope we use the least amount of reverse throttle (this happens when we are below our land slope)</Description>
@@ -10168,20 +10161,13 @@
       <Range>0 10000 </Range>
       <User>Advanced</User>
     </LAND_FLARE_THR>
-    <LAND_MAX_REV>
-      <DisplayName>Max reverse throttle PWM</DisplayName>
-      <Description>PWM value that gives 100% reverse throttle</Description>
+    <LAND_THR_MIN_REV>
+      <DisplayName>Reverse throttle PWM</DisplayName>
+      <Description>PWM value associated with the maximum amount of reverse throttle you want to allow during the landing approach</Description>
       <Increment>1</Increment>
       <Range>0 10000 </Range>
       <User>Advanced</User>
-    </LAND_MAX_REV>
-    <LAND_MIN_REV>
-      <DisplayName>Min reverse throttle PWM</DisplayName>
-      <Description>PWM value that gives 0% reverse throttle</Description>
-      <Increment>1</Increment>
-      <Range>0 10000 </Range>
-      <User>Advanced</User>
-    </LAND_MIN_REV>
+    </LAND_THR_MIN_REV>
     <LAND_REV_PT_DN>
       <DisplayName>Reverse throttle point DOWN</DisplayName>
       <Description>At this amount of altitude error from the land slope that we use the least amount of reverse throttle (this happens when we are below our land slope)</Description>
