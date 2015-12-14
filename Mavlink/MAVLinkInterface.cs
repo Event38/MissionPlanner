@@ -931,7 +931,7 @@ Please check the following
                             MAV.VersionString = logdata;
                         }
                         else if (logdata.ToLower().Contains("nuttx"))
-                        {
+                        {  
                             MAV.SoftwareVersions = logdata;
                         }
                         else if (logdata.ToLower().Contains("px4v2"))
@@ -3418,13 +3418,6 @@ Please check the following
                         case MAVLink.MAV_TYPE.FIXED_WING:
                             MAVlist[sysid].cs.firmware = MainV2.Firmwares.ArduPlane;
                             break;
-                            //mWright added new firmware types for e386 and scout
-                        case MAVLink.MAV_TYPE.E386:
-                            MAVlist[sysid].cs.firmware = MainV2.Firmwares.E386;
-                            break;
-                        case MAVLink.MAV_TYPE.Scout:
-                            MAVlist[sysid].cs.firmware = MainV2.Firmwares.Scout;
-                            break;
                         case MAVLink.MAV_TYPE.QUADROTOR:
                             MAVlist[sysid].cs.firmware = MainV2.Firmwares.ArduCopter2;
                             break;
@@ -3478,12 +3471,6 @@ Please check the following
                     break;
                 case MainV2.Firmwares.ArduRover:
                     MAVlist[sysid].Guid = MainV2.config["rover_guid"].ToString();
-                    break;
-                case MainV2.Firmwares.E386:
-                    MAVlist[sysid].Guid = MainV2.config["plane_guid"].ToString();
-                    break;
-                case MainV2.Firmwares.Scout:
-                    MAVlist[sysid].Guid = MainV2.config["plane_guid"].ToString();
                     break;
             }
         }

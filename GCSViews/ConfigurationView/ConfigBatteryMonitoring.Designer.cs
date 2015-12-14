@@ -129,7 +129,7 @@
             this.CMB_apmversion.DropDownWidth = 200;
             this.CMB_apmversion.FormattingEnabled = true;
             this.CMB_apmversion.Items.AddRange(new object[] {
-            resources.GetString("CMB_apmversion.Items"),
+          //  resources.GetString("CMB_apmversion.Items"),
             resources.GetString("CMB_apmversion.Items1"),
             resources.GetString("CMB_apmversion.Items2"),
             resources.GetString("CMB_apmversion.Items3"),

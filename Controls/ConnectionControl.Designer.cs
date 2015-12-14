@@ -56,14 +56,22 @@
             resources.GetString("cmb_Baud.Items11")});
             resources.ApplyResources(this.cmb_Baud, "cmb_Baud");
             this.cmb_Baud.Name = "cmb_Baud";
+            this.cmb_Baud.SelectedIndexChanged += new System.EventHandler(this.cmb_Baud_SelectedIndexChanged);
             // 
             // cmb_ConnectionType
             // 
             this.cmb_ConnectionType.BackColor = System.Drawing.Color.Black;
             this.cmb_ConnectionType.ForeColor = System.Drawing.Color.White;
             this.cmb_ConnectionType.FormattingEnabled = true;
+            this.cmb_ConnectionType.Items.AddRange(new object[] {
+            resources.GetString("cmb_ConnectionType.Items"),
+            resources.GetString("cmb_ConnectionType.Items1"),
+            resources.GetString("cmb_ConnectionType.Items2"),
+            resources.GetString("cmb_ConnectionType.Items3"),
+            resources.GetString("cmb_ConnectionType.Items4")});
             resources.ApplyResources(this.cmb_ConnectionType, "cmb_ConnectionType");
             this.cmb_ConnectionType.Name = "cmb_ConnectionType";
+            this.cmb_ConnectionType.SelectedIndexChanged += new System.EventHandler(this.cmb_ConnectionType_SelectedIndexChanged);
             // 
             // cmb_Connection
             // 
@@ -75,6 +83,7 @@
             resources.ApplyResources(this.cmb_Connection, "cmb_Connection");
             this.cmb_Connection.Name = "cmb_Connection";
             this.cmb_Connection.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cmb_Connection_DrawItem);
+            this.cmb_Connection.SelectedIndexChanged += new System.EventHandler(this.cmb_Connection_SelectedIndexChanged);
             // 
             // linkLabel1
             // 

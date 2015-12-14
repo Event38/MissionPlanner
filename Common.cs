@@ -677,8 +677,10 @@ namespace MissionPlanner
         public static List<KeyValuePair<int, string>> getModesList(CurrentState cs)
         {
             log.Info("getModesList Called");
+            
+            //flightmodes are here handle with software type handle later
 
-            if (cs.firmware == MainV2.Firmwares.ArduPlane || cs.firmware == MainV2.Firmwares.E386 || cs.firmware == MainV2.Firmwares.Scout)
+            if (cs.firmware == MainV2.Firmwares.ArduPlane)
             {
                 var flightModes = Utilities.ParameterMetaDataRepository.GetParameterOptionsInt("FLTMODE1", cs.firmware.ToString());
                 flightModes.Add(new KeyValuePair<int, string>(16, "INITIALISING"));

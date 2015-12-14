@@ -249,8 +249,6 @@ namespace MissionPlanner
         public enum Firmwares
         {   
             ArduPlane,
-            E386,
-            Scout,
             ArduCopter2,
             //ArduHeli,
             ArduRover,
@@ -262,7 +260,8 @@ namespace MissionPlanner
             E384,
             E386,
             Scout,
-            Iris
+            Iris,
+            Other
         }
 
         DateTime connectButtonUpdate = DateTime.Now;
@@ -461,25 +460,27 @@ namespace MissionPlanner
 
             //MainMenu.Renderer = new MyRenderer();
             object obj2;
-            foreach (object obj in Enum.GetValues(typeof(Firmwares)))
-            {
-                if (obj.ToString() == "ArduPlane")
-                {
-                    obj2 = UAVName.E384;
-                    _connectionControl.TOOL_APMFirmware.Items.Add(obj2);
-                }
-                else if (obj.ToString() == "ArduCopter2") {
+            
+            //mwright
+            //foreach (object obj in Enum.GetValues(typeof(Firmwares)))
+            //{
+            //    if (obj.ToString() == "ArduPlane")
+            //    {
+            //        obj2 = UAVName.E384;
+            //        _connectionControl.TOOL_APMFirmware.Items.Add(obj2);
+            //    }
+            //    else if (obj.ToString() == "ArduCopter2") {
 
-                    obj2 = UAVName.Iris;
-                    _connectionControl.TOOL_APMFirmware.Items.Add(obj2);
-                }
-                else
-                {
-                obj2 = obj.ToString();
-                    _connectionControl.TOOL_APMFirmware.Items.Add(obj);
-                }
+            //        obj2 = UAVName.Iris;
+            //        _connectionControl.TOOL_APMFirmware.Items.Add(obj2);
+            //    }
+            //    else
+            //    {
+            //    obj2 = obj.ToString();
+            //        _connectionControl.TOOL_APMFirmware.Items.Add(obj);
+            //    }
 
-             }
+            // }
 
             if (_connectionControl.TOOL_APMFirmware.Items.Count > 0)
                 _connectionControl.TOOL_APMFirmware.SelectedIndex = 0;
@@ -1176,40 +1177,39 @@ namespace MissionPlanner
 
                         FlightData.servoOptions3.TXT_pwm_low.Text = comPort.GetParam("RC7_MIN").ToString();
                     }
+                    float i;
+                    i = comPort.GetParam("SYSID_SW_TYPE");
 
                     // detect firmware we are conected to.
-                    if (comPort.MAV.cs.firmware == Firmwares.ArduCopter2)
+                    if (comPort.GetParam("SYSID_SW_TYPE") == 10)
                     {
-                        _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(UAVName.Iris);
+                        _connectionControl.TOOL_APMFirmware.SelectedIndex = 2;
                      
-                        CurrentUAV = UAVStats.setStats();
+                        CurrentUAV = UAVStats.setStats("Iris");
                     }
-                    else if (comPort.MAV.cs.firmware == Firmwares.Ateryx)
+
+                        //!=any of our mavs 
+                    else if (comPort.GetParam("SYSID_SW_TYPE") != 10 && comPort.GetParam("SYSID_SW_TYPE") != 2 && comPort.GetParam("SYSID_SW_TYPE") != 1 && comPort.GetParam("SYSID_SW_TYPE") != 0)
                     {
-                        _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(Firmwares.Ateryx);
-                        CurrentUAV = UAVStats.setStats();
+                        _connectionControl.TOOL_APMFirmware.SelectedIndex = 4;
+
+                        CurrentUAV = UAVStats.setStats("E384");
                     }
-                    else if (comPort.MAV.cs.firmware == Firmwares.ArduRover)
-                    {
-                        _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(Firmwares.ArduRover);
-                        CurrentUAV = UAVStats.setStats();                
-                    }
-                    else if (comPort.MAV.cs.firmware == Firmwares.ArduPlane)
+                    else if (comPort.GetParam("SYSID_SW_TYPE") == 0)
                     {         
-                        _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(UAVName.E384);
-                        CurrentUAV = UAVStats.setStats();
+                        _connectionControl.TOOL_APMFirmware.SelectedIndex = 0;
+                        CurrentUAV = UAVStats.setStats("E384");
                     }
-                    else if (comPort.MAV.cs.firmware == Firmwares.E386)
+                    else if (comPort.GetParam("SYSID_SW_TYPE") == 1)
                     {        
-                        _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(Firmwares.E386);
-                        CurrentUAV = UAVStats.setStats();
+                        _connectionControl.TOOL_APMFirmware.SelectedIndex = 1;
+                        CurrentUAV = UAVStats.setStats("E386");
                     }
-                    else if (comPort.MAV.cs.firmware == Firmwares.Scout)
+                    else if (comPort.GetParam("SYSID_SW_TYPE") == 2)
                     {        
-                        _connectionControl.TOOL_APMFirmware.SelectedIndex = _connectionControl.TOOL_APMFirmware.Items.IndexOf(Firmwares.Scout);
-                        CurrentUAV = UAVStats.setStats();
+                        _connectionControl.TOOL_APMFirmware.SelectedIndex = 3;
+                        CurrentUAV = UAVStats.setStats("Scout");
                     }
-                   
                     // check for newer firmware -Don't do this in our version -D Cironi 2015-05-13
                     //var softwares = Firmware.LoadSoftwares();
 
@@ -2431,23 +2431,9 @@ namespace MissionPlanner
         }
 
         private void TOOL_APMFirmware_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (_connectionControl.TOOL_APMFirmware.Text == "Iris")
-            {
-                MainV2.comPort.MAV.cs.firmware = Firmwares.ArduCopter2;
-                CurrentUAV = UAVStats.setStats();
-            }
-            else if (_connectionControl.TOOL_APMFirmware.Text == "E384")
-            {
-               
-                MainV2.comPort.MAV.cs.firmware = Firmwares.ArduPlane;
-                CurrentUAV = UAVStats.setStats();
-            }
-            else
-            {
-                MainV2.comPort.MAV.cs.firmware = (MainV2.Firmwares)Enum.Parse(typeof(MainV2.Firmwares), _connectionControl.TOOL_APMFirmware.Text);
-                MainV2.CurrentUAV = UAVStats.setStats();
-            }
+        { 
+                MainV2.CurrentUAV = UAVStats.setStats(_connectionControl.TOOL_APMFirmware.SelectedItem.ToString());
+            
             }
 
         private void MainV2_Resize(object sender, EventArgs e)

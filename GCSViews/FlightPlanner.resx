@@ -987,7 +987,7 @@
     <value>57</value>
   </data>
   <data name="autoLand.Text" xml:space="preserve">
-    <value>Auto Land Now (e386)</value>
+    <value>Auto Land Now</value>
   </data>
   <data name="&gt;&gt;autoLand.Name" xml:space="preserve">
     <value>autoLand</value>

@@ -68,14 +68,6 @@ namespace MissionPlanner.Log
                 { 
                     MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.ArduPlane;
                 }
-                if (line.ToLower().Contains("E386"))
-                { 
-                    MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.E386;
-                }
-                if (line.ToLower().Contains("Scout"))
-                { 
-                    MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.Scout;
-                }
 
                 line = line.Replace(", ", ",");
                 line = line.Replace(": ", ":");

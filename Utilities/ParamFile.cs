@@ -79,7 +79,7 @@ namespace MissionPlanner.Utilities
         {
             StreamWriter sw = new StreamWriter(File.Open(fn, FileMode.Create));
             string input = DateTime.Now + " Frame : ";
-            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.E386 || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Scout)
+            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane)
             {
                 input = DateTime.Now + " Plane: Skywalker";
             }

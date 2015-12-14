@@ -31,7 +31,7 @@ namespace MissionPlanner.GCSViews
 
         public bool isHeli { get { return isConnected && MainV2.comPort.MAV.param["H_SWASH_TYPE"] != null; } }
 
-        public bool isPlane { get { return isConnected && (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.E386 || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Scout); } }
+        public bool isPlane { get { return isConnected && (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Ateryx); } }
 
         public bool isRover { get { return isConnected && MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduRover; } }
 

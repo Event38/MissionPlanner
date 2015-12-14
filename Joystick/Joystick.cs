@@ -137,7 +137,7 @@ namespace MissionPlanner.Joystick
             for (int a = 0; a < JoyButtons.Length; a++)
                 JoyButtons[a].buttonno = -1;
 
-            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.E386 || MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.Scout)
+            if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduPlane)
             {
                 loadconfig("joystickbuttons" + MainV2.comPort.MAV.cs.firmware + ".xml", "joystickaxis" + MainV2.comPort.MAV.cs.firmware + ".xml");
             }

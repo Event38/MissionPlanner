@@ -77,5 +77,20 @@ namespace MissionPlanner.Controls
             e.DrawFocusRectangle();
         }
 
+        private void cmb_ConnectionType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmb_Baud_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmb_Connection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

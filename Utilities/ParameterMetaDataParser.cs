@@ -54,14 +54,6 @@ namespace MissionPlanner.Utilities
                    {
                        element = MainV2.Firmwares.ArduCopter2.ToString();
                    }
-                   else if ( parameterLocation.ToLower().Contains("scout")) 
-                   {
-                       element = MainV2.Firmwares.Scout.ToString();
-                   }
-                   else if (parameterLocation.ToLower().Contains("e386"))
-                   {
-                       element = MainV2.Firmwares.E386.ToString();
-                   }
                    else if (parameterLocation.ToLower().Contains("arduplane"))
                    {
                        element = MainV2.Firmwares.ArduPlane.ToString();

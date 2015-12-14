@@ -541,14 +541,8 @@ DEBUG = 254,
             GIMBAL = 26,
             // <summary> Onboard adsb peripheral </summary>
             ADSB = 27,
-            //--mwright 
-            ///<summary>Event38's e386 | </summary>
-            E386 = 28,
-            ///<summary> Event38's Scout| </summary>
-            Scout = 29,
-        	///<summary>  | </summary>
-            ENUM_END=30, 
-        
+            //<summary> End Enum </summary>
+            ENUM_END=28,  
         };
         
         ///<summary> These flags encode the MAV mode. </summary>
