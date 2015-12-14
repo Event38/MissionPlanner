@@ -46,29 +46,29 @@ namespace MissionPlanner.GCSViews
             }
             if (CMB_Model.Text == "E384")
             {
-                MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex = MainV2._connectionControl.TOOL_APMFirmware.Items.IndexOf(MainV2.UAVName.E384);
+                MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex = 0;
                MainV2.CurrentUAV = UAVStats.setStats("E384");
             }
             
             if (CMB_Model.Text == "E386")
             {
-                MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex = MainV2._connectionControl.TOOL_APMFirmware.Items.IndexOf(MainV2.UAVName.E386);
+                MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex = 1;
                 MainV2.CurrentUAV = UAVStats.setStats("E386");
             }
             if (CMB_Model.Text == "Scout")
             {
-                MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex = MainV2._connectionControl.TOOL_APMFirmware.Items.IndexOf(MainV2.UAVName.Scout);
+                MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex =3;
                 MainV2.CurrentUAV = UAVStats.setStats("Scout");
             }
 
             if (CMB_Model.Text == "Iris")
             {
-                MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex = MainV2._connectionControl.TOOL_APMFirmware.Items.IndexOf(MainV2.UAVName.Iris);
+                MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex = 2;
                 MainV2.CurrentUAV = UAVStats.setStats("Iris");
             }
             if (CMB_Model.Text == "Other")
             {
-                MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex = MainV2._connectionControl.TOOL_APMFirmware.Items.IndexOf(MainV2.UAVName.E384);
+                MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex = 4;
                 MainV2.CurrentUAV = UAVStats.setStats("Other");
             }
         }
