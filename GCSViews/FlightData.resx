@@ -1215,6 +1215,66 @@
   <data name="&gt;&gt;BUT_setmode.ZOrder" xml:space="preserve">
     <value>25</value>
   </data>
+  <data name="BUT_ResumeMission.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_ResumeMission.Location" type="System.Drawing.Point, System.Drawing">
+    <value>154, 123</value>
+  </data>
+  <data name="BUT_ResumeMission.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 23</value>
+  </data>
+  <data name="BUT_ResumeMission.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
+  <data name="BUT_ResumeMission.Text" xml:space="preserve">
+    <value>Resume Mission</value>
+  </data>
+  <data name="BUT_ResumeMission.ToolTip" xml:space="preserve">
+    <value>Changes to the Mode on the left</value>
+  </data>
+  <data name="&gt;&gt;BUT_ResumeMission.Name" xml:space="preserve">
+    <value>BUT_ResumeMission</value>
+  </data>
+  <data name="&gt;&gt;BUT_ResumeMission.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUT_ResumeMission.Parent" xml:space="preserve">
+    <value>tabActions</value>
+  </data>
+  <data name="&gt;&gt;BUT_ResumeMission.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="BUT_Land.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_Land.Location" type="System.Drawing.Point, System.Drawing">
+    <value>94, 123</value>
+  </data>
+  <data name="BUT_Land.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 23</value>
+  </data>
+  <data name="BUT_Land.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
+  <data name="BUT_Land.Text" xml:space="preserve">
+    <value>Pause Mission</value>
+  </data>
+  <data name="BUT_Land.ToolTip" xml:space="preserve">
+    <value>Changes to the Mode on the left</value>
+  </data>
+  <data name="&gt;&gt;BUT_Land.Name" xml:space="preserve">
+    <value>BUT_Land</value>
+  </data>
+  <data name="&gt;&gt;BUT_Land.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUT_Land.Parent" xml:space="preserve">
+    <value>tabActions</value>
+  </data>
+  <data name="&gt;&gt;BUT_Land.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
   <data name="BUT_clear_track.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>

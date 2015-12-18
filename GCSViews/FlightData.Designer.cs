@@ -65,6 +65,8 @@
             this.BUT_setwp = new MissionPlanner.Controls.MyButton();
             this.CMB_modes = new System.Windows.Forms.ComboBox();
             this.BUT_setmode = new MissionPlanner.Controls.MyButton();
+            this.BUT_Land = new MissionPlanner.Controls.MyButton();
+            this.BUT_ResumeMission = new MissionPlanner.Controls.MyButton();
             this.BUT_clear_track = new MissionPlanner.Controls.MyButton();
             this.CMB_action = new System.Windows.Forms.ComboBox();
             this.BUT_Homealt = new MissionPlanner.Controls.MyButton();
@@ -604,6 +606,8 @@
             this.tabActions.Controls.Add(this.BUT_setwp);
             this.tabActions.Controls.Add(this.CMB_modes);
             this.tabActions.Controls.Add(this.BUT_setmode);
+            this.tabActions.Controls.Add(this.BUT_Land);
+            this.tabActions.Controls.Add(this.BUT_ResumeMission);
             this.tabActions.Controls.Add(this.BUT_clear_track);
             this.tabActions.Controls.Add(this.CMB_action);
             this.tabActions.Controls.Add(this.BUT_Homealt);
@@ -747,6 +751,22 @@
             this.toolTip1.SetToolTip(this.BUT_setmode, resources.GetString("BUT_setmode.ToolTip"));
             this.BUT_setmode.UseVisualStyleBackColor = true;
             this.BUT_setmode.Click += new System.EventHandler(this.BUT_setmode_Click);
+            // 
+            // BUT_setmode
+            // 
+            resources.ApplyResources(this.BUT_Land, "BUT_Land");
+            this.BUT_setmode.Name = "BUT_Land";
+            this.toolTip1.SetToolTip(this.BUT_Land, resources.GetString("BUT_Land.ToolTip"));
+            this.BUT_Land.UseVisualStyleBackColor = true;
+            this.BUT_Land.Click += new System.EventHandler(this.BUT_Land_Click);
+            // 
+            // BUT_setmode
+            // 
+            resources.ApplyResources(this.BUT_ResumeMission, "BUT_ResumeMission");
+            this.BUT_ResumeMission.Name = "BUT_ResumeMission";
+            this.toolTip1.SetToolTip(this.BUT_ResumeMission, resources.GetString("BUT_ResumeMission.ToolTip"));
+            this.BUT_ResumeMission.UseVisualStyleBackColor = true;
+            this.BUT_ResumeMission.Click += new System.EventHandler(this.BUT_ResumeMission_Click);
             // 
             // BUT_clear_track
             // 
@@ -2207,6 +2227,8 @@
         private Controls.MyButton BUT_setwp;
         private System.Windows.Forms.ComboBox CMB_modes;
         private Controls.MyButton BUT_setmode;
+        private Controls.MyButton BUT_Land;
+        private Controls.MyButton BUT_ResumeMission;
         private Controls.MyButton BUT_clear_track;
         private System.Windows.Forms.ComboBox CMB_action;
         private Controls.MyButton BUT_RAWSensor;

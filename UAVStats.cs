@@ -36,10 +36,10 @@ namespace MissionPlanner
                 stats.firmware = "E384";
                 stats.flighttime = 60;
                 stats.resumealt = 80;
-                stats.gpslanding = false;
+                stats.gpslanding = true;
                 stats.autoland = false;
                 stats.resumeMission = false;
-                stats.runway = false;
+                stats.runway = true;
                 
             }
             else if (uav == "IRIS+")
@@ -52,11 +52,11 @@ namespace MissionPlanner
                 stats.firmware = "Iris";
                 stats.flighttime = 15;
                 stats.resumealt = 60;
-                stats.gpslanding = false;
+                stats.gpslanding = true;
                 stats.autoland = true;
                 stats.resumeMission = true;
                 stats.amphour = 5100;
-                stats.runway = false;
+                stats.runway = true;
             }
             else if (uav == "E386")
             {

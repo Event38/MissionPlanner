@@ -99,8 +99,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.BUT_write = new MissionPlanner.Controls.MyButton();
             this.BUT_read = new MissionPlanner.Controls.MyButton();
-            this.resumeMission = new MissionPlanner.Controls.MyButton();
-            this.autoLand = new MissionPlanner.Controls.MyButton();
             this.Runway = new MissionPlanner.Controls.MyButton();
             this.BUT_GPSLanding = new MissionPlanner.Controls.MyButton();
             this.BUT_AddTakeoffWP = new MissionPlanner.Controls.MyButton();
@@ -606,8 +604,6 @@
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Controls.Add(this.BUT_write);
             this.panel2.Controls.Add(this.BUT_read);
-            this.panel2.Controls.Add(this.resumeMission);
-            this.panel2.Controls.Add(this.autoLand);
             this.panel2.Controls.Add(this.Runway);
             this.panel2.Controls.Add(this.BUT_GPSLanding);
             this.panel2.Controls.Add(this.BUT_AddTakeoffWP);
@@ -633,22 +629,6 @@
             this.BUT_read.Name = "BUT_read";
             this.BUT_read.UseVisualStyleBackColor = true;
             this.BUT_read.Click += new System.EventHandler(this.BUT_read_Click);
-            // 
-            // resumeMission
-            // 
-            this.resumeMission.Image = global::MissionPlanner.Properties.Resources.Green_panel;
-            resources.ApplyResources(this.resumeMission, "resumeMission");
-            this.resumeMission.Name = "resumeMission";
-            this.resumeMission.UseVisualStyleBackColor = true;
-            this.resumeMission.Click += new System.EventHandler(this.resumeMission_Click);
-            // 
-            // autoLand
-            // 
-            this.autoLand.Image = global::MissionPlanner.Properties.Resources.Green_panel;
-            resources.ApplyResources(this.autoLand, "autoLand");
-            this.autoLand.Name = "autoLand";
-            this.autoLand.UseVisualStyleBackColor = true;
-            this.autoLand.Click += new System.EventHandler(this.autoLand_Click);
             // 
             // Runway
             // 
@@ -1661,8 +1641,6 @@
         public System.Windows.Forms.Label lbl_distance;
         private Controls.MyButton BUT_AddTakeoffWP;
         public Controls.MyButton BUT_GPSLanding;
-        public Controls.MyButton autoLand;
-        public Controls.MyButton resumeMission;
         public Controls.MyButton Runway;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private Controls.PictureBoxMouseOver pictureBoxMouseOver1;

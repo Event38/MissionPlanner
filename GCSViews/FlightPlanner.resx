@@ -885,7 +885,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_write.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 358</value>
+    <value>0, 304</value>
   </data>
   <data name="BUT_write.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -915,7 +915,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_read.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 331</value>
+    <value>0, 275</value>
   </data>
   <data name="BUT_read.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -940,66 +940,6 @@
   </data>
   <data name="&gt;&gt;BUT_read.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="resumeMission.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="resumeMission.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 304</value>
-  </data>
-  <data name="resumeMission.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="resumeMission.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 23</value>
-  </data>
-  <data name="resumeMission.TabIndex" type="System.Int32, mscorlib">
-    <value>58</value>
-  </data>
-  <data name="resumeMission.Text" xml:space="preserve">
-    <value>Resume Mission</value>
-  </data>
-  <data name="&gt;&gt;resumeMission.Name" xml:space="preserve">
-    <value>resumeMission</value>
-  </data>
-  <data name="&gt;&gt;resumeMission.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;resumeMission.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;resumeMission.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="autoLand.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="autoLand.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 275</value>
-  </data>
-  <data name="autoLand.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="autoLand.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 23</value>
-  </data>
-  <data name="autoLand.TabIndex" type="System.Int32, mscorlib">
-    <value>57</value>
-  </data>
-  <data name="autoLand.Text" xml:space="preserve">
-    <value>Auto Land Now</value>
-  </data>
-  <data name="&gt;&gt;autoLand.Name" xml:space="preserve">
-    <value>autoLand</value>
-  </data>
-  <data name="&gt;&gt;autoLand.Type" xml:space="preserve">
-    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;autoLand.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;autoLand.ZOrder" xml:space="preserve">
-    <value>3</value>
   </data>
   <data name="Runway.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1035,7 +975,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;Runway.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="BUT_GPSLanding.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -1065,7 +1005,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;BUT_GPSLanding.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>3</value>
   </data>
   <data name="BUT_AddTakeoffWP.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1098,7 +1038,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;BUT_AddTakeoffWP.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>4</value>
   </data>
   <data name="BUT_ClearMission.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1131,7 +1071,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;BUT_ClearMission.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>5</value>
   </data>
   <data name="BUT_ElevationGraph.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1164,7 +1104,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;BUT_ElevationGraph.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>6</value>
   </data>
   <data name="BUT_Survey.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1197,7 +1137,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;BUT_Survey.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>7</value>
   </data>
   <data name="BUT_ClearPolygon.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1230,7 +1170,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;BUT_ClearPolygon.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>8</value>
   </data>
   <data name="BUT_AddPolygon.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1263,7 +1203,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;BUT_AddPolygon.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>9</value>
   </data>
   <data name="BUT_loadwpfile.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1296,7 +1236,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;BUT_loadwpfile.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>10</value>
   </data>
   <data name="BUT_saveWPFile.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1329,7 +1269,7 @@
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;BUT_saveWPFile.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>11</value>
   </data>
   <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 13</value>

@@ -6838,38 +6838,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             } 
            CurrentState.threadCreated = false;
         }
-// -mwright
-private void autoLand_Click(object sender, EventArgs e)
-{
-    float wpcount;
-    //remembers current wp
-    flightpoint = CurrentState.currentwp;
-    //gets total number of wps
-    wpcount = MainV2.comPort.GetParam("MIS_TOTAL") - 1;
-    //camera trigger dist
-    camTriggDist = MainV2.comPort.GetParam("CAM_TRIGG_DIST");
 
-    try
-    {
-        ((Button)sender).Enabled = false;
-        wpcount = wpcount - MainV2.CurrentUAV.landwp;
-
-        ushort UShWP = ushort.Parse(wpcount.ToString());
-        MainV2.comPort.setWPCurrent(UShWP);
-
-    }
-    catch { CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR); }
-    ((Button)sender).Enabled = true;   
-}
-//-mwright
-private void resumeMission_Click(object sender, EventArgs e)
-{
-    ResumeMissionThread resume = new ResumeMissionThread();
-    Thread BackGroundThread = new Thread(new ThreadStart(resume.Resume));
-
-        BackGroundThread.Start();
-
-}
 class ResumeMissionThread
 {
     int maxIterations;

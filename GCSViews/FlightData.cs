@@ -67,7 +67,8 @@ namespace MissionPlanner.GCSViews
         CurveItem list8curve;
         CurveItem list9curve;
         CurveItem list10curve;
-
+        public static float camTriggDist;
+        public static float flightpoint;
         internal static GMapOverlay tfrpolygons;
         internal static GMapOverlay kmlpolygons;
         internal static GMapOverlay geofence;
@@ -1441,10 +1442,9 @@ namespace MissionPlanner.GCSViews
                 {
                 
                      MainV2.instance.FlightPlanner.BUT_GPSLanding.Visible = MainV2.CurrentUAV.gpslanding;
-                     MainV2.instance.FlightPlanner.autoLand.Visible = MainV2.CurrentUAV.autoland;
-                     MainV2.instance.FlightPlanner.resumeMission.Visible = MainV2.CurrentUAV.resumeMission;
                      MainV2.instance.FlightPlanner.Runway.Visible = MainV2.CurrentUAV.runway;
-
+                     BUT_ResumeMission.Visible = MainV2.CurrentUAV.resumeMission;
+                     BUT_Land.Visible = MainV2.CurrentUAV.autoland;
                 
             
                     try
@@ -2128,10 +2128,138 @@ namespace MissionPlanner.GCSViews
             Gheading.Location = new Point(Galt.Right, 0);
 
         }
+        class ResumeMissionThread
+        {
+            int maxIterations;
 
+            public ResumeMissionThread() { }
+
+            public void Resume()
+            {
+
+
+
+
+                Locationwp cmds;
+                //check for auto take off values 2	0	3	22-takeoffid 0.000000	0.000000	0.000000	0.000000	0.000000	0.000000	100.000000	1
+                //iris auto takeoff              1	0	3	22	         0.000000	0.000000	0.000000	0.000000	27.610135	-100.157432	100.000000	1
+                cmds = MainV2.comPort.getWP(1);
+                bool takeoffprocedure = true;
+                bool notSet = true;
+                int i = 0;
+                ushort usFP;
+
+                //if auto take 
+                if (cmds.id == 22)
+                {
+                    //only hit once
+                    if (i == 0)
+                    {
+                        //set mode into auto 
+                        MainV2.comPort.setMode("Auto");
+                        MainV2.comPort.setWPCurrent(1);
+                        i++;
+                    }
+                    //while takeoff procedure is in progress continue with this loop.
+                    while (takeoffprocedure)
+                    {
+
+
+                        //enters once altitude of auto take off is hit and never enters again after notSet = false;
+                        if (MainV2.comPort.MAV.cs.alt >= cmds.alt && notSet)
+                        {
+                            //uses stored last flight point and converts it to ushort    
+                            usFP = ushort.Parse(flightpoint.ToString());
+                            //sets wp to previous wp
+                            MainV2.comPort.setWPCurrent(usFP);
+                            notSet = false;
+                        }
+                        //when previous wp is hit current wp will change to 
+                        if (CurrentState.currentwp == (flightpoint + 1))
+                        {
+                            //begins triggering camera once last hit wp is hit
+                            MainV2.comPort.setParam("CAM_TRIGG_DIST", camTriggDist);
+
+                            //concludes the resume flight
+                            takeoffprocedure = false;
+                        }
+                    }
+                }
+                //if not auto take off wait until plane hits 80m altitude
+                else
+                {
+
+                    while (takeoffprocedure)
+                    {       //enters after manual takeoff hits an altitude of 80
+                        //60 iris
+                        if (MainV2.comPort.MAV.cs.alt > MainV2.CurrentUAV.resumealt)
+                        {
+
+                            if (i == 0)
+                            {
+                                i++;
+                                //uses stored last flight point and converts it to ushort    
+                                usFP = ushort.Parse(flightpoint.ToString());
+                                MainV2.comPort.setMode("Auto");
+
+
+                                //sets wp to previous wp
+                                MainV2.comPort.setWPCurrent(usFP);
+
+                            }
+
+
+                            //when previous wp is hit current wp will change to 
+                            if (CurrentState.currentwp == (flightpoint + 1))
+                            {
+                                //begins triggering camera once last hit wp is hit
+                                MainV2.comPort.setParam("CAM_TRIGG_DIST", camTriggDist);
+
+
+                                //concludes the resume flight
+                                takeoffprocedure = false;
+                            }
+                        }
+                    }
+                    // go to CurrentState.currentwp
+                }
+
+
+            }
+        }
+        private void BUT_Land_Click(object sender, EventArgs e)
+        {
+            float wpcount;
+            //remembers current wp
+            flightpoint = CurrentState.currentwp;
+            //gets total number of wps
+            wpcount = MainV2.comPort.GetParam("MIS_TOTAL") - 1;
+            //camera trigger dist
+            camTriggDist = MainV2.comPort.GetParam("CAM_TRIGG_DIST");
+
+            try
+            {
+                ((Button)sender).Enabled = false;
+                wpcount = wpcount - MainV2.CurrentUAV.landwp;
+
+                ushort UShWP = ushort.Parse(wpcount.ToString());
+                MainV2.comPort.setWPCurrent(UShWP);
+
+            }
+            catch { CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR); }
+            ((Button)sender).Enabled = true;   
+        }
         private void BUT_setmode_Click(object sender, EventArgs e)
         {
             MainV2.comPort.setMode(CMB_modes.Text);
+        }
+
+        private void BUT_ResumeMission_Click(object sender, EventArgs e)
+        {
+            ResumeMissionThread resume = new ResumeMissionThread();
+            Thread BackGroundThread = new Thread(new ThreadStart(resume.Resume));
+
+            BackGroundThread.Start();
         }
 
         private void BUT_setwp_Click(object sender, EventArgs e) 
