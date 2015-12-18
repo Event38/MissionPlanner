@@ -1185,7 +1185,7 @@ namespace MissionPlanner
                     {
                         _connectionControl.TOOL_APMFirmware.SelectedIndex = 2;
                      
-                        CurrentUAV = UAVStats.setStats("Iris");
+                        CurrentUAV = UAVStats.setStats("IRIS+");
                     }
 
                         //!=any of our mavs 

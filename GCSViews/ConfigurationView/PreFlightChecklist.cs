@@ -223,7 +223,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 this.label6.Text = "RTL switch is in the OFF position";
                 this.label12.Text = "Propellers are tight and secure";
                 this.label5.Text = "Transmitter set to loiter";
-                this.label15.Text = "Iris is on a level surface";
+                this.label15.Text = "IRIS+ is on a level surface";
                 this.label14.Text = "Verify Compass Heading";
                
                 if (MainV2.comPort.MAV.cs.satcount >= 5 && MainV2.comPort.MAV.cs.gpsstatus >= 3)

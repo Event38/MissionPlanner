@@ -54,6 +54,10 @@ namespace MissionPlanner.GCSViews
             {
                 MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex = 1;
                 MainV2.CurrentUAV = UAVStats.setStats("E386");
+            } if (CMB_Model.Text == "IRIS+")
+            {
+                MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex = 2;
+                MainV2.CurrentUAV = UAVStats.setStats("IRIS+");
             }
             if (CMB_Model.Text == "Scout")
             {
@@ -61,11 +65,7 @@ namespace MissionPlanner.GCSViews
                 MainV2.CurrentUAV = UAVStats.setStats("Scout");
             }
 
-            if (CMB_Model.Text == "Iris")
-            {
-                MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex = 2;
-                MainV2.CurrentUAV = UAVStats.setStats("Iris");
-            }
+           
             if (CMB_Model.Text == "Other")
             {
                 MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex = 4;

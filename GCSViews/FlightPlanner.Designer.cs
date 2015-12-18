@@ -101,7 +101,6 @@
             this.BUT_read = new MissionPlanner.Controls.MyButton();
             this.resumeMission = new MissionPlanner.Controls.MyButton();
             this.autoLand = new MissionPlanner.Controls.MyButton();
-            this.missionBreakdown = new MissionPlanner.Controls.MyButton();
             this.Runway = new MissionPlanner.Controls.MyButton();
             this.BUT_GPSLanding = new MissionPlanner.Controls.MyButton();
             this.BUT_AddTakeoffWP = new MissionPlanner.Controls.MyButton();
@@ -211,6 +210,7 @@
             this.modifyAltToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enterUTMCoordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.switchDockingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.missionBreakdownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trackBar1 = new MissionPlanner.Controls.MyTrackBar();
             this.label11 = new System.Windows.Forms.Label();
             this.panelBASE = new System.Windows.Forms.Panel();
@@ -608,7 +608,6 @@
             this.panel2.Controls.Add(this.BUT_read);
             this.panel2.Controls.Add(this.resumeMission);
             this.panel2.Controls.Add(this.autoLand);
-            this.panel2.Controls.Add(this.missionBreakdown);
             this.panel2.Controls.Add(this.Runway);
             this.panel2.Controls.Add(this.BUT_GPSLanding);
             this.panel2.Controls.Add(this.BUT_AddTakeoffWP);
@@ -650,13 +649,6 @@
             this.autoLand.Name = "autoLand";
             this.autoLand.UseVisualStyleBackColor = true;
             this.autoLand.Click += new System.EventHandler(this.autoLand_Click);
-            // 
-            // missionBreakdown
-            // 
-            resources.ApplyResources(this.missionBreakdown, "missionBreakdown");
-            this.missionBreakdown.Name = "missionBreakdown";
-            this.missionBreakdown.UseVisualStyleBackColor = true;
-            this.missionBreakdown.Click += new System.EventHandler(this.missionBreakDown_Click);
             // 
             // Runway
             // 
@@ -1031,7 +1023,8 @@
             this.flyToHereToolStripMenuItem,
             this.modifyAltToolStripMenuItem,
             this.enterUTMCoordToolStripMenuItem,
-            this.switchDockingToolStripMenuItem});
+            this.switchDockingToolStripMenuItem,
+            this.missionBreakdownToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
             this.contextMenuStrip1.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.contextMenuStrip1_Closed);
@@ -1465,6 +1458,12 @@
             resources.ApplyResources(this.switchDockingToolStripMenuItem, "switchDockingToolStripMenuItem");
             this.switchDockingToolStripMenuItem.Click += new System.EventHandler(this.switchDockingToolStripMenuItem_Click);
             // 
+            // missionBreakdownToolStripMenuItem
+            // 
+            this.missionBreakdownToolStripMenuItem.Name = "missionBreakdownToolStripMenuItem";
+            resources.ApplyResources(this.missionBreakdownToolStripMenuItem, "missionBreakdownToolStripMenuItem");
+            this.missionBreakdownToolStripMenuItem.Click += new System.EventHandler(this.missionBreakdownToolStripMenuItem_Click);
+            // 
             // trackBar1
             // 
             resources.ApplyResources(this.trackBar1, "trackBar1");
@@ -1665,7 +1664,6 @@
         public Controls.MyButton autoLand;
         public Controls.MyButton resumeMission;
         public Controls.MyButton Runway;
-        private Controls.MyButton missionBreakdown;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private Controls.PictureBoxMouseOver pictureBoxMouseOver1;
         private Controls.MyButton BUT_write;
@@ -1698,5 +1696,6 @@
         private System.Windows.Forms.Label lbl_ResolutionMain;
         private BSE.Windows.Forms.Panel panelInfo;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
+        private System.Windows.Forms.ToolStripMenuItem missionBreakdownToolStripMenuItem;
     }
 }

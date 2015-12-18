@@ -3423,6 +3423,18 @@
   <data name="&gt;&gt;NUM_angle.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
+  <data name="CMB_camera.Items" xml:space="preserve">
+    <value>Canon S110</value>
+  </data>
+  <data name="CMB_camera.Items1" xml:space="preserve">
+    <value>Canon SX260</value>
+  </data>
+  <data name="CMB_camera.Items2" xml:space="preserve">
+    <value>Samsung NX500</value>
+  </data>
+  <data name="CMB_camera.Items3" xml:space="preserve">
+    <value>Samsung NX1100</value>
+  </data>
   <data name="CMB_camera.Location" type="System.Drawing.Point, System.Drawing">
     <value>105, 13</value>
   </data>

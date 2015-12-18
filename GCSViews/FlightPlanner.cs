@@ -6461,256 +6461,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         private void missionBreakDown_Click(object sender, EventArgs e)
         { //-- mwright
                  
-                 double flightTime = 0;
-                 int wp_count = 0;
-                 bool error = false;
-                 OpenFileDialog fd = new OpenFileDialog();
-                 fd.Filter = "All Supported Types|*.txt|Ardupilot Mission (*.txt)|";
-                 DialogResult result = fd.ShowDialog();
-                 string file = fd.FileName;
-                 List<Locationwp> wpList = new List<Locationwp>();
-                 List<string[]> WPfile = new List<string[]>();
-                 string LandP1 = null, LandP2 = null, LandP3 = null, LandP4 = null, LandP5 = null, camTrigg = null;
-                 if (File.Exists(file))
-                 {
-                     try
-                     {
-                         StreamReader sr = new StreamReader(file); //"defines.h"
-                         string header = sr.ReadLine();
-                         if (header == null || !header.Contains("QGC WPL"))
-                         {
-                             CustomMessageBox.Show("Invalid Waypoint file");
-                             return;
-                         }
-                   //mission from file
-                         while (!error && !sr.EndOfStream)
-                         {
-                             string line = sr.ReadLine();
-                             // waypoints
-
-                             if (line.StartsWith("#"))
-                                 continue;
-
-                             string[] items = line.Split(new char[] { (char)'\t', ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-                             if (items.Length <= 9)
-                                 continue;
-
-                             try
-                             {
-
-                                 Locationwp temp = new Locationwp();
-
-                                 if (items[2] == "3")
-                                 { // abs MAV_FRAME_GLOBAL_RELATIVE_ALT=3
-                                     temp.options = 1;
-                                 }
-                                   
-                                 else
-                                 {
-                                     temp.options = 0;
-                                 }
-                                 temp.id = (byte)(int)Enum.Parse(typeof(MAVLink.MAV_CMD), items[3], false);
-                                 temp.p1 = float.Parse(items[4], new System.Globalization.CultureInfo("en-US"));
-
-                                 if (temp.id == 99)
-                                     temp.id = 0;
-
-                                 temp.alt = (float)(double.Parse(items[10], new System.Globalization.CultureInfo("en-US")));
-                                 temp.lat = (double.Parse(items[8], new System.Globalization.CultureInfo("en-US")));
-                                 temp.lng = (double.Parse(items[9], new System.Globalization.CultureInfo("en-US")));
-
-                                 temp.p2 = (float)(double.Parse(items[5], new System.Globalization.CultureInfo("en-US")));
-                                 temp.p3 = (float)(double.Parse(items[6], new System.Globalization.CultureInfo("en-US")));
-                                 temp.p4 = (float)(double.Parse(items[7], new System.Globalization.CultureInfo("en-US")));
-
-                                 wpList.Add(temp);
-                                 WPfile.Add(items);
-                                 wp_count++;
-
-                             }
-
-                             catch { CustomMessageBox.Show("Line invalid\n" + line); }
-
-                             if (wp_count == byte.MaxValue)
-                             {
-                                 CustomMessageBox.Show("To many Waypoints!!!");
-                                 break;
-                             }
-
-                         }
-                         IEnumerable<string[]> WPlist = WPfile;
-               
-                         sr.Close();
-                         bool set_home = true;
-                         double Lat = 0;
-                         double Lng = 0;
-                         var enumerator = WPlist.GetEnumerator();
-                       List <PointLatLng> pointList = new List <PointLatLng>();
-                         PointLatLng tempPoint = new PointLatLng();
-                         foreach (Locationwp item in wpList)
-                         {
-                             
-                        
-                             if (set_home == true){
-                              Lat = Math.Abs(item.lat);
-                             Lng = Math.Abs(item.lng);
-                             set_home = false;
-                         }
-                             
-                             wp_count--;
-                             
-                            tempPoint.Lng = item.lng;
-                            tempPoint.Lat = item.lat;
-
-                            if (item.id == 206 && item.p1 != 0)
-                             {
-                                 camTrigg = ("3 "+ "0 " + "3 " + item.id.ToString() + " " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
-                             }
- 
-
-
-                            pointList.Add(tempPoint);
-                            if (wp_count == 4)
-                            {  // 1	   //unsure0	///unsure 3	//id 16	 //p10.000000	//p2 0.000000	//p3 0.000000	//p40.000000	//lat 4.100244	//long 19.279684	//alt 100.000000	//options 1
-                                LandP1 = ("0 " + "3 " + item.id.ToString() +" " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
-                            }
-                            if (wp_count == 3)
-                            {
-                                LandP2 = ("0 " + "3 " + item.id.ToString() + " " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
-                            }
-                            if (wp_count == 2)
-                            {
-                                LandP3 = ("0 " + "3 " + item.id.ToString() + " " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
-                            }
-                            if (wp_count == 1)
-                            {
-                                LandP4 = ("0 " + "3 " + item.id.ToString() + " " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
-                            }
-                            if (wp_count == 0)
-                            {
-                                LandP5 = ("0 " + "3 " + item.id.ToString() + " " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
-                            }
-                         
-                         }
-                         //convert gps to radians and find distance between points -mwright
-                         List <double> distanceList = new List <double>();
-                         bool first = true;
-                         foreach (PointLatLng item in pointList)
-                         {
-                             double dist = 0;
-                             if (item.Lat != 0 && item.Lng != 0)
-                             {
-                                 double d = Lat * 0.017453292519943295;
-                                 double num2 = Lng * 0.017453292519943295;
-                                 double num3 = item.Lat * 0.017453292519943295;
-                                 double num4 = item.Lng * 0.017453292519943295;
-                                 double num5 = num4 - num2;
-                                 double num6 = num3 - d;
-                                 double num7 = Math.Pow(Math.Sin(num6 / 2.0), 2.0) + ((Math.Cos(d) * Math.Cos(num3)) * Math.Pow(Math.Sin(num5 / 2.0), 2.0));
-                                 double num8 = 2.0 * Math.Atan2(Math.Sqrt(num7), Math.Sqrt(1.0 - num7));
-                                 dist = (6371 * num8) * 1000.0;
-                                 Lat = item.Lat;
-                                 Lng = item.Lng;                        
-                             }
-
-                          //disregards first value (0 - homeloc)   
-                             if (first == false){
-                             distanceList.Add(dist);
-                             }
-                             first = false;
-                             }
-
-                                int wpnumber = 0;
-                                string[] home;
-                                int numberofsaves = 0;
-                                bool setcamtrig = false;                              
-                                SaveFileDialog savefile = new SaveFileDialog();    
-                                fd.Filter = "Ardupilot Mission (*.txt)|*.*";
-                                DialogResult result2 = savefile.ShowDialog();
-                                enumerator.MoveNext(); 
-                                home = (enumerator.Current);
-                                enumerator.MoveNext();        
-                                string file2 = savefile.FileName;
-                                StreamWriter sw = new StreamWriter(file2 + numberofsaves.ToString() + ".txt");
-                                
-                         
-                         
-                                sw.WriteLine("QGC WPL 110");
-                                sw.WriteLine(home[0].ToString() + " " + home[1].ToString() + " " + home[2].ToString() + " " + home[3].ToString() + " " + home[4].ToString() + " " + home[5].ToString() + " " + home[6].ToString() + " " + home[7].ToString() + " " + home[8].ToString() + " " + home[9].ToString() + " " + home[10].ToString() + " " + home[11].ToString());
-                              //breaks missions up into 60 minute missions  
-                              foreach (double item in distanceList)
-                             {  
-
-                                       flightTime = (flightTime + item);
-
-                                        if ((flightTime / 780) < MainV2.CurrentUAV.flighttime)
-                                        {
-                                            sw.WriteLine(enumerator.Current[0].ToString() + " " + enumerator.Current[1].ToString() + " " + enumerator.Current[2].ToString() + " " + enumerator.Current[3] + " " + enumerator.Current[4] + " " + enumerator.Current[5] + " " + enumerator.Current[6] + " " + enumerator.Current[7] + " " + enumerator.Current[8] + " " + enumerator.Current[9] + " " + enumerator.Current[10] + " " + enumerator.Current[11]);
-                                            if (setcamtrig == true)
-                                            {
-                                                sw.WriteLine(camTrigg);
-                                               
-                                                setcamtrig = false;
-                                            }    wpnumber = int.Parse(enumerator.Current[0].ToString());
-                                                enumerator.MoveNext();
-                                                
-                                        }
-                                        else if ((flightTime / 780) > MainV2.CurrentUAV.flighttime)
-                                        {
-
-                                            sw.WriteLine((wpnumber + 1).ToString() + " " + "0 3 206 0 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 1");
-                                            
-                                            if (MainV2.CurrentUAV.firmware == "E386" || MainV2.CurrentUAV.firmware == "Scout")
-                                            { 
-                                                //add landing sequence for e386/scout here.
-                                                sw.WriteLine((wpnumber + 2).ToString() + " " + LandP1);
-                                                sw.WriteLine((wpnumber + 3).ToString() + " " + LandP2);
-                                                sw.WriteLine((wpnumber + 4).ToString() + " " + LandP3);
-                                                sw.WriteLine((wpnumber + 5).ToString() + " " + LandP4);
-                                                sw.WriteLine((wpnumber + 6).ToString() + " " + LandP5);
-                                            }
-
-                                            if (MainV2.CurrentUAV.firmware == "Iris")
-                                            {
-                                                sw.WriteLine((wpnumber + 2).ToString() + " " + LandP5);
-
-                                            }
-                                            sw.Close();
-                                         
-                                                enumerator.MoveNext();
-                                         
-                                            numberofsaves++;
-                                            flightTime = 0;
-                                            flightTime += item;
-                                            sw = new StreamWriter(file2 + numberofsaves.ToString() + ".txt");
-                                            sw.WriteLine("QGC WPL 110");
-                                            sw.WriteLine(home[0].ToString() + " " + home[1].ToString() + " " + home[2].ToString() + " " + home[3].ToString() + " " + home[4].ToString() + " " + home[5].ToString() + " " + home[6].ToString() + " " + home[7].ToString() + " " + home[8].ToString() + " " + home[9].ToString() + " " + home[10].ToString() + " " + home[11].ToString());
-                                            setcamtrig = true;
-                                            if ((flightTime / 780) > MainV2.CurrentUAV.flighttime)
-                                            {   
-                            
-                                                sw.WriteLine(enumerator.Current[0].ToString() + " " + enumerator.Current[1].ToString() + " " + enumerator.Current[2].ToString() + " " + enumerator.Current[3] + " " + enumerator.Current[4] + " " + enumerator.Current[5] + " " + enumerator.Current[6] + " " + enumerator.Current[7] + " " + enumerator.Current[8] + " " + enumerator.Current[9] + " " + enumerator.Current[10] + " " + enumerator.Current[11]);
-                                                
-                                            }
-                                        }
-
-                                    
-                                }
-                                    FileInfo info = new FileInfo(file2 + numberofsaves.ToString() + ".txt");
-                                if (IsFileLocked(info) == true)
-                                {
-                                    sw.Close();
-                                }
-  
-                         }
-                           
- 
-                     catch (Exception ex)
-                     {
-                         CustomMessageBox.Show("Can't open file! " + ex.ToString());
-                     }
-                 }
+                 
 
            
              }
@@ -6798,26 +6549,26 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         }
 // -mwright
 private void autoLand_Click(object sender, EventArgs e)
-{    
+{
     float wpcount;
     //remembers current wp
-    flightpoint = CurrentState.currentwp; 
+    flightpoint = CurrentState.currentwp;
     //gets total number of wps
     wpcount = MainV2.comPort.GetParam("MIS_TOTAL") - 1;
     //camera trigger dist
     camTriggDist = MainV2.comPort.GetParam("CAM_TRIGG_DIST");
-    
-       try
-       {   
-           ((Button)sender).Enabled = false;           
-           wpcount = wpcount - MainV2.CurrentUAV.landwp;
-         
-        ushort UShWP = ushort.Parse(wpcount.ToString());
-            MainV2.comPort.setWPCurrent(UShWP);
 
-        }
-        catch { CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR); }
-        ((Button)sender).Enabled = true;   
+    try
+    {
+        ((Button)sender).Enabled = false;
+        wpcount = wpcount - MainV2.CurrentUAV.landwp;
+
+        ushort UShWP = ushort.Parse(wpcount.ToString());
+        MainV2.comPort.setWPCurrent(UShWP);
+
+    }
+    catch { CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR); }
+    ((Button)sender).Enabled = true;   
 }
 //-mwright
 private void resumeMission_Click(object sender, EventArgs e)
@@ -6925,6 +6676,262 @@ class ResumeMissionThread
         }
 
 
+    }
+}
+
+private void missionBreakdownToolStripMenuItem_Click(object sender, EventArgs e)
+{
+    double flightTime = 0;
+    int wp_count = 0;
+    bool error = false;
+    OpenFileDialog fd = new OpenFileDialog();
+    fd.Filter = "All Supported Types|*.txt|Ardupilot Mission (*.txt)|";
+    DialogResult result = fd.ShowDialog();
+    string file = fd.FileName;
+    List<Locationwp> wpList = new List<Locationwp>();
+    List<string[]> WPfile = new List<string[]>();
+    string LandP1 = null, LandP2 = null, LandP3 = null, LandP4 = null, LandP5 = null, camTrigg = null;
+    if (File.Exists(file))
+    {
+        try
+        {
+            StreamReader sr = new StreamReader(file); //"defines.h"
+            string header = sr.ReadLine();
+            if (header == null || !header.Contains("QGC WPL"))
+            {
+                CustomMessageBox.Show("Invalid Waypoint file");
+                return;
+            }
+            //mission from file
+            while (!error && !sr.EndOfStream)
+            {
+                string line = sr.ReadLine();
+                // waypoints
+
+                if (line.StartsWith("#"))
+                    continue;
+
+                string[] items = line.Split(new char[] { (char)'\t', ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (items.Length <= 9)
+                    continue;
+
+                try
+                {
+
+                    Locationwp temp = new Locationwp();
+
+                    if (items[2] == "3")
+                    { // abs MAV_FRAME_GLOBAL_RELATIVE_ALT=3
+                        temp.options = 1;
+                    }
+
+                    else
+                    {
+                        temp.options = 0;
+                    }
+                    temp.id = (byte)(int)Enum.Parse(typeof(MAVLink.MAV_CMD), items[3], false);
+                    temp.p1 = float.Parse(items[4], new System.Globalization.CultureInfo("en-US"));
+
+                    if (temp.id == 99)
+                        temp.id = 0;
+
+                    temp.alt = (float)(double.Parse(items[10], new System.Globalization.CultureInfo("en-US")));
+                    temp.lat = (double.Parse(items[8], new System.Globalization.CultureInfo("en-US")));
+                    temp.lng = (double.Parse(items[9], new System.Globalization.CultureInfo("en-US")));
+
+                    temp.p2 = (float)(double.Parse(items[5], new System.Globalization.CultureInfo("en-US")));
+                    temp.p3 = (float)(double.Parse(items[6], new System.Globalization.CultureInfo("en-US")));
+                    temp.p4 = (float)(double.Parse(items[7], new System.Globalization.CultureInfo("en-US")));
+
+                    wpList.Add(temp);
+                    WPfile.Add(items);
+                    wp_count++;
+
+                }
+
+                catch { CustomMessageBox.Show("Line invalid\n" + line); }
+
+                if (wp_count == byte.MaxValue)
+                {
+                    CustomMessageBox.Show("To many Waypoints!!!");
+                    break;
+                }
+
+            }
+            IEnumerable<string[]> WPlist = WPfile;
+
+            sr.Close();
+            bool set_home = true;
+            double Lat = 0;
+            double Lng = 0;
+            var enumerator = WPlist.GetEnumerator();
+            List<PointLatLng> pointList = new List<PointLatLng>();
+            PointLatLng tempPoint = new PointLatLng();
+            foreach (Locationwp item in wpList)
+            {
+
+
+                if (set_home == true)
+                {
+                    Lat = Math.Abs(item.lat);
+                    Lng = Math.Abs(item.lng);
+                    set_home = false;
+                }
+
+                wp_count--;
+
+                tempPoint.Lng = item.lng;
+                tempPoint.Lat = item.lat;
+
+                if (item.id == 206 && item.p1 != 0)
+                {
+                    camTrigg = ("3 " + "0 " + "3 " + item.id.ToString() + " " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
+                }
+
+
+
+                pointList.Add(tempPoint);
+                if (wp_count == 4)
+                {  // 1	   //unsure0	///unsure 3	//id 16	 //p10.000000	//p2 0.000000	//p3 0.000000	//p40.000000	//lat 4.100244	//long 19.279684	//alt 100.000000	//options 1
+                    LandP1 = ("0 " + "3 " + item.id.ToString() + " " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
+                }
+                if (wp_count == 3)
+                {
+                    LandP2 = ("0 " + "3 " + item.id.ToString() + " " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
+                }
+                if (wp_count == 2)
+                {
+                    LandP3 = ("0 " + "3 " + item.id.ToString() + " " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
+                }
+                if (wp_count == 1)
+                {
+                    LandP4 = ("0 " + "3 " + item.id.ToString() + " " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
+                }
+                if (wp_count == 0)
+                {
+                    LandP5 = ("0 " + "3 " + item.id.ToString() + " " + item.p1.ToString() + " " + item.p2.ToString() + " " + item.p3.ToString() + " " + item.p4.ToString() + " " + item.lat.ToString() + " " + item.lng.ToString() + " " + item.alt.ToString() + " " + item.options.ToString());
+                }
+
+            }
+            //convert gps to radians and find distance between points -mwright
+            List<double> distanceList = new List<double>();
+            bool first = true;
+            foreach (PointLatLng item in pointList)
+            {
+                double dist = 0;
+                if (item.Lat != 0 && item.Lng != 0)
+                {
+                    double d = Lat * 0.017453292519943295;
+                    double num2 = Lng * 0.017453292519943295;
+                    double num3 = item.Lat * 0.017453292519943295;
+                    double num4 = item.Lng * 0.017453292519943295;
+                    double num5 = num4 - num2;
+                    double num6 = num3 - d;
+                    double num7 = Math.Pow(Math.Sin(num6 / 2.0), 2.0) + ((Math.Cos(d) * Math.Cos(num3)) * Math.Pow(Math.Sin(num5 / 2.0), 2.0));
+                    double num8 = 2.0 * Math.Atan2(Math.Sqrt(num7), Math.Sqrt(1.0 - num7));
+                    dist = (6371 * num8) * 1000.0;
+                    Lat = item.Lat;
+                    Lng = item.Lng;
+                }
+
+                //disregards first value (0 - homeloc)   
+                if (first == false)
+                {
+                    distanceList.Add(dist);
+                }
+                first = false;
+            }
+
+            int wpnumber = 0;
+            string[] home;
+            int numberofsaves = 0;
+            bool setcamtrig = false;
+            SaveFileDialog savefile = new SaveFileDialog();
+            fd.Filter = "Ardupilot Mission (*.txt)|*.*";
+            DialogResult result2 = savefile.ShowDialog();
+            enumerator.MoveNext();
+            home = (enumerator.Current);
+            enumerator.MoveNext();
+            string file2 = savefile.FileName;
+            StreamWriter sw = new StreamWriter(file2 + numberofsaves.ToString() + ".txt");
+
+
+
+            sw.WriteLine("QGC WPL 110");
+            sw.WriteLine(home[0].ToString() + " " + home[1].ToString() + " " + home[2].ToString() + " " + home[3].ToString() + " " + home[4].ToString() + " " + home[5].ToString() + " " + home[6].ToString() + " " + home[7].ToString() + " " + home[8].ToString() + " " + home[9].ToString() + " " + home[10].ToString() + " " + home[11].ToString());
+            //breaks missions up into 60 minute missions  
+            foreach (double item in distanceList)
+            {
+
+                flightTime = (flightTime + item);
+
+                if ((flightTime / 780) < MainV2.CurrentUAV.flighttime)
+                {
+                    sw.WriteLine(enumerator.Current[0].ToString() + " " + enumerator.Current[1].ToString() + " " + enumerator.Current[2].ToString() + " " + enumerator.Current[3] + " " + enumerator.Current[4] + " " + enumerator.Current[5] + " " + enumerator.Current[6] + " " + enumerator.Current[7] + " " + enumerator.Current[8] + " " + enumerator.Current[9] + " " + enumerator.Current[10] + " " + enumerator.Current[11]);
+                    if (setcamtrig == true)
+                    {
+                        sw.WriteLine(camTrigg);
+
+                        setcamtrig = false;
+                    } wpnumber = int.Parse(enumerator.Current[0].ToString());
+                    enumerator.MoveNext();
+
+                }
+                else if ((flightTime / 780) > MainV2.CurrentUAV.flighttime)
+                {
+
+                    sw.WriteLine((wpnumber + 1).ToString() + " " + "0 3 206 0 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 1");
+
+                    if (MainV2.CurrentUAV.firmware == "E386" || MainV2.CurrentUAV.firmware == "Scout")
+                    {
+                        //add landing sequence for e386/scout here.
+                        sw.WriteLine((wpnumber + 2).ToString() + " " + LandP1);
+                        sw.WriteLine((wpnumber + 3).ToString() + " " + LandP2);
+                        sw.WriteLine((wpnumber + 4).ToString() + " " + LandP3);
+                        sw.WriteLine((wpnumber + 5).ToString() + " " + LandP4);
+                        sw.WriteLine((wpnumber + 6).ToString() + " " + LandP5);
+                    }
+
+                    if (MainV2.CurrentUAV.firmware == "Iris")
+                    {
+                        sw.WriteLine((wpnumber + 2).ToString() + " " + LandP5);
+
+                    }
+                    sw.Close();
+
+                    enumerator.MoveNext();
+
+                    numberofsaves++;
+                    flightTime = 0;
+                    flightTime += item;
+                    sw = new StreamWriter(file2 + numberofsaves.ToString() + ".txt");
+                    sw.WriteLine("QGC WPL 110");
+                    sw.WriteLine(home[0].ToString() + " " + home[1].ToString() + " " + home[2].ToString() + " " + home[3].ToString() + " " + home[4].ToString() + " " + home[5].ToString() + " " + home[6].ToString() + " " + home[7].ToString() + " " + home[8].ToString() + " " + home[9].ToString() + " " + home[10].ToString() + " " + home[11].ToString());
+                    setcamtrig = true;
+                    if ((flightTime / 780) > MainV2.CurrentUAV.flighttime)
+                    {
+
+                        sw.WriteLine(enumerator.Current[0].ToString() + " " + enumerator.Current[1].ToString() + " " + enumerator.Current[2].ToString() + " " + enumerator.Current[3] + " " + enumerator.Current[4] + " " + enumerator.Current[5] + " " + enumerator.Current[6] + " " + enumerator.Current[7] + " " + enumerator.Current[8] + " " + enumerator.Current[9] + " " + enumerator.Current[10] + " " + enumerator.Current[11]);
+
+                    }
+                }
+
+
+            }
+            FileInfo info = new FileInfo(file2 + numberofsaves.ToString() + ".txt");
+            if (IsFileLocked(info) == true)
+            {
+                sw.Close();
+            }
+
+        }
+
+
+        catch (Exception ex)
+        {
+            CustomMessageBox.Show("Can't open file! " + ex.ToString());
+        }
     }
 }
 

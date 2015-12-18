@@ -100,9 +100,17 @@
   </Camera>
   <Camera>
     <name>Samsung NX1100</name>
-    <flen>20</flen>
+    <flen>16</flen>
     <imgh>3648</imgh>
     <imgw>5472</imgw>
+    <senh>15.7</senh>
+    <senw>23.5</senw>
+  </Camera>
+  <Camera>
+    <name>Samsung NX500</name>
+    <flen>16</flen>
+    <imgh>4320</imgh>
+    <imgw>6480</imgw>
     <senh>15.7</senh>
     <senw>23.5</senw>
   </Camera>

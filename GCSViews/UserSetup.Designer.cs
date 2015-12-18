@@ -76,7 +76,7 @@
             "E384",
             "E386",
             "Scout",
-            "Iris",
+            "IRIS+",
             "Other"});
             this.CMB_Model.Location = new System.Drawing.Point(68, 53);
             this.CMB_Model.Name = "CMB_Model";

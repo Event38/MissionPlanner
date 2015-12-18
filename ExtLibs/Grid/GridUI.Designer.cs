@@ -108,6 +108,7 @@
             this.tabSimple = new System.Windows.Forms.TabPage();
             this.LBL_PhotoEveryWarning = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.modelname = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.CHK_usespeed = new System.Windows.Forms.CheckBox();
             this.CHK_toandland_RTL = new System.Windows.Forms.CheckBox();
@@ -132,7 +133,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TRK_zoom = new MissionPlanner.Controls.MyTrackBar();
             this.map = new MissionPlanner.Controls.myGMAP();
-            this.modelname = new System.Windows.Forms.Label();
             this.groupBox5.SuspendLayout();
             this.tabCamera.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -806,6 +806,11 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Enter += new System.EventHandler(this.groupBox6_Enter);
             // 
+            // modelname
+            // 
+            resources.ApplyResources(this.modelname, "modelname");
+            this.modelname.Name = "modelname";
+            // 
             // label28
             // 
             resources.ApplyResources(this.label28, "label28");
@@ -874,7 +879,13 @@
             // CMB_camera
             // 
             this.CMB_camera.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CMB_camera.ForeColor = System.Drawing.SystemColors.WindowText;
             this.CMB_camera.FormattingEnabled = true;
+            this.CMB_camera.Items.AddRange(new object[] {
+            resources.GetString("CMB_camera.Items"),
+            resources.GetString("CMB_camera.Items1"),
+            resources.GetString("CMB_camera.Items2"),
+            resources.GetString("CMB_camera.Items3")});
             resources.ApplyResources(this.CMB_camera, "CMB_camera");
             this.CMB_camera.Name = "CMB_camera";
             this.CMB_camera.SelectedIndexChanged += new System.EventHandler(this.CMB_camera_SelectedIndexChanged);
@@ -1030,11 +1041,6 @@
             this.map.Zoom = 3D;
             this.map.MouseDown += new System.Windows.Forms.MouseEventHandler(this.map_MouseDown);
             this.map.MouseMove += new System.Windows.Forms.MouseEventHandler(this.map_MouseMove);
-            // 
-            // modelname
-            // 
-            resources.ApplyResources(this.modelname, "modelname");
-            this.modelname.Name = "modelname";
             // 
             // GridUI
             // 

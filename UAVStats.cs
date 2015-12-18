@@ -42,7 +42,7 @@ namespace MissionPlanner
                 stats.runway = false;
                 
             }
-            else if (uav == "Iris")
+            else if (uav == "IRIS+")
             {
                 stats.batteryHigh = 12.6;
                 stats.batteryLow = 11.2;

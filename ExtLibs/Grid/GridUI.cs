@@ -202,7 +202,13 @@ namespace MissionPlanner
         {
             list = griddata.poly;
 
+
+
             CMB_camera.Text = griddata.camera;
+            if (MainV2.CurrentUAV.firmware == "Iris")
+            {
+                CMB_camera.Text = "Canon S110";
+            }
             NUM_altitude.Value = griddata.alt;
             NUM_angle.Value = griddata.angle;
             
@@ -1117,6 +1123,16 @@ namespace MissionPlanner
         {
             if (cameras.ContainsKey(CMB_camera.Text))
             {
+                if (MainV2.CurrentUAV.firmware == "Iris")
+                {
+                    CMB_camera.Text = "Canon S110";
+                    CMB_camera.Enabled = false;
+                    
+                }
+                else
+                {
+                    CMB_camera.Enabled = true;
+                }
                 camerainfo camera = cameras[CMB_camera.Text];
                 MainV2.instance.UserCamera = CMB_camera.Text; //set user global camera setting
                 MainV2.instance.SaveUserSetup = true;
@@ -1414,6 +1430,8 @@ namespace MissionPlanner
                     LatDistance = -LatDistance;
                 }
 
+
+
                 //add wp
                 if (MainV2.CurrentUAV.firmware != "Iris")
                 {
@@ -1566,7 +1584,7 @@ namespace MissionPlanner
 
             }
 
-            else if (CMB_camera.Text == "NX1100")
+            else if (CMB_camera.Text == "Samsung NX1100")
             {
                 if ((double)NUM_spacing.Value / flyspeedms < .84)
                 {
@@ -1580,6 +1598,27 @@ namespace MissionPlanner
                     LBL_PhotoEveryWarning.ForeColor = Color.Yellow;
                     LBL_PhotoEveryWarning.Visible = true;
                 }
+
+                else
+                {
+                    LBL_PhotoEveryWarning.Visible = false;
+                }
+            }
+            else if (CMB_camera.Text == "Samsung NX500")
+            {
+                if ((double)NUM_spacing.Value / flyspeedms < .84)
+                {
+                    LBL_PhotoEveryWarning.Text = "Time between pictures exceeds camera's reload time. Please reduce overlap or fly higher";
+                    LBL_PhotoEveryWarning.ForeColor = Color.Red;
+                    LBL_PhotoEveryWarning.Visible = true;
+                }
+                else if ((double)NUM_spacing.Value / flyspeedms < .97)
+                {
+                    LBL_PhotoEveryWarning.Text = "A strong tail wind may cause the camera to skip shots. Please reduce overlap, fly perpendicular to prevailing wind, or fly higher";
+                    LBL_PhotoEveryWarning.ForeColor = Color.Yellow;
+                    LBL_PhotoEveryWarning.Visible = true;
+                }
+
                 else
                 {
                     LBL_PhotoEveryWarning.Visible = false;
