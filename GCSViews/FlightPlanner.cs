@@ -42,6 +42,7 @@ namespace MissionPlanner.GCSViews
         bool isonline = true;
         bool sethome = false;
         bool polygongridmode = false;
+        //runway setup stuff
         bool landingStripMode = false; //D Cironi 2015-08-17
         int landingStripPointCount = 0; //D Cironi 2015-08-17
         PointLatLng beginningOfRunway = new PointLatLng(0, 0); //D Cironi 2015-08-17
@@ -50,12 +51,13 @@ namespace MissionPlanner.GCSViews
         PointLatLng landingPoint = new PointLatLng(); //D Cironi 2015-08-17
         double LandingDirection = 0; //D Cironi 2015-08-17
         bool ModifiedLandingPoint = false; //D Cironi 2015-08-18
+        public bool LandingPointMode; //D Cironi 2015-03-31
+        //
         Hashtable param = new Hashtable();
         bool splinemode = false;
         altmode currentaltmode = altmode.Relative;
 
         bool grid = false;
-        public bool LandingPointMode; //for setting up landing waypoints -D Cironi 2015-03-31
 
         public static FlightPlanner instance = null;
         public bool autopan { get; set; }
@@ -6100,10 +6102,13 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             writeKML();
         }
 
-        void SetupLandingWaypoints()
-        {
+
+//******************************************************************************************************
+//*handles setting up landing pattern for E384, E386, Scout, and Iris -D Cironi 2015-12-18
+//******************************************************************************************************
+        void SetupLandingWaypoints() {
             //remove old land WPs and runway overlay if they are present
-            if (Commands.Rows.Count >= 4)
+            if (Commands.Rows.Count >= 3)
             {
                 for (int i = 0; i <= pointlist.Count - 2; i++) //home adds an extra point
                 {
@@ -6113,12 +6118,10 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         Commands.Rows.RemoveAt(i - 1);  //remove approach
                         Commands.Rows.RemoveAt(i - 2);  //remove approach
                         Commands.Rows.RemoveAt(i - 3);  //remove approach
-                        Commands.Rows.RemoveAt(i - 4);  //remove approach
                         break;
                     }
                 }
             }
-
 
             //convert direction in degrees to radians for calculations
             double LandingDirectionRadians = Math.PI * Convert.ToDouble(LandingDirection) / 180;
@@ -6139,171 +6142,470 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 landingPoint.Lng = landingPoint.Lng - (middleOfRunwayOffset * LngDistance);
             }
 
-            //add first wp of landing procedure
-            //This WP is necessary because the loiter to waypoint point sometimes acts strange and gets passed before it is actually reached, which can cause a dangerous situation. This point prevents that.
-            selectedrow = Commands.Rows.Add();
-
-            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-
-            ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
-
-            setfromMap(landingPoint.Lat - (LatDistance * (490)), landingPoint.Lng - (LngDistance * (490)), 100); //WP 490 meters out in the direction of landing and 100 meters altitude.
-            writeKML();
-
-            //add second wp of landing procedure
-            selectedrow = Commands.Rows.Add();
-            
-            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TO_ALT.ToString();
-            Commands.Rows[selectedrow].Cells[Param1.Index].Value = 1; //do not leave loiter until heading towards next WP
-
-            ChangeColumnHeader(MAVLink.MAV_CMD.LOITER_TO_ALT.ToString());
-
-            setfromMap(landingPoint.Lat - (LatDistance * (500)), landingPoint.Lng - (LngDistance * (500)), 80); //WP 500 meters out in the direction of landing and 100 meters altitude
-            writeKML();
-
-            //add third wp of landing procedure
-            selectedrow = Commands.Rows.Add();
-
-            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-
-            ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
-
-            setfromMap(landingPoint.Lat - (LatDistance * (315)), landingPoint.Lng - (LngDistance * (315)), 50); //WP 315 meters out in the direction of landing and 50 meters altitude
-            writeKML();
-
-            //add fourth wp of landing procedure
-            selectedrow = Commands.Rows.Add();
-
-            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
-
-            ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
-
-            setfromMap(landingPoint.Lat - (LatDistance * (111)), landingPoint.Lng - (LngDistance * (111)), 50); //WP 100 meters out in the direction of landing and 50 meters altitude
-
-            writeKML();
-
-            //add final land wp of landing procedure
-            selectedrow = Commands.Rows.Add();
-
-            Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
-
-            ChangeColumnHeader(MAVLink.MAV_CMD.LAND.ToString());
-
-            setfromMap(landingPoint.Lat, landingPoint.Lng, 0); //WP at specified GPS location of landing
-
-            writeKML();
-            
-
-            //create the Landing Zone polygon overlay -D Cironi 2015-11-06
-
-            List<PointLatLng> LandingZoneCorners = new List<PointLatLng>();
-
-            for(int i = 0; i < 4; i++)
+            //E386
+            if (MainV2.CurrentUAV.firmware == "E386") 
             {
-                double tempDirection = LandingDirectionRadians; //necessary offset of 45 degrees
-                switch(i)
+                //add first wp of landing procedure
+                selectedrow = Commands.Rows.Add();
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TO_ALT.ToString();
+                Commands.Rows[selectedrow].Cells[Param1.Index].Value = 1; //do not leave loiter until heading towards next WP
+                ChangeColumnHeader(MAVLink.MAV_CMD.LOITER_TO_ALT.ToString());
+                setfromMap(landingPoint.Lat - (LatDistance * (500)), landingPoint.Lng - (LngDistance * (500)), 80); //WP 500 meters out in the direction of landing and 100 meters altitude
+                writeKML();
+
+                //add second wp of landing procedure
+                selectedrow = Commands.Rows.Add();
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+                setfromMap(landingPoint.Lat - (LatDistance * (315)), landingPoint.Lng - (LngDistance * (315)), 50); //WP 315 meters out in the direction of landing and 50 meters altitude
+                writeKML();
+
+                //add third wp of landing procedure
+                selectedrow = Commands.Rows.Add();
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+                setfromMap(landingPoint.Lat - (LatDistance * (111)), landingPoint.Lng - (LngDistance * (111)), 50); //WP 100 meters out in the direction of landing and 50 meters altitude
+                writeKML();
+
+                //add final land wp of landing procedure
+                selectedrow = Commands.Rows.Add();
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.LAND.ToString());
+                setfromMap(landingPoint.Lat, landingPoint.Lng, 0); //WP at specified GPS location of landing
+                writeKML();
+
+                //create the Landing Zone polygon overlay -D Cironi 2015-11-06
+                List<PointLatLng> LandingZoneCorners = new List<PointLatLng>();
+
+                //calculate angle to place points based on length and height and law of cosines
+                double a = 25 / 2; //landing zone width / 2
+                double b = 65 / 2; //landing zone length / 2
+                double c = Math.Sqrt((a * a) + (b * b));
+
+                double angleOfFirstPoint = Math.Acos(((-a * a) + (b * b) + (c * c)) / (2 * b * c));
+                double angleOfSecondPoint = Math.PI - angleOfFirstPoint;
+                double angleOfThirdPoint = Math.PI + angleOfFirstPoint;
+                double angleOfFourthPoint = 2 * Math.PI - angleOfFirstPoint;
+
+                for (int i = 0; i < 4; i++)
                 {
-                    //these numbers will creat a 65 by 25 meter landing zone, eventually I need to create a function to calculate these numbers based on law of cosines
-                    case 0:
-                        tempDirection = tempDirection + .36704274;
-                        break;
-                    case 1:
-                        tempDirection = tempDirection + 2.77454991;
-                        break;
-                    case 2:
-                        tempDirection = tempDirection + 3.5086345;
-                        break;
-                    case 3:
-                        tempDirection = tempDirection + 5.91614257;
-                        break;
+                    double tempDirection = LandingDirectionRadians;
+                    switch (i)
+                    {
+                        //these numbers will create a 65 by 25 meter landing zone, eventually I need to create a function to calculate these numbers based on law of cosines
+                        case 0:
+                            tempDirection = tempDirection + angleOfFirstPoint;
+                            break;
+                        case 1:
+                            tempDirection = tempDirection + angleOfSecondPoint;
+                            break;
+                        case 2:
+                            tempDirection = tempDirection + angleOfThirdPoint;
+                            break;
+                        case 3:
+                            tempDirection = tempDirection + angleOfFourthPoint;
+                            break;
+                    }
+
+                    //determine where to place points based on angle of landing, these values put a point at the proper angle 1m away,
+                    //in order to get the final point placement we must multiply these values by the ground distance between waypoints in order to get the proper angle and distance
+                    double LatDirection = .000008998 * Math.Sin(Math.PI - tempDirection - Math.PI / 2) / Math.Sin(Math.PI / 2);     //.000008998 degrees LAT = 1m east and west          
+                    double LngDirection = .000011950 * Math.Sin(tempDirection) / Math.Sin(Math.PI / 2);                             //.000011950 degrees LNG = 1m north and south
+
+                    PointLatLng tempPoint = new PointLatLng();
+
+                    //center 10 meters past point, account for previous offset, and 34.82 is the distance for a 65 by 25 meter LZ
+                    tempPoint.Lat = landingPoint.Lat + (10 * LatDistance) - (LatDirection * 34.82);
+                    tempPoint.Lng = landingPoint.Lng + (10 * LngDistance) - (LngDirection * 34.82);
+                    LandingZoneCorners.Add(tempPoint);
                 }
 
-                //determine where to place points based on angle of landing, these values put a point at the proper angle 1m away,
-                //in order to get the final point placement we must multiply these values by the ground distance between waypoints in order to get the proper angle and distance
-                double LatDirection = .000008998 * Math.Sin(Math.PI - tempDirection - Math.PI / 2) / Math.Sin(Math.PI / 2);     //.000008998 degrees LAT = 1m east and west          
-                double LngDirection = .000011950 * Math.Sin(tempDirection) / Math.Sin(Math.PI / 2);                             //.000011950 degrees LNG = 1m north and south
+                //create the polygon from the points
+                GMapPolygon LandingZone = new GMapPolygon(LandingZoneCorners, "Landing Zone");
+                LandingZone.Stroke.Brush = Brushes.Green;
+                LandingZone.Stroke.Width = 1;
 
-                PointLatLng tempPoint = new PointLatLng();
+                //create a marker to use as a label, since apparently you can't put a label on a polygon
+                //this will be drawn right over top the actual final landing waypoint
+                GMarkerGoogle LandingZoneMarker = new GMarkerGoogle(landingPoint, GMarkerGoogleType.green);
+                LandingZoneMarker.ToolTipText = "LZ";
+                LandingZoneMarker.ToolTipMode = MarkerTooltipMode.Always;
 
-                //center 10 meters past point, account for previous offset, and 34.82 is the distance for a 65 by 25 meter LZ
-                tempPoint.Lat = landingPoint.Lat + (10 * LatDistance) - (LatDirection * 34.82);
-                tempPoint.Lng = landingPoint.Lng + (10 * LngDistance) - (LngDirection * 34.82);
-                LandingZoneCorners.Add(tempPoint);
-            }
 
-            //create the polygon from the points
-            GMapPolygon LandingZone = new GMapPolygon(LandingZoneCorners, "Landing Zone");
-            LandingZone.Stroke.Brush = Brushes.Green;
-            LandingZone.Stroke.Width = 1;
+                //add altitude estimation points along final dive of the landing sequence - D Cironi 2015-11-06
+                Bitmap icon;
 
-            //create a marker to use as a label, since apparently you can't put a label on a polygon
-            //this will be drawn right over top the actual final landing waypoint
-            GMarkerGoogle LandingZoneMarker = new GMarkerGoogle(landingPoint, GMarkerGoogleType.green);
-            LandingZoneMarker.ToolTipText = "LZ";
-            LandingZoneMarker.ToolTipMode = MarkerTooltipMode.Always;
+                if (LandingDirection > 180 && LandingDirection <= 360)
+                {
+                    icon = MissionPlanner.Properties.Resources.icon_take3_left;
+                }
+                else
+                {
+                    icon = MissionPlanner.Properties.Resources.icon_take3_right;
+                }
 
-            //add altitude estimation points along final dive of the landing sequence - D Cironi 2015-11-06
+                PointLatLng AltGuide1 = new PointLatLng();
+                AltGuide1.Lat = landingPoint.Lat - (LatDistance * 101);
+                AltGuide1.Lng = landingPoint.Lng - (LngDistance * 101);
+                GMapMarkerLanding AltGuideMarker1 = new GMapMarkerLanding(AltGuide1, "50 M", icon);
 
-            Bitmap icon;
+                PointLatLng AltGuide2 = new PointLatLng();
+                AltGuide2.Lat = landingPoint.Lat - (LatDistance * 62);
+                AltGuide2.Lng = landingPoint.Lng - (LngDistance * 62);
+                GMapMarkerLanding AltGuideMarker2 = new GMapMarkerLanding(AltGuide2, "25 M", icon);
 
-            if(LandingDirection > 180 && LandingDirection <= 360)
+                PointLatLng AltGuide3 = new PointLatLng();
+                AltGuide3.Lat = landingPoint.Lat - (LatDistance * 46);
+                AltGuide3.Lng = landingPoint.Lng - (LngDistance * 46);
+                GMapMarkerLanding AltGuideMarker3 = new GMapMarkerLanding(AltGuide3, "15 M", icon);
+
+
+                runwayoverlay.Markers.Add(AltGuideMarker1);
+                runwayoverlay.Markers.Add(AltGuideMarker2);
+                runwayoverlay.Markers.Add(AltGuideMarker3);
+
+                runwayoverlay.Markers.Add(LandingZoneMarker);
+                runwayoverlay.Polygons.Add(LandingZone);
+
+            } 
+            else if (MainV2.CurrentUAV.firmware == "Scout") 
             {
-                 icon = MissionPlanner.Properties.Resources.icon_take3_left;
+                //add first wp of landing procedure
+                selectedrow = Commands.Rows.Add();
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TO_ALT.ToString();
+                Commands.Rows[selectedrow].Cells[Param1.Index].Value = 1; //do not leave loiter until heading towards next WP
+                ChangeColumnHeader(MAVLink.MAV_CMD.LOITER_TO_ALT.ToString());
+                setfromMap(landingPoint.Lat - (LatDistance * (500)), landingPoint.Lng - (LngDistance * (500)), 80); //WP 500 meters out in the direction of landing and 100 meters altitude
+                writeKML();
+
+                //add second wp of landing procedure
+                selectedrow = Commands.Rows.Add();
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+                setfromMap(landingPoint.Lat - (LatDistance * (315)), landingPoint.Lng - (LngDistance * (315)), 50); //WP 315 meters out in the direction of landing and 50 meters altitude
+                writeKML();
+
+                //add third wp of landing procedure
+                selectedrow = Commands.Rows.Add();
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+                setfromMap(landingPoint.Lat - (LatDistance * (111)), landingPoint.Lng - (LngDistance * (111)), 30); //WP 100 meters out in the direction of landing and 50 meters altitude
+                writeKML();
+
+                //add final land wp of landing procedure
+                selectedrow = Commands.Rows.Add();
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.LAND.ToString());
+                setfromMap(landingPoint.Lat, landingPoint.Lng, 0); //WP at specified GPS location of landing
+                writeKML();
+
+
+                //create the Landing Zone polygon overlay -D Cironi 2015-11-06
+                List<PointLatLng> LandingZoneCorners = new List<PointLatLng>();
+
+                //calculate angle to place points based on length and height and law of cosines
+                double a = 25 / 2; //landing zone width / 2
+                double b = 65 / 2; //landing zone length / 2
+                double c = Math.Sqrt((a * a) + (b * b));
+
+                double angleOfFirstPoint = Math.Acos(((-a * a) + (b * b) + (c * c)) / (2 * b * c));
+                double angleOfSecondPoint = Math.PI - angleOfFirstPoint; 
+                double angleOfThirdPoint = Math.PI + angleOfFirstPoint;
+                double angleOfFourthPoint = 2 * Math.PI - angleOfFirstPoint;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    double tempDirection = LandingDirectionRadians;
+                    switch (i)
+                    {
+                        //these numbers will create a 65 by 25 meter landing zone, eventually I need to create a function to calculate these numbers based on law of cosines
+                        case 0:
+                            tempDirection = tempDirection + angleOfFirstPoint;
+                            break;
+                        case 1:
+                            tempDirection = tempDirection + angleOfSecondPoint;
+                            break;
+                        case 2:
+                            tempDirection = tempDirection + angleOfThirdPoint;
+                            break;
+                        case 3:
+                            tempDirection = tempDirection + angleOfFourthPoint;
+                            break;
+                    }
+
+                    //determine where to place points based on angle of landing, these values put a point at the proper angle 1m away,
+                    //in order to get the final point placement we must multiply these values by the ground distance between waypoints in order to get the proper angle and distance
+                    double LatDirection = .000008998 * Math.Sin(Math.PI - tempDirection - Math.PI / 2) / Math.Sin(Math.PI / 2);     //.000008998 degrees LAT = 1m east and west          
+                    double LngDirection = .000011950 * Math.Sin(tempDirection) / Math.Sin(Math.PI / 2);                             //.000011950 degrees LNG = 1m north and south
+
+                    PointLatLng tempPoint = new PointLatLng();
+
+                    //center 10 meters past point, account for previous offset, and 34.82 is the distance for a 65 by 25 meter LZ
+                    tempPoint.Lat = landingPoint.Lat + (10 * LatDistance) - (LatDirection * c);
+                    tempPoint.Lng = landingPoint.Lng + (10 * LngDistance) - (LngDirection * c);
+                    LandingZoneCorners.Add(tempPoint);
+                }
+
+                //create the polygon from the points
+                GMapPolygon LandingZone = new GMapPolygon(LandingZoneCorners, "Landing Zone");
+                LandingZone.Stroke.Brush = Brushes.Green;
+                LandingZone.Stroke.Width = 1;
+
+                //create a marker to use as a label, since apparently you can't put a label on a polygon
+                //this will be drawn right over top the actual final landing waypoint
+                GMarkerGoogle LandingZoneMarker = new GMarkerGoogle(landingPoint, GMarkerGoogleType.green);
+                LandingZoneMarker.ToolTipText = "LZ";
+                LandingZoneMarker.ToolTipMode = MarkerTooltipMode.Always;
+
+
+                //add altitude estimation points along final dive of the landing sequence - D Cironi 2015-11-06
+                Bitmap icon;
+
+                if (LandingDirection > 180 && LandingDirection <= 360)
+                {
+                    icon = MissionPlanner.Properties.Resources.icon_take3_left;
+                }
+                else
+                {
+                    icon = MissionPlanner.Properties.Resources.icon_take3_right;
+                }
+
+                PointLatLng AltGuide1 = new PointLatLng();
+                AltGuide1.Lat = landingPoint.Lat - (LatDistance * 101);
+                AltGuide1.Lng = landingPoint.Lng - (LngDistance * 101);
+                GMapMarkerLanding AltGuideMarker1 = new GMapMarkerLanding(AltGuide1, "50 M", icon);
+
+                PointLatLng AltGuide2 = new PointLatLng();
+                AltGuide2.Lat = landingPoint.Lat - (LatDistance * 62);
+                AltGuide2.Lng = landingPoint.Lng - (LngDistance * 62);
+                GMapMarkerLanding AltGuideMarker2 = new GMapMarkerLanding(AltGuide2, "25 M", icon);
+
+                PointLatLng AltGuide3 = new PointLatLng();
+                AltGuide3.Lat = landingPoint.Lat - (LatDistance * 46);
+                AltGuide3.Lng = landingPoint.Lng - (LngDistance * 46);
+                GMapMarkerLanding AltGuideMarker3 = new GMapMarkerLanding(AltGuide3, "15 M", icon);
+
+
+                runwayoverlay.Markers.Add(AltGuideMarker1);
+                runwayoverlay.Markers.Add(AltGuideMarker2);
+                runwayoverlay.Markers.Add(AltGuideMarker3);
+
+                runwayoverlay.Markers.Add(LandingZoneMarker);
+                runwayoverlay.Polygons.Add(LandingZone);
+            }
+            else if (MainV2.CurrentUAV.firmware == "E384")
+            {
+                //add first wp of landing procedure
+                selectedrow = Commands.Rows.Add();
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TO_ALT.ToString();
+                Commands.Rows[selectedrow].Cells[Param1.Index].Value = 1; //do not leave loiter until heading towards next WP
+                ChangeColumnHeader(MAVLink.MAV_CMD.LOITER_TO_ALT.ToString());
+                setfromMap(landingPoint.Lat - (LatDistance * (500)), landingPoint.Lng - (LngDistance * (500)), 80); //WP 500 meters out in the direction of landing and 100 meters altitude
+                writeKML();
+
+                //add second wp of landing procedure
+                selectedrow = Commands.Rows.Add();
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+                setfromMap(landingPoint.Lat - (LatDistance * (315)), landingPoint.Lng - (LngDistance * (315)), 50); //WP 315 meters out in the direction of landing and 50 meters altitude
+                writeKML();
+
+                //add third wp of landing procedure
+                selectedrow = Commands.Rows.Add();
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.WAYPOINT.ToString());
+                setfromMap(landingPoint.Lat - (LatDistance * (111)), landingPoint.Lng - (LngDistance * (111)), 30); //WP 100 meters out in the direction of landing and 50 meters altitude
+                writeKML();
+
+                //add final land wp of landing procedure
+                selectedrow = Commands.Rows.Add();
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.LAND.ToString());
+                setfromMap(landingPoint.Lat, landingPoint.Lng, 0); //WP at specified GPS location of landing
+                writeKML();
+
+
+                //create the Landing Zone polygon overlay -D Cironi 2015-11-06
+                List<PointLatLng> LandingZoneCorners = new List<PointLatLng>();
+
+                //calculate angle to place points based on length and height and law of cosines
+                double a = 25 / 2; //landing zone width / 2
+                double b = 65 / 2; //landing zone length / 2
+                double c = Math.Sqrt((a * a) + (b * b));
+
+                double angleOfFirstPoint = Math.Acos(((-a * a) + (b * b) + (c * c)) / (2 * b * c));
+                double angleOfSecondPoint = Math.PI - angleOfFirstPoint;
+                double angleOfThirdPoint = Math.PI + angleOfFirstPoint;
+                double angleOfFourthPoint = 2 * Math.PI - angleOfFirstPoint;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    double tempDirection = LandingDirectionRadians;
+                    switch (i)
+                    {
+                        //these numbers will create a 65 by 25 meter landing zone, eventually I need to create a function to calculate these numbers based on law of cosines
+                        case 0:
+                            tempDirection = tempDirection + angleOfFirstPoint;
+                            break;
+                        case 1:
+                            tempDirection = tempDirection + angleOfSecondPoint;
+                            break;
+                        case 2:
+                            tempDirection = tempDirection + angleOfThirdPoint;
+                            break;
+                        case 3:
+                            tempDirection = tempDirection + angleOfFourthPoint;
+                            break;
+                    }
+
+                    //determine where to place points based on angle of landing, these values put a point at the proper angle 1m away,
+                    //in order to get the final point placement we must multiply these values by the ground distance between waypoints in order to get the proper angle and distance
+                    double LatDirection = .000008998 * Math.Sin(Math.PI - tempDirection - Math.PI / 2) / Math.Sin(Math.PI / 2);     //.000008998 degrees LAT = 1m east and west          
+                    double LngDirection = .000011950 * Math.Sin(tempDirection) / Math.Sin(Math.PI / 2);                             //.000011950 degrees LNG = 1m north and south
+
+                    PointLatLng tempPoint = new PointLatLng();
+
+                    //center 10 meters past point, account for previous offset, and 34.82 is the distance for a 65 by 25 meter LZ
+                    tempPoint.Lat = landingPoint.Lat + (10 * LatDistance) - (LatDirection * c);
+                    tempPoint.Lng = landingPoint.Lng + (10 * LngDistance) - (LngDirection * c);
+                    LandingZoneCorners.Add(tempPoint);
+                }
+
+                //create the polygon from the points
+                GMapPolygon LandingZone = new GMapPolygon(LandingZoneCorners, "Landing Zone");
+                LandingZone.Stroke.Brush = Brushes.Green;
+                LandingZone.Stroke.Width = 1;
+
+                //create a marker to use as a label, since apparently you can't put a label on a polygon
+                //this will be drawn right over top the actual final landing waypoint
+                GMarkerGoogle LandingZoneMarker = new GMarkerGoogle(landingPoint, GMarkerGoogleType.green);
+                LandingZoneMarker.ToolTipText = "LZ";
+                LandingZoneMarker.ToolTipMode = MarkerTooltipMode.Always;
+
+
+                //add altitude estimation points along final dive of the landing sequence - D Cironi 2015-11-06
+                Bitmap icon;
+
+                if (LandingDirection > 180 && LandingDirection <= 360)
+                {
+                    icon = MissionPlanner.Properties.Resources.icon_take3_left;
+                }
+                else
+                {
+                    icon = MissionPlanner.Properties.Resources.icon_take3_right;
+                }
+
+                PointLatLng AltGuide1 = new PointLatLng();
+                AltGuide1.Lat = landingPoint.Lat - (LatDistance * 101);
+                AltGuide1.Lng = landingPoint.Lng - (LngDistance * 101);
+                GMapMarkerLanding AltGuideMarker1 = new GMapMarkerLanding(AltGuide1, "50 M", icon);
+
+                PointLatLng AltGuide2 = new PointLatLng();
+                AltGuide2.Lat = landingPoint.Lat - (LatDistance * 62);
+                AltGuide2.Lng = landingPoint.Lng - (LngDistance * 62);
+                GMapMarkerLanding AltGuideMarker2 = new GMapMarkerLanding(AltGuide2, "25 M", icon);
+
+                PointLatLng AltGuide3 = new PointLatLng();
+                AltGuide3.Lat = landingPoint.Lat - (LatDistance * 46);
+                AltGuide3.Lng = landingPoint.Lng - (LngDistance * 46);
+                GMapMarkerLanding AltGuideMarker3 = new GMapMarkerLanding(AltGuide3, "15 M", icon);
+
+
+                runwayoverlay.Markers.Add(AltGuideMarker1);
+                runwayoverlay.Markers.Add(AltGuideMarker2);
+                runwayoverlay.Markers.Add(AltGuideMarker3);
+
+                runwayoverlay.Markers.Add(LandingZoneMarker);
+                runwayoverlay.Polygons.Add(LandingZone);
+            }
+            else if (MainV2.CurrentUAV.firmware == "Iris")
+            {
+                //add final land wp of landing procedure
+                selectedrow = Commands.Rows.Add();
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.LAND.ToString());
+                setfromMap(landingPoint.Lat, landingPoint.Lng, 0); //WP at specified GPS location of landing
+                writeKML();
+
+                //create the Landing Zone polygon overlay -D Cironi 2015-11-06
+                List<PointLatLng> LandingZoneCorners = new List<PointLatLng>();
+
+                //calculate angle to place points based on length and height and law of cosines
+                double a = 25 / 2; //landing zone width / 2
+                double b = 65 / 2; //landing zone length / 2
+                double c = Math.Sqrt((a * a) + (b * b));
+
+                double angleOfFirstPoint = Math.Acos(((-a * a) + (b * b) + (c * c)) / (2 * b * c));
+                double angleOfSecondPoint = Math.PI - angleOfFirstPoint;
+                double angleOfThirdPoint = Math.PI + angleOfFirstPoint;
+                double angleOfFourthPoint = 2 * Math.PI - angleOfFirstPoint;
+
+                for (int i = 0; i < 4; i++)
+                {
+                    double tempDirection = LandingDirectionRadians;
+                    switch (i)
+                    {
+                        //these numbers will create a 65 by 25 meter landing zone, eventually I need to create a function to calculate these numbers based on law of cosines
+                        case 0:
+                            tempDirection = tempDirection + angleOfFirstPoint;
+                            break;
+                        case 1:
+                            tempDirection = tempDirection + angleOfSecondPoint;
+                            break;
+                        case 2:
+                            tempDirection = tempDirection + angleOfThirdPoint;
+                            break;
+                        case 3:
+                            tempDirection = tempDirection + angleOfFourthPoint;
+                            break;
+                    }
+
+                    //determine where to place points based on angle of landing, these values put a point at the proper angle 1m away,
+                    //in order to get the final point placement we must multiply these values by the ground distance between waypoints in order to get the proper angle and distance
+                    double LatDirection = .000008998 * Math.Sin(Math.PI - tempDirection - Math.PI / 2) / Math.Sin(Math.PI / 2);     //.000008998 degrees LAT = 1m east and west          
+                    double LngDirection = .000011950 * Math.Sin(tempDirection) / Math.Sin(Math.PI / 2);                             //.000011950 degrees LNG = 1m north and south
+
+                    PointLatLng tempPoint = new PointLatLng();
+
+                    //center 10 meters past point, account for previous offset, and 34.82 is the distance for a 65 by 25 meter LZ
+                    tempPoint.Lat = landingPoint.Lat + (10 * LatDistance) - (LatDirection * c);
+                    tempPoint.Lng = landingPoint.Lng + (10 * LngDistance) - (LngDirection * c);
+                    LandingZoneCorners.Add(tempPoint);
+                }
+
+                //create the polygon from the points
+                GMapPolygon LandingZone = new GMapPolygon(LandingZoneCorners, "Landing Zone");
+                LandingZone.Stroke.Brush = Brushes.Green;
+                LandingZone.Stroke.Width = 1;
+
+                //create a marker to use as a label, since apparently you can't put a label on a polygon
+                //this will be drawn right over top the actual final landing waypoint
+                GMarkerGoogle LandingZoneMarker = new GMarkerGoogle(landingPoint, GMarkerGoogleType.green);
+                LandingZoneMarker.ToolTipText = "LZ";
+                LandingZoneMarker.ToolTipMode = MarkerTooltipMode.Always;
+
             }
             else
             {
-                 icon = MissionPlanner.Properties.Resources.icon_take3_right;
+                CustomMessageBox.Show("Unable to create a landing mission for your model");
             }
-
-            PointLatLng AltGuide1 = new PointLatLng();
-            AltGuide1.Lat = landingPoint.Lat - (LatDistance * 101);
-            AltGuide1.Lng = landingPoint.Lng - (LngDistance * 101);
-            GMapMarkerLanding AltGuideMarker1 = new GMapMarkerLanding(AltGuide1, "50 M", icon);
-
-            PointLatLng AltGuide2 = new PointLatLng();
-            AltGuide2.Lat = landingPoint.Lat - (LatDistance * 62);
-            AltGuide2.Lng = landingPoint.Lng - (LngDistance * 62);
-            GMapMarkerLanding AltGuideMarker2 = new GMapMarkerLanding(AltGuide2, "25 M", icon);
-
-            PointLatLng AltGuide3 = new PointLatLng();
-            AltGuide3.Lat = landingPoint.Lat - (LatDistance * 46);
-            AltGuide3.Lng = landingPoint.Lng - (LngDistance * 46);
-            GMapMarkerLanding AltGuideMarker3 = new GMapMarkerLanding(AltGuide3, "15 M", icon);
-
-
-            runwayoverlay.Markers.Add(AltGuideMarker1);
-            runwayoverlay.Markers.Add(AltGuideMarker2);
-            runwayoverlay.Markers.Add(AltGuideMarker3);
-
-            runwayoverlay.Markers.Add(LandingZoneMarker);
-            runwayoverlay.Polygons.Add(LandingZone);
-            
         }
 
-        private void SetupLandingStrip()
-        {
-           
+        private void SetupLandingStrip() {
+       
             landingStripPointCount = landingStripPointCount + 1;
 
-            if (landingStripPointCount == 1)
-            {
+            if (landingStripPointCount == 1) { //first point of a new runway
+
                 runwayoverlay.Clear();
                 landingStripPoints.Clear(); //clear old points
 
                 beginningOfRunway = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
 
-
                 GMarkerGoogle beginningOfRunwayIcon = new GMarkerGoogle(beginningOfRunway, GMarkerGoogleType.arrow);
-                //runwayoverlay.Markers.Add(beginningOfRunwayIcon);
                 
-            }
-            else if(landingStripPointCount == 2)
-            {
+            } else if(landingStripPointCount == 2) { //second point of a new runway
                 endOfRunway = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
-
-                Bitmap FinishIcon = new Bitmap(MissionPlanner.Properties.Resources.CheckeredFlag, 40, 40);
-                GMarkerGoogle endOfRunwayIcon = new GMarkerGoogle(endOfRunway, FinishIcon);
-                //runwayoverlay.Markers.Add(endOfRunwayIcon);
 
                 //draw the "Runway"
                 landingStripPoints.Add(beginningOfRunway);
@@ -6319,37 +6621,26 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
 
             //determine landing direction once we have the start and end points of the runway
-            if (landingStripPointCount == 2)
-            {
-                double startLat = beginningOfRunway.Lat;
-                double startLong = beginningOfRunway.Lng;
-                double endLat = endOfRunway.Lat;
-                double endLong = endOfRunway.Lng;
+            if (landingStripPointCount == 2) {
 
+                double a = beginningOfRunway.Lat * Math.PI / 180;
+                double b = beginningOfRunway.Lng * Math.PI / 180;
+                double c = endOfRunway.Lat * Math.PI / 180;
+                double d = endOfRunway.Lng * Math.PI / 180;
 
-                //other other other method
-                double a = startLat * Math.PI / 180;
-                double b = startLong * Math.PI / 180;
-                double c = endLat * Math.PI / 180;
-                double d = endLong * Math.PI / 180;
-
-                if (Math.Cos(c) * Math.Sin(d - b) == 0)
+                if (Math.Cos(c) * Math.Sin(d - b) == 0) {
                     if (c > a)
                         LandingDirection=  0;
                     else
                         LandingDirection = 180;
-                else
-                {
+                } else {
                     double angle = Math.Atan2(Math.Cos(c) * Math.Sin(d - b), Math.Sin(c) * Math.Cos(a) - Math.Sin(a) * Math.Cos(c) * Math.Cos(d - b));
                     LandingDirection = (angle * 180 / Math.PI + 360) % 360;
                 }
 
-                //CustomMessageBox.Show("Your landing direction is " + LandingDirection);
-
                 //set up the landing pattern
                 SetupLandingWaypoints();
             }
-            
         }
 
         private void lbl_distance_TextChanged(object sender, EventArgs e)
