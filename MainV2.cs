@@ -1210,6 +1210,7 @@ namespace MissionPlanner
                         _connectionControl.TOOL_APMFirmware.SelectedIndex = 3;
                         CurrentUAV = UAVStats.setStats("Scout");
                     }
+                    MainV2.config["CMB_Model"] = MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex;
                     // check for newer firmware -Don't do this in our version -D Cironi 2015-05-13
                     //var softwares = Firmware.LoadSoftwares();
 
@@ -1566,6 +1567,13 @@ namespace MissionPlanner
                                         if (_connectionControl.TOOL_APMFirmware.SelectedIndex == -1)
                                             _connectionControl.TOOL_APMFirmware.SelectedIndex = 0;
                                         MainV2.comPort.MAV.cs.firmware = (MainV2.Firmwares)Enum.Parse(typeof(MainV2.Firmwares), _connectionControl.TOOL_APMFirmware.Text);
+                                        break;
+                                        //mwright
+                                    case "CMB_Model":
+                                        string temp8 = xmlreader.ReadString();
+                                        _connectionControl.TOOL_APMFirmware.SelectedIndex = int.Parse(temp8.ToString());
+                                        if (_connectionControl.TOOL_APMFirmware.SelectedIndex == -1)
+                                            _connectionControl.TOOL_APMFirmware.SelectedIndex = 0;
                                         break;
                                     case "Config":
                                         break;
@@ -2433,7 +2441,7 @@ namespace MissionPlanner
         private void TOOL_APMFirmware_SelectedIndexChanged(object sender, EventArgs e)
         { 
                 MainV2.CurrentUAV = UAVStats.setStats(_connectionControl.TOOL_APMFirmware.SelectedItem.ToString());
-            
+                MainV2.config["CMB_Model"] = MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex;
             }
 
         private void MainV2_Resize(object sender, EventArgs e)

@@ -71,6 +71,9 @@ namespace MissionPlanner.GCSViews
                 MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex = 4;
                 MainV2.CurrentUAV = UAVStats.setStats("Other");
             }
+           
+            MainV2.config["CMB_Model"] = MainV2._connectionControl.TOOL_APMFirmware.SelectedIndex;
+
         }
 
         private void CMB_Model_SelectedIndexChanged_1(object sender, EventArgs e)
