@@ -6611,56 +6611,63 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
         }
 
-        private void SetupLandingStrip() {
-       
-            landingStripPointCount = landingStripPointCount + 1;
+        private void SetupLandingStrip() 
+        {
+                landingStripPointCount = landingStripPointCount + 1;
 
-            if (landingStripPointCount == 1) { //first point of a new runway
+                if (landingStripPointCount == 1) //first point of a new runway
+                {
+                    runwayoverlay.Clear();
+                    landingStripPoints.Clear(); //clear old points
 
-                runwayoverlay.Clear();
-                landingStripPoints.Clear(); //clear old points
+                    beginningOfRunway = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
 
-                beginningOfRunway = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
+                    if(MainV2.CurrentUAV.firmware == "Iris")
+                    {
+                        endOfRunway = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
+                        landingStripPointCount = 2;
+                        SetupLandingWaypoints();
+                    }
+                }
+                else if (landingStripPointCount == 2) //second point of a new runway
+                {
+                    endOfRunway = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
 
-                GMarkerGoogle beginningOfRunwayIcon = new GMarkerGoogle(beginningOfRunway, GMarkerGoogleType.arrow);
-                
-            } else if(landingStripPointCount == 2) { //second point of a new runway
-                endOfRunway = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
+                    //draw the "Runway"
+                    landingStripPoints.Add(beginningOfRunway);
+                    landingStripPoints.Add(endOfRunway);
 
-                //draw the "Runway"
-                landingStripPoints.Add(beginningOfRunway);
-                landingStripPoints.Add(endOfRunway);
+                    GMapRoute runwayRoute = new GMapRoute(landingStripPoints, "RunwayRoute");
 
-                GMapRoute runwayRoute = new GMapRoute(landingStripPoints, "RunwayRoute");
+                    runwayRoute.Stroke.Color = Color.DarkRed;
+                    runwayRoute.Stroke.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
 
-                runwayRoute.Stroke.Color = Color.DarkRed;
-                runwayRoute.Stroke.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-
-                runwayoverlay.Routes.Add(runwayRoute);
-               
-            }
-
-            //determine landing direction once we have the start and end points of the runway
-            if (landingStripPointCount == 2) {
-
-                double a = beginningOfRunway.Lat * Math.PI / 180;
-                double b = beginningOfRunway.Lng * Math.PI / 180;
-                double c = endOfRunway.Lat * Math.PI / 180;
-                double d = endOfRunway.Lng * Math.PI / 180;
-
-                if (Math.Cos(c) * Math.Sin(d - b) == 0) {
-                    if (c > a)
-                        LandingDirection=  0;
-                    else
-                        LandingDirection = 180;
-                } else {
-                    double angle = Math.Atan2(Math.Cos(c) * Math.Sin(d - b), Math.Sin(c) * Math.Cos(a) - Math.Sin(a) * Math.Cos(c) * Math.Cos(d - b));
-                    LandingDirection = (angle * 180 / Math.PI + 360) % 360;
+                    runwayoverlay.Routes.Add(runwayRoute);
                 }
 
-                //set up the landing pattern
-                SetupLandingWaypoints();
-            }
+                //determine landing direction once we have the start and end points of the runway
+                if (landingStripPointCount == 2)
+                {
+
+                    double a = beginningOfRunway.Lat * Math.PI / 180;
+                    double b = beginningOfRunway.Lng * Math.PI / 180;
+                    double c = endOfRunway.Lat * Math.PI / 180;
+                    double d = endOfRunway.Lng * Math.PI / 180;
+
+                    if (Math.Cos(c) * Math.Sin(d - b) == 0)
+                    {
+                        if (c > a)
+                            LandingDirection = 0;
+                        else
+                            LandingDirection = 180;
+                    }
+                    else
+                    {
+                        double angle = Math.Atan2(Math.Cos(c) * Math.Sin(d - b), Math.Sin(c) * Math.Cos(a) - Math.Sin(a) * Math.Cos(c) * Math.Cos(d - b));
+                        LandingDirection = (angle * 180 / Math.PI + 360) % 360;
+                    }
+                }
+
         }
 
         private void lbl_distance_TextChanged(object sender, EventArgs e)
@@ -6720,10 +6727,19 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             if (landingStripMode == false)
             {
                 runwayoverlay.Clear();
-                CustomMessageBox.Show("Please select the beginning point of your runway and the end point");
+                if(MainV2.CurrentUAV.firmware =="Iris")
+                {
+                    CustomMessageBox.Show("Please select your landing point");
+                }
+                else
+                {
+                    CustomMessageBox.Show("Please select the beginning point of your runway and the end point");
+                }
             }
             ModifiedLandingPoint = false;
             landingStripMode = true;
+
+            
         }
 
         private void BUT_GPSLanding_Click(object sender, EventArgs e)
