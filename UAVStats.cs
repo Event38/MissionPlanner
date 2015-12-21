@@ -40,7 +40,7 @@ namespace MissionPlanner
                 stats.autoland = false;
                 stats.resumeMission = false;
                 stats.runway = true;
-                
+                MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.ArduPlane;               
             }
             else if (uav == "IRIS+")
             {
@@ -57,6 +57,8 @@ namespace MissionPlanner
                 stats.resumeMission = true;
                 stats.amphour = 5100;
                 stats.runway = true;
+                MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.ArduCopter2;               
+
             }
             else if (uav == "E386")
             {
@@ -73,6 +75,7 @@ namespace MissionPlanner
                 stats.autoland = true;
                 stats.resumeMission = true;
                 stats.runway = true;
+                MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.ArduPlane;               
             }
             else if (uav == "Scout")
             {
@@ -89,6 +92,7 @@ namespace MissionPlanner
                 stats.autoland = true;
                 stats.resumeMission = true;
                 stats.runway = true;
+                MainV2.comPort.MAV.cs.firmware = MainV2.Firmwares.ArduPlane;               
             }
             else if (uav == "Other")
             {
