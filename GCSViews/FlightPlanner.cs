@@ -1624,6 +1624,31 @@ namespace MissionPlanner.GCSViews
                     log.Info("Getting WP" + a);
                     ((Controls.ProgressReporterDialogue)sender).UpdateProgressAndStatus(a * 100 / cmdcount, "Getting WP " + a);
                     cmds.Add(port.getWP(a));
+
+
+                    //the following function will determine the landing direction of the mission that was read in
+                    //we do this because if the user plans a landing using "Setup Landing", then saves and reads these points back at a later time,
+                    //the planner won't know a direction for the landing points, so if the user moves their landing point it will go back to 0 degrees direction
+                    if (cmds[a].id == (byte)MAVLink.MAV_CMD.LAND)
+                    {
+                        double A = cmds[a-1].lat * Math.PI / 180;
+                        double B = cmds[a-1].lng * Math.PI / 180;
+                        double C = cmds[a].lat * Math.PI / 180;
+                        double D = cmds[a].lng * Math.PI / 180;
+
+                        if (Math.Cos(C) * Math.Sin(D - B) == 0)
+                        {
+                            if (C > A)
+                                LandingDirection = 0;
+                            else
+                                LandingDirection = 180;
+                        }
+                        else
+                        {
+                            double angle = Math.Atan2(Math.Cos(C) * Math.Sin(D - B), Math.Sin(C) * Math.Cos(A) - Math.Sin(A) * Math.Cos(C) * Math.Cos(D - B));
+                            LandingDirection = (angle * 180 / Math.PI + 360) % 360;
+                        }
+                    }
                 }
 
                 port.setWPACK();
@@ -2895,8 +2920,6 @@ namespace MissionPlanner.GCSViews
 
                                 drawnpolygon.Points[int.Parse(CurentRectMarker.InnerMarker.Tag.ToString().Replace("grid", "")) - 1] = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
                                 MainMap.UpdatePolygonLocalPosition(drawnpolygon);
-
-
 
                                 MainMap.UpdateMarkerLocalPosition(currentMarker);
                                 MainMap.UpdateRouteLocalPosition(route);
@@ -6184,7 +6207,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 selectedrow = Commands.Rows.Add();
                 Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LAND.ToString();
                 ChangeColumnHeader(MAVLink.MAV_CMD.LAND.ToString());
-                setfromMap(landingPoint.Lat, landingPoint.Lng, 0); //WP at specified GPS location of landing
+                setfromMap(landingPoint.Lat, landingPoint.Lng, 0);
                 writeKML();
 
                 //create the Landing Zone polygon overlay -D Cironi 2015-11-06
@@ -6551,8 +6574,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 List<PointLatLng> LandingZoneCorners = new List<PointLatLng>();
 
                 //calculate angle to place points based on length and height and law of cosines
-                double a = 20 / 2; //landing zone width / 2
-                double b = 20 / 2; //landing zone length / 2
+                double a = 10 / 2; //landing zone width / 2
+                double b = 10 / 2; //landing zone length / 2
                 double c = Math.Sqrt((a * a) + (b * b));
 
                 double angleOfFirstPoint = Math.Acos(((-a * a) + (b * b) + (c * c)) / (2 * b * c));
