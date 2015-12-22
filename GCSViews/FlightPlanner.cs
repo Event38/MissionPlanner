@@ -6449,8 +6449,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 List<PointLatLng> LandingZoneCorners = new List<PointLatLng>();
 
                 //calculate angle to place points based on length and height and law of cosines
-                double a = 25 / 2; //landing zone width / 2
-                double b = 65 / 2; //landing zone length / 2
+                double a = 30 / 2; //landing zone width / 2
+                double b = 120 / 2; //landing zone length / 2
                 double c = Math.Sqrt((a * a) + (b * b));
 
                 double angleOfFirstPoint = Math.Acos(((-a * a) + (b * b) + (c * c)) / (2 * b * c));
@@ -6485,9 +6485,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                     PointLatLng tempPoint = new PointLatLng();
 
-                    //center 10 meters past point, account for previous offset, and 34.82 is the distance for a 65 by 25 meter LZ
-                    tempPoint.Lat = landingPoint.Lat + (10 * LatDistance) - (LatDirection * c);
-                    tempPoint.Lng = landingPoint.Lng + (10 * LngDistance) - (LngDirection * c);
+                    //center 40 meters before the point, account for previous offset
+                    tempPoint.Lat = landingPoint.Lat - (40 * LatDistance) - (LatDirection * c);
+                    tempPoint.Lng = landingPoint.Lng - (40 * LngDistance) - (LngDirection * c);
                     LandingZoneCorners.Add(tempPoint);
                 }
 
@@ -6504,36 +6504,36 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
 
                 //add altitude estimation points along final dive of the landing sequence - D Cironi 2015-11-06
-                Bitmap icon;
+                //Bitmap icon;
 
-                if (LandingDirection > 180 && LandingDirection <= 360)
-                {
-                    icon = MissionPlanner.Properties.Resources.icon_take3_left;
-                }
-                else
-                {
-                    icon = MissionPlanner.Properties.Resources.icon_take3_right;
-                }
+                //if (LandingDirection > 180 && LandingDirection <= 360)
+                //{
+                //    icon = MissionPlanner.Properties.Resources.icon_take3_left;
+                //}
+                //else
+                //{
+                //    icon = MissionPlanner.Properties.Resources.icon_take3_right;
+                //}
 
-                PointLatLng AltGuide1 = new PointLatLng();
-                AltGuide1.Lat = landingPoint.Lat - (LatDistance * 101);
-                AltGuide1.Lng = landingPoint.Lng - (LngDistance * 101);
-                GMapMarkerLanding AltGuideMarker1 = new GMapMarkerLanding(AltGuide1, "50 M", icon);
+                //PointLatLng AltGuide1 = new PointLatLng();
+                //AltGuide1.Lat = landingPoint.Lat - (LatDistance * 101);
+                //AltGuide1.Lng = landingPoint.Lng - (LngDistance * 101);
+                //GMapMarkerLanding AltGuideMarker1 = new GMapMarkerLanding(AltGuide1, "50 M", icon);
 
-                PointLatLng AltGuide2 = new PointLatLng();
-                AltGuide2.Lat = landingPoint.Lat - (LatDistance * 62);
-                AltGuide2.Lng = landingPoint.Lng - (LngDistance * 62);
-                GMapMarkerLanding AltGuideMarker2 = new GMapMarkerLanding(AltGuide2, "25 M", icon);
+                //PointLatLng AltGuide2 = new PointLatLng();
+                //AltGuide2.Lat = landingPoint.Lat - (LatDistance * 62);
+                //AltGuide2.Lng = landingPoint.Lng - (LngDistance * 62);
+                //GMapMarkerLanding AltGuideMarker2 = new GMapMarkerLanding(AltGuide2, "25 M", icon);
 
-                PointLatLng AltGuide3 = new PointLatLng();
-                AltGuide3.Lat = landingPoint.Lat - (LatDistance * 46);
-                AltGuide3.Lng = landingPoint.Lng - (LngDistance * 46);
-                GMapMarkerLanding AltGuideMarker3 = new GMapMarkerLanding(AltGuide3, "15 M", icon);
+                //PointLatLng AltGuide3 = new PointLatLng();
+                //AltGuide3.Lat = landingPoint.Lat - (LatDistance * 46);
+                //AltGuide3.Lng = landingPoint.Lng - (LngDistance * 46);
+                //GMapMarkerLanding AltGuideMarker3 = new GMapMarkerLanding(AltGuide3, "15 M", icon);
 
 
-                runwayoverlay.Markers.Add(AltGuideMarker1);
-                runwayoverlay.Markers.Add(AltGuideMarker2);
-                runwayoverlay.Markers.Add(AltGuideMarker3);
+                //runwayoverlay.Markers.Add(AltGuideMarker1);
+                //runwayoverlay.Markers.Add(AltGuideMarker2);
+                //runwayoverlay.Markers.Add(AltGuideMarker3);
 
                 runwayoverlay.Markers.Add(LandingZoneMarker);
                 runwayoverlay.Polygons.Add(LandingZone);
@@ -6551,8 +6551,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 List<PointLatLng> LandingZoneCorners = new List<PointLatLng>();
 
                 //calculate angle to place points based on length and height and law of cosines
-                double a = 25 / 2; //landing zone width / 2
-                double b = 65 / 2; //landing zone length / 2
+                double a = 20 / 2; //landing zone width / 2
+                double b = 20 / 2; //landing zone length / 2
                 double c = Math.Sqrt((a * a) + (b * b));
 
                 double angleOfFirstPoint = Math.Acos(((-a * a) + (b * b) + (c * c)) / (2 * b * c));
@@ -6587,9 +6587,9 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
                     PointLatLng tempPoint = new PointLatLng();
 
-                    //center 10 meters past point, account for previous offset, and 34.82 is the distance for a 65 by 25 meter LZ
-                    tempPoint.Lat = landingPoint.Lat + (10 * LatDistance) - (LatDirection * c);
-                    tempPoint.Lng = landingPoint.Lng + (10 * LngDistance) - (LngDirection * c);
+                    //center on the point, account for previous offset, and 34.82 is the distance for a 65 by 25 meter LZ
+                    tempPoint.Lat = landingPoint.Lat + (LatDistance) - (LatDirection * c);
+                    tempPoint.Lng = landingPoint.Lng + (LngDistance) - (LngDirection * c);
                     LandingZoneCorners.Add(tempPoint);
                 }
 
@@ -6604,6 +6604,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 LandingZoneMarker.ToolTipText = "LZ";
                 LandingZoneMarker.ToolTipMode = MarkerTooltipMode.Always;
 
+                runwayoverlay.Markers.Add(LandingZoneMarker);
+                runwayoverlay.Polygons.Add(LandingZone);
             }
             else
             {
@@ -6613,61 +6615,62 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         private void SetupLandingStrip() 
         {
-                landingStripPointCount = landingStripPointCount + 1;
+            landingStripPointCount = landingStripPointCount + 1;
 
-                if (landingStripPointCount == 1) //first point of a new runway
-                {
-                    runwayoverlay.Clear();
-                    landingStripPoints.Clear(); //clear old points
+            if (landingStripPointCount == 1) //first point of a new runway
+            {
+                runwayoverlay.Clear();
+                landingStripPoints.Clear(); //clear old points
 
-                    beginningOfRunway = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
+                beginningOfRunway = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
 
-                    if(MainV2.CurrentUAV.firmware == "Iris")
-                    {
-                        endOfRunway = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
-                        landingStripPointCount = 2;
-                        SetupLandingWaypoints();
-                    }
-                }
-                else if (landingStripPointCount == 2) //second point of a new runway
+                if (MainV2.CurrentUAV.firmware == "Iris")
                 {
                     endOfRunway = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
-
-                    //draw the "Runway"
-                    landingStripPoints.Add(beginningOfRunway);
-                    landingStripPoints.Add(endOfRunway);
-
-                    GMapRoute runwayRoute = new GMapRoute(landingStripPoints, "RunwayRoute");
-
-                    runwayRoute.Stroke.Color = Color.DarkRed;
-                    runwayRoute.Stroke.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-
-                    runwayoverlay.Routes.Add(runwayRoute);
+                    landingStripPointCount = 2;
+                    SetupLandingWaypoints();
                 }
+            }
+            else if (landingStripPointCount == 2) //second point of a new runway
+            {
+                endOfRunway = new PointLatLng(MouseDownEnd.Lat, MouseDownEnd.Lng);
 
-                //determine landing direction once we have the start and end points of the runway
-                if (landingStripPointCount == 2)
+                //draw the "Runway"
+                landingStripPoints.Add(beginningOfRunway);
+                landingStripPoints.Add(endOfRunway);
+
+                GMapRoute runwayRoute = new GMapRoute(landingStripPoints, "RunwayRoute");
+
+                runwayRoute.Stroke.Color = Color.DarkRed;
+                runwayRoute.Stroke.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+
+                runwayoverlay.Routes.Add(runwayRoute);
+            }
+
+            //determine landing direction once we have the start and end points of the runway
+            if (landingStripPointCount == 2)
+            {
+
+                double a = beginningOfRunway.Lat * Math.PI / 180;
+                double b = beginningOfRunway.Lng * Math.PI / 180;
+                double c = endOfRunway.Lat * Math.PI / 180;
+                double d = endOfRunway.Lng * Math.PI / 180;
+
+                if (Math.Cos(c) * Math.Sin(d - b) == 0)
                 {
-
-                    double a = beginningOfRunway.Lat * Math.PI / 180;
-                    double b = beginningOfRunway.Lng * Math.PI / 180;
-                    double c = endOfRunway.Lat * Math.PI / 180;
-                    double d = endOfRunway.Lng * Math.PI / 180;
-
-                    if (Math.Cos(c) * Math.Sin(d - b) == 0)
-                    {
-                        if (c > a)
-                            LandingDirection = 0;
-                        else
-                            LandingDirection = 180;
-                    }
+                    if (c > a)
+                        LandingDirection = 0;
                     else
-                    {
-                        double angle = Math.Atan2(Math.Cos(c) * Math.Sin(d - b), Math.Sin(c) * Math.Cos(a) - Math.Sin(a) * Math.Cos(c) * Math.Cos(d - b));
-                        LandingDirection = (angle * 180 / Math.PI + 360) % 360;
-                    }
+                        LandingDirection = 180;
+                }
+                else
+                {
+                    double angle = Math.Atan2(Math.Cos(c) * Math.Sin(d - b), Math.Sin(c) * Math.Cos(a) - Math.Sin(a) * Math.Cos(c) * Math.Cos(d - b));
+                    LandingDirection = (angle * 180 / Math.PI + 360) % 360;
                 }
 
+                SetupLandingWaypoints();
+            }
         }
 
         private void lbl_distance_TextChanged(object sender, EventArgs e)
