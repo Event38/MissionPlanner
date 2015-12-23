@@ -67,7 +67,6 @@
             this.BUT_setmode = new MissionPlanner.Controls.MyButton();
             this.BUT_Land = new MissionPlanner.Controls.MyButton();
             this.BUT_TriggerCamera = new MissionPlanner.Controls.MyButton();
-
             this.BUT_ResumeMission = new MissionPlanner.Controls.MyButton();
             this.BUT_clear_track = new MissionPlanner.Controls.MyButton();
             this.CMB_action = new System.Windows.Forms.ComboBox();
@@ -92,6 +91,7 @@
             this.BUT_CloseHatchSimple = new MissionPlanner.Controls.MyButton();
             this.BUT_OpenHatchSimple = new MissionPlanner.Controls.MyButton();
             this.BUT_CloseLensSimple = new MissionPlanner.Controls.MyButton();
+            this.BUT_TriggerCameraSimple = new MissionPlanner.Controls.MyButton();
             this.BUT_RTLSimple = new MissionPlanner.Controls.MyButton();
             this.BUT_AutoSimple = new MissionPlanner.Controls.MyButton();
             this.modifyandSetSpeedSimple = new MissionPlanner.Controls.ModifyandSet();
@@ -764,6 +764,7 @@
             this.BUT_Land.Click += new System.EventHandler(this.BUT_Land_Click);
             //
             // BUT_TRIGGERCAMERA
+            //
             resources.ApplyResources(this.BUT_TriggerCamera, "BUT_TriggerCamera");
             this.BUT_setmode.Name = "BUT_TriggerCamera";
             this.toolTip1.SetToolTip(this.BUT_TriggerCamera, resources.GetString("BUT_TriggerCamera.ToolTip"));
@@ -854,10 +855,9 @@
             this.tabActionsSimple.Controls.Add(this.BUT_BTBLand);
             this.tabActionsSimple.Controls.Add(this.label18);
             this.tabActionsSimple.Controls.Add(this.label17);
-            this.tabActionsSimple.Controls.Add(this.label13);
-           
+            this.tabActionsSimple.Controls.Add(this.label13);          
             this.tabActionsSimple.Controls.Add(this.LBL_Downloading);
-        
+            this.tabActionsSimple.Controls.Add(this.BUT_TriggerCameraSimple);
             this.tabActionsSimple.Controls.Add(this.CMB_setwpSimple);
             this.tabActionsSimple.Controls.Add(this.BUT_RestartSimple);
             this.tabActionsSimple.Controls.Add(this.BUT_SetWPSimple);
@@ -886,6 +886,14 @@
             this.toolTip1.SetToolTip(this.BUT_BTBLand, resources.GetString("BUT_BTBLand.ToolTip"));
             this.BUT_BTBLand.UseVisualStyleBackColor = true;
             this.BUT_BTBLand.Click += new System.EventHandler(this.BUT_BTBLand_Click);
+            //
+            // BUT_TRIGGERCAMERASIMPLE
+            //
+            resources.ApplyResources(this.BUT_TriggerCameraSimple, "BUT_TriggerCameraSimple");
+            this.BUT_setmode.Name = "BUT_TriggerCameraSimple";
+            this.toolTip1.SetToolTip(this.BUT_TriggerCameraSimple, resources.GetString("BUT_TriggerCameraSimple.ToolTip"));
+            this.BUT_TriggerCameraSimple.UseVisualStyleBackColor = true;
+            this.BUT_TriggerCameraSimple.Click += new System.EventHandler(this.BUT_TriggerCameraSimpleActions_Click);
             // 
             // label18
             // 
@@ -2320,6 +2328,7 @@
         public Controls.MyButton BUT_CloseHatch;
         public Controls.MyButton BUT_OpenHatch;
         public System.Windows.Forms.CheckBox CHK_AutoHatchSimple;
+        private Controls.MyButton BUT_TriggerCameraSimple;
         public Controls.MyButton BUT_CloseHatchSimple;
         public Controls.MyButton BUT_OpenHatchSimple;
         public Controls.MyButton BUT_CloseLensSimple;

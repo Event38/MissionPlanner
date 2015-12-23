@@ -2257,6 +2257,15 @@ namespace MissionPlanner.GCSViews
             }
             catch { CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR); }
         }
+        private void BUT_TriggerCameraSimpleActions_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                MainV2.comPort.setDigicamControl(true);
+            }
+            catch { CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR); }
+        }
+
         private void BUT_setmode_Click(object sender, EventArgs e)
         {
             MainV2.comPort.setMode(CMB_modes.Text);
