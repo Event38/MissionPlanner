@@ -32,7 +32,7 @@ namespace MissionPlanner
                 stats.flightSpeedM = 13;
                 stats.flightSpeedF = 42.65;
                 stats.amphour = 134.4;
-                stats.landwp = 2;
+                stats.landwp = 6;
                 stats.firmware = "E384";
                 stats.flighttime = 60;
                 stats.resumealt = 80;
@@ -48,7 +48,7 @@ namespace MissionPlanner
                 stats.batteryLow = 11.2;
                 stats.flightSpeedM = 5;
                 stats.flightSpeedF = 16.4;
-                stats.landwp = 2;
+                stats.landwp = 1;
                 stats.firmware = "Iris";
                 stats.flighttime = 15;
                 stats.resumealt = 60;

@@ -1275,6 +1275,37 @@
   <data name="&gt;&gt;BUT_Land.ZOrder" xml:space="preserve">
     <value>25</value>
   </data>
+  //here
+  <data name="BUT_TriggerCamera.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_TriggerCamera.Location" type="System.Drawing.Point, System.Drawing">
+    <value>214, 123</value>
+  </data>
+  <data name="BUT_TriggerCamera.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 23</value>
+  </data>
+  <data name="BUT_TriggerCamera.TabIndex" type="System.Int32, mscorlib">
+    <value>71</value>
+  </data>
+  <data name="BUT_TriggerCamera.Text" xml:space="preserve">
+    <value>Trigger Camera</value>
+  </data>
+  <data name="BUT_TriggerCamera.ToolTip" xml:space="preserve">
+    <value>Changes to the Mode on the left</value>
+  </data>
+  <data name="&gt;&gt;BUT_TriggerCamera.Name" xml:space="preserve">
+    <value>BUT_TriggerCamera</value>
+  </data>
+  <data name="&gt;&gt;BUT_TriggerCamera.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUT_TriggerCamera.Parent" xml:space="preserve">
+    <value>tabActions</value>
+  </data>
+  <data name="&gt;&gt;BUT_TriggerCamera.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
   <data name="BUT_clear_track.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>

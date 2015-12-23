@@ -66,6 +66,8 @@
             this.CMB_modes = new System.Windows.Forms.ComboBox();
             this.BUT_setmode = new MissionPlanner.Controls.MyButton();
             this.BUT_Land = new MissionPlanner.Controls.MyButton();
+            this.BUT_TriggerCamera = new MissionPlanner.Controls.MyButton();
+
             this.BUT_ResumeMission = new MissionPlanner.Controls.MyButton();
             this.BUT_clear_track = new MissionPlanner.Controls.MyButton();
             this.CMB_action = new System.Windows.Forms.ComboBox();
@@ -607,6 +609,7 @@
             this.tabActions.Controls.Add(this.CMB_modes);
             this.tabActions.Controls.Add(this.BUT_setmode);
             this.tabActions.Controls.Add(this.BUT_Land);
+            this.tabActions.Controls.Add(this.BUT_TriggerCamera);
             this.tabActions.Controls.Add(this.BUT_ResumeMission);
             this.tabActions.Controls.Add(this.BUT_clear_track);
             this.tabActions.Controls.Add(this.CMB_action);
@@ -759,6 +762,13 @@
             this.toolTip1.SetToolTip(this.BUT_Land, resources.GetString("BUT_Land.ToolTip"));
             this.BUT_Land.UseVisualStyleBackColor = true;
             this.BUT_Land.Click += new System.EventHandler(this.BUT_Land_Click);
+            //
+            // BUT_TRIGGERCAMERA
+            resources.ApplyResources(this.BUT_TriggerCamera, "BUT_TriggerCamera");
+            this.BUT_setmode.Name = "BUT_TriggerCamera";
+            this.toolTip1.SetToolTip(this.BUT_TriggerCamera, resources.GetString("BUT_TriggerCamera.ToolTip"));
+            this.BUT_TriggerCamera.UseVisualStyleBackColor = true;
+            this.BUT_TriggerCamera.Click += new System.EventHandler(this.BUT_TriggerCameraActions_Click);
             // 
             // BUT_setmode
             // 
@@ -2228,6 +2238,7 @@
         private System.Windows.Forms.ComboBox CMB_modes;
         private Controls.MyButton BUT_setmode;
         private Controls.MyButton BUT_Land;
+        private Controls.MyButton BUT_TriggerCamera;
         private Controls.MyButton BUT_ResumeMission;
         private Controls.MyButton BUT_clear_track;
         private System.Windows.Forms.ComboBox CMB_action;

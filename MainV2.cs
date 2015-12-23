@@ -3006,7 +3006,7 @@ namespace MissionPlanner
         public List<double> EstimateLifeRemaining(List<double> list)
         {       double timeLeft;
                 string estimatedBatteryLife;
-                bool Show =true;
+                bool Show =false;
 
              
 
@@ -3030,8 +3030,8 @@ namespace MissionPlanner
 
                 this.BeginInvoke((MethodInvoker)delegate
                    {
-                       toolStripTextBox1.Visible = true;
-                       updateBatteryLife.Visible = true;
+                       toolStripTextBox1.Visible = false;
+                       updateBatteryLife.Visible = false;
                        updateBatteryLife.Text = estimatedBatteryLife;
 
                    });
