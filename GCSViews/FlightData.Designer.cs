@@ -94,6 +94,10 @@
             this.BUT_TriggerCameraSimple = new MissionPlanner.Controls.MyButton();
             this.BUT_RTLSimple = new MissionPlanner.Controls.MyButton();
             this.BUT_AutoSimple = new MissionPlanner.Controls.MyButton();
+            this.BUT_LandSimple = new MissionPlanner.Controls.MyButton();
+            this.BUT_ResumeSimple = new MissionPlanner.Controls.MyButton();
+           
+
             this.modifyandSetSpeedSimple = new MissionPlanner.Controls.ModifyandSet();
             this.tabGauges = new System.Windows.Forms.TabPage();
             this.Gvspeed = new AGaugeApp.AGauge();
@@ -868,6 +872,8 @@
             this.tabActionsSimple.Controls.Add(this.BUT_RTLSimple);
             this.tabActionsSimple.Controls.Add(this.BUT_AutoSimple);
             this.tabActionsSimple.Controls.Add(this.modifyandSetSpeedSimple);
+            this.tabActionsSimple.Controls.Add(this.BUT_LandSimple);
+            this.tabActionsSimple.Controls.Add(this.BUT_ResumeSimple);
             resources.ApplyResources(this.tabActionsSimple, "tabActionsSimple");
             this.tabActionsSimple.Name = "tabActionsSimple";
             this.tabActionsSimple.UseVisualStyleBackColor = true;
@@ -894,6 +900,22 @@
             this.toolTip1.SetToolTip(this.BUT_TriggerCameraSimple, resources.GetString("BUT_TriggerCameraSimple.ToolTip"));
             this.BUT_TriggerCameraSimple.UseVisualStyleBackColor = true;
             this.BUT_TriggerCameraSimple.Click += new System.EventHandler(this.BUT_TriggerCameraSimpleActions_Click);
+            //
+            // BUT_LANDSIMPLE
+            //
+            resources.ApplyResources(this.BUT_LandSimple, "BUT_LandSimple");
+            this.BUT_setmode.Name = "BUT_LandSimple";
+            this.toolTip1.SetToolTip(this.BUT_LandSimple, resources.GetString("land"));
+            this.BUT_LandSimple.UseVisualStyleBackColor = true;
+            this.BUT_LandSimple.Click += new System.EventHandler(this.BUT_Land_Click);
+            //
+            //BUT_RESUMESIMPLE
+            //
+            resources.ApplyResources(this.BUT_ResumeSimple, "BUT_ResumeSimple");
+            this.BUT_setmode.Name = "BUT_ResumeSimple";
+            this.toolTip1.SetToolTip(this.BUT_ResumeSimple, resources.GetString("Resume"));
+            this.BUT_ResumeSimple.UseVisualStyleBackColor = true;
+            this.BUT_ResumeSimple.Click += new System.EventHandler(this.BUT_ResumeMission_Click);
             // 
             // label18
             // 
@@ -2255,6 +2277,8 @@
         private Controls.MyButton BUTactiondo;
         private Controls.MyButton BUT_RTLSimple;
         private Controls.MyButton BUT_AutoSimple;
+        private Controls.MyButton BUT_LandSimple;
+        private Controls.MyButton BUT_ResumeSimple;
         private System.Windows.Forms.TabPage tabGauges;
         private AGaugeApp.AGauge Gvspeed;
         private Controls.HSI Gheading;

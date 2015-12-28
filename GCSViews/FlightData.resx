@@ -1275,7 +1275,6 @@
   <data name="&gt;&gt;BUT_Land.ZOrder" xml:space="preserve">
     <value>25</value>
   </data>
-  //here
   <data name="BUT_TriggerCamera.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1905,7 +1904,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_RestartSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>85, 34</value>
+    <value>5, 34</value>
   </data>
   <data name="BUT_RestartSimple.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 23</value>
@@ -1997,6 +1996,67 @@
   <data name="&gt;&gt;CHK_AutoHatchSimple.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
+  <data name="BUT_LandSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_LandSimple.Location" type="System.Drawing.Point, System.Drawing">
+    <value>230, 34</value>
+  </data>
+  <data name="BUT_LandSimple.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 23</value>
+  </data>
+  <data name="BUT_LandSimple.TabIndex" type="System.Int32, mscorlib">
+    <value>93</value>
+  </data>
+  <data name="BUT_LandSimple.Text" xml:space="preserve">
+    <value>Pause Mission</value>
+  </data>
+  <data name="BUT_LandSimple.ToolTip" xml:space="preserve">
+    <value>Sends UAV to the current mission's landing sequence</value>
+  </data>
+  <data name="&gt;&gt;BUT_LandSimple.Name" xml:space="preserve">
+    <value>BUT_CloseHatchSimple</value>
+  </data>
+  <data name="&gt;&gt;BUT_LandSimple.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUT_LandSimple.Parent" xml:space="preserve">
+    <value>tabActionsSimple</value>
+  </data>
+  <data name="&gt;&gt;BUT_LandSimple.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="BUT_ResumeSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUT_ResumeSimple.Location" type="System.Drawing.Point, System.Drawing">
+    <value>140, 34</value>
+  </data>
+  <data name="BUT_ResumeSimple.Size" type="System.Drawing.Size, System.Drawing">
+    <value>83, 23</value>
+  </data>
+  <data name="BUT_ResumeSimple.TabIndex" type="System.Int32, mscorlib">
+    <value>93</value>
+  </data>
+  <data name="BUT_ResumeSimple.Text" xml:space="preserve">
+    <value>Resume Mission</value>
+  </data>
+  <data name="BUT_ResumeSimple.ToolTip" xml:space="preserve">
+    <value>Resume mission from last waypoint</value>
+  </data>
+  <data name="&gt;&gt;BUT_ResumeSimple.Name" xml:space="preserve">
+    <value>BUT_CloseHatchSimple</value>
+  </data>
+  <data name="&gt;&gt;BUT_ResumeSimple.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUT_ResumeSimple.Parent" xml:space="preserve">
+    <value>tabActionsSimple</value>
+  </data>
+  <data name="&gt;&gt;BUT_ResumeSimple.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  
   <data name="BUT_CloseHatchSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -2091,7 +2151,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_RTLSimple.Location" type="System.Drawing.Point, System.Drawing">
-    <value>165, 34</value>
+    <value>85, 34</value>
   </data>
   <data name="BUT_RTLSimple.Size" type="System.Drawing.Size, System.Drawing">
     <value>47, 23</value>
@@ -2168,7 +2228,7 @@
   <data name="&gt;&gt;modifyandSetSpeedSimple.ZOrder" xml:space="preserve">
     <value>21</value>
   </data>
-  //here
+
   <data name="BUT_TriggerCameraSimple.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
