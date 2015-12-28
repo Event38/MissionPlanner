@@ -6283,7 +6283,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 PointLatLng AltGuide1 = new PointLatLng();
                 AltGuide1.Lat = landingPoint.Lat - (LatDistance * 101);
                 AltGuide1.Lng = landingPoint.Lng - (LngDistance * 101);
-                GMapMarkerLanding AltGuideMarker1 = new GMapMarkerLanding(AltGuide1, "50 M", icon);
+                GMapMarkerLanding AltGuideMarker1 = new GMapMarkerLanding(AltGuide1, "40 M", icon);
 
                 PointLatLng AltGuide2 = new PointLatLng();
                 AltGuide2.Lat = landingPoint.Lat - (LatDistance * 62);
@@ -6409,17 +6409,17 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 PointLatLng AltGuide1 = new PointLatLng();
                 AltGuide1.Lat = landingPoint.Lat - (LatDistance * 101);
                 AltGuide1.Lng = landingPoint.Lng - (LngDistance * 101);
-                GMapMarkerLanding AltGuideMarker1 = new GMapMarkerLanding(AltGuide1, "50 M", icon);
+                GMapMarkerLanding AltGuideMarker1 = new GMapMarkerLanding(AltGuide1, "25 M", icon);
 
                 PointLatLng AltGuide2 = new PointLatLng();
                 AltGuide2.Lat = landingPoint.Lat - (LatDistance * 62);
                 AltGuide2.Lng = landingPoint.Lng - (LngDistance * 62);
-                GMapMarkerLanding AltGuideMarker2 = new GMapMarkerLanding(AltGuide2, "25 M", icon);
+                GMapMarkerLanding AltGuideMarker2 = new GMapMarkerLanding(AltGuide2, "15 M", icon);
 
                 PointLatLng AltGuide3 = new PointLatLng();
-                AltGuide3.Lat = landingPoint.Lat - (LatDistance * 46);
-                AltGuide3.Lng = landingPoint.Lng - (LngDistance * 46);
-                GMapMarkerLanding AltGuideMarker3 = new GMapMarkerLanding(AltGuide3, "15 M", icon);
+                AltGuide3.Lat = landingPoint.Lat - (LatDistance * 40);
+                AltGuide3.Lng = landingPoint.Lng - (LngDistance * 40);
+                GMapMarkerLanding AltGuideMarker3 = new GMapMarkerLanding(AltGuide3, "5 M", icon);
 
 
                 runwayoverlay.Markers.Add(AltGuideMarker1);
@@ -6527,36 +6527,36 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
 
                 //add altitude estimation points along final dive of the landing sequence - D Cironi 2015-11-06
-                //Bitmap icon;
+                Bitmap icon;
 
-                //if (LandingDirection > 180 && LandingDirection <= 360)
-                //{
-                //    icon = MissionPlanner.Properties.Resources.icon_take3_left;
-                //}
-                //else
-                //{
-                //    icon = MissionPlanner.Properties.Resources.icon_take3_right;
-                //}
+                if (LandingDirection > 180 && LandingDirection <= 360)
+                {
+                    icon = MissionPlanner.Properties.Resources.icon_take3_left;
+                }
+                else
+                {
+                    icon = MissionPlanner.Properties.Resources.icon_take3_right;
+                }
 
-                //PointLatLng AltGuide1 = new PointLatLng();
-                //AltGuide1.Lat = landingPoint.Lat - (LatDistance * 101);
-                //AltGuide1.Lng = landingPoint.Lng - (LngDistance * 101);
-                //GMapMarkerLanding AltGuideMarker1 = new GMapMarkerLanding(AltGuide1, "50 M", icon);
+                PointLatLng AltGuide1 = new PointLatLng();
+                AltGuide1.Lat = landingPoint.Lat - (LatDistance * 250);
+                AltGuide1.Lng = landingPoint.Lng - (LngDistance * 250);
+                GMapMarkerLanding AltGuideMarker1 = new GMapMarkerLanding(AltGuide1, "40 M", icon);
 
-                //PointLatLng AltGuide2 = new PointLatLng();
-                //AltGuide2.Lat = landingPoint.Lat - (LatDistance * 62);
-                //AltGuide2.Lng = landingPoint.Lng - (LngDistance * 62);
-                //GMapMarkerLanding AltGuideMarker2 = new GMapMarkerLanding(AltGuide2, "25 M", icon);
+                PointLatLng AltGuide2 = new PointLatLng();
+                AltGuide2.Lat = landingPoint.Lat - (LatDistance * 180);
+                AltGuide2.Lng = landingPoint.Lng - (LngDistance * 180);
+                GMapMarkerLanding AltGuideMarker2 = new GMapMarkerLanding(AltGuide2, "20 M", icon);
 
-                //PointLatLng AltGuide3 = new PointLatLng();
-                //AltGuide3.Lat = landingPoint.Lat - (LatDistance * 46);
-                //AltGuide3.Lng = landingPoint.Lng - (LngDistance * 46);
-                //GMapMarkerLanding AltGuideMarker3 = new GMapMarkerLanding(AltGuide3, "15 M", icon);
+                PointLatLng AltGuide3 = new PointLatLng();
+                AltGuide3.Lat = landingPoint.Lat - (LatDistance * 140);
+                AltGuide3.Lng = landingPoint.Lng - (LngDistance * 140);
+                GMapMarkerLanding AltGuideMarker3 = new GMapMarkerLanding(AltGuide3, "10 M", icon);
 
 
-                //runwayoverlay.Markers.Add(AltGuideMarker1);
-                //runwayoverlay.Markers.Add(AltGuideMarker2);
-                //runwayoverlay.Markers.Add(AltGuideMarker3);
+                runwayoverlay.Markers.Add(AltGuideMarker1);
+                runwayoverlay.Markers.Add(AltGuideMarker2);
+                runwayoverlay.Markers.Add(AltGuideMarker3);
 
                 runwayoverlay.Markers.Add(LandingZoneMarker);
                 runwayoverlay.Polygons.Add(LandingZone);
