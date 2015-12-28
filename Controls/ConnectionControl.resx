@@ -186,9 +186,6 @@
     <value>IRIS+</value>
   </data>
   <data name="cmb_ConnectionType.Items3" xml:space="preserve">
-    <value>Scout</value>
-  </data>
-  <data name="cmb_ConnectionType.Items4" xml:space="preserve">
     <value>Other</value>
   </data>
   <data name="cmb_ConnectionType.Location" type="System.Drawing.Point, System.Drawing">

@@ -67,8 +67,7 @@
             resources.GetString("cmb_ConnectionType.Items"),
             resources.GetString("cmb_ConnectionType.Items1"),
             resources.GetString("cmb_ConnectionType.Items2"),
-            resources.GetString("cmb_ConnectionType.Items3"),
-            resources.GetString("cmb_ConnectionType.Items4")});
+            resources.GetString("cmb_ConnectionType.Items3")});
             resources.ApplyResources(this.cmb_ConnectionType, "cmb_ConnectionType");
             this.cmb_ConnectionType.Name = "cmb_ConnectionType";
             this.cmb_ConnectionType.SelectedIndexChanged += new System.EventHandler(this.cmb_ConnectionType_SelectedIndexChanged);
