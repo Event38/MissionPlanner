@@ -1389,6 +1389,13 @@ namespace MissionPlanner
             {
                 MainV2.instance.FlightPlanner.quickadd = true;
 
+
+                if (MainV2.CurrentUAV.firmware == "E386"){
+                   
+                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 25, 0, 0, 0, 0, 0, (int)(30 * CurrentState.multiplierdist));
+                
+                };
+
                 if (CHK_toandland.Checked)
                 {
                     if (plugin.Host.cs.firmware == MainV2.Firmwares.ArduCopter2)
