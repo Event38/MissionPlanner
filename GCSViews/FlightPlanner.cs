@@ -2879,7 +2879,7 @@ namespace MissionPlanner.GCSViews
 
                         else
                         {
-                            AddWPToMap(currentMarker.Position.Lat, currentMarker.Position.Lng, 0);
+                            AddWPToMap(currentMarker.Position.Lat, currentMarker.Position.Lng, int.Parse(TXT_DefaultAlt.Text));
                         }
                     }
                 }
