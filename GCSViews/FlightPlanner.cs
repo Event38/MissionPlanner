@@ -6757,10 +6757,8 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 
         public void hideoverlay()
         {
-            foreach (GMapOverlay item in MainMap.Overlays)
-            { 
-                item.IsVisibile = false;
-            }
+            routesoverlay.IsVisibile = false;
+            polygonsoverlay.IsVisibile = false;
         }
         public void myButton1_Click(object sender, EventArgs e)
         {
