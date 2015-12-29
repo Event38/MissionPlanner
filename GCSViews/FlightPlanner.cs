@@ -44,7 +44,7 @@ namespace MissionPlanner.GCSViews
         bool polygongridmode = false;
         //runway setup stuff
         bool landingStripMode = false; //D Cironi 2015-08-17
-        int landingStripPointCount = 0; //D Cironi 2015-08-17
+        public int landingStripPointCount = 0; //D Cironi 2015-08-17
         PointLatLng beginningOfRunway = new PointLatLng(0, 0); //D Cironi 2015-08-17
         PointLatLng endOfRunway = new PointLatLng(0, 0); //D Cironi 2015-08-17
         List<PointLatLng> landingStripPoints = new List<PointLatLng>(); //D Cironi 2015-08-17
@@ -465,7 +465,7 @@ namespace MissionPlanner.GCSViews
 
             drawnpolygonsoverlay = new GMapOverlay("drawnpolygons");
             MainMap.Overlays.Add(drawnpolygonsoverlay);
-
+            
             MainMap.Overlays.Add(poioverlay);
 
             top = new GMapOverlay("top");
@@ -2567,7 +2567,7 @@ namespace MissionPlanner.GCSViews
         GMapOverlay kmlpolygonsoverlay;
         GMapOverlay geofenceoverlay;
         static GMapOverlay rallypointoverlay;
-
+        
         // etc
         readonly Random rnd = new Random();
         string mobileGpsLog = string.Empty;
@@ -2605,6 +2605,7 @@ namespace MissionPlanner.GCSViews
                 }
 
             }
+            
         }
 
         void MainMap_OnMarkerEnter(GMapMarker item)
@@ -6634,9 +6635,16 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             {
                 CustomMessageBox.Show("Unable to create a landing mission for your model");
             }
+
+            foreach (GMapOverlay item in MainMap.Overlays)
+            {   
+                item.IsVisibile = true;
+                
+            }
+          
         }
 
-        private void SetupLandingStrip() 
+        public void SetupLandingStrip() 
         {
             landingStripPointCount = landingStripPointCount + 1;
 
@@ -6746,9 +6754,21 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             panelInfo.ShowTransparentBackground = true;
         }
 
-        private void myButton1_Click(object sender, EventArgs e)
-        {
 
+        public void hideoverlay()
+        {
+            foreach (GMapOverlay item in MainMap.Overlays)
+            { 
+                item.IsVisibile = false;
+            }
+        }
+        public void myButton1_Click(object sender, EventArgs e)
+        {
+            //foreach (GMapOverlay item in MainMap.Overlays)
+            //{ 
+            //    item.IsVisibile = false;
+            //}
+          
             //New method to determine landing direction based on picking beginning and end of runway
             if (landingStripMode == false)
             {

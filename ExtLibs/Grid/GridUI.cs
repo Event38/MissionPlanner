@@ -1437,7 +1437,7 @@ namespace MissionPlanner
                     LatDistance = -LatDistance;
                 }
 
-
+                
 
                 //add wp
                 if (MainV2.CurrentUAV.firmware != "Iris")
@@ -1496,7 +1496,7 @@ namespace MissionPlanner
                     }
                 }
 
-                if (CHK_toandland.Checked)
+                if (CHK_toandland.Checked && MainV2.CurrentUAV.firmware != "E386")
                 {
                     if (CHK_toandland_RTL.Checked)
                     {
@@ -1507,10 +1507,15 @@ namespace MissionPlanner
                         plugin.Host.AddWPtoList(MAVLink.MAV_CMD.LAND, 0, 0, 0, 0, plugin.Host.cs.HomeLocation.Lng, plugin.Host.cs.HomeLocation.Lat, 0);
                     }
                 }
+               
+
+                //add polygonmode here
 
                 // Redraw the polygon in FP
-                plugin.Host.RedrawFPPolygon(list);
 
+                
+                plugin.Host.RedrawFPPolygon(list);
+                
                 savesettings();
 
                 MainV2.instance.FlightPlanner.quickadd = false;
@@ -1519,7 +1524,17 @@ namespace MissionPlanner
 
                 MainV2.instance.updateUserSetup(); //D Cironi 2015-08-03
 
+                
+
                 this.Close();
+                
+
+                if (MainV2.CurrentUAV.firmware == "E386")
+                {
+                    MainV2.instance.FlightPlanner.hideoverlay();
+                    
+                    MainV2.instance.FlightPlanner.myButton1_Click(sender, e);
+                }
             }
             else
             {
