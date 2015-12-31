@@ -39,11 +39,12 @@ namespace MissionPlanner.GCSViews
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         int selectedrow = 0;
         public bool quickadd = false;
+        public bool stripentered;
         bool isonline = true;
         bool sethome = false;
         bool polygongridmode = false;
         //runway setup stuff
-        bool landingStripMode = false; //D Cironi 2015-08-17
+        public bool landingStripMode = false; //D Cironi 2015-08-17
         public int landingStripPointCount = 0; //D Cironi 2015-08-17
         PointLatLng beginningOfRunway = new PointLatLng(0, 0); //D Cironi 2015-08-17
         PointLatLng endOfRunway = new PointLatLng(0, 0); //D Cironi 2015-08-17
@@ -2845,9 +2846,10 @@ namespace MissionPlanner.GCSViews
                 }
                 //return;
             }
-
+         
             if (isMouseDown) // mouse down on some other object and dragged to here.
             {
+               
                 if (e.Button == MouseButtons.Left)
                 {
                     isMouseDown = false;
@@ -2860,6 +2862,7 @@ namespace MissionPlanner.GCSViews
                     }
                     else
                     {
+                        
                         if (LandingPointMode) //for setting up landing waypoints - D Cironi 2015-03-31
                         {
                             SetupLandingWaypoints();
@@ -6762,6 +6765,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
         }
         public void myButton1_Click(object sender, EventArgs e)
         {
+           
             //foreach (GMapOverlay item in MainMap.Overlays)
             //{ 
             //    item.IsVisibile = false;
@@ -6775,7 +6779,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     CustomMessageBox.Show("Please select your landing point");
                 }
-                else
+                if (MainV2.CurrentUAV.firmware != "E386")
                 {
                     CustomMessageBox.Show("Please select the beginning point of your runway and the end point");
                 }

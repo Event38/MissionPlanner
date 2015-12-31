@@ -1525,14 +1525,17 @@ namespace MissionPlanner
                 MainV2.instance.updateUserSetup(); //D Cironi 2015-08-03
 
                 
-
-                this.Close();
                 
+                this.Close();
+                MainV2.instance.FindForm().BringToFront();
+                this.Dispose();
+               
+
 
                 if (MainV2.CurrentUAV.firmware == "E386")
                 {
-                    MainV2.instance.FlightPlanner.hideoverlay();
-                    
+                    MainV2.instance.FlightPlanner.stripentered = false;
+                    MainV2.instance.FlightPlanner.hideoverlay(); 
                     MainV2.instance.FlightPlanner.myButton1_Click(sender, e);
                 }
             }

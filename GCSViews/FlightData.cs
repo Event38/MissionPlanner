@@ -1445,7 +1445,12 @@ namespace MissionPlanner.GCSViews
                      MainV2.instance.FlightPlanner.Runway.Visible = MainV2.CurrentUAV.runway;
                      BUT_ResumeMission.Visible = MainV2.CurrentUAV.resumeMission;
                      BUT_Land.Visible = MainV2.CurrentUAV.autoland;
-                
+                     
+                    if (MainV2.CurrentUAV.firmware == "E386" && MainV2.instance.FlightPlanner.stripentered == false && MainV2.instance.FlightPlanner.landingStripMode)
+                     {      MainV2.instance.FlightPlanner.stripentered = true;
+                         CustomMessageBox.Show("Please select the beginning point of your runway and the end point");
+                        
+                     }
             
                     try
                     {
