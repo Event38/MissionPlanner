@@ -1108,7 +1108,7 @@ namespace MissionPlanner.GCSViews
                                 objectsoverlay.Markers.Add(m);
                                 objectsoverlay.Markers.Add(mBorders);
                             }
-                            //we want to color LAND commands differently do we can identify and draw them differently -D Cironi 2015-10-09
+                            //we want to color LAND commands differently so we can identify and draw them differently -D Cironi 2015-10-09
                             else if (command == (byte)MAVLink.MAV_CMD.LAND)
                             {
                                 pointlist.Add(new PointLatLngAlt(double.Parse(cell3), double.Parse(cell4), (int)double.Parse(cell2) + homealt, (a + 1).ToString()));

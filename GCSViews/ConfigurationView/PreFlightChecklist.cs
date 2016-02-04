@@ -172,12 +172,49 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     lblBattery.Image = MissionPlanner.Properties.Resources.Yellow_panel;
                     chBoxBattery.Checked = true;
                 }
+              
+
                 else
                 {
                     lblBattery.Text = "Voltage less than 14.5";
                    lblBattery.Image = MissionPlanner.Properties.Resources.Red_panel;
                    chBoxBattery.Checked = false;
                 }
+        
+
+             
+                if (MainV2.comPort.MAV.cs.sonarvoltage != 0)
+                   {
+                    lidarchk.Checked = true;
+                    LidarText.Text = "Lidar is enabled";
+                    LidarText.Image = MissionPlanner.Properties.Resources.Green_panel;
+                   }
+              else if (MainV2.comPort.MAV.cs.sonarvoltage == 0)
+                   {
+                     lidarchk.Checked = false;
+                     LidarText.Text = "Check Lidar";
+                     LidarText.Image = MissionPlanner.Properties.Resources.Red_panel;
+                    }
+
+
+
+                if (MainV2.CurrentUAV.firmware == "E386" && lidarchk.Visible == false)
+                {
+                    lidarchk.Visible = true;
+                    LidarClean.Visible = true;
+                    LidarCleanCHK.Visible = true;
+                    LidarEnabled.Visible = true;
+                    LidarText.Visible = true;
+                    YNlidar.Visible = true;
+                }
+         if (MainV2.CurrentUAV.firmware != "E386" && lidarchk.Visible == true) {
+             lidarchk.Visible = false;
+             LidarClean.Visible = false;
+             LidarCleanCHK.Visible = false;
+             LidarEnabled.Visible = false;
+             LidarText.Visible = false;
+             YNlidar.Visible = false;
+         }       
                 this.label14.Text = "Valid Waypoints";
                 this.label3.Text = "All servos respond to tilting the aircraft";
                 this.label4.Text = "Center of gravity at points indicated ";
@@ -185,7 +222,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 this.label6.Text = "Servo linkages are secure";
                 this.label12.Text = "Tail and wings are secured to the body";
                 this.label5.Text = "Camera is on and test shot has been taken";
-                this.label15.Text = "Verify Compass Heading";
+                this.label15.Text = "Verify Compass Heading";            
+                        
             }
                 //if (MainV2.comPort.MAV.cs.mode.Equals("FBWA", StringComparison.OrdinalIgnoreCase))
                 //{
@@ -217,6 +255,16 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
             if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
             {
+                if (MainV2.CurrentUAV.firmware != "E386" && lidarchk.Visible == true)
+                {
+                    lidarchk.Visible = false;
+                    LidarClean.Visible = false;
+                    LidarCleanCHK.Visible = false;
+                    LidarEnabled.Visible = false;
+                    LidarText.Visible = false;
+                    YNlidar.Visible = false;
+                }   
+
                 this.label3.Text = "Camera is tightened firmly to the mount";
                 this.label4.Text = "Ch 7 switch (auto land) is in OFF position";
                 this.label2.Text = "Camera is on and test shot has been taken";
@@ -296,6 +344,12 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             //    lblUCent.BackColor = Color.Red;
             SetColorAndTextOnState(lblUCent, chBoxUCent);
 
+            //if (chBoxUCent.Checked)
+            //    lblUCent.BackColor = Color.Green;
+            //else
+            //    lblUCent.BackColor = Color.Red;
+            SetColorAndTextOnState(YNlidar, LidarCleanCHK);
+
             //if (chBoxUCam.Checked)
             //    lblUCam.BackColor = Color.Green;
             //else
@@ -371,6 +425,11 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         private void CHK_WPCheck_CheckedChanged(object sender, EventArgs e)
         {
             BindUserCheckList();
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
