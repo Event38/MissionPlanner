@@ -1392,7 +1392,8 @@ namespace MissionPlanner
 
                 if (MainV2.CurrentUAV.firmware == "E386"){
                    
-                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 25, 0, 0, 0, 0, 0, (int)(30 * CurrentState.multiplierdist));
+                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 25, 0, 0, 0, 0, 0, (int)(100));
+                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 25, 0, 0, 0, 0, 0, (int)(100));
                 
                 };
 
@@ -1527,13 +1528,14 @@ namespace MissionPlanner
                 
                 
                 this.Close();
-                MainV2.instance.FindForm().BringToFront();
-                this.Dispose();
+                
                
 
 
                 if (MainV2.CurrentUAV.firmware == "E386")
                 {
+                    MainV2.instance.FindForm().BringToFront();
+                    this.Dispose();
                     MainV2.instance.FlightPlanner.stripentered = false;
                     MainV2.instance.FlightPlanner.hideoverlay(); 
                     MainV2.instance.FlightPlanner.myButton1_Click(sender, e);
