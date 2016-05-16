@@ -99,6 +99,22 @@
     <senw>7.6</senw>
   </Camera>
   <Camera>
+    <name>Canon S120</name>
+    <flen>5.2</flen>
+    <imgh>3000</imgh>
+    <imgw>4000</imgw>
+    <senh>5.7</senh>
+    <senw>7.6</senw>
+  </Camera>
+  <Camera>
+    <name>WX 500</name>
+    <flen>4.1</flen>
+    <imgh>3264</imgh>
+    <imgw>4896</imgw>
+    <senh>4.55</senh>
+    <senw>6.17</senw>
+  </Camera>
+  <Camera>
     <name>Samsung NX1100</name>
     <flen>16</flen>
     <imgh>3648</imgh>
@@ -113,5 +129,21 @@
     <imgw>6480</imgw>
     <senh>15.7</senh>
     <senw>23.5</senw>
+  </Camera>
+  <Camera>
+    <name>RedEdge</name>
+    <flen>5.5</flen>
+    <imgh>960</imgh>
+    <imgw>1280</imgw>
+    <senh>3.6</senh>
+    <senw>4.8</senw>
+  </Camera>
+  <Camera>
+    <name>FLIR Vue</name>
+    <flen>13</flen>
+    <imgh>512</imgh>
+    <imgw>640</imgw>
+    <senh>6.8</senh>
+    <senw>9</senw>
   </Camera>
 </Cameras>

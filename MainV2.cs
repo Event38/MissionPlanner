@@ -1169,7 +1169,7 @@ namespace MissionPlanner
                     }
 
                     comPort.getParamList();
-
+                    
                     //set hatch servo values based on parameter file -D Cironi 2015-03-02
                     if (comPort.MAV.cs.connected)
                     {

@@ -921,11 +921,11 @@ namespace MissionPlanner.GCSViews
                             }
                             else if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
                             {
-                                updateCameraLensPlane();
+                                updateCameraLensIris();
                             }
                             else
                             {
-                                updateCameraLensIris();
+                                updateCameraLensPlane();
                             }
                         }
                     }
