@@ -152,6 +152,11 @@ namespace MissionPlanner
 
             label1.Text += " (" + CurrentState.DistanceUnit+")";
             label24.Text += " (" + CurrentState.SpeedUnit + ")";
+            if (CMB_camera.Text == "QX1")
+            {
+                CHK_camdirection.Checked = true;
+
+            }
         }
 
         private void GridUI_Resize(object sender, EventArgs e)
@@ -205,10 +210,10 @@ namespace MissionPlanner
 
 
             CMB_camera.Text = griddata.camera;
-            if (MainV2.CurrentUAV.firmware == "Iris")
-            {
-                CMB_camera.Text = "Canon S110";
-            }
+          //  if (MainV2.CurrentUAV.firmware == "Iris")
+          //  {
+           //     CMB_camera.Text = "Canon S110";
+            //}
             NUM_altitude.Value = griddata.alt;
             NUM_angle.Value = griddata.angle;
             
@@ -1123,16 +1128,27 @@ namespace MissionPlanner
         {
             if (cameras.ContainsKey(CMB_camera.Text))
             {
-                if (MainV2.CurrentUAV.firmware == "Iris")
+
+                if (CMB_camera.Text == "QX1")
                 {
-                    CMB_camera.Text = "Canon S110";
-                    CMB_camera.Enabled = false;
-                    
+                    CHK_camdirection.Checked = true;
+
                 }
                 else
                 {
-                    CMB_camera.Enabled = true;
+                    CHK_camdirection.Checked = false;
+
                 }
+                //if (MainV2.CurrentUAV.firmware == "Iris")
+                //{
+                //    CMB_camera.Text = "Canon S110";
+                //    CMB_camera.Enabled = false;
+                    
+                //}
+                //else
+                //{
+                //    CMB_camera.Enabled = true;
+                //}
                 camerainfo camera = cameras[CMB_camera.Text];
                 MainV2.instance.UserCamera = CMB_camera.Text; //set user global camera setting
                 MainV2.instance.SaveUserSetup = true;
@@ -1442,8 +1458,16 @@ namespace MissionPlanner
 
                 //add wp
                 if (MainV2.CurrentUAV.firmware != "Iris")
-                {
+                {   
                     AddWP(grid[0].Lng - (LngDistance * 100), grid[0].Lat + (LatDistance * 100), grid[0].Alt);
+                    if (CMB_camera.Text == "WX 500" || CMB_camera.Text == "QX1" || CMB_camera.Text == "SX 720")
+                    {
+                        if (CMB_camera.Text == "SX 720")
+                        {
+                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_RELAY, 3, 0, 0, 0, 0, 0, 0);
+                        }
+                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_RELAY, 3, 1, 1, 0, 0, 0, 0);
+                    }
                 }
                 //
 
@@ -1476,6 +1500,20 @@ namespace MissionPlanner
                         AddWP(plla.Lng, plla.Lat, plla.Alt);
                         if (rad_trigdist.Checked)
                         {
+                            if (MainV2.CurrentUAV.firmware == "Iris")
+                            {
+
+                                if (CMB_camera.Text == "SX 720")
+                                {
+                                    
+                                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_RELAY, 3, 0, 1, 0, 0, 0, 0);
+                                }
+                                if (CMB_camera.Text == "WX 500" || CMB_camera.Text == "QX1" || CMB_camera.Text == "SX 720")
+                                {
+                                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_RELAY, 3, 1, 1, 0, 0, 0, 0);
+                                }
+                                
+                            }
                             plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST, (float)NUM_spacing.Value, 0, 0, 0, 0, 0, 0);
                         }
                     }
@@ -1485,6 +1523,11 @@ namespace MissionPlanner
                 if (rad_trigdist.Checked)
                 {
                     plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST, 0, 0, 0, 0, 0, 0, 0);
+                    
+                    if (CMB_camera.Text == "WX 500" || CMB_camera.Text == "QX1" || CMB_camera.Text == "SX 720")
+                    { 
+                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_RELAY, 3, 1, 1, 0, 0, 0, 0);
+                    }
                 }
 
                 if (CHK_usespeed.Checked)

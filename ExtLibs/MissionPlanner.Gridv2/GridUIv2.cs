@@ -486,7 +486,7 @@ namespace MissionPlanner
 
             return Math.Abs( answer);
         }
-
+        //mwright
         private void BUT_Accept_Click(object sender, EventArgs e)
         {
             if (grid != null && grid.Count > 0)
