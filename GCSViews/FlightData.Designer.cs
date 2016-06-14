@@ -73,6 +73,8 @@
             this.BUT_Homealt = new MissionPlanner.Controls.MyButton();
             this.BUT_RAWSensor = new MissionPlanner.Controls.MyButton();
             this.BUTrestartmission = new MissionPlanner.Controls.MyButton();
+            this.BUTpwmtrigger = new MissionPlanner.Controls.MyButton();
+            this.BUTrelaytrigger = new MissionPlanner.Controls.MyButton();
             this.BUTactiondo = new MissionPlanner.Controls.MyButton();
             this.modifyandSetSpeed = new MissionPlanner.Controls.ModifyandSet();
             this.modifyandSetAlt = new MissionPlanner.Controls.ModifyandSet();
@@ -620,6 +622,8 @@
             this.tabActions.Controls.Add(this.BUT_Homealt);
             this.tabActions.Controls.Add(this.BUT_RAWSensor);
             this.tabActions.Controls.Add(this.BUTrestartmission);
+            this.tabActions.Controls.Add(this.BUTpwmtrigger);
+            this.tabActions.Controls.Add(this.BUTrelaytrigger);
             this.tabActions.Controls.Add(this.BUTactiondo);
             this.tabActions.Controls.Add(this.modifyandSetSpeed);
             this.tabActions.Controls.Add(this.modifyandSetAlt);
@@ -822,6 +826,22 @@
             this.toolTip1.SetToolTip(this.BUTrestartmission, resources.GetString("BUTrestartmission.ToolTip"));
             this.BUTrestartmission.UseVisualStyleBackColor = true;
             this.BUTrestartmission.Click += new System.EventHandler(this.BUTrestartmission_Click);
+            // 
+            // BUTpwmtrigger
+            // 
+            resources.ApplyResources(this.BUTpwmtrigger, "BUTpwmtrigger");
+            this.BUTpwmtrigger.Name = "BUTpwmtrigger";
+            this.toolTip1.SetToolTip(this.BUTpwmtrigger, resources.GetString("BUTpwmtrigger.ToolTip"));
+            this.BUTpwmtrigger.UseVisualStyleBackColor = true;
+            this.BUTpwmtrigger.Click += new System.EventHandler(this.BUTpwmtrigger_Click);
+            // 
+            // BUTrelaytrigger
+            // 
+            resources.ApplyResources(this.BUTrelaytrigger, "BUTrelaytrigger");
+            this.BUTrelaytrigger.Name = "BUTrelaytrigger";
+            this.toolTip1.SetToolTip(this.BUTrelaytrigger, resources.GetString("BUTrelaytrigger.ToolTip"));
+            this.BUTrelaytrigger.UseVisualStyleBackColor = true;
+            this.BUTrelaytrigger.Click += new System.EventHandler(this.BUTrelaytrigger_Click);
             // 
             // BUTactiondo
             // 
@@ -2274,6 +2294,8 @@
         private System.Windows.Forms.ComboBox CMB_action;
         private Controls.MyButton BUT_RAWSensor;
         private Controls.MyButton BUTrestartmission;
+        private Controls.MyButton BUTpwmtrigger;
+        private Controls.MyButton BUTrelaytrigger;
         private Controls.MyButton BUTactiondo;
         private Controls.MyButton BUT_RTLSimple;
         private Controls.MyButton BUT_AutoSimple;

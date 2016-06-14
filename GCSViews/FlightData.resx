@@ -1279,7 +1279,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUT_TriggerCamera.Location" type="System.Drawing.Point, System.Drawing">
-    <value>214, 123</value>
+    <value>222, 123</value>
   </data>
   <data name="BUT_TriggerCamera.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 23</value>
@@ -1444,6 +1444,67 @@
     <value>tabActions</value>
   </data>
   <data name="&gt;&gt;BUTrestartmission.ZOrder" xml:space="preserve">
+    <value>30</value>
+  </data>
+  <data name="BUTpwmtrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUTpwmtrigger.Location" type="System.Drawing.Point, System.Drawing">
+    <value>156, 123</value>
+  </data>
+  <data name="BUTpwmtrigger.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 23</value>
+  </data>
+  <data name="BUTpwmtrigger.TabIndex" type="System.Int32, mscorlib">
+    <value>89</value>
+  </data>
+  <data name="BUTpwmtrigger.Text" xml:space="preserve">
+    <value>Flir Setup</value>
+  </data>
+  <data name="BUTpwmtrigger.ToolTip" xml:space="preserve">
+    <value>Sets trigger to pwm for use with flir</value>
+  </data>
+  <data name="&gt;&gt;BUTpwmtrigger.Name" xml:space="preserve">
+    <value>BUTpwmtrigger</value>
+  </data>
+  <data name="&gt;&gt;BUTpwmtrigger.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUTpwmtrigger.Parent" xml:space="preserve">
+    <value>tabActions</value>
+  </data>
+  <data name="&gt;&gt;BUTpwmtrigger.ZOrder" xml:space="preserve">
+    <value>30</value>
+  </data>
+
+  <data name="BUTrelaytrigger.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BUTrelaytrigger.Location" type="System.Drawing.Point, System.Drawing">
+    <value> 92, 123</value>
+  </data>
+  <data name="BUTrelaytrigger.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 23</value>
+  </data>
+  <data name="BUTrelaytrigger.TabIndex" type="System.Int32, mscorlib">
+    <value>89</value>
+  </data>
+  <data name="BUTrelaytrigger.Text" xml:space="preserve">
+    <value>Camera Setup</value>
+  </data>
+  <data name="BUTrelaytrigger.ToolTip" xml:space="preserve">
+    <value>Sets trigger to relay for use with normal cameras</value>
+  </data>
+  <data name="&gt;&gt;BUTrelaytrigger.Name" xml:space="preserve">
+    <value>BUTrelaytrigger</value>
+  </data>
+  <data name="&gt;&gt;BUTrelaytrigger.Type" xml:space="preserve">
+    <value>MissionPlanner.Controls.MyButton, MissionPlanner.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;BUTrelaytrigger.Parent" xml:space="preserve">
+    <value>tabActions</value>
+  </data>
+  <data name="&gt;&gt;BUTrelaytrigger.ZOrder" xml:space="preserve">
     <value>30</value>
   </data>
   <data name="BUTactiondo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">

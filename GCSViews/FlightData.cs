@@ -1779,7 +1779,29 @@ namespace MissionPlanner.GCSViews
             catch { CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR); }
             ((Button)sender).Enabled = true;
         }
-
+        private void BUTpwmtrigger_Click(object sender, EventArgs e)
+        {
+            if (MainV2.comPort.MAV.cs.connected)
+            {
+                MainV2.comPort.setParam("CAM_TRIGG_TYPE", 0);
+            }
+            else
+            {
+                CustomMessageBox.Show("Please connect your plane first.");
+            }
+        }
+         private void BUTrelaytrigger_Click(object sender, EventArgs e)
+        {
+            if (MainV2.comPort.MAV.cs.connected)
+            {
+                MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
+            }
+            else
+            {
+                CustomMessageBox.Show("Please connect your plane first.");
+            }
+        }
+        
         private void FlightData_Resize(object sender, EventArgs e)
         {
             //Gspeed;
