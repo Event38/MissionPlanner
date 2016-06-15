@@ -1450,7 +1450,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUTpwmtrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value>156, 123</value>
+    <value>250, 180</value>
   </data>
   <data name="BUTpwmtrigger.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 23</value>
@@ -1481,7 +1481,7 @@
     <value>NoControl</value>
   </data>
   <data name="BUTrelaytrigger.Location" type="System.Drawing.Point, System.Drawing">
-    <value> 92, 123</value>
+    <value> 185, 180</value>
   </data>
   <data name="BUTrelaytrigger.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 23</value>
