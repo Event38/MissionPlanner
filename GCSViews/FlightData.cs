@@ -1784,6 +1784,7 @@ namespace MissionPlanner.GCSViews
             if (MainV2.comPort.MAV.cs.connected)
             {
                 MainV2.comPort.setParam("CAM_TRIGG_TYPE", 0);
+                MainV2.comPort.setParam("CAM_DURATION", 7);
             }
             else
             {
@@ -1795,6 +1796,7 @@ namespace MissionPlanner.GCSViews
             if (MainV2.comPort.MAV.cs.connected)
             {
                 MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
+                MainV2.comPort.setParam("CAM_DURATION", 1);
             }
             else
             {
