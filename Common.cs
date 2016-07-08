@@ -525,17 +525,12 @@ namespace MissionPlanner
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         public enum distances
         {
-            Meters,
-            Feet
+            Meters
         }
 
         public enum speeds
         {
-            ms,
-            fps,
-            kph,
-            mph,
-            knots
+            ms
         }
 
 

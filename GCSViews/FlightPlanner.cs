@@ -3404,10 +3404,11 @@ namespace MissionPlanner.GCSViews
 
             switch (units)
             {
-                case Common.distances.Feet:
+               /* case Common.distances.Feet:
                     return toMeterOrFeet ? string.Format((distInKM * 3280.8399).ToString("0.00 ft")) :
                         string.Format((distInKM * 0.621371).ToString("0.0000 miles"));
-                case Common.distances.Meters:
+                */
+                 case Common.distances.Meters:
                 default:
                     return toMeterOrFeet ? string.Format((distInKM * 1000).ToString("0.00 m")) :
                         string.Format(distInKM.ToString("0.0000 km"));

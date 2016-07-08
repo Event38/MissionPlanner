@@ -2645,11 +2645,12 @@ namespace MissionPlanner
                             CurrentState.multiplierdist = 1;
                             CurrentState.DistanceUnit = "m";
                             break;
-                        case Common.distances.Feet:
+                        /*case Common.distances.Feet:
                             CurrentState.multiplierdist = 3.2808399f;
                             CurrentState.DistanceUnit = "ft";
                             break;
-                    }
+                    */
+                         }
                 }
                 else
                 {
@@ -2660,13 +2661,15 @@ namespace MissionPlanner
                 // speed
                 if (MainV2.config["speedunits"] != null)
                 {
-                    switch ((Common.speeds)Enum.Parse(typeof(Common.speeds), MainV2.config["speedunits"].ToString()))
-                    {
-                        case Common.speeds.ms:
-                            CurrentState.multiplierspeed = 1;
-                            CurrentState.SpeedUnit = "m/s";
-                            break;
-                        case Common.speeds.fps:
+                    CurrentState.multiplierspeed = 1;
+                    CurrentState.SpeedUnit = "m/s";
+                  //  switch ((Common.speeds)Enum.Parse(typeof(Common.speeds), MainV2.config["speedunits"].ToString()))
+                    //{
+                      //  case Common.speeds.ms:
+                        //    CurrentState.multiplierspeed = 1;
+                          //  CurrentState.SpeedUnit = "m/s";
+                           // break;
+                     /*   case Common.speeds.fps:
                             CurrentState.multiplierdist = 3.2808399f;
                             CurrentState.SpeedUnit = "fps";
                             break;
@@ -2682,7 +2685,8 @@ namespace MissionPlanner
                             CurrentState.multiplierspeed = 1.94384449f;
                             CurrentState.SpeedUnit = "knots";
                             break;
-                    }
+                    */
+                   //   * }
                 }
                 else
                 {
