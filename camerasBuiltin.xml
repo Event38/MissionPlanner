@@ -170,4 +170,12 @@
     <senh>6.8</senh>
     <senw>9</senw>
   </Camera>
+  <Camera>
+    <name>Parrot Sequoia</name>
+    <flen>3.98</flen>
+    <imgh>960</imgh>
+    <imgw>1280</imgw>
+    <senh>3.6</senh>
+    <senw>4.8</senw>
+  </Camera>
 </Cameras>
