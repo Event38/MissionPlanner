@@ -6708,6 +6708,12 @@
       <Values>0:retract,1:neutral,2:MavLink_targeting,3:RC_targeting,4:GPS_point</Values>
       <User>Standard</User>
     </MNT_MODE>
+    <CAM_LIST>
+      <DisplayName>Camera List</DisplayName>
+      <Description>Camera List</Description>
+      <Values>0:CANNON,1:NX500,2:NX1100,3:WX500,4:QX1,5:RedEdge,6:FLIR</Values>
+      <User>Advanced</User>
+    </CAM_LIST>
     <MNT_RETRACT_X>
       <DisplayName>Mount roll angle when in retracted position</DisplayName>
       <Description>Mount roll angle when in retracted position</Description>
