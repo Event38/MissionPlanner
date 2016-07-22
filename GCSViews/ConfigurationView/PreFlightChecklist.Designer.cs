@@ -70,8 +70,9 @@
             this.label12 = new System.Windows.Forms.Label();
             this.lblUWing = new System.Windows.Forms.Label();
             this.chBoxUWing = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.chBoxCamSel = new System.Windows.Forms.CheckBox();
+            this.selectCameraCMB = new System.Windows.Forms.ComboBox();
+            this.selectCameraTXT = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -122,8 +123,9 @@
             this.tableLayoutPanel1.Controls.Add(this.label12, 0, 13);
             this.tableLayoutPanel1.Controls.Add(this.lblUWing, 1, 13);
             this.tableLayoutPanel1.Controls.Add(this.chBoxUWing, 2, 13);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox1, 2, 30);
-            this.tableLayoutPanel1.Controls.Add(this.comboBox1, 0, 30);
+            this.tableLayoutPanel1.Controls.Add(this.chBoxCamSel, 2, 30);
+            this.tableLayoutPanel1.Controls.Add(this.selectCameraCMB, 1, 30);
+            this.tableLayoutPanel1.Controls.Add(this.selectCameraTXT, 0, 30);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -648,23 +650,48 @@
             this.chBoxUWing.UseVisualStyleBackColor = true;
             this.chBoxUWing.CheckedChanged += new System.EventHandler(this.chBoxUWing_CheckedChanged);
             // 
-            // checkBox1
+            // chBoxCamSel
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(313, 472);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(14, 17);
-            this.checkBox1.TabIndex = 68;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chBoxCamSel.AutoSize = true;
+            this.chBoxCamSel.Location = new System.Drawing.Point(313, 472);
+            this.chBoxCamSel.Name = "chBoxCamSel";
+            this.chBoxCamSel.Size = new System.Drawing.Size(14, 17);
+            this.chBoxCamSel.TabIndex = 68;
+            this.chBoxCamSel.Text = "checkBox1";
+            this.chBoxCamSel.UseVisualStyleBackColor = true;
+            this.chBoxCamSel.CheckedChanged += new System.EventHandler(this.chBoxCamSel_CheckedChanged);
             // 
-            // comboBox1
+            // selectCameraCMB
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(3, 472);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 69;
+            this.selectCameraCMB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectCameraCMB.FormattingEnabled = true;
+            this.selectCameraCMB.Items.AddRange(new object[] {
+            "Cannon",
+            "WX500",
+            "NX500",
+            "NX1100",
+            "QX1",
+            "RedEdge",
+            "FLIR"});
+            this.selectCameraCMB.Location = new System.Drawing.Point(158, 472);
+            this.selectCameraCMB.Name = "selectCameraCMB";
+            this.selectCameraCMB.Size = new System.Drawing.Size(149, 21);
+            this.selectCameraCMB.TabIndex = 69;
+            this.selectCameraCMB.SelectedIndexChanged += new System.EventHandler(this.selectCameraCMB_SelectedIndexChanged);
+            // 
+            // selectCameraTXT
+            // 
+            this.selectCameraTXT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.selectCameraTXT.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selectCameraTXT.Location = new System.Drawing.Point(3, 469);
+            this.selectCameraTXT.Name = "selectCameraTXT";
+            this.selectCameraTXT.Size = new System.Drawing.Size(149, 27);
+            this.selectCameraTXT.TabIndex = 70;
+            this.selectCameraTXT.Text = "Select Camera";
+            this.selectCameraTXT.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.selectCameraTXT.Click += new System.EventHandler(this.label10_Click_1);
             // 
             // PreFlightChecklist
             // 
@@ -729,7 +756,8 @@
         private System.Windows.Forms.CheckBox CHK_CompassCheck;
         private System.Windows.Forms.Label lbl_CompassCheck;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.CheckBox chBoxCamSel;
+        private System.Windows.Forms.ComboBox selectCameraCMB;
+        private System.Windows.Forms.Label selectCameraTXT;
     }
 }

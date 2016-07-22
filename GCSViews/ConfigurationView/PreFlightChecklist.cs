@@ -330,6 +330,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             //    lblURcStick.BackColor = Color.Green;
             //else
             //    lblURcStick.BackColor = Color.Red;
+
             SetColorAndTextOnState(lblURcStick, chBoxURCIn);
 
             //if (chBoxUTilt.Checked)
@@ -372,7 +373,67 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
             SetColorAndTextOnState(lbl_CompassCheck, CHK_CompassCheck);
         }
+        private void setCamParams()
+        {
+            if (MainV2.comPort.MAV.cs.connected)
+            {
+                if (selectCameraCMB.Text == "NX500")
+                {
+                    MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
+                    MainV2.comPort.setParam("CAM_DURATION", 1);
+                    MainV2.comPort.setParam("CAM_RELAY_ON", 1);
 
+                }
+                if (selectCameraCMB.Text == "WX500")
+                {
+                    MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
+                    MainV2.comPort.setParam("CAM_DURATION", 1);
+                    MainV2.comPort.setParam("CAM_RELAY_ON", 1);
+
+                }
+                if (selectCameraCMB.Text == "NX1100")
+                {
+                    MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
+                    MainV2.comPort.setParam("CAM_DURATION", 1);
+                    MainV2.comPort.setParam("CAM_RELAY_ON", 0);
+
+                }
+                if (selectCameraCMB.Text == "CANNON")
+                {
+                    MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
+                    MainV2.comPort.setParam("CAM_DURATION", 1);
+                    MainV2.comPort.setParam("CAM_RELAY_ON", 0);
+
+                }
+                if (selectCameraCMB.Text == "FLIR")
+                {
+                    MainV2.comPort.setParam("CAM_TRIGG_TYPE", 0);
+                    MainV2.comPort.setParam("CAM_DURATION", 7);
+
+                }
+                if (selectCameraCMB.Text == "RedEdge")
+                {
+                    MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
+                    MainV2.comPort.setParam("CAM_DURATION", 1);
+                    MainV2.comPort.setParam("CAM_RELAY_ON", 0);
+
+                }
+                if (selectCameraCMB.Text == "QX1")
+                {
+                    MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
+                    MainV2.comPort.setParam("CAM_DURATION", 1);
+                    MainV2.comPort.setParam("CAM_RELAY_ON", 1);
+
+                }
+            }
+
+            else
+            {
+                CustomMessageBox.Show("Please connect your plane first.");
+            }
+
+
+        }
         private void SetColorAndTextOnState(Label lbl, CheckBox chBox)
         {
             if (chBox.Checked)
@@ -433,6 +494,21 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label10_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chBoxCamSel_CheckedChanged(object sender, EventArgs e)
+        {
+            setCamParams();
+        }
+
+        private void selectCameraCMB_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
