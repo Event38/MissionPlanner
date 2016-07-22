@@ -1460,13 +1460,17 @@ namespace MissionPlanner
                 if (MainV2.CurrentUAV.firmware != "Iris")
                 {   
                     AddWP(grid[0].Lng - (LngDistance * 100), grid[0].Lat + (LatDistance * 100), grid[0].Alt);
-                    if (CMB_camera.Text == "WX 500" || CMB_camera.Text == "QX1" || CMB_camera.Text == "SX 720")
+                    if (CMB_camera.Text == "WX 500"  || CMB_camera.Text == "SX 720")
                     {
                         if (CMB_camera.Text == "SX 720")
                         {
                             plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_RELAY, 3, 0, 0, 0, 0, 0, 0);
                         }
                         plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_RELAY, 3, 1, 1, 0, 0, 0, 0);
+                    }
+                    if (CMB_camera.Text == "QX1")
+                    {
+                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_RELAY, 3, 1, .25, 0, 0, 0, 0);
                     }
                 }
                 //
@@ -1508,11 +1512,15 @@ namespace MissionPlanner
                                     
                                     plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_RELAY, 3, 0, 1, 0, 0, 0, 0);
                                 }
-                                if (CMB_camera.Text == "WX 500" || CMB_camera.Text == "QX1" || CMB_camera.Text == "SX 720")
+                                if (CMB_camera.Text == "WX 500" || CMB_camera.Text == "SX 720")
                                 {
                                     plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_RELAY, 3, 1, 1, 0, 0, 0, 0);
                                 }
-                                
+                                if (CMB_camera.Text == "QX1")
+                                {
+                                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_RELAY, 3, 1, .25, 0, 0, 0, 0);
+
+                                } 
                             }
                             plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST, (float)NUM_spacing.Value, 0, 0, 0, 0, 0, 0);
                         }
@@ -1524,9 +1532,13 @@ namespace MissionPlanner
                 {
                     plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST, 0, 0, 0, 0, 0, 0, 0);
                     
-                    if (CMB_camera.Text == "WX 500" || CMB_camera.Text == "QX1" || CMB_camera.Text == "SX 720")
+                    if (CMB_camera.Text == "WX 500"|| CMB_camera.Text == "SX 720")
                     { 
                         plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_RELAY, 3, 1, 1, 0, 0, 0, 0);
+                    }
+                    if (CMB_camera.Text == "QX1" )
+                    {
+                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_RELAY, 3, 1, .25, 0, 0, 0, 0);
                     }
                 }
 
