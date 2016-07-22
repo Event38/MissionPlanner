@@ -66,6 +66,7 @@
             this.CMB_modes = new System.Windows.Forms.ComboBox();
             this.BUT_setmode = new MissionPlanner.Controls.MyButton();
             this.BUT_Land = new MissionPlanner.Controls.MyButton();
+            this.BUT_camSetup = new MissionPlanner.Controls.MyButton();
             this.BUT_TriggerCamera = new MissionPlanner.Controls.MyButton();
             this.BUT_ResumeMission = new MissionPlanner.Controls.MyButton();
             this.BUT_clear_track = new MissionPlanner.Controls.MyButton();
@@ -73,8 +74,6 @@
             this.BUT_Homealt = new MissionPlanner.Controls.MyButton();
             this.BUT_RAWSensor = new MissionPlanner.Controls.MyButton();
             this.BUTrestartmission = new MissionPlanner.Controls.MyButton();
-            this.BUTpwmtrigger = new MissionPlanner.Controls.MyButton();
-            this.BUTrelaytrigger = new MissionPlanner.Controls.MyButton();
             this.BUTactiondo = new MissionPlanner.Controls.MyButton();
             this.modifyandSetSpeed = new MissionPlanner.Controls.ModifyandSet();
             this.modifyandSetAlt = new MissionPlanner.Controls.ModifyandSet();
@@ -87,6 +86,7 @@
             this.LBL_Downloading = new System.Windows.Forms.Label();
           
             this.CMB_setwpSimple = new System.Windows.Forms.ComboBox();
+            this.CMB_CameraSetup = new System.Windows.Forms.ComboBox();
             this.BUT_RestartSimple = new MissionPlanner.Controls.MyButton();
             this.BUT_SetWPSimple = new MissionPlanner.Controls.MyButton();
             this.CHK_AutoHatchSimple = new System.Windows.Forms.CheckBox();
@@ -199,6 +199,8 @@
             this.tabControlactions.SuspendLayout();
             this.contextMenuStripactionstab.SuspendLayout();
             this.tabQuick.SuspendLayout();
+            
+
             this.tableLayoutPanelQuick.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceQuickTab)).BeginInit();
             this.tabpreflight.SuspendLayout();
@@ -597,7 +599,7 @@
             // tabActions
             // 
             resources.ApplyResources(this.tabActions, "tabActions");
-            
+            this.tabActions.Controls.Add(this.CMB_CameraSetup);
             this.tabActions.Controls.Add(this.BUT_Auto);
             this.tabActions.Controls.Add(this.CHK_AutoHatch);
             this.tabActions.Controls.Add(this.BUT_CloseHatch);
@@ -615,6 +617,7 @@
             this.tabActions.Controls.Add(this.CMB_modes);
             this.tabActions.Controls.Add(this.BUT_setmode);
             this.tabActions.Controls.Add(this.BUT_Land);
+            this.tabActions.Controls.Add(this.BUT_camSetup);
             this.tabActions.Controls.Add(this.BUT_TriggerCamera);
             this.tabActions.Controls.Add(this.BUT_ResumeMission);
             this.tabActions.Controls.Add(this.BUT_clear_track);
@@ -622,8 +625,6 @@
             this.tabActions.Controls.Add(this.BUT_Homealt);
             this.tabActions.Controls.Add(this.BUT_RAWSensor);
             this.tabActions.Controls.Add(this.BUTrestartmission);
-            this.tabActions.Controls.Add(this.BUTpwmtrigger);
-            this.tabActions.Controls.Add(this.BUTrelaytrigger);
             this.tabActions.Controls.Add(this.BUTactiondo);
             this.tabActions.Controls.Add(this.modifyandSetSpeed);
             this.tabActions.Controls.Add(this.modifyandSetAlt);
@@ -763,13 +764,21 @@
             this.BUT_setmode.UseVisualStyleBackColor = true;
             this.BUT_setmode.Click += new System.EventHandler(this.BUT_setmode_Click);
             // 
-            // BUT_setmode
+            // BUT_Land
             // 
             resources.ApplyResources(this.BUT_Land, "BUT_Land");
             this.BUT_setmode.Name = "BUT_Land";
             this.toolTip1.SetToolTip(this.BUT_Land, resources.GetString("BUT_Land.ToolTip"));
             this.BUT_Land.UseVisualStyleBackColor = true;
             this.BUT_Land.Click += new System.EventHandler(this.BUT_Land_Click);
+            // 
+            // BUT_camSetup
+            // 
+            resources.ApplyResources(this.BUT_camSetup, "BUT_camSetup");
+            this.BUT_setmode.Name = "BUT_camSetup";
+            this.toolTip1.SetToolTip(this.BUT_camSetup, resources.GetString("camSetup.ToolTip"));
+            this.BUT_camSetup.UseVisualStyleBackColor = true;
+            this.BUT_camSetup.Click += new System.EventHandler(this.BUT_camSetup_Click);
             //
             // BUT_TRIGGERCAMERA
             //
@@ -826,22 +835,6 @@
             this.toolTip1.SetToolTip(this.BUTrestartmission, resources.GetString("BUTrestartmission.ToolTip"));
             this.BUTrestartmission.UseVisualStyleBackColor = true;
             this.BUTrestartmission.Click += new System.EventHandler(this.BUTrestartmission_Click);
-            // 
-            // BUTpwmtrigger
-            // 
-            resources.ApplyResources(this.BUTpwmtrigger, "BUTpwmtrigger");
-            this.BUTpwmtrigger.Name = "BUTpwmtrigger";
-            this.toolTip1.SetToolTip(this.BUTpwmtrigger, resources.GetString("BUTpwmtrigger.ToolTip"));
-            this.BUTpwmtrigger.UseVisualStyleBackColor = true;
-            this.BUTpwmtrigger.Click += new System.EventHandler(this.BUTpwmtrigger_Click);
-            // 
-            // BUTrelaytrigger
-            // 
-            resources.ApplyResources(this.BUTrelaytrigger, "BUTrelaytrigger");
-            this.BUTrelaytrigger.Name = "BUTrelaytrigger";
-            this.toolTip1.SetToolTip(this.BUTrelaytrigger, resources.GetString("BUTrelaytrigger.ToolTip"));
-            this.BUTrelaytrigger.UseVisualStyleBackColor = true;
-            this.BUTrelaytrigger.Click += new System.EventHandler(this.BUTrelaytrigger_Click);
             // 
             // BUTactiondo
             // 
@@ -967,6 +960,15 @@
             resources.ApplyResources(this.CMB_setwpSimple, "CMB_setwpSimple");
             this.CMB_setwpSimple.Name = "CMB_setwpSimple";
             this.CMB_setwpSimple.Click += new System.EventHandler(this.CMB_setwpSimple_Clicked);
+            // 
+            // CMB_CameraSetup
+            // 
+            this.CMB_CameraSetup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CMB_CameraSetup.FormattingEnabled = true;
+            resources.ApplyResources(this.CMB_CameraSetup, "CMB_CameraSetup");
+            this.CMB_CameraSetup.Name = "CMB_CameraSetup";
+
+           // this.CMB_CameraSetup.Click += new System.EventHandler(this.CMB_CameraSetup_Clicked);
             // 
             // BUT_RestartSimple
             // 
@@ -2288,14 +2290,13 @@
         private System.Windows.Forms.ComboBox CMB_modes;
         private Controls.MyButton BUT_setmode;
         private Controls.MyButton BUT_Land;
+        private Controls.MyButton BUT_camSetup;
         private Controls.MyButton BUT_TriggerCamera;
         private Controls.MyButton BUT_ResumeMission;
         private Controls.MyButton BUT_clear_track;
         private System.Windows.Forms.ComboBox CMB_action;
         private Controls.MyButton BUT_RAWSensor;
         private Controls.MyButton BUTrestartmission;
-        private Controls.MyButton BUTpwmtrigger;
-        private Controls.MyButton BUTrelaytrigger;
         private Controls.MyButton BUTactiondo;
         private Controls.MyButton BUT_RTLSimple;
         private Controls.MyButton BUT_AutoSimple;
@@ -2361,6 +2362,7 @@
         private Controls.MyButton BUT_SetWPSimple;
         private Controls.ModifyandSet modifyandSetSpeedSimple;
         private System.Windows.Forms.ComboBox CMB_setwpSimple;
+        private System.Windows.Forms.ComboBox CMB_CameraSetup;
         private ConfigurationView.PreFlightChecklist preFlightChecklist1;
        
         private System.Windows.Forms.Label LBL_Downloading;

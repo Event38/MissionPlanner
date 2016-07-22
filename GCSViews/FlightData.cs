@@ -243,13 +243,26 @@ namespace MissionPlanner.GCSViews
                 //DO_SET_SERVO
                 //DO_REPEAT_SERVO
             }
+            List<string> camList = new List<string>();
 
+            {
+                camList.Add("CANNON");
+                camList.Add("NX500");
+                camList.Add("NX1100");
+                camList.Add("WX500");
+                camList.Add("QX1");
+                camList.Add("RedEdge");
+                camList.Add("FLIR");
+            }
 
             CMB_action.DataSource = list;
 
             CMB_modes.DataSource = Common.getModesList(MainV2.comPort.MAV.cs);
             CMB_modes.ValueMember = "Key";
             CMB_modes.DisplayMember = "Value";
+
+            CMB_CameraSetup.DataSource = camList;
+
 
             CMB_setwp.SelectedIndex = 0;
 
@@ -1779,31 +1792,71 @@ namespace MissionPlanner.GCSViews
             catch { CustomMessageBox.Show(Strings.CommandFailed, Strings.ERROR); }
             ((Button)sender).Enabled = true;
         }
-        private void BUTpwmtrigger_Click(object sender, EventArgs e)
-        {
-            if (MainV2.comPort.MAV.cs.connected)
+         private void BUT_camSetup_Click(object sender, EventArgs e)
+         {
+    if (MainV2.comPort.MAV.cs.connected)
+                {
+            if (CMB_CameraSetup.Text == "NX500")
             {
-                MainV2.comPort.setParam("CAM_TRIGG_TYPE", 0);
-                MainV2.comPort.setParam("CAM_DURATION", 7);
+                    MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
+                    MainV2.comPort.setParam("CAM_DURATION", 1);
+                    MainV2.comPort.setParam("CAM_RELAY_ON", 1);
+
             }
-            else
-            {
-                CustomMessageBox.Show("Please connect your plane first.");
-            }
-        }
-         private void BUTrelaytrigger_Click(object sender, EventArgs e)
-        {
-            if (MainV2.comPort.MAV.cs.connected)
+            if (CMB_CameraSetup.Text == "WX500")
             {
                 MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
                 MainV2.comPort.setParam("CAM_DURATION", 1);
+                MainV2.comPort.setParam("CAM_RELAY_ON", 1);
+
             }
-            else
+            if (CMB_CameraSetup.Text == "NX1100")
             {
-                CustomMessageBox.Show("Please connect your plane first.");
+                MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
+                MainV2.comPort.setParam("CAM_DURATION", 1);
+                MainV2.comPort.setParam("CAM_RELAY_ON", 0);
+
             }
+            if (CMB_CameraSetup.Text == "CANNON")
+            {
+                MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
+                MainV2.comPort.setParam("CAM_DURATION", 1);
+                MainV2.comPort.setParam("CAM_RELAY_ON", 0);
+
+            }
+            if (CMB_CameraSetup.Text == "FLIR")
+            {
+                MainV2.comPort.setParam("CAM_TRIGG_TYPE", 0);
+                MainV2.comPort.setParam("CAM_DURATION", 7);
+
+            }
+            if (CMB_CameraSetup.Text == "RedEdge")
+            {
+                MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
+                MainV2.comPort.setParam("CAM_DURATION", 1);
+                MainV2.comPort.setParam("CAM_RELAY_ON", 0);
+
+            }
+            if (CMB_CameraSetup.Text == "QX1")
+            {
+                MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
+                MainV2.comPort.setParam("CAM_DURATION", 1);
+                MainV2.comPort.setParam("CAM_RELAY_ON", 1);
+
+             }
+               }     
+              
+                else
+                {
+                    CustomMessageBox.Show("Please connect your plane first.");
+                }
+
+            
+
+            
+
+
         }
-        
         private void FlightData_Resize(object sender, EventArgs e)
         {
             //Gspeed;

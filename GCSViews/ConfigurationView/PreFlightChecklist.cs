@@ -198,8 +198,8 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
 
 
-                if (MainV2.CurrentUAV.firmware == "E386" && lidarchk.Visible == false)
-                {
+                if (MainV2.CurrentUAV.firmware == "E386")
+                {  
                     lidarchk.Visible = true;
                     LidarClean.Visible = true;
                     LidarCleanCHK.Visible = true;
@@ -207,7 +207,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     LidarText.Visible = true;
                     YNlidar.Visible = true;
                 }
-         if (MainV2.CurrentUAV.firmware != "E386" && lidarchk.Visible == true) {
+         if (MainV2.CurrentUAV.firmware != "E386") {
              lidarchk.Visible = false;
              LidarClean.Visible = false;
              LidarCleanCHK.Visible = false;
@@ -255,7 +255,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
             if (MainV2.comPort.MAV.cs.firmware == MainV2.Firmwares.ArduCopter2)
             {
-                if (MainV2.CurrentUAV.firmware != "E386" && lidarchk.Visible == true)
+                if (MainV2.CurrentUAV.firmware != "E386")
                 {
                     lidarchk.Visible = false;
                     LidarClean.Visible = false;
@@ -428,6 +428,11 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         }
 
         private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
