@@ -177,6 +177,7 @@
             this.LidarCleanCHK.TabIndex = 67;
             this.LidarCleanCHK.Text = "checkBox2";
             this.LidarCleanCHK.UseVisualStyleBackColor = true;
+            this.LidarCleanCHK.Visible = true;
             // 
             // YNlidar
             // 
@@ -188,6 +189,7 @@
             this.YNlidar.Size = new System.Drawing.Size(149, 29);
             this.YNlidar.TabIndex = 66;
             this.YNlidar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.YNlidar.Visible = true;
             // 
             // LidarClean
             // 
@@ -200,6 +202,7 @@
             this.LidarClean.TabIndex = 65;
             this.LidarClean.Text = "Verify Lidar is\r\nclear of debree";
             this.LidarClean.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LidarClean.Visible = true;
             this.LidarClean.Click += new System.EventHandler(this.label10_Click);
             // 
             // lidarchk
@@ -212,7 +215,7 @@
             this.lidarchk.Size = new System.Drawing.Size(14, 21);
             this.lidarchk.TabIndex = 64;
             this.lidarchk.UseVisualStyleBackColor = true;
-            this.lidarchk.Visible = false;
+            this.lidarchk.Visible = true;
             // 
             // LidarText
             // 
@@ -224,7 +227,7 @@
             this.LidarText.Size = new System.Drawing.Size(149, 27);
             this.LidarText.TabIndex = 63;
             this.LidarText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.LidarText.Visible = false;
+            this.LidarText.Visible = true;
             // 
             // LidarEnabled
             // 
@@ -237,7 +240,7 @@
             this.LidarEnabled.TabIndex = 62;
             this.LidarEnabled.Text = "Lidar Enabled";
             this.LidarEnabled.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.LidarEnabled.Visible = false;
+            this.LidarEnabled.Visible = true;
             // 
             // CHK_CompassCheck
             // 
