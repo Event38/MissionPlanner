@@ -410,6 +410,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 {
                     MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
                     MainV2.comPort.setParam("CAM_DURATION", 1);
+                    MainV2.comPort.setParam("RELAY_PIN", 54);
                     MainV2.comPort.setParam("CAM_RELAY_ON", 1);
 
                 }
@@ -418,26 +419,33 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
                     MainV2.comPort.setParam("CAM_DURATION", 1);
                     MainV2.comPort.setParam("CAM_RELAY_ON", 1);
-
+                    MainV2.comPort.setParam("RELAY_PIN4", 53);
+                    MainV2.comPort.setParam("RELAY_PIN", 54);
+                    MainV2.comPort.setParam("CAMERA_POWER", 3);
                 }
                 if (selectCameraCMB.Text == "NX1100")
                 {
                     MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
                     MainV2.comPort.setParam("CAM_DURATION", 1);
-                    MainV2.comPort.setParam("CAM_RELAY_ON", 0);
+                    MainV2.comPort.setParam("RELAY_PIN", 54);
+                    MainV2.comPort.setParam("CAM_RELAY_ON", 1);
 
                 }
-                if (selectCameraCMB.Text == "CANNON")
+                if (selectCameraCMB.Text == "Cannon")
                 {
                     MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
                     MainV2.comPort.setParam("CAM_DURATION", 1);
-                    MainV2.comPort.setParam("CAM_RELAY_ON", 0);
+                    MainV2.comPort.setParam("RELAY_PIN", 54);
+                    MainV2.comPort.setParam("CAM_RELAY_ON", 1);
 
                 }
                 if (selectCameraCMB.Text == "FLIR")
                 {
                     MainV2.comPort.setParam("CAM_TRIGG_TYPE", 0);
                     MainV2.comPort.setParam("CAM_DURATION", 7);
+                    MainV2.comPort.setParam("RC5_FUNCTION", 10);
+                    MainV2.comPort.setParam("CAM_SERVO_OFF", 900);
+                    MainV2.comPort.setParam("CAM_SERVO_ON", 1900);
 
                 }
                 if (selectCameraCMB.Text == "RedEdge")
@@ -445,6 +453,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
                     MainV2.comPort.setParam("CAM_DURATION", 1);
                     MainV2.comPort.setParam("CAM_RELAY_ON", 0);
+                    MainV2.comPort.setParam("RELAY_PIN", 54);
 
                 }
                 if (selectCameraCMB.Text == "QX1")
@@ -452,6 +461,10 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                     MainV2.comPort.setParam("CAM_TRIGG_TYPE", 1);
                     MainV2.comPort.setParam("CAM_DURATION", 1);
                     MainV2.comPort.setParam("CAM_RELAY_ON", 1);
+                    MainV2.comPort.setParam("RELAY_PIN", 54);
+                    MainV2.comPort.setParam("RELAY_PIN4", 52);
+                    MainV2.comPort.setParam("CAMERA_POWER", 3);
+                    
 
                 }
             }
