@@ -6780,7 +6780,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     CustomMessageBox.Show("Please select your landing point");
                 }
-                if (MainV2.CurrentUAV.firmware != "E386")
+                if (MainV2.CurrentUAV.firmware != "Iris")
                 {
                     CustomMessageBox.Show("Please select the beginning point of your runway and the end point");
                 }
