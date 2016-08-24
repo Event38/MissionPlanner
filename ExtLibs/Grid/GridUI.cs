@@ -32,7 +32,6 @@ namespace MissionPlanner
 
         private GridPlugin plugin;
         static public Object thisLock = new Object();
-
         public GMapOverlay routesOverlay;
         List<PointLatLngAlt> list = new List<PointLatLngAlt>();
         List<PointLatLngAlt> grid;
@@ -69,6 +68,7 @@ namespace MissionPlanner
             public List<PointLatLngAlt> poly;
             public string camera;
             public decimal alt;
+
             public decimal angle;
             public bool camdir;
             public bool usespeed;
@@ -531,7 +531,11 @@ namespace MissionPlanner
 
             // new grid system test
 
-            grid = Grid.CreateGrid(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value), (double)NUM_Distance.Value, (double)NUM_spacing.Value, (double)NUM_angle.Value, (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value, (Grid.StartPosition)Enum.Parse(typeof(Grid.StartPosition), CMB_startfrom.Text), false);
+            grid = Grid.CreateGrid(list, CurrentState.fromDistDisplayUnit((double)NUM_altitude.Value),
+               (double)NUM_Distance.Value, (double)NUM_spacing.Value, (double)NUM_angle.Value,
+               (double)NUM_overshoot.Value, (double)NUM_overshoot2.Value,
+               (Grid.StartPosition)Enum.Parse(typeof(Grid.StartPosition), CMB_startfrom.Text), false,
+                (float)NUM_leadin.Value);
 
             List<PointLatLng> list2 = new List<PointLatLng>();
 
@@ -1412,6 +1416,22 @@ namespace MissionPlanner
                     plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 25, 0, 0, 0, 0, 0, (int)(100));
                 
                 };
+                List<int> wpsplitstart = new List<int>();
+                int wpsplit = (int)Math.Round(grid.Count / 1.0 , MidpointRounding.AwayFromZero);
+                for (int splitno = 0; splitno < 1; splitno++)
+                {
+                    int wpstart = wpsplit * splitno;
+                    int wpend = wpsplit * (splitno + 1);
+
+                    while (wpstart != 0 && wpstart < grid.Count && grid[wpstart].Tag != "E")
+                    {
+                        wpstart++;
+                    }
+
+                    while (wpend < grid.Count && grid[wpend].Tag != "S")
+                    {
+                        wpend++;
+                    }
 
                 if (CHK_toandland.Checked)
                 {
@@ -1458,9 +1478,24 @@ namespace MissionPlanner
 
                 //add wp
                 if (MainV2.CurrentUAV.firmware != "Iris")
-                {   
+                {
                     AddWP(grid[0].Lng - (LngDistance * 100), grid[0].Lat + (LatDistance * 100), grid[0].Alt);
-                    if (CMB_camera.Text == "WX 500"  || CMB_camera.Text == "SX 720")
+                    if (CMB_camera.Text == "WX 500" || CMB_camera.Text == "SX 720")
+                    {
+                        if (CMB_camera.Text == "SX 720")
+                        {
+                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_RELAY, 3, 0, 0, 0, 0, 0, 0);
+                        }
+                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_RELAY, 3, 1, 1, 0, 0, 0, 0);
+                    }
+                    if (CMB_camera.Text == "QX1")
+                    {
+                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_RELAY, 3, 1, .25, 0, 0, 0, 0);
+                    }
+                }
+                if (MainV2.CurrentUAV.firmware == "Iris")
+                {
+                    if (CMB_camera.Text == "WX 500" || CMB_camera.Text == "SX 720")
                     {
                         if (CMB_camera.Text == "SX 720")
                         {
@@ -1476,61 +1511,101 @@ namespace MissionPlanner
                 //
 
 
-                int i = 0;
-                grid.ForEach(plla =>
-                {
-                    if (i > 0)
+                int z = 0;
+                bool startedtrigdist = false;
+                PointLatLngAlt lastplla = PointLatLngAlt.Zero;
+                foreach (var plla in grid)
                     {
-                        if (plla.Tag == "M")
-                        {
-                            if (rad_repeatservo.Checked)
-                            {
-                                AddWP(plla.Lng, plla.Lat, plla.Alt);
-                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_SERVO, (float)NUM_reptservo.Value, (float)num_reptpwm.Value, 999, (float)NUM_repttime.Value, 0, 0, 0);
-                            }
-                            if (rad_digicam.Checked)
-                            {
-                                AddWP(plla.Lng, plla.Lat, plla.Alt);
-                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_DIGICAM_CONTROL, 0, 0, 0, 0, 0, 0, 0);
-                            }
-                        }
-                        else
-                        {
-                            AddWP(plla.Lng, plla.Lat, plla.Alt);
-                        }
-                    }
-                    else
-                    {
-                        AddWP(plla.Lng, plla.Lat, plla.Alt);
-                        if (rad_trigdist.Checked)
-                        {
-                            if (MainV2.CurrentUAV.firmware == "Iris")
-                            {
+                    //if (z > 0)
+                    //{
+                    //    if (plla.Tag == "M")
+                    //    {
+                    //        if (rad_repeatservo.Checked)
+                    //        {
+                    //            AddWP(plla.Lng, plla.Lat, plla.Alt);
+                    //            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_SERVO, (float)NUM_reptservo.Value, (float)num_reptpwm.Value, 999, (float)NUM_repttime.Value, 0, 0, 0);
+                    //        }
+                    //        if (rad_digicam.Checked)
+                    //        {
+                    //            AddWP(plla.Lng, plla.Lat, plla.Alt);
+                    //            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_DIGICAM_CONTROL, 0, 0, 0, 0, 0, 0, 0);
+                    //        }
+                    //    }
+                    //}
 
-                                if (CMB_camera.Text == "SX 720")
+                       
+                                // skip before start point
+                                if (z < wpstart)
                                 {
-                                    
-                                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_RELAY, 3, 0, 1, 0, 0, 0, 0);
+                                    z++;
+                                    continue;
                                 }
-                                if (CMB_camera.Text == "WX 500" || CMB_camera.Text == "SX 720")
+                                // skip after endpoint
+                                if (z >= wpend)
+                                    break;
+                                if (z > wpstart)
                                 {
-                                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_RELAY, 3, 1, 1, 0, 0, 0, 0);
-                                }
-                                if (CMB_camera.Text == "QX1")
-                                {
-                                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_REPEAT_RELAY, 3, 1, .25, 0, 0, 0, 0);
+                                    if (plla.Tag == "M")
+                                    {
 
-                                } 
-                            }
-                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST, (float)NUM_spacing.Value, 0, 0, 0, 0, 0, 0);
-                        }
-                    }
-                    ++i;
-                });
+                                        if (rad_digicam.Checked)
+                                        {
+
+
+                                            AddWP(plla.Lng, plla.Lat, plla.Alt);
+                                            plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_DIGICAM_CONTROL, 1, 0, 0, 0, 0, 1, 0);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (plla.Lat != lastplla.Lat || plla.Lng != lastplla.Lng || plla.Alt != lastplla.Alt)
+                                            AddWP(plla.Lng, plla.Lat, plla.Alt);
+
+                                        if (rad_trigdist.Checked)
+                                        {
+
+                                            if (plla.Tag == "SM")
+                                            {
+                                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST,
+                                                    (float)NUM_spacing.Value,
+                                                    0, 0, 0, 0, 0, 0);
+                                            }
+                                            else if (plla.Tag == "ME")
+                                            {
+                                                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST, 0,
+                                                    0, 0, 0, 0, 0, 0);
+                                            }
+
+                                            else
+                                            {
+                                                if (!startedtrigdist)
+                                                {
+                                                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST,
+                                                        (float)NUM_spacing.Value,
+                                                        0, 0, 0, 0, 0, 0);
+                                                    startedtrigdist = true;
+                                                }
+                                            }
+                                        }
+
+
+                                    }
+                                }
+                                else
+                                {
+                                    AddWP(plla.Lng, plla.Lat, plla.Alt);
+                                }
+                                lastplla = plla;
+                                ++z;
+
+                                
+                         
+                     
+                                       
+                };
 
                 if (rad_trigdist.Checked)
                 {
-                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST, 0, 0, 0, 0, 0, 0, 0);
                     
                     if (CMB_camera.Text == "WX 500"|| CMB_camera.Text == "SX 720")
                     { 
@@ -1563,7 +1638,8 @@ namespace MissionPlanner
                         plugin.Host.AddWPtoList(MAVLink.MAV_CMD.LAND, 0, 0, 0, 0, plugin.Host.cs.HomeLocation.Lng, plugin.Host.cs.HomeLocation.Lat, 0);
                     }
                 }
-               
+                }
+            
 
                 //add polygonmode here
 
