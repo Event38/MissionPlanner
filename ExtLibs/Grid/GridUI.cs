@@ -1460,11 +1460,11 @@ namespace MissionPlanner
                 double LatDistance = .000008998 * Math.Sin(Math.PI - directionInRads - Math.PI / 2) / Math.Sin(Math.PI / 2);     //.000008998 degrees LAT = 1m east and west          
                 double LngDistance = .000011950 * Math.Sin(directionInRads) / Math.Sin(Math.PI / 2);                             //.000011950 degrees LNG = 1m north and south
 
-                if (grid[0].Lat < grid[1].Lat)
+                if (grid[0].Lat < grid[2].Lat)
                 {
                     LatDistance = -LatDistance;
                 }
-                if (grid[0].Lng > grid[1].Lng)
+                if (grid[0].Lng > grid[2].Lng)
                 {
                     LngDistance = -LngDistance;
                 }
