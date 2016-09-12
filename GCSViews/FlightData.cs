@@ -923,7 +923,7 @@ namespace MissionPlanner.GCSViews
                     
                     if (MainV2.instance.UserCamera.ToString() != null)
                     { 
-                        updateCameraHatch();
+                        //updateCameraHatch();
                    
                         if (MainV2.instance.UserCamera.ToString() == "Canon S110" || MainV2.instance.UserCamera.ToString() == "Canon SX260")
                         {
