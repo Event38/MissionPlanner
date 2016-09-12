@@ -122,7 +122,7 @@ namespace MissionPlanner
                 DistUnits = plugin.Host.config["distunits"].ToString();
 
             CMB_startfrom.DataSource = Enum.GetNames(typeof(Grid.StartPosition));
-            CMB_startfrom.SelectedIndex = 0;
+            CMB_startfrom.SelectedIndex = 4;
 
             // set and angle that is good
             NUM_angle.Value = (decimal)((getAngleOfLongestSide(list) + 360) % 360);
@@ -141,7 +141,6 @@ namespace MissionPlanner
             loadsettings();
 
             CHK_camdirection.Checked = false;
-            CHK_toandland.Checked = false;
             CHK_toandland_RTL.Checked = false;
             CHK_advanced.Checked = true;
 
@@ -384,7 +383,6 @@ namespace MissionPlanner
             plugin.Host.config["grid_startfrom"] = CMB_startfrom.Text;
 
             //save these settings automatically, but they aren't loaded automatically
-            plugin.Host.config["grid_autotakeoff"] = CHK_toandland.Checked.ToString();
             plugin.Host.config["grid_autotakeoff_RTL"] = CHK_toandland_RTL.Checked.ToString();
             plugin.Host.config["grid_advanced"] = CHK_advanced.Checked.ToString();
             plugin.Host.config["grid_overlap"] = num_overlap.Value.ToString();
@@ -1410,12 +1408,13 @@ namespace MissionPlanner
                 MainV2.instance.FlightPlanner.quickadd = true;
 
 
-                if (MainV2.CurrentUAV.firmware == "E386"){
-                   
-                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 25, 0, 0, 0, 0, 0, (int)(100));
-                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 25, 0, 0, 0, 0, 0, (int)(100));
-                
-                };
+
+                if (MainV2.CurrentUAV.firmware != "E384"){
+                plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 25, 0, 0, 0, 0, 0, (int)(NUM_altitude.Value));
+                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 25, 0, 0, 0, 0, 0, (int)(NUM_altitude.Value));
+                }
+                else plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 25, 0, 0, 0, 0, 0, (int)(NUM_altitude.Value));
+           
                 List<int> wpsplitstart = new List<int>();
                 int wpsplit = (int)Math.Round(grid.Count / 1.0 , MidpointRounding.AwayFromZero);
                 for (int splitno = 0; splitno < 1; splitno++)
@@ -1433,17 +1432,7 @@ namespace MissionPlanner
                         wpend++;
                     }
 
-                if (CHK_toandland.Checked)
-                {
-                    if (plugin.Host.cs.firmware == MainV2.Firmwares.ArduCopter2)
-                    {
-                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 0, 0, 0, 0, 0, 0, (int)(30 * CurrentState.multiplierdist));
-                    }
-                    else
-                    {
-                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 20, 0, 0, 0, 0, 0, (int)(30 * CurrentState.multiplierdist));
-                    }
-                }
+            
 
                 if (CHK_usespeed.Checked)
                 {
@@ -1477,6 +1466,7 @@ namespace MissionPlanner
                 
 
                 //add wp
+
                 if (MainV2.CurrentUAV.firmware != "Iris")
                 {
                     AddWP(grid[0].Lng - (LngDistance * 100), grid[0].Lat + (LatDistance * 100), grid[0].Alt);
@@ -1535,7 +1525,7 @@ namespace MissionPlanner
 
                        
                                 // skip before start point
-                                if (z < wpstart)
+                                if (z < wpstart) // +1 because we add in an extra waypoint to get the plane onto track
                                 {
                                     z++;
                                     continue;
@@ -1576,16 +1566,16 @@ namespace MissionPlanner
                                                     0, 0, 0, 0, 0, 0);
                                             }
 
-                                            else
-                                            {
-                                                if (!startedtrigdist)
-                                                {
-                                                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST,
-                                                        (float)NUM_spacing.Value,
-                                                        0, 0, 0, 0, 0, 0);
-                                                    startedtrigdist = true;
-                                                }
-                                            }
+                                            //else
+                                            //{
+                                            //    if (!startedtrigdist)
+                                            //    {
+                                            //        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.DO_SET_CAM_TRIGG_DIST,
+                                            //            (float)NUM_spacing.Value,
+                                            //            0, 0, 0, 0, 0, 0);
+                                            //        startedtrigdist = true;
+                                            //    }
+                                            //}
                                         }
 
 
@@ -1627,17 +1617,7 @@ namespace MissionPlanner
                     }
                 }
 
-                if (CHK_toandland.Checked && MainV2.CurrentUAV.firmware != "E386")
-                {
-                    if (CHK_toandland_RTL.Checked)
-                    {
-                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.RETURN_TO_LAUNCH, 0, 0, 0, 0, 0, 0, 0);
-                    }
-                    else
-                    {
-                        plugin.Host.AddWPtoList(MAVLink.MAV_CMD.LAND, 0, 0, 0, 0, plugin.Host.cs.HomeLocation.Lng, plugin.Host.cs.HomeLocation.Lat, 0);
-                    }
-                }
+               
                 }
             
 
@@ -1659,11 +1639,11 @@ namespace MissionPlanner
                 
                 
                 this.Close();
-                
-               
 
 
-                if (MainV2.CurrentUAV.firmware == "E386")
+
+
+                if (MainV2.CurrentUAV.firmware == "E386" || MainV2.CurrentUAV.firmware == "Iris")
                 {
                     MainV2.instance.FindForm().BringToFront();
                     this.Dispose();

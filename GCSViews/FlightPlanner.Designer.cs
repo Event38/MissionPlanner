@@ -101,7 +101,6 @@
             this.BUT_read = new MissionPlanner.Controls.MyButton();
             this.Runway = new MissionPlanner.Controls.MyButton();
             this.BUT_GPSLanding = new MissionPlanner.Controls.MyButton();
-            this.BUT_AddTakeoffWP = new MissionPlanner.Controls.MyButton();
             this.BUT_ClearMission = new MissionPlanner.Controls.MyButton();
             this.BUT_ElevationGraph = new MissionPlanner.Controls.MyButton();
             this.BUT_Survey = new MissionPlanner.Controls.MyButton();
@@ -128,6 +127,15 @@
             this.lbl_status = new System.Windows.Forms.Label();
             this.comboBoxMapType = new System.Windows.Forms.ComboBox();
             this.lnk_kml = new System.Windows.Forms.LinkLabel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.boxStats = new System.Windows.Forms.GroupBox();
             this.estimatedFlightTimeRemaining = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -227,6 +235,7 @@
             this.panel4.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.boxStats.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -606,7 +615,6 @@
             this.panel2.Controls.Add(this.BUT_read);
             this.panel2.Controls.Add(this.Runway);
             this.panel2.Controls.Add(this.BUT_GPSLanding);
-            this.panel2.Controls.Add(this.BUT_AddTakeoffWP);
             this.panel2.Controls.Add(this.BUT_ClearMission);
             this.panel2.Controls.Add(this.BUT_ElevationGraph);
             this.panel2.Controls.Add(this.BUT_Survey);
@@ -644,13 +652,6 @@
             this.BUT_GPSLanding.Name = "BUT_GPSLanding";
             this.BUT_GPSLanding.UseVisualStyleBackColor = true;
             this.BUT_GPSLanding.Click += new System.EventHandler(this.BUT_GPSLanding_Click);
-            // 
-            // BUT_AddTakeoffWP
-            // 
-            resources.ApplyResources(this.BUT_AddTakeoffWP, "BUT_AddTakeoffWP");
-            this.BUT_AddTakeoffWP.Name = "BUT_AddTakeoffWP";
-            this.BUT_AddTakeoffWP.UseVisualStyleBackColor = true;
-            this.BUT_AddTakeoffWP.Click += new System.EventHandler(this.BUT_AddTakeoffWP_Click);
             // 
             // BUT_ClearMission
             // 
@@ -754,6 +755,7 @@
             resources.ApplyResources(this.flowLayoutPanel3, "flowLayoutPanel3");
             this.flowLayoutPanel3.Controls.Add(this.groupBox1);
             this.flowLayoutPanel3.Controls.Add(this.boxStats);
+            this.flowLayoutPanel3.Controls.Add(this.groupBox2);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             // 
             // groupBox1
@@ -869,6 +871,61 @@
             this.lnk_kml.Name = "lnk_kml";
             this.lnk_kml.TabStop = true;
             this.lnk_kml.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnk_kml_LinkClicked);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.label14);
+            this.groupBox2.Controls.Add(this.label15);
+            this.groupBox2.Controls.Add(this.label16);
+            this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
+            // 
+            // label13
+            // 
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Name = "label13";
+            // 
+            // label14
+            // 
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.Name = "label14";
+            // 
+            // label15
+            // 
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.Name = "label15";
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
             // 
             // boxStats
             // 
@@ -1508,6 +1565,8 @@
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.boxStats.ResumeLayout(false);
             this.boxStats.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -1639,7 +1698,6 @@
         private Controls.MyButton BUT_ElevationGraph;
         private Controls.MyButton BUT_ClearMission;
         public System.Windows.Forms.Label lbl_distance;
-        private Controls.MyButton BUT_AddTakeoffWP;
         public Controls.MyButton BUT_GPSLanding;
         public Controls.MyButton Runway;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
@@ -1664,7 +1722,6 @@
         private System.Windows.Forms.ComboBox comboBoxMapType;
         private System.Windows.Forms.LinkLabel lnk_kml;
         public System.Windows.Forms.GroupBox boxStats;
-        public System.Windows.Forms.Label estimatedFlightTimeRemaining;
         private System.Windows.Forms.Label label7;
         public System.Windows.Forms.Label lbl_FlightTimeMainData;
         private System.Windows.Forms.Label lbl_FlightTimeMain;
@@ -1675,5 +1732,15 @@
         private BSE.Windows.Forms.Panel panelInfo;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
         private System.Windows.Forms.ToolStripMenuItem missionBreakdownToolStripMenuItem;
+        public System.Windows.Forms.Label estimatedFlightTimeRemaining;
+        public System.Windows.Forms.GroupBox groupBox2;
+        public System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        public System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label12;
+        public System.Windows.Forms.Label label13;
+        public System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
     }
 }

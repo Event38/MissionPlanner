@@ -2272,6 +2272,10 @@ namespace MissionPlanner.GCSViews
                 drawnpolygonsoverlay.Routes.Clear();
                 drawnpolygon.Overlay.Clear();
                 drawnpolygon.Clear();
+                label10.Text = "0";
+                label14.Text = "0";
+                label13.Text = "0";
+                label9.Text = "0";
                 MainMap.Invalidate();
 
                 writeKML();
@@ -3019,9 +3023,18 @@ namespace MissionPlanner.GCSViews
                         }
                     }
                     catch { }
-
+                    if (drawnpolygon.Points.Count > 2) { 
+                    double aream2 = Math.Abs(calcpolygonarea(drawnpolygon.Points));
+                    label10.Text = aream2.ToString("0");
+                    double areaa = aream2 * 0.000247105;
+                    label14.Text = areaa.ToString("0.00");
+                    double areaha = aream2 * 1e-4;
+                    label13.Text = areaha.ToString("0.00");
+                    double areasqf = aream2 * 10.7639;
+                    label9.Text = areasqf.ToString("0");  
+                    }
                     PointLatLng pnew = MainMap.FromLocalToLatLng(e.X, e.Y);
-
+                      
                     // adjust polyline point while we drag
                     try
                     {
@@ -3427,6 +3440,7 @@ namespace MissionPlanner.GCSViews
             }
             else
             {
+              
                 List<PointLatLng> polygonPoints = new List<PointLatLng>();
                 polygonPoints.Add(startmeasure);
                 polygonPoints.Add(MouseDownStart);
@@ -3473,7 +3487,7 @@ namespace MissionPlanner.GCSViews
                 drawnpolygon.Points.Clear();
                 drawnpolygonsoverlay.Polygons.Add(drawnpolygon);
             }
-
+          
             drawnpolygon.Fill = Brushes.Transparent;
 
             // remove full loop is exists
@@ -3485,6 +3499,11 @@ namespace MissionPlanner.GCSViews
             addpolygonmarkergrid(drawnpolygon.Points.Count.ToString(), MouseDownStart.Lng, MouseDownStart.Lat, 0);
 
             MainMap.UpdatePolygonLocalPosition(drawnpolygon);
+
+            if (drawnpolygon.Points.Count > 1)
+            {
+                calcArea();
+            }
 
             MainMap.Invalidate();
 
@@ -3515,8 +3534,14 @@ namespace MissionPlanner.GCSViews
                 return;
             drawnpolygon.Points.Clear();
             drawnpolygonsoverlay.Markers.Clear();
+            label10.Text = "0";
+            label14.Text = "0";
+            label13.Text = "0";
+            label9.Text = "0";
             MainMap.Invalidate();
 
+
+            
             writeKML();
         }
 
@@ -3632,7 +3657,11 @@ namespace MissionPlanner.GCSViews
 
             if (currentMarker != null)
                 CurentRectMarker = null;
-
+            if (drawnpolygon.Points.Count > 1)
+            {
+                calcArea();
+            }
+          
             writeKML();
         }
 
@@ -5227,12 +5256,14 @@ namespace MissionPlanner.GCSViews
         private void areaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             double aream2 = Math.Abs(calcpolygonarea(drawnpolygon.Points));
-
+            label10.Text = aream2.ToString("0");
             double areaa = aream2 * 0.000247105;
-
+            label14.Text = areaa.ToString("0.00");
             double areaha = aream2 * 1e-4;
-
+            label13.Text = areaha.ToString("0.00");
             double areasqf = aream2 * 10.7639;
+            label9.Text = areasqf.ToString("0");
+
 
             CustomMessageBox.Show("Area: " + aream2.ToString("0") + " m2\n\t" + areaa.ToString("0.00") + " Acre\n\t" + areaha.ToString("0.00") + " Hectare\n\t" + areasqf.ToString("0") + " sqf", "Area");
         }
@@ -6071,6 +6102,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                         MainMap.UpdatePolygonLocalPosition(drawnpolygon);
                         MainMap.Invalidate();
                         MainMap.ZoomAndCenterMarkers(drawnpolygonsoverlay.Id);
+
                     }
                 }
                 catch (Exception ex)
@@ -7023,6 +7055,17 @@ class ResumeMissionThread
 
     }
 }
+public void calcArea()
+{
+    double aream2 = Math.Abs(calcpolygonarea(drawnpolygon.Points));
+    label10.Text = aream2.ToString("0");
+    double areaa = aream2 * 0.000247105;
+    label14.Text = areaa.ToString("0.00");
+    double areaha = aream2 * 1e-4;
+    label13.Text = areaha.ToString("0.00");
+    double areasqf = aream2 * 10.7639;
+    label9.Text = areasqf.ToString("0");
+}
 
 private void missionBreakdownToolStripMenuItem_Click(object sender, EventArgs e)
 {
@@ -7278,6 +7321,11 @@ private void missionBreakdownToolStripMenuItem_Click(object sender, EventArgs e)
             CustomMessageBox.Show("Can't open file! " + ex.ToString());
         }
     }
+}
+
+private void groupBox2_Enter(object sender, EventArgs e)
+{
+
 }
 
 
