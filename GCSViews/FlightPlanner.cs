@@ -1257,7 +1257,7 @@ namespace MissionPlanner.GCSViews
                     //update flight time when distance is updated
                     if (MainV2.config["distunits"] == null) //default to meters if no config for distunits
                     {
-                        double seconds = (Convert.ToDouble(dist + homedist) * 1000) / MainV2.CurrentUAV.flightSpeedM; //13 m/s flight speed
+                        double seconds = (Convert.ToDouble(dist + homedist) * 1000) / (MainV2.CurrentUAV.flightSpeedM * .8); //13 m/s flight speed
                         lbl_FlightTimeMainData.Text = secondsToNice(seconds);
                         estimatedFlightTimeRemaining.Text = seconds.ToString();
                         estimatedFlightTimeRemaining.Visible = false;
@@ -1266,7 +1266,7 @@ namespace MissionPlanner.GCSViews
                     {
                         if (MainV2.config["distunits"].ToString() == "Meters")
                         {
-                            double seconds = (Convert.ToDouble(dist + homedist) * 1000) / MainV2.CurrentUAV.flightSpeedM; //13 m/s flight speed
+                            double seconds = (Convert.ToDouble(dist + homedist) * 1000) / (MainV2.CurrentUAV.flightSpeedM * .8); //13 m/s flight speed
                             lbl_FlightTimeMainData.Text = secondsToNice(seconds);
                             estimatedFlightTimeRemaining.Text = seconds.ToString();
                             estimatedFlightTimeRemaining.Visible = false;
@@ -1275,7 +1275,7 @@ namespace MissionPlanner.GCSViews
                         {
                             double distMiles = 0.621371 * dist;
                             double homeDistMiles = 0.621371 * homedist;
-                            double seconds = (Convert.ToDouble(distMiles + homeDistMiles) * 5280) / MainV2.CurrentUAV.flightSpeedF; //42.65 feet/s flight speed
+                            double seconds = (Convert.ToDouble(distMiles + homeDistMiles) * 5280) / (MainV2.CurrentUAV.flightSpeedM * .8); //42.65 feet/s flight speed
                             lbl_FlightTimeMainData.Text = secondsToNice(seconds);
                             estimatedFlightTimeRemaining.Text = seconds.ToString();
                             estimatedFlightTimeRemaining.Visible = false;
