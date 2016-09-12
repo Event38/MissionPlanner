@@ -1454,7 +1454,7 @@ namespace MissionPlanner.GCSViews
                 this.BeginInvoke((System.Windows.Forms.MethodInvoker)delegate()
                 {
                 
-                     MainV2.instance.FlightPlanner.BUT_GPSLanding.Visible = MainV2.CurrentUAV.gpslanding;
+                    
                      MainV2.instance.FlightPlanner.Runway.Visible = MainV2.CurrentUAV.runway;
                      BUT_ResumeMission.Visible = MainV2.CurrentUAV.resumeMission;
                      BUT_Land.Visible = MainV2.CurrentUAV.autoland;

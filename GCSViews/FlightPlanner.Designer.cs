@@ -100,7 +100,6 @@
             this.BUT_write = new MissionPlanner.Controls.MyButton();
             this.BUT_read = new MissionPlanner.Controls.MyButton();
             this.Runway = new MissionPlanner.Controls.MyButton();
-            this.BUT_GPSLanding = new MissionPlanner.Controls.MyButton();
             this.BUT_ClearMission = new MissionPlanner.Controls.MyButton();
             this.BUT_ElevationGraph = new MissionPlanner.Controls.MyButton();
             this.BUT_Survey = new MissionPlanner.Controls.MyButton();
@@ -127,15 +126,6 @@
             this.lbl_status = new System.Windows.Forms.Label();
             this.comboBoxMapType = new System.Windows.Forms.ComboBox();
             this.lnk_kml = new System.Windows.Forms.LinkLabel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
             this.boxStats = new System.Windows.Forms.GroupBox();
             this.estimatedFlightTimeRemaining = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -145,6 +135,15 @@
             this.lbl_ResolutionMainData = new System.Windows.Forms.Label();
             this.lbl_PhotoEveryMain = new System.Windows.Forms.Label();
             this.lbl_ResolutionMain = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
             this.lbl_distance = new System.Windows.Forms.Label();
             this.lbl_homedist = new System.Windows.Forms.Label();
@@ -235,8 +234,8 @@
             this.panel4.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.boxStats.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.panelBASE.SuspendLayout();
@@ -614,7 +613,6 @@
             this.panel2.Controls.Add(this.BUT_write);
             this.panel2.Controls.Add(this.BUT_read);
             this.panel2.Controls.Add(this.Runway);
-            this.panel2.Controls.Add(this.BUT_GPSLanding);
             this.panel2.Controls.Add(this.BUT_ClearMission);
             this.panel2.Controls.Add(this.BUT_ElevationGraph);
             this.panel2.Controls.Add(this.BUT_Survey);
@@ -644,14 +642,6 @@
             this.Runway.Name = "Runway";
             this.Runway.UseVisualStyleBackColor = true;
             this.Runway.Click += new System.EventHandler(this.myButton1_Click);
-            // 
-            // BUT_GPSLanding
-            // 
-            this.BUT_GPSLanding.Image = global::MissionPlanner.Properties.Resources.Green_panel;
-            resources.ApplyResources(this.BUT_GPSLanding, "BUT_GPSLanding");
-            this.BUT_GPSLanding.Name = "BUT_GPSLanding";
-            this.BUT_GPSLanding.UseVisualStyleBackColor = true;
-            this.BUT_GPSLanding.Click += new System.EventHandler(this.BUT_GPSLanding_Click);
             // 
             // BUT_ClearMission
             // 
@@ -872,61 +862,6 @@
             this.lnk_kml.TabStop = true;
             this.lnk_kml.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnk_kml_LinkClicked);
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Controls.Add(this.label14);
-            this.groupBox2.Controls.Add(this.label15);
-            this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlText;
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
-            // 
-            // label12
-            // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = "label12";
-            // 
-            // label13
-            // 
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.Name = "label13";
-            // 
-            // label14
-            // 
-            resources.ApplyResources(this.label14, "label14");
-            this.label14.Name = "label14";
-            // 
-            // label15
-            // 
-            resources.ApplyResources(this.label15, "label15");
-            this.label15.Name = "label15";
-            // 
-            // label16
-            // 
-            resources.ApplyResources(this.label16, "label16");
-            this.label16.Name = "label16";
-            // 
             // boxStats
             // 
             this.boxStats.Controls.Add(this.estimatedFlightTimeRemaining);
@@ -986,6 +921,61 @@
             // 
             resources.ApplyResources(this.lbl_ResolutionMain, "lbl_ResolutionMain");
             this.lbl_ResolutionMain.Name = "lbl_ResolutionMain";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.label14);
+            this.groupBox2.Controls.Add(this.label15);
+            this.groupBox2.Controls.Add(this.label16);
+            this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
+            // 
+            // label13
+            // 
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Name = "label13";
+            // 
+            // label14
+            // 
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.Name = "label14";
+            // 
+            // label15
+            // 
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.Name = "label15";
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
             // 
             // flowLayoutPanel5
             // 
@@ -1565,10 +1555,10 @@
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.boxStats.ResumeLayout(false);
             this.boxStats.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.panelBASE.ResumeLayout(false);
@@ -1698,7 +1688,6 @@
         private Controls.MyButton BUT_ElevationGraph;
         private Controls.MyButton BUT_ClearMission;
         public System.Windows.Forms.Label lbl_distance;
-        public Controls.MyButton BUT_GPSLanding;
         public Controls.MyButton Runway;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private Controls.PictureBoxMouseOver pictureBoxMouseOver1;
