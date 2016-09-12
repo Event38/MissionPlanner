@@ -2483,7 +2483,7 @@ Please check the following
                         int expectedPacketSeqNo = ((MAVlist[sysid].recvpacketcount + 1) % 0x100);
 
                         {
-                            if (packetSeqNo != expectedPacketSeqNo)
+                            if (packetSeqNo != expectedPacketSeqNo && packetSeqNo != MAVlist[sysid].recvpacketcount)
                             {
                                 MAVlist[sysid].synclost++; // actualy sync loss's
                                 int numLost = 0;
@@ -2494,7 +2494,7 @@ Please check the following
                                 }
                                 else
                                 {
-                                    numLost = packetSeqNo - MAV.recvpacketcount;
+                                    numLost = packetSeqNo - MAVlist[sysid].recvpacketcount;
                                 }
                                 MAVlist[sysid].packetslost += numLost;
                                 WhenPacketLost.OnNext(numLost);
