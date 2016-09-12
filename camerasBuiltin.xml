@@ -127,8 +127,8 @@
     <flen>16</flen>
     <imgh>3632</imgh>
     <imgw>5456</imgw>
-    <senh>23.20</senh>
-    <senw>15.40</senw>
+    <senh>15.400</senh>
+    <senw>23.2</senw>
   </Camera>
   <Camera>
     <name>Samsung NX1100</name>
@@ -156,7 +156,7 @@
   </Camera>
   <Camera>
     <name>FLIR Vue Pro 640</name>
-    <flen>19</flen>
+    <flen>9</flen>
     <imgh>512</imgh>
     <imgw>640</imgw>
     <senh>6.8</senh>
@@ -164,7 +164,7 @@
   </Camera>
   <Camera>
     <name>FLIR Vue Pro 336</name>
-    <flen>13</flen>
+    <flen>9</flen>
     <imgh>256</imgh>
     <imgw>336</imgw>
     <senh>6.8</senh>
