@@ -61,9 +61,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lblUCent = new System.Windows.Forms.Label();
             this.chBoxUCent = new System.Windows.Forms.CheckBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lblUCam = new System.Windows.Forms.Label();
-            this.chBoxUCam = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.lblUServo = new System.Windows.Forms.Label();
             this.chBoxUServo = new System.Windows.Forms.CheckBox();
@@ -114,9 +111,6 @@
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 19);
             this.tableLayoutPanel1.Controls.Add(this.lblUCent, 1, 19);
             this.tableLayoutPanel1.Controls.Add(this.chBoxUCent, 2, 19);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 23);
-            this.tableLayoutPanel1.Controls.Add(this.lblUCam, 1, 23);
-            this.tableLayoutPanel1.Controls.Add(this.chBoxUCam, 2, 23);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 21);
             this.tableLayoutPanel1.Controls.Add(this.lblUServo, 1, 21);
             this.tableLayoutPanel1.Controls.Add(this.chBoxUServo, 2, 21);
@@ -171,9 +165,9 @@
             // 
             this.LidarCleanCHK.AutoSize = true;
             this.LidarCleanCHK.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LidarCleanCHK.Location = new System.Drawing.Point(313, 443);
+            this.LidarCleanCHK.Location = new System.Drawing.Point(313, 379);
             this.LidarCleanCHK.Name = "LidarCleanCHK";
-            this.LidarCleanCHK.Size = new System.Drawing.Size(14, 23);
+            this.LidarCleanCHK.Size = new System.Drawing.Size(14, 26);
             this.LidarCleanCHK.TabIndex = 67;
             this.LidarCleanCHK.Text = "checkBox2";
             this.LidarCleanCHK.UseVisualStyleBackColor = true;
@@ -183,9 +177,9 @@
             this.YNlidar.AutoSize = true;
             this.YNlidar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.YNlidar.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.YNlidar.Location = new System.Drawing.Point(158, 440);
+            this.YNlidar.Location = new System.Drawing.Point(158, 376);
             this.YNlidar.Name = "YNlidar";
-            this.YNlidar.Size = new System.Drawing.Size(149, 29);
+            this.YNlidar.Size = new System.Drawing.Size(149, 32);
             this.YNlidar.TabIndex = 66;
             this.YNlidar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -194,9 +188,9 @@
             this.LidarClean.AutoSize = true;
             this.LidarClean.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LidarClean.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LidarClean.Location = new System.Drawing.Point(3, 440);
+            this.LidarClean.Location = new System.Drawing.Point(3, 376);
             this.LidarClean.Name = "LidarClean";
-            this.LidarClean.Size = new System.Drawing.Size(149, 29);
+            this.LidarClean.Size = new System.Drawing.Size(149, 32);
             this.LidarClean.TabIndex = 65;
             this.LidarClean.Text = "Verify Lidar is\r\nclear of debree";
             this.LidarClean.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -207,9 +201,9 @@
             this.lidarchk.AutoSize = true;
             this.lidarchk.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lidarchk.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lidarchk.Location = new System.Drawing.Point(313, 132);
+            this.lidarchk.Location = new System.Drawing.Point(313, 126);
             this.lidarchk.Name = "lidarchk";
-            this.lidarchk.Size = new System.Drawing.Size(14, 21);
+            this.lidarchk.Size = new System.Drawing.Size(14, 14);
             this.lidarchk.TabIndex = 64;
             this.lidarchk.UseVisualStyleBackColor = true;
             // 
@@ -218,9 +212,9 @@
             this.LidarText.AutoSize = true;
             this.LidarText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LidarText.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LidarText.Location = new System.Drawing.Point(158, 129);
+            this.LidarText.Location = new System.Drawing.Point(158, 123);
             this.LidarText.Name = "LidarText";
-            this.LidarText.Size = new System.Drawing.Size(149, 27);
+            this.LidarText.Size = new System.Drawing.Size(149, 20);
             this.LidarText.TabIndex = 63;
             this.LidarText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -229,9 +223,9 @@
             this.LidarEnabled.AutoSize = true;
             this.LidarEnabled.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LidarEnabled.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LidarEnabled.Location = new System.Drawing.Point(3, 129);
+            this.LidarEnabled.Location = new System.Drawing.Point(3, 123);
             this.LidarEnabled.Name = "LidarEnabled";
-            this.LidarEnabled.Size = new System.Drawing.Size(149, 27);
+            this.LidarEnabled.Size = new System.Drawing.Size(149, 20);
             this.LidarEnabled.TabIndex = 62;
             this.LidarEnabled.Text = "Lidar Enabled";
             this.LidarEnabled.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -240,9 +234,9 @@
             // 
             this.CHK_CompassCheck.AutoSize = true;
             this.CHK_CompassCheck.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CHK_CompassCheck.Location = new System.Drawing.Point(313, 412);
+            this.CHK_CompassCheck.Location = new System.Drawing.Point(313, 351);
             this.CHK_CompassCheck.Name = "CHK_CompassCheck";
-            this.CHK_CompassCheck.Size = new System.Drawing.Size(14, 20);
+            this.CHK_CompassCheck.Size = new System.Drawing.Size(14, 17);
             this.CHK_CompassCheck.TabIndex = 61;
             this.CHK_CompassCheck.Text = "checkBox2";
             this.CHK_CompassCheck.UseVisualStyleBackColor = true;
@@ -253,9 +247,9 @@
             this.lbl_CompassCheck.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbl_CompassCheck.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_CompassCheck.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lbl_CompassCheck.Location = new System.Drawing.Point(158, 409);
+            this.lbl_CompassCheck.Location = new System.Drawing.Point(158, 348);
             this.lbl_CompassCheck.Name = "lbl_CompassCheck";
-            this.lbl_CompassCheck.Size = new System.Drawing.Size(149, 26);
+            this.lbl_CompassCheck.Size = new System.Drawing.Size(149, 23);
             this.lbl_CompassCheck.TabIndex = 60;
             this.lbl_CompassCheck.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -264,9 +258,9 @@
             this.label15.AutoSize = true;
             this.label15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label15.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(3, 409);
+            this.label15.Location = new System.Drawing.Point(3, 348);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(149, 26);
+            this.label15.Size = new System.Drawing.Size(149, 23);
             this.label15.TabIndex = 59;
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -276,9 +270,9 @@
             this.lblWPCheck.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblWPCheck.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWPCheck.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblWPCheck.Location = new System.Drawing.Point(158, 378);
+            this.lblWPCheck.Location = new System.Drawing.Point(158, 320);
             this.lblWPCheck.Name = "lblWPCheck";
-            this.lblWPCheck.Size = new System.Drawing.Size(149, 26);
+            this.lblWPCheck.Size = new System.Drawing.Size(149, 23);
             this.lblWPCheck.TabIndex = 55;
             this.lblWPCheck.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -286,9 +280,9 @@
             // 
             this.CHK_WPCheck.AutoSize = true;
             this.CHK_WPCheck.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CHK_WPCheck.Location = new System.Drawing.Point(313, 381);
+            this.CHK_WPCheck.Location = new System.Drawing.Point(313, 323);
             this.CHK_WPCheck.Name = "CHK_WPCheck";
-            this.CHK_WPCheck.Size = new System.Drawing.Size(14, 20);
+            this.CHK_WPCheck.Size = new System.Drawing.Size(14, 17);
             this.CHK_WPCheck.TabIndex = 54;
             this.CHK_WPCheck.Text = "checkBox1";
             this.CHK_WPCheck.UseVisualStyleBackColor = true;
@@ -299,9 +293,9 @@
             this.label14.AutoSize = true;
             this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label14.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(3, 378);
+            this.label14.Location = new System.Drawing.Point(3, 320);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(149, 26);
+            this.label14.Size = new System.Drawing.Size(149, 23);
             this.label14.TabIndex = 53;
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -313,7 +307,7 @@
             this.label13.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(3, 5);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(324, 26);
+            this.label13.Size = new System.Drawing.Size(324, 22);
             this.label13.TabIndex = 52;
             this.label13.Text = "Automated Checklist";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -323,9 +317,9 @@
             this.chBoxGPS.AutoSize = true;
             this.chBoxGPS.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chBoxGPS.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.chBoxGPS.Location = new System.Drawing.Point(313, 39);
+            this.chBoxGPS.Location = new System.Drawing.Point(313, 35);
             this.chBoxGPS.Name = "chBoxGPS";
-            this.chBoxGPS.Size = new System.Drawing.Size(14, 20);
+            this.chBoxGPS.Size = new System.Drawing.Size(14, 14);
             this.chBoxGPS.TabIndex = 28;
             this.chBoxGPS.UseVisualStyleBackColor = true;
             // 
@@ -334,9 +328,9 @@
             this.chBoxTel.AutoSize = true;
             this.chBoxTel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chBoxTel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.chBoxTel.Location = new System.Drawing.Point(313, 70);
+            this.chBoxTel.Location = new System.Drawing.Point(313, 60);
             this.chBoxTel.Name = "chBoxTel";
-            this.chBoxTel.Size = new System.Drawing.Size(14, 20);
+            this.chBoxTel.Size = new System.Drawing.Size(14, 30);
             this.chBoxTel.TabIndex = 29;
             this.chBoxTel.UseVisualStyleBackColor = true;
             // 
@@ -347,7 +341,7 @@
             this.chBoxBattery.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.chBoxBattery.Location = new System.Drawing.Point(313, 101);
             this.chBoxBattery.Name = "chBoxBattery";
-            this.chBoxBattery.Size = new System.Drawing.Size(14, 20);
+            this.chBoxBattery.Size = new System.Drawing.Size(14, 14);
             this.chBoxBattery.TabIndex = 30;
             this.chBoxBattery.UseVisualStyleBackColor = true;
             // 
@@ -359,7 +353,7 @@
             this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label9.Location = new System.Drawing.Point(3, 98);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(149, 26);
+            this.label9.Size = new System.Drawing.Size(149, 20);
             this.label9.TabIndex = 22;
             this.label9.Text = "Battery Voltage";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -371,7 +365,7 @@
             this.lblBattery.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.lblBattery.Location = new System.Drawing.Point(158, 98);
             this.lblBattery.Name = "lblBattery";
-            this.lblBattery.Size = new System.Drawing.Size(149, 26);
+            this.lblBattery.Size = new System.Drawing.Size(149, 20);
             this.lblBattery.TabIndex = 23;
             this.lblBattery.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -381,9 +375,9 @@
             this.lblTel.BackColor = System.Drawing.SystemColors.Control;
             this.lblTel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblTel.Location = new System.Drawing.Point(158, 67);
+            this.lblTel.Location = new System.Drawing.Point(158, 57);
             this.lblTel.Name = "lblTel";
-            this.lblTel.Size = new System.Drawing.Size(149, 26);
+            this.lblTel.Size = new System.Drawing.Size(149, 36);
             this.lblTel.TabIndex = 15;
             this.lblTel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -393,9 +387,9 @@
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label8.Font = new System.Drawing.Font("Arial", 12F);
             this.label8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label8.Location = new System.Drawing.Point(3, 67);
+            this.label8.Location = new System.Drawing.Point(3, 57);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(149, 26);
+            this.label8.Size = new System.Drawing.Size(149, 36);
             this.label8.TabIndex = 14;
             this.label8.Text = "Verify Telemetry Signal";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -405,9 +399,9 @@
             this.lblGPS.AutoSize = true;
             this.lblGPS.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblGPS.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.lblGPS.Location = new System.Drawing.Point(158, 36);
+            this.lblGPS.Location = new System.Drawing.Point(158, 32);
             this.lblGPS.Name = "lblGPS";
-            this.lblGPS.Size = new System.Drawing.Size(149, 26);
+            this.lblGPS.Size = new System.Drawing.Size(149, 20);
             this.lblGPS.TabIndex = 13;
             this.lblGPS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -417,9 +411,9 @@
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Font = new System.Drawing.Font("Arial", 12F);
             this.label7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label7.Location = new System.Drawing.Point(3, 36);
+            this.label7.Location = new System.Drawing.Point(3, 32);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(149, 26);
+            this.label7.Size = new System.Drawing.Size(149, 20);
             this.label7.TabIndex = 9;
             this.label7.Text = "Verify GPS";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -430,9 +424,9 @@
             this.tableLayoutPanel1.SetColumnSpan(this.label1, 3);
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 161);
+            this.label1.Location = new System.Drawing.Point(3, 148);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(324, 26);
+            this.label1.Size = new System.Drawing.Size(324, 22);
             this.label1.TabIndex = 33;
             this.label1.Text = "User Checklist";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -442,9 +436,9 @@
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(3, 223);
+            this.label2.Location = new System.Drawing.Point(3, 203);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(149, 26);
+            this.label2.Size = new System.Drawing.Size(149, 23);
             this.label2.TabIndex = 34;
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -454,9 +448,9 @@
             this.lblURcStick.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblURcStick.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblURcStick.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblURcStick.Location = new System.Drawing.Point(158, 223);
+            this.lblURcStick.Location = new System.Drawing.Point(158, 203);
             this.lblURcStick.Name = "lblURcStick";
-            this.lblURcStick.Size = new System.Drawing.Size(149, 26);
+            this.lblURcStick.Size = new System.Drawing.Size(149, 23);
             this.lblURcStick.TabIndex = 35;
             this.lblURcStick.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -464,9 +458,9 @@
             // 
             this.chBoxURCIn.AutoSize = true;
             this.chBoxURCIn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chBoxURCIn.Location = new System.Drawing.Point(313, 226);
+            this.chBoxURCIn.Location = new System.Drawing.Point(313, 206);
             this.chBoxURCIn.Name = "chBoxURCIn";
-            this.chBoxURCIn.Size = new System.Drawing.Size(14, 20);
+            this.chBoxURCIn.Size = new System.Drawing.Size(14, 17);
             this.chBoxURCIn.TabIndex = 36;
             this.chBoxURCIn.Text = "checkBox1";
             this.chBoxURCIn.UseVisualStyleBackColor = true;
@@ -477,9 +471,9 @@
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 254);
+            this.label3.Location = new System.Drawing.Point(3, 231);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(149, 26);
+            this.label3.Size = new System.Drawing.Size(149, 23);
             this.label3.TabIndex = 37;
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -489,9 +483,9 @@
             this.lblUtilt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblUtilt.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUtilt.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblUtilt.Location = new System.Drawing.Point(158, 254);
+            this.lblUtilt.Location = new System.Drawing.Point(158, 231);
             this.lblUtilt.Name = "lblUtilt";
-            this.lblUtilt.Size = new System.Drawing.Size(149, 26);
+            this.lblUtilt.Size = new System.Drawing.Size(149, 23);
             this.lblUtilt.TabIndex = 38;
             this.lblUtilt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -499,9 +493,9 @@
             // 
             this.chBoxUTilt.AutoSize = true;
             this.chBoxUTilt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chBoxUTilt.Location = new System.Drawing.Point(313, 257);
+            this.chBoxUTilt.Location = new System.Drawing.Point(313, 234);
             this.chBoxUTilt.Name = "chBoxUTilt";
-            this.chBoxUTilt.Size = new System.Drawing.Size(14, 20);
+            this.chBoxUTilt.Size = new System.Drawing.Size(14, 17);
             this.chBoxUTilt.TabIndex = 39;
             this.chBoxUTilt.Text = "checkBox1";
             this.chBoxUTilt.UseVisualStyleBackColor = true;
@@ -512,9 +506,9 @@
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 285);
+            this.label4.Location = new System.Drawing.Point(3, 259);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(149, 26);
+            this.label4.Size = new System.Drawing.Size(149, 23);
             this.label4.TabIndex = 40;
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -524,9 +518,9 @@
             this.lblUCent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblUCent.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUCent.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblUCent.Location = new System.Drawing.Point(158, 285);
+            this.lblUCent.Location = new System.Drawing.Point(158, 259);
             this.lblUCent.Name = "lblUCent";
-            this.lblUCent.Size = new System.Drawing.Size(149, 26);
+            this.lblUCent.Size = new System.Drawing.Size(149, 23);
             this.lblUCent.TabIndex = 41;
             this.lblUCent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -534,57 +528,22 @@
             // 
             this.chBoxUCent.AutoSize = true;
             this.chBoxUCent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chBoxUCent.Location = new System.Drawing.Point(313, 288);
+            this.chBoxUCent.Location = new System.Drawing.Point(313, 262);
             this.chBoxUCent.Name = "chBoxUCent";
-            this.chBoxUCent.Size = new System.Drawing.Size(14, 20);
+            this.chBoxUCent.Size = new System.Drawing.Size(14, 17);
             this.chBoxUCent.TabIndex = 42;
             this.chBoxUCent.Text = "checkBox1";
             this.chBoxUCent.UseVisualStyleBackColor = true;
             this.chBoxUCent.CheckedChanged += new System.EventHandler(this.chBoxUCent_CheckedChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(3, 347);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(149, 26);
-            this.label5.TabIndex = 43;
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblUCam
-            // 
-            this.lblUCam.AutoSize = true;
-            this.lblUCam.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblUCam.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUCam.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblUCam.Location = new System.Drawing.Point(158, 347);
-            this.lblUCam.Name = "lblUCam";
-            this.lblUCam.Size = new System.Drawing.Size(149, 26);
-            this.lblUCam.TabIndex = 44;
-            this.lblUCam.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // chBoxUCam
-            // 
-            this.chBoxUCam.AutoSize = true;
-            this.chBoxUCam.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chBoxUCam.Location = new System.Drawing.Point(313, 350);
-            this.chBoxUCam.Name = "chBoxUCam";
-            this.chBoxUCam.Size = new System.Drawing.Size(14, 20);
-            this.chBoxUCam.TabIndex = 45;
-            this.chBoxUCam.Text = "checkBox1";
-            this.chBoxUCam.UseVisualStyleBackColor = true;
-            this.chBoxUCam.CheckedChanged += new System.EventHandler(this.chBoxUCam_CheckedChanged);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(3, 316);
+            this.label6.Location = new System.Drawing.Point(3, 287);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(149, 26);
+            this.label6.Size = new System.Drawing.Size(149, 23);
             this.label6.TabIndex = 46;
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -594,9 +553,9 @@
             this.lblUServo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblUServo.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUServo.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblUServo.Location = new System.Drawing.Point(158, 316);
+            this.lblUServo.Location = new System.Drawing.Point(158, 287);
             this.lblUServo.Name = "lblUServo";
-            this.lblUServo.Size = new System.Drawing.Size(149, 26);
+            this.lblUServo.Size = new System.Drawing.Size(149, 23);
             this.lblUServo.TabIndex = 47;
             this.lblUServo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -604,9 +563,9 @@
             // 
             this.chBoxUServo.AutoSize = true;
             this.chBoxUServo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chBoxUServo.Location = new System.Drawing.Point(313, 319);
+            this.chBoxUServo.Location = new System.Drawing.Point(313, 290);
             this.chBoxUServo.Name = "chBoxUServo";
-            this.chBoxUServo.Size = new System.Drawing.Size(14, 20);
+            this.chBoxUServo.Size = new System.Drawing.Size(14, 17);
             this.chBoxUServo.TabIndex = 48;
             this.chBoxUServo.Text = "checkBox1";
             this.chBoxUServo.UseVisualStyleBackColor = true;
@@ -617,9 +576,9 @@
             this.label12.AutoSize = true;
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label12.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(3, 192);
+            this.label12.Location = new System.Drawing.Point(3, 175);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(149, 26);
+            this.label12.Size = new System.Drawing.Size(149, 23);
             this.label12.TabIndex = 49;
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -629,9 +588,9 @@
             this.lblUWing.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblUWing.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUWing.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblUWing.Location = new System.Drawing.Point(158, 192);
+            this.lblUWing.Location = new System.Drawing.Point(158, 175);
             this.lblUWing.Name = "lblUWing";
-            this.lblUWing.Size = new System.Drawing.Size(149, 26);
+            this.lblUWing.Size = new System.Drawing.Size(149, 23);
             this.lblUWing.TabIndex = 50;
             this.lblUWing.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -639,9 +598,9 @@
             // 
             this.chBoxUWing.AutoSize = true;
             this.chBoxUWing.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chBoxUWing.Location = new System.Drawing.Point(313, 195);
+            this.chBoxUWing.Location = new System.Drawing.Point(313, 178);
             this.chBoxUWing.Name = "chBoxUWing";
-            this.chBoxUWing.Size = new System.Drawing.Size(14, 20);
+            this.chBoxUWing.Size = new System.Drawing.Size(14, 17);
             this.chBoxUWing.TabIndex = 51;
             this.chBoxUWing.Text = "checkBox1";
             this.chBoxUWing.UseVisualStyleBackColor = true;
@@ -650,7 +609,7 @@
             // chBoxCamSel
             // 
             this.chBoxCamSel.AutoSize = true;
-            this.chBoxCamSel.Location = new System.Drawing.Point(313, 472);
+            this.chBoxCamSel.Location = new System.Drawing.Point(313, 411);
             this.chBoxCamSel.Name = "chBoxCamSel";
             this.chBoxCamSel.Size = new System.Drawing.Size(14, 17);
             this.chBoxCamSel.TabIndex = 68;
@@ -672,7 +631,7 @@
             "QX1",
             "RedEdge",
             "FLIR"});
-            this.selectCameraCMB.Location = new System.Drawing.Point(158, 472);
+            this.selectCameraCMB.Location = new System.Drawing.Point(158, 411);
             this.selectCameraCMB.Name = "selectCameraCMB";
             this.selectCameraCMB.Size = new System.Drawing.Size(149, 21);
             this.selectCameraCMB.TabIndex = 69;
@@ -682,7 +641,7 @@
             // 
             this.selectCameraTXT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.selectCameraTXT.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.selectCameraTXT.Location = new System.Drawing.Point(3, 469);
+            this.selectCameraTXT.Location = new System.Drawing.Point(3, 408);
             this.selectCameraTXT.Name = "selectCameraTXT";
             this.selectCameraTXT.Size = new System.Drawing.Size(149, 27);
             this.selectCameraTXT.TabIndex = 70;
@@ -731,9 +690,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblUCent;
         private System.Windows.Forms.CheckBox chBoxUCent;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label lblUCam;
-        private System.Windows.Forms.CheckBox chBoxUCam;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblUServo;
         private System.Windows.Forms.CheckBox chBoxUServo;

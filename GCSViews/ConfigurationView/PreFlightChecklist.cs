@@ -119,7 +119,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 this.label2.Text = "All servos respond to R/C stick inputs";
                 this.label6.Text = "Servo linkages are secure";
                 this.label12.Text = "Tail and wings are secured to the body";
-                this.label5.Text = "Camera is on and test shot has been taken";
+                
                 this.label15.Text = "Verify Compass Heading";
             }
 
@@ -249,7 +249,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
                 this.label2.Text = "All servos respond to R/C stick inputs";
                 this.label6.Text = "Servo linkages are secure";
                 this.label12.Text = "Tail and wings are secured to the body";
-                this.label5.Text = "Camera is on and test shot has been taken";
+                
                 this.label15.Text = "Verify Compass Heading";            
                         
             }
@@ -296,10 +296,9 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
                 this.label3.Text = "Camera is tightened firmly to the mount";
                 this.label4.Text = "Ch 7 switch (auto land) is in OFF position";
-                this.label2.Text = "Camera is on and test shot has been taken";
+                this.label2.Text = "Transmitter set to loiter";
                 this.label6.Text = "RTL switch is in the OFF position";
                 this.label12.Text = "Propellers are tight and secure";
-                this.label5.Text = "Transmitter set to loiter";
                 this.label15.Text = "IRIS+ is on a level surface";
                 this.label14.Text = "Verify Compass Heading";
                
@@ -383,8 +382,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             //if (chBoxUCam.Checked)
             //    lblUCam.BackColor = Color.Green;
             //else
-            //    lblUCam.BackColor = Color.Red;
-            SetColorAndTextOnState(lblUCam, chBoxUCam);
+
 
             //if (chBoxUServo.Checked)
             //    lblUServo.BackColor = Color.Green;
