@@ -91,8 +91,6 @@
             this.LBL_copter_delay = new System.Windows.Forms.Label();
             this.NUM_copter_delay = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.NUM_leadin = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.NUM_spacing = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
@@ -146,7 +144,6 @@
             this.groupBox_copter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_copter_delay)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NUM_leadin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_spacing)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_overshoot2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_overlap)).BeginInit();
@@ -635,8 +632,6 @@
             // groupBox1
             // 
             resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Controls.Add(this.label32);
-            this.groupBox1.Controls.Add(this.NUM_leadin);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.NUM_spacing);
             this.groupBox1.Controls.Add(this.label7);
@@ -653,16 +648,6 @@
             this.groupBox1.Controls.Add(this.NUM_Distance);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
-            // 
-            // label32
-            // 
-            resources.ApplyResources(this.label32, "label32");
-            this.label32.Name = "label32";
-            // 
-            // NUM_leadin
-            // 
-            resources.ApplyResources(this.NUM_leadin, "NUM_leadin");
-            this.NUM_leadin.Name = "NUM_leadin";
             // 
             // label3
             // 
@@ -1077,7 +1062,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.NUM_copter_delay)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NUM_leadin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_spacing)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_overshoot2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_overlap)).EndInit();
@@ -1204,7 +1188,5 @@
         private System.Windows.Forms.Label LBL_PhotoEveryWarning;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label modelname;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.NumericUpDown NUM_leadin;
     }
 }

@@ -85,8 +85,9 @@ namespace MissionPlanner
             form.Show();
         }
 
-        public static List<PointLatLngAlt> CreateGrid(List<PointLatLngAlt> polygon, double altitude, double distance, double spacing, double angle, double overshoot1, double overshoot2, StartPosition startpos, bool shutter, float minLaneSeparation, float leadin = 0)
+        public static List<PointLatLngAlt> CreateGrid(List<PointLatLngAlt> polygon, double altitude, double distance, double spacing, double angle, double overshoot1, double overshoot2, StartPosition startpos, bool shutter, float minLaneSeparation = 0)
         {
+            float leadin = 0;
             //DoDebug();
 
             if (spacing < 4 && spacing != 0)
