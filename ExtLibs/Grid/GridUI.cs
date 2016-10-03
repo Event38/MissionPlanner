@@ -1410,7 +1410,6 @@ namespace MissionPlanner
 
                 if (MainV2.CurrentUAV.firmware != "E384"){
                 plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 25, 0, 0, 0, 0, 0, (int)(NUM_altitude.Value));
-                    plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 25, 0, 0, 0, 0, 0, (int)(NUM_altitude.Value));
                 }
                 else plugin.Host.AddWPtoList(MAVLink.MAV_CMD.TAKEOFF, 25, 0, 0, 0, 0, 0, (int)(NUM_altitude.Value));
            

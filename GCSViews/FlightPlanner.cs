@@ -6167,6 +6167,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 //*handles setting up landing pattern for E384, E386, Scout, and Iris -D Cironi 2015-12-18
 //******************************************************************************************************
         void SetupLandingWaypoints() {
+            bool containsLand = false;
             //remove old land WPs and runway overlay if they are present
             if (Commands.Rows.Count > 1) //there are waypoints already planned
             {
@@ -6177,16 +6178,20 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 {
                     if (Commands.Rows[i].Cells[Command.Index].Value.ToString().Contains("DO_LAND_START"))
                     {
+                        containsLand = true;
                         landStartIndex = i;
                     }
                     else if (Commands.Rows[i].Cells[Command.Index].Value.ToString().Contains("LAND"))
                     {
+                        containsLand = true;
                         landEndIndex = i;
                     }
                 }
-
-                for (int i = landStartIndex; i <= landEndIndex; i++)
-                    Commands.Rows.RemoveAt(landStartIndex);
+                if (containsLand == true)
+                {
+                    for (int i = landStartIndex; i <= landEndIndex; i++)
+                        Commands.Rows.RemoveAt(landStartIndex);
+                }
             }
 
             //convert direction in degrees to radians for calculations
