@@ -21,6 +21,7 @@ namespace MissionPlanner
         public bool autoland;
         public bool resumeMission;
         public bool runway;
+        public int missionAlt = 90;
 
         public static UAVStats setStats(string uav)
         {

@@ -1617,8 +1617,8 @@ namespace MissionPlanner
 
                
                 }
-            
-
+                
+                MainV2.CurrentUAV.missionAlt =  int.Parse(NUM_altitude.Value.ToString());
                 //add polygonmode here
 
                 // Redraw the polygon in FP

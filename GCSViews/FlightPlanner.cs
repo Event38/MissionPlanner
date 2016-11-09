@@ -6167,6 +6167,11 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
 //*handles setting up landing pattern for E384, E386, Scout, and Iris -D Cironi 2015-12-18
 //******************************************************************************************************
         void SetupLandingWaypoints() {
+
+            if (MainV2.CurrentUAV.missionAlt < 90)
+            {   //ensures minimum altitude of loiter wp is 90
+                MainV2.CurrentUAV.missionAlt = 90;
+            }
             bool containsLand = false;
             //remove old land WPs and runway overlay if they are present
             if (Commands.Rows.Count > 1) //there are waypoints already planned
@@ -6223,6 +6228,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             //E386
             if (MainV2.CurrentUAV.firmware == "E386") 
             {
+                //add waypoint above loiter wp
+                selectedrow = Commands.Rows.Add();
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.LOITER_TO_ALT.ToString());
+                setfromMap(landingPoint.Lat - (LatDistance * (500)), landingPoint.Lng - (LngDistance * (500)), MainV2.CurrentUAV.missionAlt); //WP 500 meters out in the direction of landing and 100 meters altitude
+                writeKML();
                 //add first wp of landing procedure
                 selectedrow = Commands.Rows.Add();
                 Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TO_ALT.ToString();
@@ -6265,7 +6276,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 double angleOfThirdPoint = Math.PI + angleOfFirstPoint;
                 double angleOfFourthPoint = 2 * Math.PI - angleOfFirstPoint;
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     double tempDirection = LandingDirectionRadians;
                     switch (i)
@@ -6348,6 +6359,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             } 
             else if (MainV2.CurrentUAV.firmware == "Scout") 
             {
+                //add waypoint above loiter wp
+                selectedrow = Commands.Rows.Add();
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.LOITER_TO_ALT.ToString());
+                setfromMap(landingPoint.Lat - (LatDistance * (500)), landingPoint.Lng - (LngDistance * (500)), MainV2.CurrentUAV.missionAlt); //WP 500 meters out in the direction of landing and 100 meters altitude
+                writeKML();
                 //add first wp of landing procedure
                 selectedrow = Commands.Rows.Add();
                 Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TO_ALT.ToString();
@@ -6391,7 +6408,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 double angleOfThirdPoint = Math.PI + angleOfFirstPoint;
                 double angleOfFourthPoint = 2 * Math.PI - angleOfFirstPoint;
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     double tempDirection = LandingDirectionRadians;
                     switch (i)
@@ -6473,6 +6490,12 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
             }
             else if (MainV2.CurrentUAV.firmware == "E384")
             {
+                //add waypoint above loiter wp
+                selectedrow = Commands.Rows.Add();
+                Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.WAYPOINT.ToString();
+                ChangeColumnHeader(MAVLink.MAV_CMD.LOITER_TO_ALT.ToString());
+                setfromMap(landingPoint.Lat - (LatDistance * (500)), landingPoint.Lng - (LngDistance * (500)), MainV2.CurrentUAV.missionAlt); //WP 500 meters out in the direction of landing and 100 meters altitude
+                writeKML();
                 //add first wp of landing procedure
                 selectedrow = Commands.Rows.Add();
                 Commands.Rows[selectedrow].Cells[Command.Index].Value = MAVLink.MAV_CMD.LOITER_TO_ALT.ToString();
@@ -6523,7 +6546,7 @@ Column 1: Field type (RALLY is the only one at the moment -- may have RALLY_LAND
                 double angleOfThirdPoint = Math.PI + angleOfFirstPoint;
                 double angleOfFourthPoint = 2 * Math.PI - angleOfFirstPoint;
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     double tempDirection = LandingDirectionRadians;
                     switch (i)
