@@ -385,12 +385,6 @@ namespace MissionPlanner
 
             //Show Camera Stuff -D Cironi 2015-09-24
            
-            FlightData.BUT_CloseHatch.Visible = true;
-            FlightData.BUT_CloseHatchSimple.Visible = true;
-            FlightData.BUT_OpenHatch.Visible = true;
-            FlightData.BUT_OpenHatchSimple.Visible = true;
-            FlightData.CHK_AutoHatch.Visible = true;
-            FlightData.CHK_AutoHatchSimple.Visible = true;
 
             FlightData.BUT_CloseLens.Visible = false;
             FlightData.BUT_CloseLensSimple.Visible = false;         

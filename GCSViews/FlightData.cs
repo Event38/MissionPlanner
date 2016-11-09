@@ -1356,45 +1356,45 @@ namespace MissionPlanner.GCSViews
 
         int count = 0;
 
-        private void updateCameraHatch()
-        {             
-            count = count + 1;
-            if(count > 40 && !playingLog && MainV2.comPort.MAV.cs.connected) //only run this code every 40th time. Prevents slow parameter retrieval on initial connection.
-            {               
-              count = 0;
-                if (tabControlactions.TabPages.Contains(tabActions)) //if in advanced mode
-                {
-                    if (CHK_AutoHatch.Checked)
-                    {
-                        CHK_AutoHatch.BackgroundImage = MissionPlanner.Properties.Resources.Green_panel1;
+        //private void updateCameraHatch()
+        //{             
+        //    count = count + 1;
+        //    if(count > 40 && !playingLog && MainV2.comPort.MAV.cs.connected) //only run this code every 40th time. Prevents slow parameter retrieval on initial connection.
+        //    {               
+        //      count = 0;
+        //        if (tabControlactions.TabPages.Contains(tabActions)) //if in advanced mode
+        //        {
+        //            if (CHK_AutoHatch.Checked)
+        //            {
+        //                CHK_AutoHatch.BackgroundImage = MissionPlanner.Properties.Resources.Green_panel1;
 
-                        if (MainV2.comPort.MAV.cs.alt > 30) 
-                        {
-                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, int.Parse(servoOptions3.TXT_pwm_low.Text), 0, 0, 0, 0, 0); //open hatch
-                        }
-                        else
-                        {
-                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, int.Parse(servoOptions3.TXT_pwm_high.Text), 0, 0, 0, 0, 0); //close hatch
-                        }
-                    }
-                }
-                else if (tabControlactions.TabPages.Contains(tabActionsSimple)) //if not advanced mode
-                {
-                    if (CHK_AutoHatchSimple.Checked)
-                    {
-                        CHK_AutoHatchSimple.BackgroundImage = MissionPlanner.Properties.Resources.Green_panel1;
-                        if (MainV2.comPort.MAV.cs.alt > 30)
-                        {
-                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, int.Parse(servoOptions3.TXT_pwm_low.Text), 0, 0, 0, 0, 0); //open hatch
-                        }
-                        else 
-                        {
-                            MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, int.Parse(servoOptions3.TXT_pwm_high.Text), 0, 0, 0, 0, 0); //cose hatch
-                        }
-                    }                   
-                }
-            }
-        }
+        //                if (MainV2.comPort.MAV.cs.alt > 30) 
+        //                {
+        //                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, int.Parse(servoOptions3.TXT_pwm_low.Text), 0, 0, 0, 0, 0); //open hatch
+        //                }
+        //                else
+        //                {
+        //                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, int.Parse(servoOptions3.TXT_pwm_high.Text), 0, 0, 0, 0, 0); //close hatch
+        //                }
+        //            }
+        //        }
+        //        else if (tabControlactions.TabPages.Contains(tabActionsSimple)) //if not advanced mode
+        //        {
+        //            if (CHK_AutoHatchSimple.Checked)
+        //            {
+        //                CHK_AutoHatchSimple.BackgroundImage = MissionPlanner.Properties.Resources.Green_panel1;
+        //                if (MainV2.comPort.MAV.cs.alt > 30)
+        //                {
+        //                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, int.Parse(servoOptions3.TXT_pwm_low.Text), 0, 0, 0, 0, 0); //open hatch
+        //                }
+        //                else 
+        //                {
+        //                    MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, int.Parse(servoOptions3.TXT_pwm_high.Text), 0, 0, 0, 0, 0); //cose hatch
+        //                }
+        //            }                   
+        //        }
+        //    }
+        //}
 
         private void updateCameraLensPlane()
         {
@@ -3718,90 +3718,6 @@ namespace MissionPlanner.GCSViews
         }
       
 
-        private void BUT_OpenHatch_Click(object sender, EventArgs e)
-        {
-
-            if (!MainV2.comPort.MAV.cs.connected)
-            {
-                CustomMessageBox.Show("Please connect first");
-            }
-            else 
-            {
-                if (tabControlactions.TabPages.Contains(tabActions))
-                {
-                    CHK_AutoHatch.Checked = false;
-                    CHK_AutoHatch.Text = "Auto Hatch Disabled";
-                    CHK_AutoHatch.BackgroundImage = MissionPlanner.Properties.Resources.Red_panel;
-                }
-                else if (tabControlactions.TabPages.Contains(tabActionsSimple))
-                {
-                    CHK_AutoHatchSimple.Checked = false;
-                    CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
-                    CHK_AutoHatchSimple.BackgroundImage = MissionPlanner.Properties.Resources.Red_panel;
-                }
-                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, int.Parse(servoOptions3.TXT_pwm_low.Text), 0, 0, 0, 0, 0); //toggle servo 7 low
-            }
-        }
-
-        private void BUT_CloseHatch_Click(object sender, EventArgs e)
-        {
-            if (!MainV2.comPort.MAV.cs.connected)
-            {
-                CustomMessageBox.Show("Please connect first");
-            }
-            else
-            {
-                if (tabControlactions.TabPages.Contains(tabActions))
-                {
-                    CHK_AutoHatch.Checked = false;
-                    CHK_AutoHatch.Text = "Auto Hatch Disabled";
-                    CHK_AutoHatch.BackgroundImage = MissionPlanner.Properties.Resources.Red_panel;
-                }
-                else if (tabControlactions.TabPages.Contains(tabActionsSimple))
-                {
-                    CHK_AutoHatchSimple.Checked = false;
-                    CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
-                    CHK_AutoHatchSimple.BackgroundImage = MissionPlanner.Properties.Resources.Red_panel;
-                }
-                MainV2.comPort.doCommand(MAVLink.MAV_CMD.DO_SET_SERVO, 7, int.Parse(servoOptions3.TXT_pwm_high.Text), 0, 0, 0, 0, 0); //toggle servo 7 high
-            }
-        }
-
-        private void CHK_AutoHatchSimple_CheckedChanged(object sender, EventArgs e)
-        {
-            
-                if (tabControlactions.TabPages.Contains(tabActionsSimple))
-                {
-                    if (CHK_AutoHatchSimple.Checked)
-                    {
-                        CHK_AutoHatchSimple.Text = "Auto Hatch Enabled";
-                        CHK_AutoHatchSimple.BackgroundImage = MissionPlanner.Properties.Resources.Green_panel1;
-
-                    }
-                    else
-                    {
-                        CHK_AutoHatchSimple.Text = "Auto Hatch Disabled";
-                        CHK_AutoHatchSimple.BackgroundImage = MissionPlanner.Properties.Resources.Red_panel;
-                    }
-                }
-        }
-
-        private void CHK_AutoHatch_CheckedChanged(object sender, EventArgs e)
-        {
-            if (tabControlactions.TabPages.Contains(tabActions))
-            {
-                if (CHK_AutoHatch.Checked)
-                {
-                    CHK_AutoHatch.Text = "Auto Hatch Enabled";
-                    CHK_AutoHatch.BackgroundImage = MissionPlanner.Properties.Resources.Green_panel1;
-                }
-                else
-                {
-                    CHK_AutoHatch.Text = "Auto Hatch Disabled";
-                    CHK_AutoHatch.BackgroundImage = MissionPlanner.Properties.Resources.Red_panel;
-                }
-            }
-        }
 
         private void dropOutToolStripMenuItem_Click(object sender, EventArgs e)
         {

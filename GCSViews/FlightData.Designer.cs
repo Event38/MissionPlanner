@@ -50,9 +50,6 @@
             
            
             this.BUT_Auto = new MissionPlanner.Controls.MyButton();
-            this.CHK_AutoHatch = new System.Windows.Forms.CheckBox();
-            this.BUT_CloseHatch = new MissionPlanner.Controls.MyButton();
-            this.BUT_OpenHatch = new MissionPlanner.Controls.MyButton();
             this.BUT_CloseLens = new MissionPlanner.Controls.MyButton();
             this.CMB_mountmode = new System.Windows.Forms.ComboBox();
             this.BUT_mountmode = new MissionPlanner.Controls.MyButton();
@@ -89,9 +86,6 @@
             this.CMB_CameraSetup = new System.Windows.Forms.ComboBox();
             this.BUT_RestartSimple = new MissionPlanner.Controls.MyButton();
             this.BUT_SetWPSimple = new MissionPlanner.Controls.MyButton();
-            this.CHK_AutoHatchSimple = new System.Windows.Forms.CheckBox();
-            this.BUT_CloseHatchSimple = new MissionPlanner.Controls.MyButton();
-            this.BUT_OpenHatchSimple = new MissionPlanner.Controls.MyButton();
             this.BUT_CloseLensSimple = new MissionPlanner.Controls.MyButton();
             this.BUT_TriggerCameraSimple = new MissionPlanner.Controls.MyButton();
             this.BUT_RTLSimple = new MissionPlanner.Controls.MyButton();
@@ -601,9 +595,6 @@
             resources.ApplyResources(this.tabActions, "tabActions");
             this.tabActions.Controls.Add(this.CMB_CameraSetup);
             this.tabActions.Controls.Add(this.BUT_Auto);
-            this.tabActions.Controls.Add(this.CHK_AutoHatch);
-            this.tabActions.Controls.Add(this.BUT_CloseHatch);
-            this.tabActions.Controls.Add(this.BUT_OpenHatch);
             this.tabActions.Controls.Add(this.BUT_CloseLens);
             this.tabActions.Controls.Add(this.CMB_mountmode);
             this.tabActions.Controls.Add(this.BUT_mountmode);
@@ -638,33 +629,6 @@
             this.toolTip1.SetToolTip(this.BUT_Auto, resources.GetString("BUT_Auto.ToolTip"));
             this.BUT_Auto.UseVisualStyleBackColor = true;
             this.BUT_Auto.Click += new System.EventHandler(this.BUT_Auto_Click);
-            // 
-            // CHK_AutoHatch
-            // 
-            resources.ApplyResources(this.CHK_AutoHatch, "CHK_AutoHatch");
-            this.CHK_AutoHatch.BackColor = System.Drawing.Color.White;
-            this.CHK_AutoHatch.Checked = true;
-            this.CHK_AutoHatch.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CHK_AutoHatch.Name = "CHK_AutoHatch";
-            this.toolTip1.SetToolTip(this.CHK_AutoHatch, resources.GetString("CHK_AutoHatch.ToolTip"));
-            this.CHK_AutoHatch.UseVisualStyleBackColor = false;
-            this.CHK_AutoHatch.CheckedChanged += new System.EventHandler(this.CHK_AutoHatch_CheckedChanged);
-            // 
-            // BUT_CloseHatch
-            // 
-            resources.ApplyResources(this.BUT_CloseHatch, "BUT_CloseHatch");
-            this.BUT_CloseHatch.Name = "BUT_CloseHatch";
-            this.toolTip1.SetToolTip(this.BUT_CloseHatch, resources.GetString("BUT_CloseHatch.ToolTip"));
-            this.BUT_CloseHatch.UseVisualStyleBackColor = true;
-            this.BUT_CloseHatch.Click += new System.EventHandler(this.BUT_CloseHatch_Click);
-            // 
-            // BUT_OpenHatch
-            // 
-            resources.ApplyResources(this.BUT_OpenHatch, "BUT_OpenHatch");
-            this.BUT_OpenHatch.Name = "BUT_OpenHatch";
-            this.toolTip1.SetToolTip(this.BUT_OpenHatch, resources.GetString("BUT_OpenHatch.ToolTip"));
-            this.BUT_OpenHatch.UseVisualStyleBackColor = true;
-            this.BUT_OpenHatch.Click += new System.EventHandler(this.BUT_OpenHatch_Click);
             // 
             // BUT_CloseLens
             // 
@@ -878,9 +842,6 @@
             this.tabActionsSimple.Controls.Add(this.CMB_setwpSimple);
             this.tabActionsSimple.Controls.Add(this.BUT_RestartSimple);
             this.tabActionsSimple.Controls.Add(this.BUT_SetWPSimple);
-            this.tabActionsSimple.Controls.Add(this.CHK_AutoHatchSimple);
-            this.tabActionsSimple.Controls.Add(this.BUT_CloseHatchSimple);
-            this.tabActionsSimple.Controls.Add(this.BUT_OpenHatchSimple);
             this.tabActionsSimple.Controls.Add(this.BUT_CloseLensSimple);
             this.tabActionsSimple.Controls.Add(this.BUT_RTLSimple);
             this.tabActionsSimple.Controls.Add(this.BUT_AutoSimple);
@@ -985,33 +946,6 @@
             this.toolTip1.SetToolTip(this.BUT_SetWPSimple, resources.GetString("BUT_SetWPSimple.ToolTip"));
             this.BUT_SetWPSimple.UseVisualStyleBackColor = true;
             this.BUT_SetWPSimple.Click += new System.EventHandler(this.BUT_SetWPSimple_Click);
-            // 
-            // CHK_AutoHatchSimple
-            // 
-            resources.ApplyResources(this.CHK_AutoHatchSimple, "CHK_AutoHatchSimple");
-            this.CHK_AutoHatchSimple.BackColor = System.Drawing.Color.LimeGreen;
-            this.CHK_AutoHatchSimple.Checked = true;
-            this.CHK_AutoHatchSimple.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CHK_AutoHatchSimple.Name = "CHK_AutoHatchSimple";
-            this.toolTip1.SetToolTip(this.CHK_AutoHatchSimple, resources.GetString("CHK_AutoHatchSimple.ToolTip"));
-            this.CHK_AutoHatchSimple.UseVisualStyleBackColor = false;
-            this.CHK_AutoHatchSimple.CheckedChanged += new System.EventHandler(this.CHK_AutoHatchSimple_CheckedChanged);
-            // 
-            // BUT_CloseHatchSimple
-            // 
-            resources.ApplyResources(this.BUT_CloseHatchSimple, "BUT_CloseHatchSimple");
-            this.BUT_CloseHatchSimple.Name = "BUT_CloseHatchSimple";
-            this.toolTip1.SetToolTip(this.BUT_CloseHatchSimple, resources.GetString("BUT_CloseHatchSimple.ToolTip"));
-            this.BUT_CloseHatchSimple.UseVisualStyleBackColor = true;
-            this.BUT_CloseHatchSimple.Click += new System.EventHandler(this.BUT_CloseHatch_Click);
-            // 
-            // BUT_OpenHatchSimple
-            // 
-            resources.ApplyResources(this.BUT_OpenHatchSimple, "BUT_OpenHatchSimple");
-            this.BUT_OpenHatchSimple.Name = "BUT_OpenHatchSimple";
-            this.toolTip1.SetToolTip(this.BUT_OpenHatchSimple, resources.GetString("BUT_OpenHatchSimple.ToolTip"));
-            this.BUT_OpenHatchSimple.UseVisualStyleBackColor = true;
-            this.BUT_OpenHatchSimple.Click += new System.EventHandler(this.BUT_OpenHatch_Click);
             // 
             // BUT_CloseLensSimple
             // 
@@ -2364,21 +2298,12 @@
         private System.Windows.Forms.ComboBox CMB_setwpSimple;
         private System.Windows.Forms.ComboBox CMB_CameraSetup;
         private ConfigurationView.PreFlightChecklist preFlightChecklist1;
-       
-        private System.Windows.Forms.Label LBL_Downloading;
-           
+        private System.Windows.Forms.Label LBL_Downloading;   
         public System.Windows.Forms.TabControl tabControlactions;
-      
         private Controls.MyButton BUT_EraseDFLogs;
         public Controls.MyButton BUT_CloseLens;
         public System.Windows.Forms.TabPage tabActionsSimple;
-        public System.Windows.Forms.CheckBox CHK_AutoHatch;
-        public Controls.MyButton BUT_CloseHatch;
-        public Controls.MyButton BUT_OpenHatch;
-        public System.Windows.Forms.CheckBox CHK_AutoHatchSimple;
         private Controls.MyButton BUT_TriggerCameraSimple;
-        public Controls.MyButton BUT_CloseHatchSimple;
-        public Controls.MyButton BUT_OpenHatchSimple;
         public Controls.MyButton BUT_CloseLensSimple;
         public System.Windows.Forms.Label label13;
         public System.Windows.Forms.Label label16;
