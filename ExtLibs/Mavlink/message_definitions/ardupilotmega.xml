@@ -484,4 +484,13 @@
         <field type="int16_t" name="Direction">Direction of landing in degrees, 0 to 360</field>    
     </message>
      </messages>
+<message name="EVENT38CAMERA" id="247">
+  <description>Status of secondary AHRS filter if available</description>
+  <field type="float" name="roll">Roll angle (rad)</field>
+  <field type="float" name="pitch">Pitch angle (rad)</field>
+  <field type="float" name="yaw">Yaw angle (rad)</field>
+  <field type="float" name="altitude">Altitude (MSL)</field>
+  <field type="int32_t" name="lat">Latitude in degrees * 1E7</field>
+  <field type="int32_t" name="lng">Longitude in degrees * 1E7</field>
+</message>
 </mavlink>

@@ -2431,23 +2431,36 @@ Please check the following
                     }
                     return new byte[0];
                 }
-            }
-
-            // check crc
-            if (buffer.Length < 5 || buffer[buffer.Length - 1] != (crc >> 8) || buffer[buffer.Length - 2] != (crc & 0xff))
-            {
-                int packetno = -1;
-                if (buffer.Length > 5)
+            } bool noExit = true;
+                // check crc
+                if (buffer.Length < 5 || buffer[buffer.Length - 1] != (crc >> 8) || buffer[buffer.Length - 2] != (crc & 0xff))
                 {
-                    packetno = buffer[5];
-                }
-                if (packetno != -1 && buffer.Length > 5 && MAVLINK_MESSAGE_INFO[packetno] != null)
-                    log.InfoFormat("Mavlink Bad Packet (crc fail) len {0} crc {1} vs {4} pkno {2} {3}", buffer.Length, crc, packetno, MAVLINK_MESSAGE_INFO[packetno].ToString(), BitConverter.ToUInt16(buffer, buffer.Length - 2));
-                if (logreadmode)
-                    log.InfoFormat("bad packet pos {0} ", logplaybackfile.BaseStream.Position);
-                return new byte[0];
-            }
+                     if (buffer.Length > 5)
+                    {
+                        if (buffer[5] == 247)
+                        {
+                            noExit = false;
+                        }
+                    }
+                     if (noExit)
+                     {
+                         int packetno = -1;
+                         if (buffer.Length > 5)
+                         {
+                             packetno = buffer[5];
+                         }
 
+
+                         if (packetno != -1 && buffer.Length > 5 && MAVLINK_MESSAGE_INFO[packetno] != null)
+                             log.InfoFormat("Mavlink Bad Packet (crc fail) len {0} crc {1} vs {4} pkno {2} {3}", buffer.Length, crc, packetno, MAVLINK_MESSAGE_INFO[packetno].ToString(), BitConverter.ToUInt16(buffer, buffer.Length - 2));
+
+                         if (logreadmode)
+                             log.InfoFormat("bad packet pos {0} ", logplaybackfile.BaseStream.Position);
+                         return new byte[0];
+                     }
+                }
+            
+            
             // packet is now verified
 
             byte sysid = buffer[3];

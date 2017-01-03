@@ -1760,7 +1760,7 @@ Fix Issue 636 - check for version.txt in app directory
 Fix config panel null bug
 Add more Ardurover config options
 Add Exceptions handling to video format selection
-Add FORMAT_VERSION to param file ignore list
+Add FORMAT_VERSION to param file ignore listconvert to csv
 Fix NOTE param file line
 Add APMRover hidden firmware upload (control-R) on firmware screen.
 fix possible speach engine exception
