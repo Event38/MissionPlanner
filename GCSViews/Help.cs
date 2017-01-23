@@ -31,7 +31,8 @@ namespace MissionPlanner.GCSViews
 
         public void BUT_updatecheck_Click(object sender, EventArgs e)
         {
-            MissionPlanner.Utilities.Update.DoUpdate();
+            System.Diagnostics.Process.Start("http://s3-us-west-2.amazonaws.com/e38rawstore/E38MP/E38+Mission+Planner+Setup.exe");
+            //MissionPlanner.Utilities.Update.DoUpdate();
         } 
 
         private void CHK_showconsole_CheckedChanged(object sender, EventArgs e)
@@ -58,8 +59,9 @@ namespace MissionPlanner.GCSViews
 
         private void BUT_betaupdate_Click(object sender, EventArgs e)
         {
-            MissionPlanner.Utilities.Update.dobeta = true;
-            MissionPlanner.Utilities.Update.DoUpdate();
+            System.Diagnostics.Process.Start("http://s3-us-west-2.amazonaws.com/e38rawstore/E38MP/E38+Mission+Planner+Setup.exe");
+            //MissionPlanner.Utilities.Update.dobeta = true;
+           // MissionPlanner.Utilities.Update.DoUpdate();
         }
     }
 }
