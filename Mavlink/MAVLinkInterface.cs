@@ -210,7 +210,7 @@ namespace MissionPlanner
             }
             catch { }
         }
-
+        int zero = 0;
         public void Open()
         {
             Open(false);
@@ -2227,6 +2227,14 @@ Please check the following
                         if (logreadmode)
                         {
                                 buffer = readlogPacketMavlink();
+                                if (buffer[5] ==247)
+                                {
+                                    if (buffer[0] == 254 && buffer[1] == 24 && buffer[2] == 152 && buffer[3] == 1 && buffer[4] == 1 && buffer[6] == 26 && buffer[7] == 250 && buffer[8] == 245)
+                                    {
+                                        return buffer;
+                                    }
+                                    else zero = zero; 
+                                }
                         }
                         else
                         {
@@ -2266,7 +2274,7 @@ Please check the following
                         {
                             // check for line termination
                             if (buffer[0] == '\r' || buffer[0] == '\n')
-                            {
+                            { 
                                 // check new line is valid
                                 if (buildplaintxtline.Length > 3)
                                     plaintxtline = buildplaintxtline;
@@ -2435,13 +2443,6 @@ Please check the following
                 // check crc
                 if (buffer.Length < 5 || buffer[buffer.Length - 1] != (crc >> 8) || buffer[buffer.Length - 2] != (crc & 0xff))
                 {
-                     if (buffer.Length > 5)
-                    {
-                        if (buffer[5] == 247)
-                        {
-                            noExit = false;
-                        }
-                    }
                      if (noExit)
                      {
                          int packetno = -1;
@@ -3336,7 +3337,7 @@ Please check the following
             byte[] datearray = new byte[8];
 
             int tem = logplaybackfile.BaseStream.Read(datearray, 0, datearray.Length);
-
+         
             Array.Reverse(datearray);
 
             DateTime date1 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -3346,7 +3347,7 @@ Please check the following
             try
             {
                 // array is reversed above
-                if (datearray[7] == 254)
+                if (datearray[0] == 254 || datearray[1] == 254 || datearray[2] == 254 || datearray[3] == 254 || datearray[4] == 254 || datearray[5] == 254 || datearray[6] == 254 || datearray[7] ==254 || datearray[7] == 254)
                 {
                     //rewind 8bytes
                     logplaybackfile.BaseStream.Seek(-8, SeekOrigin.Current);
@@ -3368,8 +3369,20 @@ Please check the following
             {
                 if (logplaybackfile.BaseStream.Position == logplaybackfile.BaseStream.Length)
                     break;
+                
                 temp[a] = (byte)logplaybackfile.ReadByte();
-                if (temp[0] != 'U' && temp[0] != 254)
+                if (a != 0 && temp[a] == 254)
+                {
+                    temp = null;
+                    //GC.Collect();
+                    a = 0;
+                    length = 5;
+                    temp = new byte[300];
+                    temp[a] = 254;
+                   
+                }
+                
+                if (temp[0] != 254)
                 {
                     log.InfoFormat("logread - lost sync byte {0} pos {1}", temp[0], logplaybackfile.BaseStream.Position);
                     a = 0;
@@ -3381,8 +3394,13 @@ Please check the following
                 }
                 a++;
             }
-
+ 
             MAVlist[temp[3]].cs.datetime = lastlogread;
+            if (temp[5] == 247)
+            {
+
+                zero = zero + 1;
+            }
 
             return temp;
         }
