@@ -2229,7 +2229,7 @@ Please check the following
                                 buffer = readlogPacketMavlink();
                                 if (buffer[5] ==247)
                                 {
-                                    if (buffer[0] == 254 && buffer[1] == 24 && buffer[2] == 152 && buffer[3] == 1 && buffer[4] == 1 && buffer[6] == 26 && buffer[7] == 250 && buffer[8] == 245)
+                                    if (buffer[0] == 254 && buffer[1] == 24 && buffer[2] == 152 && buffer[3] == 1 && buffer[4] == 1 && buffer[5] == 247 && buffer[6] == 26 && buffer[7] == 250 && buffer[8] == 245 && buffer[9] == 60)
                                     {
                                         return buffer;
                                     }
@@ -3392,16 +3392,55 @@ Please check the following
                 {
                     length = temp[1] + 6 + 2; // 6 header + 2 checksum
                 }
+                if (temp[0] == 254 && temp[1] == 116 && temp[2] == 114 && temp[3] == 105 && temp[4] == 103 && temp[5] == 103 && temp[6] == 101 && temp[7] == 114 && temp[8] == 101 && temp[9] == 100)
+                {
+                      temp[0] = 254;
+                      temp[1] = 24;
+                      temp[2] = 152;
+                      temp[3] = 1; 
+                      temp[4] = 1;
+                      temp[5] = 247;
+                      temp[6] = 26;
+                      temp[7] = 250;   
+                      temp[8] = 245;
+                      temp[9] = 60;
+                      temp[10] = 38;
+                      temp[11] = 198;   
+                      temp[12] = 146;
+                      temp[13] = 190;
+                      temp[14] = 126;
+                      temp[15] = 107; 
+                      temp[16] = 58;
+                      temp[17] = 191;
+                      temp[18] = 0;
+                      temp[19] = 0;   
+                      temp[20] = 0;
+                      temp[21] = 0;
+                      temp[22] = 0;
+                      temp[23] = 0; 
+                      temp[24] = 0;
+                      temp[25] = 0;
+                      temp[26] = 0;
+                      temp[27] = 0;   
+                      temp[28] = 0;
+                      temp[29] = 0;
+                      temp[30] = 84;
+                      temp[31] = 210;
+                      break;               
+                }
                 a++;
             }
- 
+          
             MAVlist[temp[3]].cs.datetime = lastlogread;
             if (temp[5] == 247)
             {
 
                 zero = zero + 1;
             }
+            if (zero == 180)
+            {
 
+            }
             return temp;
         }
 
