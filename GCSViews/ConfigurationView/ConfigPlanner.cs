@@ -858,20 +858,5 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             UserSetup.ShowDialog();
 
         }
-
-        private void AWSYes_CheckedChanged(object sender, EventArgs e)
-        {
-            MainV2.config["AWSUpload"] = "YES";
-        }
-
-        private void AWSNo_CheckedChanged(object sender, EventArgs e)
-        {
-            MainV2.config["AWSUpload"] = "NO";
-        }
-
-        private void AWSAsk_CheckedChanged(object sender, EventArgs e)
-        {
-            MainV2.config["AWSUpload"] = "ASK";
-        }
     }
 }

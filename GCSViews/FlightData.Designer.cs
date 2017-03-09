@@ -1473,7 +1473,7 @@
             // 
             resources.ApplyResources(this.servoOptions1, "servoOptions1");
             this.servoOptions1.Name = "servoOptions1";
-            this.servoOptions1.thisservo = 6;
+            this.servoOptions1.thisservo = 5;
             // 
             // servoOptions2
             // 

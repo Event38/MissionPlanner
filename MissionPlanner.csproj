@@ -122,12 +122,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ExtLibs\alglibnet2.dll</HintPath>
     </Reference>
-    <Reference Include="AWSSDK.Core">
-      <HintPath>packages\AWSSDK.Core.3.3.8.2\lib\net35\AWSSDK.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="AWSSDK.S3">
-      <HintPath>packages\AWSSDK.S3.3.3.5.7\lib\net35\AWSSDK.S3.dll</HintPath>
-    </Reference>
     <Reference Include="csmatio, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ExtLibs\csmatio.dll</HintPath>
@@ -272,18 +266,6 @@
     </Compile>
     <Compile Include="Arduino\ArduinoSTKv2.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="AWSASK.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AWSASK.Designer.cs">
-      <DependentUpon>AWSASK.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AWSPrompt.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AWSPrompt.Designer.cs">
-      <DependentUpon>AWSPrompt.cs</DependentUpon>
     </Compile>
     <Compile Include="UAVStats.cs" />
     <Compile Include="CodeGen.cs" />
@@ -645,12 +627,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Antenna\Tracker.zh-TW.resx">
       <DependentUpon>Tracker.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AWSASK.resx">
-      <DependentUpon>AWSASK.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AWSPrompt.resx">
-      <DependentUpon>AWSPrompt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ConnectionStats.zh-Hans.resx">
       <DependentUpon>ConnectionStats.cs</DependentUpon>

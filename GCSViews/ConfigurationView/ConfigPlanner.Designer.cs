@@ -98,10 +98,6 @@
             this.CHK_WPinAirports = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.BUT_ChangeUserSetup = new MissionPlanner.Controls.MyButton();
-            this.label7 = new System.Windows.Forms.Label();
-            this.AWSYes = new System.Windows.Forms.CheckBox();
-            this.AWSNo = new System.Windows.Forms.CheckBox();
-            this.AWSAsk = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).BeginInit();
             this.SuspendLayout();
             // 
@@ -640,40 +636,10 @@
             this.BUT_ChangeUserSetup.UseVisualStyleBackColor = true;
             this.BUT_ChangeUserSetup.Click += new System.EventHandler(this.BUT_ChangeUserSetup_Click);
             // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
-            // 
-            // AWSYes
-            // 
-            resources.ApplyResources(this.AWSYes, "AWSYes");
-            this.AWSYes.Name = "AWSYes";
-            this.AWSYes.UseVisualStyleBackColor = true;
-            this.AWSYes.CheckedChanged += new System.EventHandler(this.AWSYes_CheckedChanged);
-            // 
-            // AWSNo
-            // 
-            resources.ApplyResources(this.AWSNo, "AWSNo");
-            this.AWSNo.Name = "AWSNo";
-            this.AWSNo.UseVisualStyleBackColor = true;
-            this.AWSNo.CheckedChanged += new System.EventHandler(this.AWSNo_CheckedChanged);
-            // 
-            // AWSAsk
-            // 
-            resources.ApplyResources(this.AWSAsk, "AWSAsk");
-            this.AWSAsk.Name = "AWSAsk";
-            this.AWSAsk.UseVisualStyleBackColor = true;
-            this.AWSAsk.CheckedChanged += new System.EventHandler(this.AWSAsk_CheckedChanged);
-            // 
             // ConfigPlanner
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.AWSAsk);
-            this.Controls.Add(this.AWSNo);
-            this.Controls.Add(this.AWSYes);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.BUT_ChangeUserSetup);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.CHK_WPinAirports);
@@ -822,9 +788,5 @@
         private Controls.MyButton BUT_ChangeUserSetup;
         public System.Windows.Forms.CheckBox CHK_advancedview;
         public System.Windows.Forms.ComboBox CMB_speedunits;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.CheckBox AWSYes;
-        private System.Windows.Forms.CheckBox AWSNo;
-        private System.Windows.Forms.CheckBox AWSAsk;
     }
 }
