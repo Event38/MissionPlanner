@@ -12,7 +12,7 @@ namespace MissionPlanner.Controls
     public partial class ServoOptions : UserControl
     {
         // start at 5 increment each instance
-        static int servo = 5;
+        static int servo = 3;
 
         public int thisservo { get; set; }
 
