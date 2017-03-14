@@ -59,6 +59,7 @@
             // 
             // myButton2
             // 
+            this.myButton2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.myButton2.Location = new System.Drawing.Point(294, 80);
             this.myButton2.Name = "myButton2";
             this.myButton2.Size = new System.Drawing.Size(75, 23);
@@ -69,6 +70,7 @@
             // 
             // myButton3
             // 
+            this.myButton3.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.myButton3.Location = new System.Drawing.Point(125, 118);
             this.myButton3.Name = "myButton3";
             this.myButton3.Size = new System.Drawing.Size(428, 23);
@@ -90,6 +92,7 @@
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AWSPrompt";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Help us Improve Mission Planner!";
             this.Load += new System.EventHandler(this.AWSPrompt_Load);
             this.ResumeLayout(false);

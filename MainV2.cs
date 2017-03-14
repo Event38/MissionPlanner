@@ -2229,9 +2229,11 @@ namespace MissionPlanner
         // Insert logic for processing found files here.
         public static void ProcessFile(string path)
         {
+            var accessKey = "AKIAJH4RWFM2SYLMFBXQ";
+            var secretKey = "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";
             filePath = path;
             string keyName = config["userID"].ToString() + @"/" + Path.GetFileName(path);
-            IAmazonS3 s3Client = new AmazonS3Client(Amazon.RegionEndpoint.USEast1);
+            IAmazonS3 s3Client = new AmazonS3Client(accessKey, secretKey, Amazon.RegionEndpoint.USEast1);
 
 
             // List to store upload part responses.
@@ -2339,61 +2341,6 @@ namespace MissionPlanner
 
         protected override void OnLoad(EventArgs e)
         {
-            //check if we have internet
-            if (CheckForInternetConnection() == true)
-            {
-                // check to see if MP ID has been created
-                if (config["userID"] == null){
-                    Random rng = new Random();    
-                    //create ID if doesn't exist
-                    foreach (var randomString in RandomStrings(AllowedChars, 40, 40, 1, rng))
-                    {
-                        str1 = str1 + randomString;
-                    }
-
-                    config["userID"] = str1;
-                }
-            
-                //if user upload never selected Prompt
-                if (config["AWSUpload"] == null)
-                {
-
-                    AWSPrompt aws = new AWSPrompt();
-                    aws.Show();
-
-                }
-
-                //if has been set
-                if (config["AWSUpload"] != null)
-                {
-                    
-
-                    if (config["AWSUpload"].ToString() == "YES")
-                    {
-                        //begin upload
-                        AWSUpload AwsUpload = new AWSUpload();
-                        Thread AWSThread =
-                            new Thread(new ThreadStart(AwsUpload.Upload));
-                        AWSThread.IsBackground = true;
-
-                        AWSThread.Start();
-
-                    }
-                    else if (config["AWSUpload"].ToString() == "NO")
-                    {
-                        //do nothing
-                    }
-                    else if (config["AWSUpload"].ToString() == "ASK")
-                    {
-                        AWSASK AwsAsk = new AWSASK();
-                        AwsAsk.Show();
-
-                    }
-
-                }
-
-
-            }
             
 
 
@@ -2610,6 +2557,65 @@ namespace MissionPlanner
                   config["newuser"] = DateTime.Now.ToShortDateString();
               }
               */
+            //check if we have internet
+            if (CheckForInternetConnection() == true)
+            {
+                // check to see if MP ID has been created
+                if (config["userID"] == null)
+                {
+                    Random rng = new Random();
+                    //create ID if doesn't exist
+                    foreach (var randomString in RandomStrings(AllowedChars, 40, 40, 1, rng))
+                    {
+                        str1 = str1 + randomString;
+                    }
+
+                    config["userID"] = str1;
+                }
+
+                //if user upload never selected Prompt
+                if (config["AWSUpload"] == null)
+                {
+                   
+                    AWSPrompt aws = new AWSPrompt();
+                    aws.Owner = instance;
+                    aws.Show();
+                    
+                }
+
+                //if has been set
+                if (config["AWSUpload"] != null)
+                {
+
+
+                    if (config["AWSUpload"].ToString() == "YES")
+                    {
+                        //begin upload
+                        AWSUpload AwsUpload = new AWSUpload();
+                        Thread AWSThread =
+                            new Thread(new ThreadStart(AwsUpload.Upload));
+                        AWSThread.IsBackground = true;
+
+                        AWSThread.Start();
+
+                    }
+                    else if (config["AWSUpload"].ToString() == "NO")
+                    {
+                        //do nothing
+                    }
+                    else if (config["AWSUpload"].ToString() == "ASK")
+                    {   
+                        AWSASK AwsAsk = new AWSASK();
+                        AwsAsk.Owner = instance;
+                        AwsAsk.Show();
+                        
+                        
+                    }
+
+                }
+
+
+            }
         }
 
         void KIndex_KIndex(object sender, EventArgs e)

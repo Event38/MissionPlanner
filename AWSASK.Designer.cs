@@ -92,6 +92,7 @@
             this.Controls.Add(this.myButton1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AWSASK";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Help us Improve Mission Planner?";
             this.Load += new System.EventHandler(this.AWSASK_Load);
             this.ResumeLayout(false);
