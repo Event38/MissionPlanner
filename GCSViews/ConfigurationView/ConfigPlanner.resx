@@ -2180,94 +2180,85 @@ Airport Airspace</value>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="AWSYes.AutoSize" type="System.Boolean, mscorlib">
+  <data name="radioButton1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="AWSYes.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="radioButton1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>253, 535</value>
   </data>
-  <data name="AWSYes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>261, 535</value>
+  <data name="radioButton1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>43, 17</value>
   </data>
-  <data name="AWSYes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 17</value>
+  <data name="radioButton1.TabIndex" type="System.Int32, mscorlib">
+    <value>117</value>
   </data>
-  <data name="AWSYes.TabIndex" type="System.Int32, mscorlib">
-    <value>114</value>
-  </data>
-  <data name="AWSYes.Text" xml:space="preserve">
+  <data name="radioButton1.Text" xml:space="preserve">
     <value>Yes</value>
   </data>
-  <data name="&gt;&gt;AWSYes.Name" xml:space="preserve">
-    <value>AWSYes</value>
+  <data name="&gt;&gt;radioButton1.Name" xml:space="preserve">
+    <value>radioButton1</value>
   </data>
-  <data name="&gt;&gt;AWSYes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;radioButton1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;AWSYes.Parent" xml:space="preserve">
+  <data name="&gt;&gt;radioButton1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;AWSYes.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;radioButton1.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="AWSNo.AutoSize" type="System.Boolean, mscorlib">
+  <data name="radioButton2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="AWSNo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="AWSNo.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="radioButton2.Location" type="System.Drawing.Point, System.Drawing">
     <value>358, 535</value>
   </data>
-  <data name="AWSNo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>40, 17</value>
+  <data name="radioButton2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 17</value>
   </data>
-  <data name="AWSNo.TabIndex" type="System.Int32, mscorlib">
-    <value>115</value>
+  <data name="radioButton2.TabIndex" type="System.Int32, mscorlib">
+    <value>118</value>
   </data>
-  <data name="AWSNo.Text" xml:space="preserve">
+  <data name="radioButton2.Text" xml:space="preserve">
     <value>No</value>
   </data>
-  <data name="&gt;&gt;AWSNo.Name" xml:space="preserve">
-    <value>AWSNo</value>
+  <data name="&gt;&gt;radioButton2.Name" xml:space="preserve">
+    <value>radioButton2</value>
   </data>
-  <data name="&gt;&gt;AWSNo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;radioButton2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;AWSNo.Parent" xml:space="preserve">
+  <data name="&gt;&gt;radioButton2.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;AWSNo.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;radioButton2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="AWSAsk.AutoSize" type="System.Boolean, mscorlib">
+  <data name="radioButton3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="AWSAsk.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="radioButton3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>429, 535</value>
   </data>
-  <data name="AWSAsk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>417, 535</value>
+  <data name="radioButton3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>383, 17</value>
   </data>
-  <data name="AWSAsk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>384, 17</value>
+  <data name="radioButton3.TabIndex" type="System.Int32, mscorlib">
+    <value>119</value>
   </data>
-  <data name="AWSAsk.TabIndex" type="System.Int32, mscorlib">
-    <value>116</value>
-  </data>
-  <data name="AWSAsk.Text" xml:space="preserve">
+  <data name="radioButton3.Text" xml:space="preserve">
     <value>I sometimes use MP with cellular data, ask me if it's ok to connect on startup</value>
   </data>
-  <data name="&gt;&gt;AWSAsk.Name" xml:space="preserve">
-    <value>AWSAsk</value>
+  <data name="&gt;&gt;radioButton3.Name" xml:space="preserve">
+    <value>radioButton3</value>
   </data>
-  <data name="&gt;&gt;AWSAsk.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;radioButton3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;AWSAsk.Parent" xml:space="preserve">
+  <data name="&gt;&gt;radioButton3.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;AWSAsk.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;radioButton3.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

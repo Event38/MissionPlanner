@@ -464,6 +464,21 @@ namespace MissionPlanner.GCSViews.ConfigurationView
         {
             startup = true;
 
+            if (MainV2.config["AWSUpload"].ToString() == "YES")
+            {
+                radioButton1.Checked = true;
+               
+            }
+            if (MainV2.config["AWSUpload"].ToString() == "NO")
+            {
+                radioButton2.Checked = true;
+               
+            }
+            if (MainV2.config["AWSUpload"].ToString() == "ASK")
+            {
+                radioButton3.Checked = true;
+
+            }
             //keep settings 
             if(MainV2.Advanced)
             {
@@ -859,19 +874,21 @@ namespace MissionPlanner.GCSViews.ConfigurationView
 
         }
 
-        private void AWSYes_CheckedChanged(object sender, EventArgs e)
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             MainV2.config["AWSUpload"] = "YES";
         }
 
-        private void AWSNo_CheckedChanged(object sender, EventArgs e)
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             MainV2.config["AWSUpload"] = "NO";
         }
 
-        private void AWSAsk_CheckedChanged(object sender, EventArgs e)
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             MainV2.config["AWSUpload"] = "ASK";
         }
+
     }
+
 }

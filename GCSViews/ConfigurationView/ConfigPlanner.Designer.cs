@@ -99,9 +99,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.BUT_ChangeUserSetup = new MissionPlanner.Controls.MyButton();
             this.label7 = new System.Windows.Forms.Label();
-            this.AWSYes = new System.Windows.Forms.CheckBox();
-            this.AWSNo = new System.Windows.Forms.CheckBox();
-            this.AWSAsk = new System.Windows.Forms.CheckBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.NUM_tracklength)).BeginInit();
             this.SuspendLayout();
             // 
@@ -645,34 +645,37 @@
             resources.ApplyResources(this.label7, "label7");
             this.label7.Name = "label7";
             // 
-            // AWSYes
+            // radioButton1
             // 
-            resources.ApplyResources(this.AWSYes, "AWSYes");
-            this.AWSYes.Name = "AWSYes";
-            this.AWSYes.UseVisualStyleBackColor = true;
-            this.AWSYes.CheckedChanged += new System.EventHandler(this.AWSYes_CheckedChanged);
+            resources.ApplyResources(this.radioButton1, "radioButton1");
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.TabStop = true;
+            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
-            // AWSNo
+            // radioButton2
             // 
-            resources.ApplyResources(this.AWSNo, "AWSNo");
-            this.AWSNo.Name = "AWSNo";
-            this.AWSNo.UseVisualStyleBackColor = true;
-            this.AWSNo.CheckedChanged += new System.EventHandler(this.AWSNo_CheckedChanged);
+            resources.ApplyResources(this.radioButton2, "radioButton2");
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.TabStop = true;
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
-            // AWSAsk
+            // radioButton3
             // 
-            resources.ApplyResources(this.AWSAsk, "AWSAsk");
-            this.AWSAsk.Name = "AWSAsk";
-            this.AWSAsk.UseVisualStyleBackColor = true;
-            this.AWSAsk.CheckedChanged += new System.EventHandler(this.AWSAsk_CheckedChanged);
+            resources.ApplyResources(this.radioButton3, "radioButton3");
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.TabStop = true;
+            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
             // 
             // ConfigPlanner
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.AWSAsk);
-            this.Controls.Add(this.AWSNo);
-            this.Controls.Add(this.AWSYes);
+            this.Controls.Add(this.radioButton3);
+            this.Controls.Add(this.radioButton2);
+            this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.BUT_ChangeUserSetup);
             this.Controls.Add(this.label6);
@@ -823,8 +826,8 @@
         public System.Windows.Forms.CheckBox CHK_advancedview;
         public System.Windows.Forms.ComboBox CMB_speedunits;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.CheckBox AWSYes;
-        private System.Windows.Forms.CheckBox AWSNo;
-        private System.Windows.Forms.CheckBox AWSAsk;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton3;
     }
 }
